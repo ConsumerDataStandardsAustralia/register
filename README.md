@@ -12,4 +12,3 @@ In addition, it would be appreciated if the following rules are adhered to when 
 The ACCC will be actively monitoring and reviewing any comments/responses which are provided, however will not be responding to individual comments. 
 Depending on the number of responses/comments we get, we will assess what the most efficient and effective way to engage with the community is, noting that we want this to be a collaborative effort.
 
-[CDR Register on GitHub](https://github.com/cdr-register/register)

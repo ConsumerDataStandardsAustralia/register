@@ -1,0 +1,700 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Consumer Data Right (CDR) Register Discovery API",
+    "version": "0.1"
+  },
+  "host": "api.discovery.cdr.gov.au",
+  "basePath": "/cds-register/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/register/holders": {
+      "get": {
+        "description": "Get Register Data Holders with metadata",
+        "operationId": "getRegisterDataHolders",
+        "summary": "Get Register Data Holders with metadata",
+        "tags": [
+          "Register"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ParamUpdatedSince"
+          },
+          {
+            "$ref": "#/parameters/ParamPage"
+          },
+          {
+            "$ref": "#/parameters/ParamPageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseRegisterDataHolderList"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseRegisterErrorList"
+            }
+          },
+          "422": {
+            "description": "The request was well formed but was unable to be processed due to business logic specific to the request",
+            "schema": {
+              "$ref": "#/definitions/ResponseRegisterErrorList"
+            }
+          }
+        }
+      }
+    },
+    "/register/recipients": {
+      "get": {
+        "description": "Get Accredited Data Recipients with metadata",
+        "operationId": "getRegisterDataRecipients",
+        "summary": "Get Accredited Data Recipients with metadata",
+        "tags": [
+          "Register"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ParamUpdatedSince"
+          },
+          {
+            "$ref": "#/parameters/ParamPage"
+          },
+          {
+            "$ref": "#/parameters/ParamPageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseRegisterDataRecipientList"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseRegisterErrorList"
+            }
+          },
+          "422": {
+            "description": "The request was well formed but was unable to be processed due to business logic specific to the request",
+            "schema": {
+              "$ref": "#/definitions/ResponseRegisterErrorList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "ParamUpdatedSince": {
+      "name": "updated-since",
+      "in": "query",
+      "description": "Only include software products that have been updated after the specified date and time. If absent defaults to include all software products",
+      "required": false,
+      "type": "string",
+      "format": "date-time",
+      "x-cds-type": "DateTimeString"
+    },
+    "ParamPage": {
+      "name": "page",
+      "in": "query",
+      "description": "Page of results to request (standard pagination)",
+      "required": false,
+      "type": "integer",
+      "x-cds-type": "PositiveInteger",
+      "default": "1"
+    },
+    "ParamPageSize": {
+      "name": "page-size",
+      "in": "query",
+      "description": "Page size to request. Default is 25 (standard pagination)",
+      "required": false,
+      "type": "integer",
+      "x-cds-type": "PositiveInteger",
+      "default": "25"
+    }
+  },
+  "definitions": {
+    "ResponseRegisterDataHolderList": {
+      "description": "Response containing a list of Register Data Holder objects",
+      "type": "object",
+      "required": [
+        "data",
+        "links",
+        "meta"
+      ],
+      "properties": {
+        "data": {
+          "description": "Response data for the query",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegisterDataHolder"
+          }
+        },
+        "links": {
+          "$ref": "#/definitions/LinksPaginated"
+        },
+        "meta": {
+          "$ref": "#/definitions/MetaPaginated"
+        }
+      }
+    },
+    "RegisterDataHolder": {
+      "description": "A single Data Holder within the Register",
+      "type": "object",
+      "properties": {
+        "accreditation": {
+          "$ref": "#/definitions/RegisterAccreditation"
+        },
+        "participant": {
+          "$ref": "#/definitions/RegisterParticipant"
+        },
+        "endpointDetail": {
+          "description": "Current List of Accredited Endpoint URLs",
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegisterDataHolderServiceEndpoint"
+          }
+        },
+        "authDetail": {
+          "description": "List of authorisation methods for Data Holders",
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegisterDataHolderAuth"
+          }
+        }
+      }
+    },
+    "LinksPaginated": {
+      "type": "object",
+      "required": [
+        "self"
+      ],
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI to the first page of this set. Mandatory if this response is not the first page",
+          "x-cds-type": "URIString"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI to the last page of this set. Mandatory if this response is not the last page",
+          "x-cds-type": "URIString"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI to the next page of this set. Mandatory if this response is not the last page",
+          "x-cds-type": "URIString"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI to the previous page of this set. Mandatory if this response is not the first page",
+          "x-cds-type": "URIString"
+        },
+        "self": {
+          "type": "string",
+          "format": "uri",
+          "description": "Fully qualified link to this API call",
+          "x-cds-type": "URIString"
+        }
+      },
+      "x-conditional": [
+        "first",
+        "last",
+        "next",
+        "prev"
+      ]
+    },
+    "MetaPaginated": {
+      "type": "object",
+      "required": [
+        "totalPages",
+        "totalRecords"
+      ],
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format":  "int32",
+          "x-cds-type": "PositiveInteger",
+          "description": "The total number of pages in the full set"
+        },
+        "totalRecords": {
+          "type": "integer",
+          "format": "int32",
+          "x-cds-type": "PositiveInteger",
+          "description": "The total number of records in the full set"
+        }
+      }
+    },
+    "RegisterAccreditation": {
+      "description": "Accreditation information of Data Recipient as per ACCC register",
+      "type": "object",
+      "properties": {
+        "reference": {
+          "description": "The unique identifier that will allow users to communicate about which approved participant they are referring to",
+          "type": "string",
+          "x-cds-type": "ASCIIString"
+        },
+        "accreditationDate": {
+          "format": "date-time",
+          "x-cds-type": "DateTimeString",
+          "description": "The date/time that the participant was made active on the Register",
+          "type": "string"
+        },
+        "sector": {
+          "description": "The sector that the registration pertains to (e.g. Banking)",
+          "enum": [
+            "BANKING"
+          ],
+          "type": "string"
+        },
+        "accreditationStatus": {
+          "description": "The current accreditation status on the register. This reflects the life cycle of participation in the CDR",
+          "enum": [
+            "ACTIVE",
+            "SUSPENDED",
+            "REVOKED",
+            "SURRENDERED"
+          ],
+          "type": "string"
+        },
+        "suspensionStartDate": {
+          "format": "date-time",
+          "x-cds-type": "DateTimeString",
+          "description": "The date the current suspension commences",
+          "type": "string"
+        },
+        "suspensionEndDate": {
+          "format": "date-time",
+          "x-cds-type": "DateTimeString",
+          "description": "The date the current suspension will end",
+          "type": "string"
+        }
+      }
+    },
+    "RegisterParticipant": {
+      "description": "Represents a single participant of either Data Holder or Data Recipient within the Register",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the organisation ( Data Holder / Data Recipient )",
+          "type": "string"
+        },
+        "participantId": {
+          "description": "Unique Registry identifier of participant",
+          "type": "string"
+        },
+        "participantType": {
+          "enum": [
+            "HOLDER",
+            "RECIPIENT"
+          ],
+          "type": "string"
+        },
+        "organisation": {
+          "$ref": "#/definitions/CommonOrganisationDetail"
+        }
+      }
+    },
+    "RegisterDataHolderAuth": {
+      "description": "Provides details of authorisation endpoints for Data Holders",
+      "type": "object",
+      "properties": {
+        "registerUType": {
+          "$ref": "#/definitions/RegisterAuthType"
+        },
+        "jwks": {
+          "$ref": "#/definitions/RegisterJWK"
+        },
+        "hybridFlow": {
+          "description": "Detail for Hybrid flow for DSB standard version",
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegisterDataHolderAuthHybridFlow"
+          }
+        }
+      }
+    },
+    "RegisterDataHolderAuthHybridFlow": {
+      "description": "Provides specific detail for Hybrid flow",
+      "type": "object",
+      "properties": {
+        "version": {
+          "description": "ACCC Data Standard Version",
+          "type": "string",
+          "x-cds-type": "ASCIIString"
+        },
+        "oAuthAuthorisationUrl": {
+          "description": "InfoSec Profile still in development",
+          "type": "string"
+        },
+        "tokenisationUrl": {
+          "description": "This is the endpoint for the Data Recipient to get the oAuth Token",
+          "type": "string"
+        },
+        "redirectUrl": {
+          "description": "This is the endpoint for the Data Recipient to redirect to the Data Holders website for the consumer to authorise the Data Recipient",
+          "type": "string"
+        },
+        "introspectionUrl": {
+          "description": "The  Introspection Endpoint is to allow Data Recipients to determine the status and expiry date of Refresh Tokens",
+          "type": "string"
+        },
+        "userInfoUrl": {
+          "description": "The UserInfo Endpoint is an oAuth 2.0 Protected Resource that returns Claims about the authenticated Data Recipients",
+          "type": "string"
+        },
+        "revocationUrl": {
+          "description": "The Revocation Endpoint serves as a revocation mechanism that allows the Data Recipient to invalidate its token as required to allow for token clean up",
+          "type": "string"
+        }
+      }
+    },
+    "RegisterAuthType": {
+      "type": "string",
+      "description": "The type of authentication and authorisation in use",
+      "enum": [
+        "HYBRIDFLOW-JWKS"
+      ]
+    },
+    "RegisterDataHolderServiceEndpoint": {
+      "description": "Endpoints related to Data Holder services",
+      "type": "object",
+      "properties": {
+        "version": {
+          "description": "ACCC Data Standard Version",
+          "type": "string"
+        },
+        "cdrBaseUri": {
+          "description": "Base URI for the Consumer Data Standrd API's published by the Data Holder",
+          "type": "string"
+        },
+        "cdrRevocationUri": {
+          "description": "This is the URI for the Data Recipients to notify the Data Holders that the consumer withdrawn the consent",
+          "type": "string"
+        },
+        "cdrCacheRefreshUrl": {
+          "description": "This is the URL to be used by ACCC to notify the Data Holders that their metadata cache must be updated",
+          "type": "string"
+        },
+        "cdrMetricsUrl": {
+          "description": "This end point allows the ACCC to obtain operational statistics from the Data Holder on the operation of their CDR compliant implementation",
+          "type": "string"
+        },
+        "publicUrl": {
+          "description": "This is the publicly available website or web resource URL",
+          "type": "string"
+        },
+        "termsofServiceUrl": {
+          "description": "This is the URL to retrieve the terms of services",
+          "type": "string"
+        },
+        "logoUrl": {
+          "description": "This is the URL to retrieve a logo image",
+          "type": "string"
+        },
+        "supportUrl": {
+          "description": "This is the URL to retrieve support details",
+          "type": "string"
+        },
+        "policyUrl": {
+          "description": "This is the URL to retrieve policy details",
+          "type": "string"
+        }
+      }
+    },
+    "RegisterJWK": {
+      "type": "object",
+      "properties": {
+        "publicKey": {
+          "description": "Public JWK supplied by the participant.",
+          "type": "string"
+        },
+        "approvedOn": {
+          "format": "date-time",
+          "x-cds-type": "DateTimeString",
+          "type": "string"
+        },
+        "status": {
+          "description": "The current status of the record.",
+          "enum": [
+            "ACTIVE",
+            "DELETED"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "CommonOrganisationDetail": {
+      "description": "The data that is common to all organisations, regardless of the type (e.g. company, trust, partnership, government)",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Company Registered in Australia : Unique legal name of the entity. Company Not Registered in Australia : Unique registered name of the entity. Trustee - Organisation:  Unique legal name of the entity. Partner - Organisation : Unique legal name of the entity",
+          "type": "string"
+        },
+        "registeredInAustralia": {
+          "description": "Flag to indicate if the organisation is registered in Australia or not",
+          "type": "boolean"
+        },
+        "registrationNumber": {
+          "description": "Unique registration number (if the company is regitered outside Australia)",
+          "type": "string"
+        },
+        "registrationDate": {
+          "format": "date-time",
+          "x-cds-type": "DateTimeString",
+          "description": "Date of registration (if the company is regitered outside Australia)",
+          "type": "string"
+        },
+        "countryOfRegistration": {
+          "description": "Country of registeration (if the company is regitered outside Australia)",
+          "type": "string"
+        },
+        "abn": {
+          "description": "Australian Business Number for the organisation",
+          "type": "string"
+        },
+        "acn": {
+          "description": "Australian Company Number for the organisation",
+          "type": "string"
+        },
+        "arbn": {
+          "description": "Australian Registered Body Number.  ARBNs are issued to registrable Australian bodies and foreign companies",
+          "type": "string"
+        },
+        "anzsicCode": {
+          "description": "The ANZSIC code for the organisation",
+          "type": "string"
+        },
+        "EntityType": {
+          "description": "Type of the organisation",
+          "enum": [
+            "COMPANY",
+            "TRUST",
+            "PARTNERSHIP"
+          ],
+          "type": "string"
+        },
+        "businessNames": {
+          "description": "Business names for the entity",
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "description": "Business name for the entity",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ResponseRegisterErrorList": {
+      "type": "object",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "code",
+              "title",
+              "detail"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code"
+              },
+              "title": {
+                "type": "string",
+                "description": "Error title"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Error detail"
+              },
+              "meta": {
+                "type": "object",
+                "description": "Optional additional data for specific error types"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ResponseRegisterDataRecipientList": {
+      "description": "Response containing a list of Register Data Recipients",
+      "type": "object",
+      "required": [
+        "data",
+        "links",
+        "meta"
+      ],
+      "properties": {
+        "data": {
+          "description": "Response data for the query",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegisterDataRecipient"
+          }
+        },
+        "links": {
+          "$ref": "#/definitions/LinksPaginated"
+        },
+        "meta": {
+          "$ref": "#/definitions/MetaPaginated"
+        }
+      }
+    },
+    "RegisterDataRecipient": {
+      "description": "A single Data Recipient within the Register",
+      "type": "object",
+      "properties": {
+        "accreditation": {
+          "$ref": "#/definitions/RegisterAccreditation"
+        },
+        "participant": {
+          "$ref": "#/definitions/RegisterParticipant"
+        },
+        "products": {
+          "description": "List of products / services that this Data Recipient is accredited for",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegisterProduct"
+          }
+        }
+      }
+    },
+    "RegisterProduct": {
+      "description": "Details for the software products that are included in the ADR accreditation",
+      "type": "object",
+      "properties": {
+        "softwareProductName": {
+          "description": "The name of the software product that has been included in the accreditation for the ADR",
+          "type": "string"
+        },
+        "softwareProductDescription": {
+          "description": "The description of the software product that has been included in the accreditation for the ADR",
+          "type": "string"
+        },
+        "productAccreditationStatus": {
+          "description": "The current sub-status of the record. This reflects the life cycle of participation in the CDR",
+          "enum": [
+            "DRAFT",
+            "APPROVED",
+            "ACTIVE",
+            "INACTIVE"
+          ],
+          "type": "string"
+        },
+        "accessLevel": {
+          "description": "The access level granted to the software product under the accreditation for the ADR",
+          "enum": [
+            "READONLY",
+            "READANDWRITE"
+          ],
+          "type": "string"
+        },
+        "endpointDetail": {
+          "description": "List of end point details related to the product",
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegisterProductServiceEndPoint"
+          }
+        },
+        "authDetail": {
+          "$ref": "#/definitions/RegisterProductAuth"
+        }
+      }
+    },
+    "RegisterProductAuth": {
+      "description": "Provides details of authorisation details per Product",
+      "type": "object",
+      "properties": {
+        "registerUType": {
+          "$ref": "#/definitions/RegisterAuthType"
+        },
+        "clientId": {
+          "description": "Client id allocated by ACCC for the product",
+          "type": "string"
+        },
+        "jwk": {
+          "description": "List of JWK that the product holds",
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegisterJWK"
+          }
+        }
+      }
+    },
+    "RegisterProductServiceEndPoint": {
+      "description": "List of URI / URL's that are relevant to the product",
+      "type": "object",
+      "properties": {
+        "version": {
+          "description": "ACCC Data Standard Version",
+          "type": "string"
+        },
+        "cdrRevocationUri": {
+          "description": "This is the URI for the Data Holders to notify the Data Recipients that the consumer revoked the consent",
+          "type": "string"
+        },
+        "cdrCacheRefreshUrl": {
+          "description": "This is the URL to be used by ACCC to notify the Data Recipients that their metadata cache must be updated",
+          "type": "string"
+        },
+        "publicUrl": {
+          "description": "This is the publicly available website or web resource URL",
+          "type": "string"
+        },
+        "termsofServiceUrl": {
+          "description": "This is the URL to retrieve the terms of services",
+          "type": "string"
+        },
+        "logoUrl": {
+          "description": "This is the URL to retrieve a logo image",
+          "type": "string"
+        },
+        "supportUrl": {
+          "description": "This is the URL to retrieve support details",
+          "type": "string"
+        },
+        "policyUrl": {
+          "description": "This is the URL to retrieve policy details",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Register",
+      "description": "Operations related to the Register Discovery API"
+    }
+  ]
+}

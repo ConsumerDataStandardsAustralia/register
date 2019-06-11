@@ -1,0 +1,2275 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>CDR Register API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+    <link href="images/favicon.ico" rel="icon" type="image/ico" />
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/ACCC_Stacked_RGB_Reverse.PNG" class="logo" alt="Accc stacked rgb reverse" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#consumer-data-right" class="toc-h2 toc-link" data-title="Consumer Data Right">Consumer Data Right</a>
+                  </li>
+                  <li>
+                    <a href="#accc-39-s-role" class="toc-h2 toc-link" data-title="ACCC's Role">ACCC's Role</a>
+                  </li>
+                  <li>
+                    <a href="#data-standards-body" class="toc-h2 toc-link" data-title="Data Standards Body">Data Standards Body</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#consultation-outline" class="toc-h1 toc-link" data-title="Consultation outline">Consultation outline</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#consultation-rules-of-engagement" class="toc-h2 toc-link" data-title="Consultation rules of engagement">Consultation rules of engagement</a>
+                  </li>
+                  <li>
+                    <a href="#feedback-sought" class="toc-h2 toc-link" data-title="Feedback sought">Feedback sought</a>
+                  </li>
+                  <li>
+                    <a href="#further-consultation" class="toc-h2 toc-link" data-title="Further consultation">Further consultation</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#consumer-data-right-register" class="toc-h1 toc-link" data-title="Consumer Data Right Register">Consumer Data Right Register</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#cdr-consumer" class="toc-h2 toc-link" data-title="CDR consumer">CDR consumer</a>
+                  </li>
+                  <li>
+                    <a href="#data-holder" class="toc-h2 toc-link" data-title="Data Holder">Data Holder</a>
+                  </li>
+                  <li>
+                    <a href="#accredited-data-recipient" class="toc-h2 toc-link" data-title="Accredited Data Recipient">Accredited Data Recipient</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#consumer-data-right-cdr-register-discovery-api" class="toc-h1 toc-link" data-title="Register Discovery API">Register Discovery API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-data-holders" class="toc-h2 toc-link" data-title="Get Data Holders">Get Data Holders</a>
+                  </li>
+                  <li>
+                    <a href="#get-accredited-data-recipients" class="toc-h2 toc-link" data-title="Get Accredited Data Recipients">Get Accredited Data Recipients</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#schemas" class="toc-h1 toc-link" data-title="Schemas">Schemas</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#tocSresponseregisterdataholderlist" class="toc-h2 toc-link" data-title="ResponseRegisterDataHolderList">ResponseRegisterDataHolderList</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterdataholder" class="toc-h2 toc-link" data-title="RegisterDataHolder">RegisterDataHolder</a>
+                  </li>
+                  <li>
+                    <a href="#tocSlinkspaginated" class="toc-h2 toc-link" data-title="LinksPaginated">LinksPaginated</a>
+                  </li>
+                  <li>
+                    <a href="#tocSmetapaginated" class="toc-h2 toc-link" data-title="MetaPaginated">MetaPaginated</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisteraccreditation" class="toc-h2 toc-link" data-title="RegisterAccreditation">RegisterAccreditation</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterparticipant" class="toc-h2 toc-link" data-title="RegisterParticipant">RegisterParticipant</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterdataholderauth" class="toc-h2 toc-link" data-title="RegisterDataHolderAuth">RegisterDataHolderAuth</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterdataholderauthhybridflow" class="toc-h2 toc-link" data-title="RegisterDataHolderAuthHybridFlow">RegisterDataHolderAuthHybridFlow</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterauthtype" class="toc-h2 toc-link" data-title="RegisterAuthType">RegisterAuthType</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterdataholderserviceendpoint" class="toc-h2 toc-link" data-title="RegisterDataHolderServiceEndpoint">RegisterDataHolderServiceEndpoint</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterjwk" class="toc-h2 toc-link" data-title="RegisterJWK">RegisterJWK</a>
+                  </li>
+                  <li>
+                    <a href="#tocScommonorganisationdetail" class="toc-h2 toc-link" data-title="CommonOrganisationDetail">CommonOrganisationDetail</a>
+                  </li>
+                  <li>
+                    <a href="#tocSresponseregistererrorlist" class="toc-h2 toc-link" data-title="ResponseRegisterErrorList">ResponseRegisterErrorList</a>
+                  </li>
+                  <li>
+                    <a href="#tocSresponseregisterdatarecipientlist" class="toc-h2 toc-link" data-title="ResponseRegisterDataRecipientList">ResponseRegisterDataRecipientList</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterdatarecipient" class="toc-h2 toc-link" data-title="RegisterDataRecipient">RegisterDataRecipient</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterproduct" class="toc-h2 toc-link" data-title="RegisterProduct">RegisterProduct</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterproductauth" class="toc-h2 toc-link" data-title="RegisterProductAuth">RegisterProductAuth</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterproductserviceendpoint" class="toc-h2 toc-link" data-title="RegisterProductServiceEndPoint">RegisterProductServiceEndPoint</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href='https://github.com/cdr-register/register'>CDR Register on Github</a></li>
+            <li><a href='includes/swagger/swagger.json'>Swagger (JSON)</a></li>
+            <li><a href='includes/swagger/swagger.yaml'>Swagger (YAML)</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1><h2 id='consumer-data-right'>Consumer Data Right</h2>
+<p>The Australian Government is introducing a Consumer Data Right (CDR) to give consumers more control over their data.<br>
+The CDR will be rolled out sector-by-sector across the economy, starting with the banking sector.<br>
+The Government has announced that the energy and telecommunications sectors will follow banking.</p>
+
+<p>Further information on the CDR is available on the Treasury website:<br>
+<a href="https://treasury.gov.au/consumer-data-right">https://treasury.gov.au/consumer-data-right</a></p>
+<h2 id='accc-39-s-role'>ACCC&#39;s Role</h2>
+<p>The ACCC will be lead regulator for the CDR regime, and will have roles and functions that include:</p>
+
+<ul>
+<li>drafting rules to implement and govern the CDR in each sector; </li>
+<li>accrediting entities to receive data; </li>
+<li>managing an online register of accredited data recipients and data holders; </li>
+<li>providing education and guidance on the CDR;</li>
+<li>recommending to government future sectors to be brought within the CDR; and</li>
+<li>compliance and enforcement activities.<br></li>
+</ul>
+
+<p>Further information on the ACCC’s role in the CDR is available on the ACCC’s website:<br>
+<a href="https://www.accc.gov.au/focus-areas/consumer-data-right-cdr-0">https://www.accc.gov.au/focus-areas/consumer-data-right-cdr-0</a></p>
+<h2 id='data-standards-body'>Data Standards Body</h2>
+<p>A Data Standards Body (DSB) has been established to develop technical standards to implement the CDR. The work of the DSB is being delivered by a team within Data61, overseen by interim DSB Chair Mr Andrew Stevens, and with industry and consumer advice provided by an Advisory Committee.  </p>
+
+<p>Further information on the DSB is available on its website:<br>
+<a href="https://consumerdatastandards.org.au">https://consumerdatastandards.org.au</a></p>
+<h1 id='consultation-outline'>Consultation outline</h1>
+<p>The ACCC is using this website as a tool to consult on aspects of the design and implementation of the register of CDR participants (the CDR Register). The ACCC is seeking comments from interested stakeholders. </p>
+<h2 id='consultation-rules-of-engagement'>Consultation rules of engagement</h2>
+<p>The ACCC intends to conduct public consultation on the CDR Register. Questions or comments that participants might ask us via email or private message are likely to be questions or comments other participants have as well. Our answers will be of interest to everyone. There are likely to be experiences and lessons everybody working in this ecosystem can learn from. Having these conversations transparently helps reduce duplication, resolve issues faster and keep everyone up to date with the conversation.</p>
+
+<p>We ask that all contributors to the CDR Register GitHub comply with the <a href="https://help.github.com/en/articles/github-community-forum-code-of-conduct">GitHub Community Forum Code of Conduct</a>.  </p>
+
+<p>In addition, it would be appreciated if the following rules are adhered to when commenting or contributing:</p>
+
+<ul>
+<li>  For transparency, if you work at or are associated with an organisation with an interest in the Consumer Data Right, please indicate this in your response.</li>
+<li>  Please ensure you are aware of and compliant with any social media guidelines or internal processes for response set by your organisation before providing feedback.</li>
+</ul>
+
+<p>The ACCC will be actively monitoring and reviewing any comments/responses which are provided, however will not be responding to individual comments. 
+Depending on the number of responses/comments we get, we will assess what the most efficient and effective way to engage with the community is, noting that we want this to be a collaborative effort.</p>
+
+<p><a href="https://github.com/cdr-register/register">CDR Register on GitHub</a></p>
+<h2 id='feedback-sought'>Feedback sought</h2>
+<p>To guide responses and comments, we are seeking input which will assist us in ensuring that the Register designs meets the needs of the overarching CDR ecosystem. The focus should be on validating the designs, and providing any necessary context and reasoning. </p>
+<h2 id='further-consultation'>Further consultation</h2>
+<p>The ACCC is currently designing and building the CDR Register, and will engage further with interested stakeholders as part of this process. </p>
+
+<p>By end June 2019, the ACCC expects to publish for consultation concepts relating to the CDR Register including:</p>
+
+<ul>
+<li>  Business and technical design principles</li>
+<li>  Security Profile and Certificate Management</li>
+<li>  Caching and refreshing of Register metadata</li>
+<li>  Versioning</li>
+<li>  Register Availability</li>
+</ul>
+<h1 id='consumer-data-right-register'>Consumer Data Right Register</h1>
+<p>The ACCC will perform the role of the CDR Registrar. The CDR Registrar will have the function of maintaining the Register of Accredited Persons (the Register) who have been granted accreditation by the ACCC in its capacity as Data Recipient Accreditor. Accredited persons become accredited data recipients upon receipt of CDR data.</p>
+
+<p>The Register will also include information about data holders. Information about accredited data recipients and data holders recorded in the Register will be made available to the public in accordance with the CDR rules. Additional information held in the Register will be available to accredited data recipients and data holders.</p>
+<h3 id='cdr-consumer'>CDR consumer</h3>
+<p>A consumer, as defined in the CDR rules, who is able to a make a request for disclosure of CDR data to themselves or to an accredited data recipient.</p>
+<h3 id='data-holder'>Data Holder</h3>
+<p>A person who holds designated CDR data and is required by the CDR rules to disclose product and consumer data.</p>
+<h3 id='accredited-data-recipient'>Accredited Data Recipient</h3>
+<p>A person that has been granted accreditation by the ACCC and is able to collect, and receives, CDR data about a CDR consumer from a data holder with the consent of the consumer.</p>
+<h1 id="consumer-data-right-cdr-register-discovery-api">Register Discovery API</h1>
+
+<aside>
+The Register Discovery API is currently in draft and subject to change. 
+</aside>
+
+<p>Base URLs:</p>
+
+<ul>
+<li><a href="https://api.discovery.cdr.gov.au/cdr-register/v1">https://api.discovery.cdr.gov.au/cdr-register/v1</a></li>
+</ul>
+
+<p>Operations related to the Register Discovery API</p>
+<h2 id='get-data-holders'>Get Data Holders</h2>
+<p><a id="opIdgetRegisterDataHolders"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/holders HTTP/1.1
+Host: api.discovery.cdr.gov.au
+Accept: application/json
+</code></pre>
+<p><code>GET /register/holders</code></p>
+
+<p>Get Data Holders with metadata</p>
+
+<h3 id="get-register-data-holders-with-metadata-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>updated-since</td>
+<td>query</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>Only include software products that have been updated after the specified date and time. If absent defaults to include all software products</td>
+</tr>
+<tr>
+<td>page</td>
+<td>query</td>
+<td>integer</td>
+<td>false</td>
+<td>Page of results to request (standard pagination)</td>
+</tr>
+<tr>
+<td>page-size</td>
+<td>query</td>
+<td>integer</td>
+<td>false</td>
+<td>Page size to request. Default is 25 (standard pagination)</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"cdrBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"cdrMetricsUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"oAuthAuthorisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"tokenisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"introspectionUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"userInfoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"revocationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"prev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="get-register-data-holders-with-metadata-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Success</td>
+<td><a href="#schemaresponseregisterdataholderlist">ResponseRegisterDataHolderList</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Bad Request</td>
+<td><a href="#schemaresponseregistererrorlist">ResponseRegisterErrorList</a></td>
+</tr>
+<tr>
+<td>422</td>
+<td><a href="https://tools.ietf.org/html/rfc2518#section-10.3">Unprocessable Entity</a></td>
+<td>The request was well formed but was unable to be processed due to business logic specific to the request</td>
+<td><a href="#schemaresponseregistererrorlist">ResponseRegisterErrorList</a></td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+Authentication requirements for this operation will be published in a future iteration
+</aside>
+<h2 id='get-accredited-data-recipients'>Get Accredited Data Recipients</h2>
+<p><a id="opIdgetRegisterDataRecipients"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/recipients HTTP/1.1
+Host: api.discovery.cdr.gov.au
+Accept: application/json
+</code></pre>
+<p><code>GET /register/recipients</code></p>
+
+<p>Get Accredited Data Recipients with metadata</p>
+
+<h3 id="get-accredited-data-recipients-with-metadata-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>updated-since</td>
+<td>query</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>Only include software products that have been updated after the specified date and time. If absent defaults to include all software products</td>
+</tr>
+<tr>
+<td>page</td>
+<td>query</td>
+<td>integer</td>
+<td>false</td>
+<td>Page of results to request (standard pagination)</td>
+</tr>
+<tr>
+<td>page-size</td>
+<td>query</td>
+<td>integer</td>
+<td>false</td>
+<td>Page size to request. Default is 25 (standard pagination)</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"productAccreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"jwk"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"prev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="get-accredited-data-recipients-with-metadata-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Success</td>
+<td><a href="#schemaresponseregisterdatarecipientlist">ResponseRegisterDataRecipientList</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Bad Request</td>
+<td><a href="#schemaresponseregistererrorlist">ResponseRegisterErrorList</a></td>
+</tr>
+<tr>
+<td>422</td>
+<td><a href="https://tools.ietf.org/html/rfc2518#section-10.3">Unprocessable Entity</a></td>
+<td>The request was well formed but was unable to be processed due to business logic specific to the request</td>
+<td><a href="#schemaresponseregistererrorlist">ResponseRegisterErrorList</a></td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+Authentication requirements for this operation will be published in a future iteration
+</aside>
+<h1 id='schemas'>Schemas</h1>
+<h2 id="tocSresponseregisterdataholderlist">ResponseRegisterDataHolderList</h2>
+
+<p><a id="schemaresponseregisterdataholderlist"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"cdrBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"cdrMetricsUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"oAuthAuthorisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"tokenisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"introspectionUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"userInfoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"revocationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"prev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Response containing a list of Register Data Holder objects</em></p>
+<h3 id='properties'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>[<a href="#schemaregisterdataholder">RegisterDataHolder</a>]</td>
+<td>true</td>
+<td>none</td>
+<td>Response data for the query</td>
+</tr>
+<tr>
+<td>links</td>
+<td><a href="#schemalinkspaginated">LinksPaginated</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>meta</td>
+<td><a href="#schemametapaginated">MetaPaginated</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterdataholder">RegisterDataHolder</h2>
+
+<p><a id="schemaregisterdataholder"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cdrBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cdrMetricsUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"oAuthAuthorisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"tokenisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"introspectionUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"userInfoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"revocationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>A single Data Holder within the Register</em></p>
+<h3 id='properties-2'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accreditation</td>
+<td><a href="#schemaregisteraccreditation">RegisterAccreditation</a></td>
+<td>false</td>
+<td>none</td>
+<td>Accreditation information of Data Recipient as per ACCC register</td>
+</tr>
+<tr>
+<td>participant</td>
+<td><a href="#schemaregisterparticipant">RegisterParticipant</a></td>
+<td>false</td>
+<td>none</td>
+<td>Represents a single participant of either Data Holder or Data Recipient within the Register</td>
+</tr>
+<tr>
+<td>endpointDetail</td>
+<td>[<a href="#schemaregisterdataholderserviceendpoint">RegisterDataHolderServiceEndpoint</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>Current List of Accredited Endpoint URLs</td>
+</tr>
+<tr>
+<td>authDetail</td>
+<td>[<a href="#schemaregisterdataholderauth">RegisterDataHolderAuth</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>List of authorisation methods for Data Holders</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSlinkspaginated">LinksPaginated</h2>
+
+<p><a id="schemalinkspaginated"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"prev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre><h3 id='properties-3'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>none</td>
+<td>URI to the first page of this set. Mandatory if this response is not the first page</td>
+</tr>
+<tr>
+<td>last</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>none</td>
+<td>URI to the last page of this set. Mandatory if this response is not the last page</td>
+</tr>
+<tr>
+<td>next</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>none</td>
+<td>URI to the next page of this set. Mandatory if this response is not the last page</td>
+</tr>
+<tr>
+<td>prev</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>none</td>
+<td>URI to the previous page of this set. Mandatory if this response is not the first page</td>
+</tr>
+<tr>
+<td>self</td>
+<td>string(uri)</td>
+<td>true</td>
+<td>none</td>
+<td>Fully qualified link to this API call</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSmetapaginated">MetaPaginated</h2>
+
+<p><a id="schemametapaginated"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre><h3 id='properties-4'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>totalPages</td>
+<td>integer(int32)</td>
+<td>true</td>
+<td>none</td>
+<td>The total number of pages in the full set</td>
+</tr>
+<tr>
+<td>totalRecords</td>
+<td>integer(int32)</td>
+<td>true</td>
+<td>none</td>
+<td>The total number of records in the full set</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisteraccreditation">RegisterAccreditation</h2>
+
+<p><a id="schemaregisteraccreditation"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Accreditation information of Data Recipient as per ACCC register</em></p>
+<h3 id='properties-5'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>reference</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The unique identifier that will allow users to communicate about which approved participant they are referring to</td>
+</tr>
+<tr>
+<td>accreditationDate</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>The date/time that the participant was made active on the Register</td>
+</tr>
+<tr>
+<td>sector</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The sector that the registration pertains to (e.g. Banking)</td>
+</tr>
+<tr>
+<td>accreditationStatus</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The current accreditation status on the register. This reflects the life cycle of participation in the CDR</td>
+</tr>
+<tr>
+<td>suspensionStartDate</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>The date the current suspension commences</td>
+</tr>
+<tr>
+<td>suspensionEndDate</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>The date the current suspension will end</td>
+</tr>
+</tbody></table>
+<h3 id='enumerated-values'>Enumerated Values</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sector</td>
+<td>BANKING</td>
+</tr>
+<tr>
+<td>accreditationStatus</td>
+<td>ACTIVE</td>
+</tr>
+<tr>
+<td>accreditationStatus</td>
+<td>SUSPENDED</td>
+</tr>
+<tr>
+<td>accreditationStatus</td>
+<td>REVOKED</td>
+</tr>
+<tr>
+<td>accreditationStatus</td>
+<td>SURRENDERED</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterparticipant">RegisterParticipant</h2>
+
+<p><a id="schemaregisterparticipant"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Represents a single participant of either Data Holder or Data Recipient within the Register</em></p>
+<h3 id='properties-6'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Name of the organisation ( Data Holder / Data Recipient )</td>
+</tr>
+<tr>
+<td>participantId</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Unique Registry identifier of participant</td>
+</tr>
+<tr>
+<td>participantType</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>organisation</td>
+<td><a href="#schemacommonorganisationdetail">CommonOrganisationDetail</a></td>
+<td>false</td>
+<td>none</td>
+<td>The data that is common to all organisations, regardless of the type (e.g. company, trust, partnership, government)</td>
+</tr>
+</tbody></table>
+<h3 id='enumerated-values-2'>Enumerated Values</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>participantType</td>
+<td>HOLDER</td>
+</tr>
+<tr>
+<td>participantType</td>
+<td>RECIPIENT</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterdataholderauth">RegisterDataHolderAuth</h2>
+
+<aside class="warning">
+Security requirements are subject to change as they are currently under internal review
+</aside>
+
+<p><a id="schemaregisterdataholderauth"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"oAuthAuthorisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tokenisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"introspectionUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"userInfoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"revocationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Provides details of authorisation endpoints for Data Holders</em></p>
+<h3 id='properties-7'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>registerUType</td>
+<td><a href="#schemaregisterauthtype">RegisterAuthType</a></td>
+<td>false</td>
+<td>none</td>
+<td>The type of authentication and authorisation in use</td>
+</tr>
+<tr>
+<td>jwks</td>
+<td><a href="#schemaregisterjwk">RegisterJWK</a></td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>hybridFlow</td>
+<td>[<a href="#schemaregisterdataholderauthhybridflow">RegisterDataHolderAuthHybridFlow</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>Detail for Hybrid flow for DSB standard version</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterdataholderauthhybridflow">RegisterDataHolderAuthHybridFlow</h2>
+
+<aside class="warning">
+Security requirements are subject to change as they are currently under internal review
+</aside>
+
+<p><a id="schemaregisterdataholderauthhybridflow"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"oAuthAuthorisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tokenisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"introspectionUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"userInfoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"revocationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Provides specific detail for Hybrid flow</em></p>
+<h3 id='properties-8'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>version</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>ACCC Data Standard Version</td>
+</tr>
+<tr>
+<td>oAuthAuthorisationUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>InfoSec Profile still in development</td>
+</tr>
+<tr>
+<td>tokenisationUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the endpoint for the Data Recipient to get the oAuth Token</td>
+</tr>
+<tr>
+<td>redirectUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the endpoint for the Data Recipient to redirect to the Data Holders website for the consumer to authorise the Data Recipient</td>
+</tr>
+<tr>
+<td>introspectionUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The  Introspection Endpoint is to allow Data Recipients to determine the status and expiry date of Refresh Tokens</td>
+</tr>
+<tr>
+<td>userInfoUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The UserInfo Endpoint is an oAuth 2.0 Protected Resource that returns Claims about the authenticated Data Recipients</td>
+</tr>
+<tr>
+<td>revocationUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The Revocation Endpoint serves as a revocation mechanism that allows the Data Recipient to invalidate its token as required to allow for token clean up</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterauthtype">RegisterAuthType</h2>
+
+<aside class="warning">
+Security requirements are subject to change as they are currently under internal review
+</aside>
+
+<p><a id="schemaregisterauthtype"></a></p>
+<pre class="highlight json tab-json"><code><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="w">
+
+</span></code></pre>
+<p><em>The type of authentication and authorisation in use</em></p>
+<h3 id='properties-9'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The type of authentication and authorisation in use</td>
+</tr>
+</tbody></table>
+<h3 id='enumerated-values-3'>Enumerated Values</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>HYBRIDFLOW-JWKS</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterdataholderserviceendpoint">RegisterDataHolderServiceEndpoint</h2>
+
+<p><a id="schemaregisterdataholderserviceendpoint"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cdrBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cdrMetricsUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Endpoints related to Data Holder services</em></p>
+<h3 id='properties-10'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>version</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>ACCC Data Standard Version</td>
+</tr>
+<tr>
+<td>cdrBaseUri</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Base URI for the Consumer Data Standrd API&#39;s published by the Data Holder</td>
+</tr>
+<tr>
+<td>cdrRevocationUri</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URI for the Data Recipients to notify the Data Holders that the consumer withdrawn the consent</td>
+</tr>
+<tr>
+<td>cdrCacheRefreshUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URL to be used by ACCC to notify the Data Holders that their metadata cache must be updated</td>
+</tr>
+<tr>
+<td>cdrMetricsUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This end point allows the ACCC to obtain operational statistics from the Data Holder on the operation of their CDR compliant implementation</td>
+</tr>
+<tr>
+<td>publicUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the publicly available website or web resource URL</td>
+</tr>
+<tr>
+<td>termsofServiceUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URL to retrieve the terms of services</td>
+</tr>
+<tr>
+<td>logoUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URL to retrieve a logo image</td>
+</tr>
+<tr>
+<td>supportUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URL to retrieve support details</td>
+</tr>
+<tr>
+<td>policyUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URL to retrieve policy details</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterjwk">RegisterJWK</h2>
+
+<aside class="warning">
+Security requirements are subject to change as they are currently under internal review
+</aside>
+
+<p><a id="schemaregisterjwk"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre><h3 id='properties-11'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>publicKey</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Public JWK supplied by the participant.</td>
+</tr>
+<tr>
+<td>approvedOn</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The current status of the record.</td>
+</tr>
+</tbody></table>
+<h3 id='enumerated-values-4'>Enumerated Values</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>ACTIVE</td>
+</tr>
+<tr>
+<td>status</td>
+<td>DELETED</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocScommonorganisationdetail">CommonOrganisationDetail</h2>
+
+<p><a id="schemacommonorganisationdetail"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>The data that is common to all organisations, regardless of the type (e.g. company, trust, partnership, government)</em></p>
+<h3 id='properties-12'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Company Registered in Australia : Unique legal name of the entity. Company Not Registered in Australia : Unique registered name of the entity. Trustee - Organisation:  Unique legal name of the entity. Partner - Organisation : Unique legal name of the entity</td>
+</tr>
+<tr>
+<td>registeredInAustralia</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+<td>Flag to indicate if the organisation is registered in Australia or not</td>
+</tr>
+<tr>
+<td>registrationNumber</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Unique registration number (if the company is regitered outside Australia)</td>
+</tr>
+<tr>
+<td>registrationDate</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
+<td>Date of registration (if the company is regitered outside Australia)</td>
+</tr>
+<tr>
+<td>countryOfRegistration</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Country of registeration (if the company is regitered outside Australia)</td>
+</tr>
+<tr>
+<td>abn</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Australian Business Number for the organisation</td>
+</tr>
+<tr>
+<td>acn</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Australian Company Number for the organisation</td>
+</tr>
+<tr>
+<td>arbn</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Australian Registered Body Number.  ARBNs are issued to registrable Australian bodies and foreign companies</td>
+</tr>
+<tr>
+<td>anzsicCode</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The ANZSIC code for the organisation</td>
+</tr>
+<tr>
+<td>EntityType</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Type of the organisation</td>
+</tr>
+<tr>
+<td>businessNames</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>Business names for the entity</td>
+</tr>
+</tbody></table>
+<h3 id='enumerated-values-5'>Enumerated Values</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EntityType</td>
+<td>COMPANY</td>
+</tr>
+<tr>
+<td>EntityType</td>
+<td>TRUST</td>
+</tr>
+<tr>
+<td>EntityType</td>
+<td>PARTNERSHIP</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSresponseregistererrorlist">ResponseRegisterErrorList</h2>
+
+<p><a id="schemaresponseregistererrorlist"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre><h3 id='properties-13'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>errors</td>
+<td>[object]</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Error code</td>
+</tr>
+<tr>
+<td>» title</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Error title</td>
+</tr>
+<tr>
+<td>» detail</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Error detail</td>
+</tr>
+<tr>
+<td>» meta</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+<td>Optional additional data for specific error types</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSresponseregisterdatarecipientlist">ResponseRegisterDataRecipientList</h2>
+
+<p><a id="schemaresponseregisterdatarecipientlist"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"productAccreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"jwk"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"prev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Response containing a list of Register Data Recipients</em></p>
+<h3 id='properties-14'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>[<a href="#schemaregisterdatarecipient">RegisterDataRecipient</a>]</td>
+<td>true</td>
+<td>none</td>
+<td>Response data for the query</td>
+</tr>
+<tr>
+<td>links</td>
+<td><a href="#schemalinkspaginated">LinksPaginated</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>meta</td>
+<td><a href="#schemametapaginated">MetaPaginated</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterdatarecipient">RegisterDataRecipient</h2>
+
+<p><a id="schemaregisterdatarecipient"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"productAccreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"jwk"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>A single Data Recipient within the Register</em></p>
+<h3 id='properties-15'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accreditation</td>
+<td><a href="#schemaregisteraccreditation">RegisterAccreditation</a></td>
+<td>false</td>
+<td>none</td>
+<td>Accreditation information of Data Recipient as per ACCC register</td>
+</tr>
+<tr>
+<td>participant</td>
+<td><a href="#schemaregisterparticipant">RegisterParticipant</a></td>
+<td>false</td>
+<td>none</td>
+<td>Represents a single participant of either Data Holder or Data Recipient within the Register</td>
+</tr>
+<tr>
+<td>products</td>
+<td>[<a href="#schemaregisterproduct">RegisterProduct</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>List of products / services that this Data Recipient is accredited for</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterproduct">RegisterProduct</h2>
+
+<p><a id="schemaregisterproduct"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"productAccreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"jwk"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Details for the software products that are included in the ADR accreditation</em></p>
+<h3 id='properties-16'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>softwareProductName</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The name of the software product that has been included in the accreditation for the ADR</td>
+</tr>
+<tr>
+<td>softwareProductDescription</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The description of the software product that has been included in the accreditation for the ADR</td>
+</tr>
+<tr>
+<td>productAccreditationStatus</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The current sub-status of the record. This reflects the life cycle of participation in the CDR</td>
+</tr>
+<tr>
+<td>accessLevel</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The access level granted to the software product under the accreditation for the ADR</td>
+</tr>
+<tr>
+<td>endpointDetail</td>
+<td>[<a href="#schemaregisterproductserviceendpoint">RegisterProductServiceEndPoint</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>List of end point details related to the product</td>
+</tr>
+<tr>
+<td>authDetail</td>
+<td><a href="#schemaregisterproductauth">RegisterProductAuth</a></td>
+<td>false</td>
+<td>none</td>
+<td>Provides details of authorisation details per Product</td>
+</tr>
+</tbody></table>
+<h3 id='enumerated-values-6'>Enumerated Values</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>productAccreditationStatus</td>
+<td>DRAFT</td>
+</tr>
+<tr>
+<td>productAccreditationStatus</td>
+<td>APPROVED</td>
+</tr>
+<tr>
+<td>productAccreditationStatus</td>
+<td>ACTIVE</td>
+</tr>
+<tr>
+<td>productAccreditationStatus</td>
+<td>INACTIVE</td>
+</tr>
+<tr>
+<td>accessLevel</td>
+<td>READONLY</td>
+</tr>
+<tr>
+<td>accessLevel</td>
+<td>READANDWRITE</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterproductauth">RegisterProductAuth</h2>
+
+<aside class="warning">
+Security requirements are subject to change as they are currently under internal review
+</aside>
+
+<p><a id="schemaregisterproductauth"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"jwk"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Provides details of authorisation details per Product</em></p>
+<h3 id='properties-17'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>registerUType</td>
+<td><a href="#schemaregisterauthtype">RegisterAuthType</a></td>
+<td>false</td>
+<td>none</td>
+<td>The type of authentication and authorisation in use</td>
+</tr>
+<tr>
+<td>clientId</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Client id allocated by ACCC for the product</td>
+</tr>
+<tr>
+<td>jwk</td>
+<td>[<a href="#schemaregisterjwk">RegisterJWK</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>List of JWK that the product holds</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterproductserviceendpoint">RegisterProductServiceEndPoint</h2>
+
+<p><a id="schemaregisterproductserviceendpoint"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>List of URI / URL&#39;s that are relevant to the product</em></p>
+<h3 id='properties-18'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>version</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>ACCC Data Standard Version</td>
+</tr>
+<tr>
+<td>cdrRevocationUri</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URI for the Data Holders to notify the Data Recipients that the consumer revoked the consent</td>
+</tr>
+<tr>
+<td>cdrCacheRefreshUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URL to be used by ACCC to notify the Data Recipients that their metadata cache must be updated</td>
+</tr>
+<tr>
+<td>publicUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the publicly available website or web resource URL</td>
+</tr>
+<tr>
+<td>termsofServiceUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URL to retrieve the terms of services</td>
+</tr>
+<tr>
+<td>logoUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URL to retrieve a logo image</td>
+</tr>
+<tr>
+<td>supportUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URL to retrieve support details</td>
+</tr>
+<tr>
+<td>policyUrl</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>This is the URL to retrieve policy details</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
