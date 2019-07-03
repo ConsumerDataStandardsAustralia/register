@@ -248,6 +248,20 @@
               </ul>
           </li>
           <li>
+            <a href="#consumer-data-right-register" class="toc-h1 toc-link" data-title="Consumer Data Right Register">Consumer Data Right Register</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#cdr-consumer" class="toc-h2 toc-link" data-title="CDR consumer">CDR consumer</a>
+                  </li>
+                  <li>
+                    <a href="#data-holder" class="toc-h2 toc-link" data-title="Data Holder">Data Holder</a>
+                  </li>
+                  <li>
+                    <a href="#accredited-data-recipient" class="toc-h2 toc-link" data-title="Accredited Data Recipient">Accredited Data Recipient</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#client-registration" class="toc-h1 toc-link" data-title="Client Registration">Client Registration</a>
               <ul class="toc-list-h2">
                   <li>
@@ -263,21 +277,27 @@
                     <a href="#incident-management" class="toc-h2 toc-link" data-title="Incident Management">Incident Management</a>
                   </li>
                   <li>
-                    <a href="#questions" class="toc-h2 toc-link" data-title="Questions">Questions</a>
+                    <a href="#client-registration-questions" class="toc-h2 toc-link" data-title="Client Registration Questions">Client Registration Questions</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#consumer-data-right-register" class="toc-h1 toc-link" data-title="Consumer Data Right Register">Consumer Data Right Register</a>
+            <a href="#availability" class="toc-h1 toc-link" data-title="Availability">Availability</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#cdr-consumer" class="toc-h2 toc-link" data-title="CDR consumer">CDR consumer</a>
+                    <a href="#cdr-register-unavailable" class="toc-h2 toc-link" data-title="CDR Register Unavailable">CDR Register Unavailable</a>
                   </li>
                   <li>
-                    <a href="#data-holder" class="toc-h2 toc-link" data-title="Data Holder">Data Holder</a>
+                    <a href="#certificate-authority-unavailable" class="toc-h2 toc-link" data-title="Certificate Authority Unavailable">Certificate Authority Unavailable</a>
                   </li>
                   <li>
-                    <a href="#accredited-data-recipient" class="toc-h2 toc-link" data-title="Accredited Data Recipient">Accredited Data Recipient</a>
+                    <a href="#accredited-data-recipient-unavailable" class="toc-h2 toc-link" data-title="Accredited Data Recipient Unavailable">Accredited Data Recipient Unavailable</a>
+                  </li>
+                  <li>
+                    <a href="#data-holder-unavailable" class="toc-h2 toc-link" data-title="Data Holder Unavailable">Data Holder Unavailable</a>
+                  </li>
+                  <li>
+                    <a href="#availability-questions" class="toc-h2 toc-link" data-title="Availability Questions">Availability Questions</a>
                   </li>
               </ul>
           </li>
@@ -421,64 +441,6 @@ Depending on the number of responses/comments we get, we will assess what the mo
 <li>  Versioning</li>
 <li>  Register Availability</li>
 </ul>
-<h1 id='client-registration'>Client Registration</h1><h2 id='accc-requirements'>ACCC Requirements</h2>
-<ol>
-<li> ACCC has full control of who participates in the ecosystem</li>
-<li> ACCC has control of access to the Register by CDR participants</li>
-</ol>
-
-<p>ACCC notes that UK Open Banking published the standard Open Banking Dynamic Client Registration v3.2.</p>
-
-<p>This standard allows for Accredited Data Recipients to dynamically register with Data Holders within the system.
-However, the ACCC Register is designed using Static Client Registration to satisfy the above requirements</p>
-<h2 id='static-client-registration'>Static Client Registration</h2>
-<ol>
-<li> Data Holders are added to the Register upon completion of the Registration process</li>
-<li> Data Recipients are added to the Register upon being granted accreditation and completion of the registration process</li>
-<li> All Data Holders discover all Accredited Data Recipients, associated Software Products with JWKS through the ACCC Register Discovery API. </li>
-<li> All Accredited Data Recipients discover all Data Holders and their associated JWKS through the ACCC Register Discovery API.</li>
-<li> Upon request from the ACCC, participants must refresh their cache. Requests will be facilitated through the Admin API via the RequestMetaDataUpdate call.</li>
-<li> Participants are expected to maintain a cache of this discovery data and refresh the data periodically</li>
-<li> Metrics will be captured on participant cache refreshes to ensure they conform to recommendations</li>
-<li> If the ACCC Register becomes unavailable, participants are expected to read from their cache until the Register becomes available again or a cache maximum age is reached</li>
-</ol>
-
-<p>The Register Discovery API definition is available at: 
-<a href="https://cdr-register.github.io/register/#consumer-data-right-cdr-register-discovery-api">https://cdr-register.github.io/register/#consumer-data-right-cdr-register-discovery-api</a></p>
-<h2 id='cache-refresh-metadata-request'>Cache Refresh Metadata Request</h2>
-<p>Data Holders and Accredited Data Recipients will be required to implement the Admin endpoint as per CDS standard: <a href="https://consumerdatastandardsaustralia.github.io/standards/#admin-apis">https://consumerdatastandardsaustralia.github.io/standards/#admin-apis</a></p>
-
-<p>This endpoint exposes functionality for the ACCC to request participants to refresh their caches.
-Cache refreshes may be requested in the following scenarios:</p>
-
-<ol>
-<li> A new Data Holder becomes active</li>
-<li> A new Accredited Data Recipient becomes active</li>
-<li> A Data Holder has been removed from the CDR  Register</li>
-<li> An Accredited Data Recipient has been suspended or revoked from the CDR Register </li>
-<li> Data Holder JWKS has changed</li>
-<li> Accredited Data Recipient JWKS has changed</li>
-</ol>
-<h3 id='data-holder-discovery-of-data-recipients'>Data Holder Discovery of Data Recipients</h3>
-<p><img src="images/DataHolderDiscovery.png" alt="Dataholderdiscovery" /></p>
-<h3 id='accredited-data-recipient-discovery-of-data-holders'>Accredited Data Recipient Discovery of Data Holders</h3>
-<p><img src="images/DataRecipientDiscovery.png" alt="Datarecipientdiscovery" /></p>
-<h2 id='incident-management'>Incident Management</h2>
-<p>Currently under the draft CDR rules , Data Holders within the CDR ecosystem will be able to refuse to disclose CDR data  in response to valid requests from Data Recipients:</p>
-
-<p>(a) where the Data Holder has reasonable grounds to believe that disclosure would create a real risk of harm or abuse to an individual or adversely impact the security, integrity or stability of the Register or the IT systems of the Data Holder used to receive and response to CDR data requests. Reliance on this exemption is to be notified to the ACCC within 24 hours; or</p>
-
-<p>(b) in the circumstances set out in the standards .</p>
-<h2 id='questions'>Questions</h2>
-<ul>
-<li><p>The ACCC seeks input from the financial community on what rules and timings organisations currently use when caching security data.</p></li>
-<li><p>The ACCC seeks input from the financial community on what their current processes are regarding dealing with compromised third parties.</p></li>
-<li><p>A number of stakeholders commented on this aspect of the draft rules. The ACCC is currently considering these comments and the appropriate amendments to make to the rules in light of that feedback. To assist that process the ACCC is interested in views, via this forum, about:</p></li>
-</ul>
-
-<p>(a)   the types of security incidents where it would be appropriate to ensure that data requests are not sent or responded to;</p>
-
-<p>(b)   obligations on Data Holders and Accredited Data Recipients to notify the ACCC of security incidents that may affect the security of the CDR ecosystem – including the way that those incidents should be reported and a practical timeframe for that occurring.</p>
 <h1 id='consumer-data-right-register'>Consumer Data Right Register</h1>
 <p>The ACCC will perform the role of the CDR Registrar. The CDR Registrar will have the function of maintaining the Register of Accredited Persons (the Register) who have been granted accreditation by the ACCC in its capacity as Data Recipient Accreditor. Accredited persons become accredited data recipients upon receipt of CDR data.</p>
 
@@ -489,6 +451,200 @@ Cache refreshes may be requested in the following scenarios:</p>
 <p>A person who holds designated CDR data and is required by the CDR rules to disclose product and consumer data.</p>
 <h3 id='accredited-data-recipient'>Accredited Data Recipient</h3>
 <p>A person that has been granted accreditation by the ACCC and is able to collect, and receives, CDR data about a CDR consumer from a data holder with the consent of the consumer.</p>
+<h1 id='client-registration'>Client Registration</h1><h2 id='accc-requirements'>ACCC Requirements</h2>
+<ol>
+<li> ACCC has full control of who participates in the ecosystem</li>
+<li> ACCC has control of access to the Register by CDR participants</li>
+</ol>
+
+<p>ACCC notes that UK Open Banking published the standard Open Banking Dynamic Client Registration v3.2.</p>
+
+<p>This standard allows for Accredited Data Recipients to dynamically register with Data Holders within the system.
+However, the CDR Register is designed using Static Client Registration to satisfy the above requirements</p>
+<h2 id='static-client-registration'>Static Client Registration</h2>
+<ol>
+<li> Data Holders are added to the Register upon completion of the Registration process</li>
+<li> Data Recipients are added to the Register upon being granted accreditation and completion of the registration process</li>
+<li> All Data Holders discover all Accredited Data Recipients, associated Software Products with JWKS through the CDR Register Discovery API.</li>
+<li> All Accredited Data Recipients discover all Data Holders and their associated JWKS through the CDR Register Discovery API.</li>
+<li> Upon request from the CDR Register, participants must refresh their cache. Requests will be facilitated through the Admin API via the Metadata Update call.</li>
+<li> Participants are expected to maintain a cache of this discovery data and refresh the data periodically</li>
+<li> Metrics will be captured on participant cache refreshes to ensure they conform to recommendations</li>
+<li> If the CDR Register becomes unavailable, participants are expected to read from their metadata cache until the Register becomes available again or a cache maximum age is reached</li>
+</ol>
+
+<p>The CDR Register Discovery API definition is available at:
+<a href="https://cdr-register.github.io/register/#consumer-data-right-cdr-register-discovery-api">https://cdr-register.github.io/register/#consumer-data-right-cdr-register-discovery-api</a></p>
+<h2 id='cache-refresh-metadata-request'>Cache Refresh Metadata Request</h2>
+<p>Data Holders and Accredited Data Recipients will be required to implement the Admin endpoint as per CDS standard: <a href="https://consumerdatastandardsaustralia.github.io/standards/#admin-apis">https://consumerdatastandardsaustralia.github.io/standards/#admin-apis</a></p>
+
+<p>This endpoint exposes functionality for the ACCC to request participants to refresh their caches.
+Cache refreshes may be requested in the following scenarios:</p>
+
+<ol>
+<li> A new Data Holder becomes active</li>
+<li> A new Accredited Data Recipient becomes active</li>
+<li> A Data Holder has been removed from the CDR Register</li>
+<li> An Accredited Data Recipient has been suspended or revoked from the CDR Register </li>
+<li> Data Holder JWKS or endpoints have changed</li>
+<li> Accredited Data Recipient JWKS or endpoints have changed</li>
+</ol>
+<h3 id='data-holder-discovery-of-data-recipients'>Data Holder Discovery of Data Recipients</h3>
+<p><img src="images/DataHolderDiscovery.png" alt="Dataholderdiscovery" /></p>
+<h3 id='accredited-data-recipient-discovery-of-data-holders'>Accredited Data Recipient Discovery of Data Holders</h3>
+<p><img src="images/DataRecipientDiscovery.png" alt="Datarecipientdiscovery" /></p>
+<h2 id='incident-management'>Incident Management</h2>
+<p>Currently under the draft CDR rules, Data Holders within the CDR ecosystem will be able to refuse to disclose CDR data  in response to valid requests from Data Recipients:</p>
+
+<p>(a) where the Data Holder has reasonable grounds to believe that disclosure would create a real risk of harm or abuse to an individual or adversely impact the security, integrity or stability of the Register or the IT systems of the Data Holder used to receive and response to CDR data requests. Reliance on this exemption is to be notified to the ACCC within 24 hours; or</p>
+
+<p>(b) in the circumstances set out in the standards</p>
+<h2 id='client-registration-questions'>Client Registration Questions</h2>
+<ul>
+<li><p>The ACCC seeks input from the financial community on what rules and timings organisations currently use when caching security data.</p></li>
+<li><p>The ACCC seeks input from the financial community on what their current processes are regarding dealing with compromised third parties.</p></li>
+<li><p>A number of stakeholders commented on this aspect of the draft rules. The ACCC is currently considering these comments and the appropriate amendments to make to the rules in light of that feedback. To assist that process the ACCC is interested in views, via this forum, about:</p></li>
+</ul>
+
+<p>(a)   the types of security incidents where it would be appropriate to ensure that data requests are not sent or responded to;</p>
+
+<p>(b)   obligations on Data Holders and Accredited Data Recipients to notify the ACCC of security incidents that may affect the security of the CDR ecosystem – including the way that those incidents should be reported and a practical timeframe for that occurring.</p>
+
+<p><em>Feedback for this section can be lodged at:</em> <a href="https://github.com/cdr-register/register/issues/5">https://github.com/cdr-register/register/issues/5</a></p>
+<h1 id='availability'>Availability</h1>
+<p>The following scenarios outline the expectations of Data Holders and Accredited Data Recipients within the Consumer Data Right ecosystem when outages occur. </p>
+<h2 id='cdr-register-unavailable'>CDR Register Unavailable</h2>
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Result</strong></td>
+<td>Participants will not be able to communicate with the Register</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>Participants will not be able to refresh their metadata caches with up-to-date participant security data</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>Participants will not be able to refresh their metadata caches with new participants</td>
+</tr>
+<tr>
+<td><strong>Proposal</strong></td>
+<td>Participants will continue to operate until their metadata caches reach a maximum age. <br>Once this time has been reached, consumer data will not be shared. <br>Once the CDR Register becomes available, all participants will receive a refresh cache notification</td>
+</tr>
+</tbody></table>
+<h2 id='certificate-authority-unavailable'>Certificate Authority Unavailable</h2>
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Result</strong></td>
+<td>OCSP services will not be available</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>Participants will not be able verify the status of certificates</td>
+</tr>
+<tr>
+<td><strong>Proposal</strong></td>
+<td>Participants will honour cached Certificate statuses from previous OCSP checks. <br>Once certificate statuses have expired, data sharing will stop. <br>Once the CA becomes available, certificate statuses are updated through OCSP</td>
+</tr>
+</tbody></table>
+<h2 id='accredited-data-recipient-unavailable'>Accredited Data Recipient Unavailable</h2>
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Result</strong></td>
+<td>Data Holders will not be able to communicate with ADRs</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>Data Holders will not be able to inform ADRs that consent has been withdrawn</td>
+</tr>
+<tr>
+<td><strong>Proposal</strong></td>
+<td>Data Holders will need to continually poll the ADR until recovery.<br>Upon recovery, the consent withdrawal process will need to be executed</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Result</strong></td>
+<td>The CDR Register will not be able to communicate with ADRs</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>The CDR Register will not be able to inform the ADRs that they will need to refresh their metadata cache</td>
+</tr>
+<tr>
+<td><strong>Proposal</strong></td>
+<td>Accredited Data Recipients will be expected to refresh their metadata cache upon recovery from any outage</td>
+</tr>
+</tbody></table>
+<h2 id='data-holder-unavailable'>Data Holder Unavailable</h2>
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Result</strong></td>
+<td>Accredited Data Recipients will not be able to communicate with Data Holders</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>Accredited Data Recipients will not be able to inform the Data Holder of change in consent</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>Accredited Data Recipients will not be able to retrieve Product &amp; Consumer data</td>
+</tr>
+<tr>
+<td><strong>Proposal</strong></td>
+<td>Accredited Data Recipients will need to continually poll the DH until recovery. <br>Upon recovery, the consent withdrawal process will need to be executed</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Result</strong></td>
+<td>The CDR Register will not be able to communicate with the Data Holder</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>The CDR Register will not be able to inform the Data Holder they will need to refresh their metadata cache</td>
+</tr>
+<tr>
+<td><strong>Proposal</strong></td>
+<td>Data Holders will be expected to refresh their metadata cache upon recovery from any outage</td>
+</tr>
+</tbody></table>
+<h2 id='availability-questions'>Availability Questions</h2>
+<p>What current caching ages do you mandate for your security data?</p>
+
+<p><em>Feedback for this section can be lodged at:</em> <a href="https://github.com/cdr-register/register/issues/6">https://github.com/cdr-register/register/issues/6</a></p>
 <h1 id="consumer-data-right-cdr-register-discovery-api">Register Discovery API</h1>
 
 <aside>
@@ -2355,7 +2511,13 @@ Security requirements are subject to change as they are currently under internal
 </tr>
 </thead><tbody>
 <tr>
-<td>18/12/2018</td>
+<td>03/07/2019</td>
+<td>0.1.0</td>
+<td>Addition of Availability</td>
+<td>Outline of Participant Availability expectations</td>
+</tr>
+<tr>
+<td>30/06/2019</td>
 <td>0.1.0</td>
 <td>Addition of Client Registration</td>
 <td>Outline of Client Registration Process</td>
