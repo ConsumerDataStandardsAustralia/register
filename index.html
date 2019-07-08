@@ -259,6 +259,21 @@
                   <li>
                     <a href="#accredited-data-recipient" class="toc-h2 toc-link" data-title="Accredited Data Recipient">Accredited Data Recipient</a>
                   </li>
+                  <li>
+                    <a href="#ecosystem-component-diagram" class="toc-h2 toc-link" data-title="Ecosystem Component Diagram">Ecosystem Component Diagram</a>
+                  </li>
+                  <li>
+                    <a href="#data-holder-2" class="toc-h2 toc-link" data-title="Data Holder">Data Holder</a>
+                  </li>
+                  <li>
+                    <a href="#accredited-data-recipient-2" class="toc-h2 toc-link" data-title="Accredited Data Recipient">Accredited Data Recipient</a>
+                  </li>
+                  <li>
+                    <a href="#register" class="toc-h2 toc-link" data-title="Register">Register</a>
+                  </li>
+                  <li>
+                    <a href="#certificate-authority" class="toc-h2 toc-link" data-title="Certificate Authority">Certificate Authority</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -278,6 +293,17 @@
                   </li>
                   <li>
                     <a href="#client-registration-questions" class="toc-h2 toc-link" data-title="Client Registration Questions">Client Registration Questions</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#certificate-management" class="toc-h1 toc-link" data-title="Certificate Management">Certificate Management</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#issued-by-accc-ca" class="toc-h2 toc-link" data-title="Issued by ACCC CA">Issued by ACCC CA</a>
+                  </li>
+                  <li>
+                    <a href="#cdr-certificate-authority" class="toc-h2 toc-link" data-title="CDR Certificate Authority">CDR Certificate Authority</a>
                   </li>
               </ul>
           </li>
@@ -451,6 +477,89 @@ Depending on the number of responses/comments we get, we will assess what the mo
 <p>A person who holds designated CDR data and is required by the CDR rules to disclose product and consumer data.</p>
 <h3 id='accredited-data-recipient'>Accredited Data Recipient</h3>
 <p>A person that has been granted accreditation by the ACCC and is able to collect, and receives, CDR data about a CDR consumer from a data holder with the consent of the consumer.</p>
+<h2 id='ecosystem-component-diagram'>Ecosystem Component Diagram</h2>
+<p>The following is a high level overview of the CDR ecosystem outlining the components and API endpoints each participant within the ecosystem will be expected to implement.</p>
+
+<p><img src="images/ComponentDiagram.png" alt="Componentdiagram" /></p>
+<h2 id='data-holder-2'>Data Holder</h2>
+<table><thead>
+<tr>
+<th>Component</th>
+<th>Responsibility</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Consent Authorisation Manager</strong></td>
+<td>Provides authorisation functionality to the consumer where consent withdrawals can be propagated to the relevant Accredited Data Recipients</td>
+</tr>
+<tr>
+<td><strong>Secrets Manager</strong></td>
+<td>Provides key management for issuance/rotation of JWKs &amp; certificates. Storing of authorisations</td>
+</tr>
+<tr>
+<td><strong>Identity Provider</strong></td>
+<td>Provides identity services to the Data Holder’s platform for Accredited Data Recipients discovered in the CDR ecosystem</td>
+</tr>
+<tr>
+<td><strong>Standards Platform</strong></td>
+<td>Exposes banking consumer and product data to Accredited Data Recipients as per the Consumer Data Standards: <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis</a> <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis</a></td>
+</tr>
+<tr>
+<td><strong>MetaData Cache</strong></td>
+<td>Cache of discovered Data Holders within the CDR ecosystem. Caching rules and logic are described at: <br> <a href="#cache-refresh-metadata-request">Cache Refresh Metadata Request</a></td>
+</tr>
+<tr>
+<td><strong>MetaData Update &amp; Reporting</strong></td>
+<td>Provides functionality to facilitate Metadata Update requests from the ACCC as per the Consumer Data Standards <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#metadata-update">https://consumerdatastandardsaustralia.github.io/standards/#metadata-update</a></td>
+</tr>
+<tr>
+<td><strong>Authorisation Dashboard</strong></td>
+<td>The Dashboard provided to the consumer to view their current sharing authorisations with the Data Holder. The dashboard also provides the functionality to explicitly withdraw these authorisations with this Data Holder</td>
+</tr>
+</tbody></table>
+<h2 id='accredited-data-recipient-2'>Accredited Data Recipient</h2>
+<table><thead>
+<tr>
+<th>Component</th>
+<th>Responsibility</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Consent Manager</strong></td>
+<td>Provides consent functionality to the consumer where consent withdrawals can be propagated to the relevant Accredited Data Recipients</td>
+</tr>
+<tr>
+<td><strong>Secrets Manager</strong></td>
+<td>Provides key management for issuance/rotation of JWKs &amp; certificates. Storing of consents</td>
+</tr>
+<tr>
+<td><strong>Application Platform</strong></td>
+<td>Accredited Data Recipient’s application which consumes consumer and product data from Data Holders as per the Consumer Data Standards: <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis</a> <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis</a></td>
+</tr>
+<tr>
+<td><strong>MetaData Cache</strong></td>
+<td>Cache of discovered Data Holders within the CDR ecosystem. Caching rules and logic are described at: <br> <a href="#cache-refresh-metadata-request">Cache Refresh Metadata Request</a></td>
+</tr>
+<tr>
+<td><strong>MetaData Update</strong></td>
+<td>Provides functionality to facilitate Metadata Update requests from the ACCC as per the Consumer Data Standards <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#metadata-update">https://consumerdatastandardsaustralia.github.io/standards/#metadata-update</a></td>
+</tr>
+<tr>
+<td><strong>Consent Dashboard</strong></td>
+<td>The Dashboard provided to the consumer to view the consents given to this Accredited Data Recipient to collect and use CDR data. The Dashboard also provides the functionality to explicitly withdraw these consents with this Accredited Data Recipient</td>
+</tr>
+</tbody></table>
+<h2 id='register'>Register</h2>
+<p>Identifies when participants within the ecosystem change significantly and notified relevant Data Holders and Accredited Data Recipients of those changes via the MetaData Update call on the Admin API.
+Details on this process is outlined at:
+<a href="#cache-refresh-metadata-request">Cache Refresh Metadata Request</a></p>
+
+<p>The Register also exposes the Discovery API, allowing Data Holders and Accredited Data Recipients to discover the participants within the CDR ecosystem.
+Discovery API is defined at:
+<a href="#consumer-data-right-cdr-register-discovery-api">Register Discovery API</a></p>
+<h2 id='certificate-authority'>Certificate Authority</h2>
+<p>The CDR Register will be using DigiCert as the ACCC endorsed Certificate Authority. Further details on certificate management can be found at:
+<a href="#certificate-management">Certificate Management</a></p>
 <h1 id='client-registration'>Client Registration</h1><h2 id='accc-requirements'>ACCC Requirements</h2>
 <ol>
 <li> ACCC has full control of who participates in the ecosystem</li>
@@ -511,6 +620,57 @@ Cache refreshes may be requested in the following scenarios:</p>
 <p>(b)   obligations on Data Holders and Accredited Data Recipients to notify the ACCC of security incidents that may affect the security of the CDR ecosystem – including the way that those incidents should be reported and a practical timeframe for that occurring.</p>
 
 <p><em>Feedback for this section can be lodged at:</em> <a href="https://github.com/cdr-register/register/issues/5">https://github.com/cdr-register/register/issues/5</a></p>
+<h1 id='certificate-management'>Certificate Management</h1>
+<ul>
+<li><p>ACCC requires the ability to suspend or revoke the accreditation of a Data Recipient and thereby prevent the transfer of consumer data from a Data Holder to that Data Recipient</p></li>
+<li><p>ACCC requires consumers to be able to withdraw authorisation via their Data Holder</p></li>
+<li><p>ACCC required consumers to be able to withdraw consent via their Accredited Data Recipient</p></li>
+<li><p>ACCC requires consent withdrawal requests to still be serviced when an Accredited Data Recipient is in the suspended state.</p></li>
+</ul>
+
+<p>To satisfy these requirements, the ecosystem has been designed so consent and consumer data endpoints will be secured with separate certificates.</p>
+<h2 id='issued-by-accc-ca'>Issued by ACCC CA</h2><h3 id='data-holder'>Data Holder</h3>
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Server Base URI Certificate</strong></td>
+<td>Facilitates Mutually Authenticated TLS between ADR and DH for API access <br> Certificate is issued to a FQDN <br> Certificate is revocable</td>
+</tr>
+<tr>
+<td><strong>Server Consent Withdrawal URI Certificate</strong></td>
+<td>Facilitates Mutually Authenticated TLS between ADR and DH for consent withdrawal <br> Certificate is issued to a FQDN <br> Certificate is NOT revocable</td>
+</tr>
+<tr>
+<td><strong>Client Consent Withdrawal Certificate</strong></td>
+<td>Facilitates Mutually Authenticated TLS between DH to ADR consent withdrawal <br> Certificate is NOT revocable</td>
+</tr>
+</tbody></table>
+<h3 id='accredited-data-recipients'>Accredited Data Recipients</h3>
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Client Organisation Certificate</strong></td>
+<td>Facilitates Mutually Authenticated TLS between ADR and DH for API access <br> Facilitates Mutually Authenticated TLS between ADR and Register for API access <br> Certificate is revocable</td>
+</tr>
+<tr>
+<td><strong>Consent Withdrawal URI Certificate</strong></td>
+<td>Facilitates Mutually Authenticated TLS between DH to ADR for consent withdrawal <br> Certificate is issued to a FQDN <br> Certificate is NOT revocable</td>
+</tr>
+<tr>
+<td><strong>Client Consent Certificate</strong></td>
+<td>Facilitates Mutually Authenticated TLS between ADR and DH consent withdrawal <br> Certificate is NOT revocable</td>
+</tr>
+</tbody></table>
+<h2 id='cdr-certificate-authority'>CDR Certificate Authority</h2>
+<p>DigiCert will act as the certificate authority that issues and manages certificates to CDR participants as directed by the ACCC in its capacity as the CDR Registrar.</p>
 <h1 id='availability'>Availability</h1>
 <p>The following scenarios outline the expectations of Data Holders and Accredited Data Recipients within the Consumer Data Right ecosystem when outages occur. </p>
 <h2 id='cdr-register-unavailable'>CDR Register Unavailable</h2>
@@ -2511,15 +2671,27 @@ Security requirements are subject to change as they are currently under internal
 </tr>
 </thead><tbody>
 <tr>
+<td>08/07/2019</td>
+<td>0.1.0</td>
+<td>Update to Consumer Data Right Register Section</td>
+<td>Provided ecosystem component diagram with responsibilities of each participant</td>
+</tr>
+<tr>
+<td>08/07/2019</td>
+<td>0.1.0</td>
+<td>Addition of Certificate Management Section</td>
+<td>Outline of Participant Certificate Issuance and Management expectations</td>
+</tr>
+<tr>
 <td>03/07/2019</td>
 <td>0.1.0</td>
-<td>Addition of Availability</td>
+<td>Addition of Availability Section</td>
 <td>Outline of Participant Availability expectations</td>
 </tr>
 <tr>
 <td>30/06/2019</td>
 <td>0.1.0</td>
-<td>Addition of Client Registration</td>
+<td>Addition of Client Registration Section</td>
 <td>Outline of Client Registration Process</td>
 </tr>
 <tr>
