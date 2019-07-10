@@ -300,6 +300,9 @@
             <a href="#certificate-management" class="toc-h1 toc-link" data-title="Certificate Management">Certificate Management</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#accc-certificate-requirements" class="toc-h2 toc-link" data-title="ACCC Certificate Requirements">ACCC Certificate Requirements</a>
+                  </li>
+                  <li>
                     <a href="#issued-by-accc-ca" class="toc-h2 toc-link" data-title="Issued by ACCC CA">Issued by ACCC CA</a>
                   </li>
                   <li>
@@ -403,6 +406,7 @@
       </ul>
         <ul class="toc-footer">
             <li><a href='https://github.com/cdr-register/register'>CDR Register on Github</a></li>
+            <li><a href='https://consumerdatastandards.org.au'>Consumer Data Standards</a></li>
             <li><a href='includes/swagger/swagger.json'>Swagger (JSON)</a></li>
             <li><a href='includes/swagger/swagger.yaml'>Swagger (YAML)</a></li>
         </ul>
@@ -463,9 +467,7 @@ Depending on the number of responses/comments we get, we will assess what the mo
 
 <ul>
 <li>  Business and technical design principles</li>
-<li>  Security Profile and Certificate Management</li>
 <li>  Versioning</li>
-<li>  Register Availability</li>
 </ul>
 <h1 id='consumer-data-right-register'>Consumer Data Right Register</h1>
 <p>The ACCC will perform the role of the CDR Registrar. The CDR Registrar will have the function of maintaining the Register of Accredited Persons (the Register) who have been granted accreditation by the ACCC in its capacity as Data Recipient Accreditor. Accredited persons become accredited data recipients upon receipt of CDR data.</p>
@@ -566,7 +568,7 @@ Discovery API is defined at:
 <li> ACCC has control of access to the Register by CDR participants</li>
 </ol>
 
-<p>ACCC notes that UK Open Banking published the standard Open Banking Dynamic Client Registration v3.2.</p>
+<p>ACCC notes that UK Open Banking published the standard Open Banking Dynamic Client Registration.</p>
 
 <p>This standard allows for Accredited Data Recipients to dynamically register with Data Holders within the system.
 However, the CDR Register is designed using Static Client Registration to satisfy the above requirements</p>
@@ -620,7 +622,7 @@ Cache refreshes may be requested in the following scenarios:</p>
 <p>(b)   obligations on Data Holders and Accredited Data Recipients to notify the ACCC of security incidents that may affect the security of the CDR ecosystem – including the way that those incidents should be reported and a practical timeframe for that occurring.</p>
 
 <p><em>Feedback for this section can be lodged at:</em> <a href="https://github.com/cdr-register/register/issues/5">https://github.com/cdr-register/register/issues/5</a></p>
-<h1 id='certificate-management'>Certificate Management</h1>
+<h1 id='certificate-management'>Certificate Management</h1><h2 id='accc-certificate-requirements'>ACCC Certificate Requirements</h2>
 <ul>
 <li><p>ACCC requires the ability to suspend or revoke the accreditation of a Data Recipient and thereby prevent the transfer of consumer data from a Data Holder to that Data Recipient</p></li>
 <li><p>ACCC requires consumers to be able to withdraw authorisation via their Data Holder</p></li>
@@ -2670,6 +2672,12 @@ Security requirements are subject to change as they are currently under internal
 <th>Detail Of change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>09/07/2019</td>
+<td>0.1.0</td>
+<td>Update to Consumer Data Right Register Section</td>
+<td>Updated component diagram to reflect Identity Provider requirements for Data Recipients</td>
+</tr>
 <tr>
 <td>08/07/2019</td>
 <td>0.1.0</td>
