@@ -8,6 +8,7 @@ In addition, it would be appreciated if the following rules are adhered to when 
   
 *	For transparency, if you work at or are associated with an organisation with an interest in the Consumer Data Right, please indicate this in your response.
 *	Please ensure you are aware of and compliant with any social media guidelines or internal processes for response set by your organisation before providing feedback.
+* Feedback can also be submitted directly to the ACCC via email: CDRTeam@accc.gov.au
 
 The ACCC will be actively monitoring and reviewing any comments/responses which are provided, however will not be responding to individual comments. 
 Depending on the number of responses/comments we get, we will assess what the most efficient and effective way to engage with the community is, noting that we want this to be a collaborative effort.
