@@ -251,13 +251,7 @@
             <a href="#consumer-data-right-register" class="toc-h1 toc-link" data-title="Consumer Data Right Register">Consumer Data Right Register</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#cdr-consumer" class="toc-h2 toc-link" data-title="CDR consumer">CDR consumer</a>
-                  </li>
-                  <li>
-                    <a href="#data-holder" class="toc-h2 toc-link" data-title="Data Holder">Data Holder</a>
-                  </li>
-                  <li>
-                    <a href="#accredited-data-recipient" class="toc-h2 toc-link" data-title="Accredited Data Recipient">Accredited Data Recipient</a>
+                    <a href="#ecosystem-entities" class="toc-h2 toc-link" data-title="Ecosystem Entities">Ecosystem Entities</a>
                   </li>
                   <li>
                     <a href="#ecosystem-component-diagram" class="toc-h2 toc-link" data-title="Ecosystem Component Diagram">Ecosystem Component Diagram</a>
@@ -297,6 +291,23 @@
               </ul>
           </li>
           <li>
+            <a href="#participant-statuses" class="toc-h1 toc-link" data-title="Participant Statuses">Participant Statuses</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#adr-and-software-product-states" class="toc-h2 toc-link" data-title="ADR and Software Product States">ADR and Software Product States</a>
+                  </li>
+                  <li>
+                    <a href="#adr-status-changes" class="toc-h2 toc-link" data-title="ADR Status Changes">ADR Status Changes</a>
+                  </li>
+                  <li>
+                    <a href="#software-product-status-changes" class="toc-h2 toc-link" data-title="Software Product Status Changes">Software Product Status Changes</a>
+                  </li>
+                  <li>
+                    <a href="#data-holder-status-change" class="toc-h2 toc-link" data-title="Data Holder Status Change">Data Holder Status Change</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#certificate-management" class="toc-h1 toc-link" data-title="Certificate Management">Certificate Management</a>
               <ul class="toc-list-h2">
                   <li>
@@ -329,6 +340,9 @@
                     <a href="#availability-questions" class="toc-h2 toc-link" data-title="Availability Questions">Availability Questions</a>
                   </li>
               </ul>
+          </li>
+          <li>
+            <a href="#versioning" class="toc-h1 toc-link" data-title="Versioning">Versioning</a>
           </li>
           <li>
             <a href="#consumer-data-right-cdr-register-discovery-api" class="toc-h1 toc-link" data-title="Register Discovery API">Register Discovery API</a>
@@ -473,14 +487,15 @@ Depending on the number of responses/comments we get, we will assess what the mo
 <p>The ACCC will perform the role of the CDR Registrar. The CDR Registrar will have the function of maintaining the Register of Accredited Persons (the Register) who have been granted accreditation by the ACCC in its capacity as Data Recipient Accreditor. Accredited persons become accredited data recipients upon receipt of CDR data.</p>
 
 <p>The Register will also include information about data holders. Information about accredited data recipients and data holders recorded in the Register will be made available to the public in accordance with the CDR rules. Additional information held in the Register will be available to accredited data recipients and data holders.</p>
-<h3 id='cdr-consumer'>CDR consumer</h3>
+<h2 id='ecosystem-entities'>Ecosystem Entities</h2><h3 id='cdr-consumer'>CDR consumer</h3>
 <p>A consumer, as defined in the CDR rules, who is able to a make a request for disclosure of CDR data to themselves or to an accredited data recipient.</p>
 <h3 id='data-holder'>Data Holder</h3>
 <p>A person who holds designated CDR data and is required by the CDR rules to disclose product and consumer data.</p>
 <h3 id='accredited-data-recipient'>Accredited Data Recipient</h3>
 <p>A person that has been granted accreditation by the ACCC and is able to collect, and receives, CDR data about a CDR consumer from a data holder with the consent of the consumer.</p>
 <h2 id='ecosystem-component-diagram'>Ecosystem Component Diagram</h2>
-<p>The following is a high level overview of the CDR ecosystem outlining the components and API endpoints each participant within the ecosystem will be expected to implement.</p>
+<p>The following is a high level overview of the CDR ecosystem outlining the components and API endpoints each participant within the ecosystem will be expected to implement.
+Note that ADRs are expected to have one or more Software Applications consuming CDR data.</p>
 
 <p><img src="images/ComponentDiagram.png" alt="Componentdiagram" /></p>
 <h2 id='data-holder-2'>Data Holder</h2>
@@ -492,7 +507,7 @@ Depending on the number of responses/comments we get, we will assess what the mo
 </thead><tbody>
 <tr>
 <td><strong>Consent Authorisation Manager</strong></td>
-<td>Provides authorisation functionality to the consumer where consent withdrawals can be propagated to the relevant Accredited Data Recipients</td>
+<td>Provides authorisation functionality to the consumer including consent withdrawal propagation to the relevant Accredited Data Recipients</td>
 </tr>
 <tr>
 <td><strong>Secrets Manager</strong></td>
@@ -504,7 +519,7 @@ Depending on the number of responses/comments we get, we will assess what the mo
 </tr>
 <tr>
 <td><strong>Standards Platform</strong></td>
-<td>Exposes banking consumer and product data to Accredited Data Recipients as per the Consumer Data Standards: <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis</a> <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis</a></td>
+<td>Exposes banking, consumer and product data to Accredited Data Recipients as per the Consumer Data Standards: <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis</a> <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis</a></td>
 </tr>
 <tr>
 <td><strong>MetaData Cache</strong></td>
@@ -527,8 +542,16 @@ Depending on the number of responses/comments we get, we will assess what the mo
 </tr>
 </thead><tbody>
 <tr>
+<td><strong>Software Application(s)</strong></td>
+<td>One or more consumer facing applications provided by the Accredited Data Recipient</td>
+</tr>
+<tr>
+<td><strong>Application Platform</strong></td>
+<td>Accredited Data Recipient’s application which consumes consumer and product data from Data Holders as per the Consumer Data Standards: <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis</a> <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis</a></td>
+</tr>
+<tr>
 <td><strong>Consent Manager</strong></td>
-<td>Provides consent functionality to the consumer where consent withdrawals can be propagated to the relevant Accredited Data Recipients</td>
+<td>Provides consent functionality to the consumer including consent withdrawal propagation to the relevant Data Holder</td>
 </tr>
 <tr>
 <td><strong>Secrets Manager</strong></td>
@@ -537,10 +560,6 @@ Depending on the number of responses/comments we get, we will assess what the mo
 <tr>
 <td><strong>Identity Provider</strong></td>
 <td>Provides identity services to the Accredited Data Recipient’s platform for identifying Data Holders and the CDR Register</td>
-</tr>
-<tr>
-<td><strong>Application Platform</strong></td>
-<td>Accredited Data Recipient’s application which consumes consumer and product data from Data Holders as per the Consumer Data Standards: <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis</a> <br> <a href="https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis">https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-common-apis</a></td>
 </tr>
 <tr>
 <td><strong>MetaData Cache</strong></td>
@@ -556,7 +575,7 @@ Depending on the number of responses/comments we get, we will assess what the mo
 </tr>
 </tbody></table>
 <h2 id='register'>Register</h2>
-<p>Identifies when participants within the ecosystem change significantly and notified relevant Data Holders and Accredited Data Recipients of those changes via the MetaData Update call on the Admin API.
+<p>Identifies when participants within the ecosystem change significantly and notifies relevant Data Holders and Accredited Data Recipients of those changes via the MetaData Update call on the Admin API.
 Details on this process is outlined at:
 <a href="#cache-refresh-metadata-request">Cache Refresh Metadata Request</a></p>
 
@@ -600,20 +619,20 @@ Cache refreshes may be requested in the following scenarios:</p>
 <li> A new Data Holder becomes active</li>
 <li> A new Accredited Data Recipient becomes active</li>
 <li> A Data Holder has been removed from the CDR Register</li>
-<li> An Accredited Data Recipient has been suspended or revoked from the CDR Register </li>
+<li> An Accredited Data Recipient has been suspended, revoked or surrendered from the CDR Register</li>
 <li> Data Holder JWKS or endpoints have changed</li>
 <li> Accredited Data Recipient JWKS or endpoints have changed</li>
 </ol>
-<h3 id='data-holder-discovery-of-data-recipients'>Data Holder Discovery of Data Recipients</h3>
+<h3 id='data-holder-discovery-of-accredited-data-recipients'>Data Holder Discovery of Accredited Data Recipients</h3>
 <p><img src="images/DataHolderDiscovery.png" alt="Dataholderdiscovery" /></p>
 <h3 id='accredited-data-recipient-discovery-of-data-holders'>Accredited Data Recipient Discovery of Data Holders</h3>
 <p><img src="images/DataRecipientDiscovery.png" alt="Datarecipientdiscovery" /></p>
 <h2 id='incident-management'>Incident Management</h2>
-<p>Currently under the draft CDR rules, Data Holders within the CDR ecosystem will be able to refuse to disclose CDR data  in response to valid requests from Data Recipients:</p>
+<p>Currently under the draft CDR rules, Data Holders within the CDR ecosystem will be able to refuse to disclose CDR data  in response to valid requests from Accredited Data Recipients:</p>
 
-<p>(a) where the Data Holder has reasonable grounds to believe that disclosure would create a real risk of harm or abuse to an individual or adversely impact the security, integrity or stability of the Register or the IT systems of the Data Holder used to receive and response to CDR data requests. Reliance on this exemption is to be notified to the ACCC within 24 hours; or</p>
+<p><strong>(a)</strong> where the Data Holder has reasonable grounds to believe that disclosure would create a real risk of harm or abuse to an individual or adversely impact the security, integrity or stability of the Register or the IT systems of the Data Holder used to receive and response to CDR data requests. Reliance on this exemption is to be notified to the ACCC within 24 hours; or</p>
 
-<p>(b) in the circumstances set out in the standards</p>
+<p><strong>(b)</strong> in the circumstances set out in the standards</p>
 <h2 id='client-registration-questions'>Client Registration Questions</h2>
 <ul>
 <li><p>The ACCC seeks input from the financial community on what rules and timings organisations currently use when caching security data.</p></li>
@@ -626,6 +645,137 @@ Cache refreshes may be requested in the following scenarios:</p>
 <p>(b)   obligations on Data Holders and Accredited Data Recipients to notify the ACCC of security incidents that may affect the security of the CDR ecosystem – including the way that those incidents should be reported and a practical timeframe for that occurring.</p>
 
 <p><em>Feedback for this section can be lodged at:</em> <a href="https://github.com/cdr-register/register/issues/5">https://github.com/cdr-register/register/issues/5</a></p>
+<h1 id='participant-statuses'>Participant Statuses</h1><h2 id='adr-and-software-product-states'>ADR and Software Product States</h2>
+<p>The accreditation status of Accredited Data Recipients, and the status of their associated software products, may traverse through multiple states in the CDR as a result of decisions by the ACCC, in its capacity as Data Recipient Accreditor, or where an Accredited Data Recipient surrenders accreditation.</p>
+
+<p>Data Holders will have the responsibility to ensure that CDR data relating to consumers is disclosed to Accredited Data Recipients and to cease sharing data where the accreditation of a data recipient is</p>
+
+<ol>
+<li> Suspended or revoked by the ACCC</li>
+<li> Surrendered by the Data Recipient</li>
+</ol>
+
+<p>The Register will notify all Data Holders of the above changes in Accredited Data Recipient status as per the ACCC’s decisions.</p>
+
+<p><img class=medium-image src="images/AdrProductStateMachine.png" ></img></p>
+
+<table><thead>
+<tr>
+<th><strong>Accredited Data Recipient &amp; Software Product States</strong></th>
+<th><strong>Data Holder’s Responsibility</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Active</td>
+<td>Disclose CDR data in response to valid requests in accordance with the CDR rules and standards </br> Facilitate consent authorisation requests</td>
+</tr>
+<tr>
+<td>Suspended</td>
+<td>Cease disclosure of CDR data </br> Cease facilitating consent authorisation requests</td>
+</tr>
+<tr>
+<td>Revoked</td>
+<td>Cease disclosure of CDR data </br> Cease facilitating consent authorisation requests</td>
+</tr>
+<tr>
+<td>Surrendered</td>
+<td>Cease disclosure of CDR data </br> Cease facilitating consent authorisation requests</td>
+</tr>
+</tbody></table>
+<h2 id='adr-status-changes'>ADR Status Changes</h2><h3 id='checking-validity-of-data-recipient-and-associated-software-product'>Checking Validity of Data Recipient and associated Software Product</h3>
+<p><img src="images/DataRecipientValidityCheck.png" ></img></p>
+<h3 id='adr-active'>ADR Active</h3>
+<p>Once a Data Recipient has been granted accreditation by the ACCC (as Data Recipient Accreditor) and has completed the necessary steps to be added to the Register (as specified in the rules), the following actions and responsibilities are:</p>
+
+<ol>
+<li> The Registrar will issue the Accredited Data Recipient all required certificates</br></li>
+<li> The Accredited Data Recipient’s status will be set to ‘active’</br></li>
+<li> Data Holders will retrieve the new ADR record as part of their regular metadata cache refresh</br></li>
+<li> All Data Holders will be required to disclose data, in accordance with the CDR rules, with this new Accredited Data Recipient</br></li>
+</ol>
+<h3 id='adr-suspended'>ADR Suspended</h3>
+<p>Where the ACCC (as Data Recipient Accreditor) has made a decision to suspend the accreditation of an Accredited Data Recipient, and has notified the decision to the Registrar the following actions and responsibilities will arise:</p>
+
+<ol>
+<li> The Registrar will revoke the Accredited Data Recipient’s resource client certificates for all associated software products</li>
+<li> The Registrar will update the CDR Register to change the Accredited Data Recipient’s status to ‘suspended’</li>
+<li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
+<li> All Data Holders will prevent disclosure of CDR data  with the Accredited Data Recipient while it is in a suspended state</li>
+</ol>
+<h3 id='adr-reactivated'>ADR Reactivated</h3>
+<p>An Accredited Data Recipient can move from the suspended status back to the active status where a suspension expires or is revoked by the ACCC (as Data Recipient Accreditor). Once this has occurred, the following actions and responsibilities are:</p>
+
+<ol>
+<li> The Registrar will reissue the Accredited Data Recipient’s resource client certificates for all associated software products</li>
+<li> The Registrar will update the CDR Register to change the Accredited Data Recipient’s status to ‘active’</li>
+<li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
+<li> All Data Holders will disclose CDR data as required by the CDR rules with this Accredited Data Recipient</li>
+</ol>
+<h3 id='adr-revoked'>ADR Revoked</h3>
+<p>Where the ACCC (as Data Recipient Accreditor) has made a decision to revoke the accreditation of an Accredited Data Recipient, and has notified the decision to the Registrar, the following actions and responsibilities will arise:</p>
+
+<ol>
+<li> The Registrar will revoke Accredited Data Recipient’s resource client certificates for all associated software products</li>
+<li> The Registrar will update the CDR Register to change the Accredited Data Recipient’s status to ‘revoked’</li>
+<li> The CDR Register will initiate the cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
+<li> All Data Holders prevent disclosure of CDR data with this Accredited Data Recipient</li>
+</ol>
+<h3 id='adr-surrendered'>ADR Surrendered</h3>
+<p>Where an Accredited Data Recipient has surrendered their accreditation, and the Data Recipient Accreditor has notified the Registrar of the surrender, the following actions and responsibilities will arise:</p>
+
+<ol>
+<li> The Registrar will revoke Accredited Data Recipient’s resource client certificates for all associated software products</li>
+<li> The Registrar will update the CDR Register to change the Accredited Data Recipient’s status to ‘surrendered’</li>
+<li> The CDR Register will initiate the cache update process with all Data Holders within the CDR</li>
+<li> All Data Holders will prevent disclosure of CDR data with this Accredited Data Recipient</li>
+</ol>
+<h2 id='software-product-status-changes'>Software Product Status Changes</h2><h3 id='new-software-product'>New Software Product</h3>
+<p>Once an Accredited Data Recipient has completed the necessary steps to add a new software product to the Register, the following actions and responsibilities are:</p>
+
+<ol>
+<li> The Registrar will issue the Software Product’s resource client certificate</li>
+<li> The Software Product status will be set to ‘active’</li>
+<li> Data Holders will retrieve the new ADR record as part of their regular metadata cache refresh</li>
+<li> All Data Holders will be required to disclose data, in accordance with the CDR rules, with this new Accredited Data Recipient Software Product</li>
+</ol>
+<h3 id='software-product-suspended'>Software Product Suspended</h3>
+<p>Where the ACCC (as Data Recipient Accreditor) has made a decision to suspend the status of an Accredited Data Recipient’s Software Product, and has notified the decision to the Registrar the following actions and responsibilities will arise:</p>
+
+<ol>
+<li> The Registrar will revoke the Software Product’s resource client certificate</li>
+<li> The Registrar will update the CDR Register to change the Software Product’s status to ‘suspended’</li>
+<li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
+<li> All Data Holders will prevent disclosure of CDR data with the Accredited Data Recipient’s Software Product while it is in a suspended state</li>
+</ol>
+<h3 id='software-product-reactivated'>Software Product Reactivated</h3>
+<p>A Software Product can move from the suspended status back to the active status where a suspension expires or is revoked by the ACCC (as Data Recipient Accreditor). Once this has occurred, the following actions and responsibilities are:</p>
+
+<ol>
+<li> The Registrar will reissue the Software Product’s resource client certificate</li>
+<li> The Registrar will update the CDR Register to change the Software Product’s status to ‘active’</li>
+<li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
+<li> All Data Holders will disclose CDR data as required by the CDR rules with this Accredited Data Recipient’s Software Product</li>
+</ol>
+<h3 id='software-product-revoked'>Software Product Revoked</h3>
+<p>Where the ACCC (as Data Recipient Accreditor) has made a decision to revoke the status of an Accredited Data Recipient’s Software Product, and has notified the decision to the Registrar, the following actions and responsibilities will arise:</p>
+
+<ol>
+<li> The Registrar will revoke the Software Product’s resource client certificate</li>
+<li> The Registrar will update the CDR Register to change the Software Product’s status to ‘revoked’</li>
+<li> The CDR Register will initiate the cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
+<li> All Data Holders prevent disclosure of CDR data with this Accredited Data Recipient’s Software Product</li>
+</ol>
+<h3 id='software-product-surrendered'>Software Product Surrendered</h3>
+<p>Where an Accredited Data Recipient decommissions a Software Product, and the Data Recipient Accreditor has notified the Registrar of the decommissioning, the following actions and responsibilities will arise:</p>
+
+<ol>
+<li> The Registrar will revoke the Software Product’s resource client certificate</li>
+<li> The Registrar will update the CDR Register to change the Software Product’s status to ‘surrendered’</li>
+<li> The CDR Register will initiate the cache update process with all Data Holders within the CDR</li>
+<li> All Data Holders will prevent disclosure of CDR data with this Accredited Data Recipient’s Software Product</li>
+</ol>
+<h2 id='data-holder-status-change'>Data Holder Status Change</h2>
+<p>Rules regarding Data Holder off-boarding and revocation have not yet been provided. Updates to this design will be added once the rules have been defined.</p>
 <h1 id='certificate-management'>Certificate Management</h1><h2 id='accc-certificate-requirements'>ACCC Certificate Requirements</h2>
 <ul>
 <li><p>ACCC requires the ability to suspend or revoke the accreditation of a Data Recipient and thereby prevent the transfer of consumer data from a Data Holder to that Data Recipient</p></li>
@@ -811,6 +961,46 @@ Cache refreshes may be requested in the following scenarios:</p>
 <p>What current caching ages do you mandate for your security data?</p>
 
 <p><em>Feedback for this section can be lodged at:</em> <a href="https://github.com/cdr-register/register/issues/6">https://github.com/cdr-register/register/issues/6</a></p>
+<h1 id='versioning'>Versioning</h1>
+<p>ACCC will follow the versioning conventions outlined by the Data Standards Body. <br>
+Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versioning">https://consumerdatastandardsaustralia.github.io/standards/#versioning</a></p>
+
+<p>It is expected that management of standards for the Register will be incorporated into the remit of the Data Standards Body once mature. The initial version of the Register APIs will align with versions published for the Consumer Data Standards.</p>
+
+<p>A deprecation strategy will be developed in consultation with the Data Standards Body and industry.</p>
+
+<p>The following table illustrates concurrent versioning requirements to ensure backward compatibility. Q indicates a nominal three-month period.  When changes are made they are notified at the commencement of a quarter. </p>
+
+<table><thead>
+<tr>
+<th></th>
+<th><strong>Q1</strong></th>
+<th><strong>Q2</strong></th>
+<th><strong>Q3</strong></th>
+<th><strong>Q4</strong></th>
+<th><strong>Q5</strong></th>
+<th><strong>Q6</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Get Data Holders</strong></td>
+<td>V1.0.0</td>
+<td>V1.0.0 <br> V1.1.0</td>
+<td>V1.0.0 <br> V1.1.0</td>
+<td>V1.1.0 <br> V1.2.0</td>
+<td>V1.1.0 <br> V1.2.0</td>
+<td>V1.2.0</td>
+</tr>
+<tr>
+<td><strong>Get Data Recipients</strong></td>
+<td>V1.0.0</td>
+<td>V1.0.0</td>
+<td>V1.0.0 <br> V1.1.0</td>
+<td>V1.0.0 <br> V1.1.0</td>
+<td>V1.1.0 <br> V1.2.0</td>
+<td>V1.1.0 <br> V1.2.0</td>
+</tr>
+</tbody></table>
 <h1 id="consumer-data-right-cdr-register-discovery-api">Register Discovery API</h1>
 
 <aside>
@@ -2676,6 +2866,24 @@ Security requirements are subject to change as they are currently under internal
 <th>Detail Of change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>23/07/2019</td>
+<td>0.1.0</td>
+<td>Addition of Versioning</td>
+<td>Outline of Versioning strategy noting that industry collaboration is required for deprecation strategy</td>
+</tr>
+<tr>
+<td>23/07/2019</td>
+<td>0.1.0</td>
+<td>Addition of Participant Statuses</td>
+<td>Outline of Participant Statuses and expectations on participants within the ecosystem</td>
+</tr>
+<tr>
+<td>23/07/2019</td>
+<td>0.1.0</td>
+<td>Update to Consumer Data Right Register Section</td>
+<td>Updated component diagram to reflect software product relationship for Data Recipients</td>
+</tr>
 <tr>
 <td>09/07/2019</td>
 <td>0.1.0</td>
