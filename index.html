@@ -297,7 +297,7 @@
                     <a href="#adr-and-software-product-states" class="toc-h2 toc-link" data-title="ADR and Software Product States">ADR and Software Product States</a>
                   </li>
                   <li>
-                    <a href="#adr-status-changes" class="toc-h2 toc-link" data-title="ADR Status Changes">ADR Status Changes</a>
+                    <a href="#adr-software-product-status-changes" class="toc-h2 toc-link" data-title="ADR Software Product Status Changes">ADR Software Product Status Changes</a>
                   </li>
                   <li>
                     <a href="#software-product-status-changes" class="toc-h2 toc-link" data-title="Software Product Status Changes">Software Product Status Changes</a>
@@ -308,16 +308,10 @@
               </ul>
           </li>
           <li>
-            <a href="#certificate-management" class="toc-h1 toc-link" data-title="Certificate Management">Certificate Management</a>
+            <a href="#endpoints" class="toc-h1 toc-link" data-title="Endpoints">Endpoints</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#accc-certificate-requirements" class="toc-h2 toc-link" data-title="ACCC Certificate Requirements">ACCC Certificate Requirements</a>
-                  </li>
-                  <li>
-                    <a href="#issued-by-accc-ca" class="toc-h2 toc-link" data-title="Issued by ACCC CA">Issued by ACCC CA</a>
-                  </li>
-                  <li>
-                    <a href="#cdr-certificate-authority" class="toc-h2 toc-link" data-title="CDR Certificate Authority">CDR Certificate Authority</a>
+                    <a href="#certificate-management" class="toc-h2 toc-link" data-title="Certificate Management">Certificate Management</a>
                   </li>
               </ul>
           </li>
@@ -348,10 +342,10 @@
             <a href="#consumer-data-right-cdr-register-discovery-api" class="toc-h1 toc-link" data-title="Register Discovery API">Register Discovery API</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-data-holders" class="toc-h2 toc-link" data-title="Get Data Holders">Get Data Holders</a>
+                    <a href="#get-register-data-holders-with-metadata" class="toc-h2 toc-link" data-title="Get Register Data Holders with metadata">Get Register Data Holders with metadata</a>
                   </li>
                   <li>
-                    <a href="#get-accredited-data-recipients" class="toc-h2 toc-link" data-title="Get Accredited Data Recipients">Get Accredited Data Recipients</a>
+                    <a href="#get-accredited-data-recipients-with-metadata" class="toc-h2 toc-link" data-title="Get Accredited Data Recipients with metadata">Get Accredited Data Recipients with metadata</a>
                   </li>
               </ul>
           </li>
@@ -682,54 +676,9 @@ Cache refreshes may be requested in the following scenarios:</p>
 <td>Cease disclosure of CDR data </br> Cease facilitating consent authorisation requests</td>
 </tr>
 </tbody></table>
-<h2 id='adr-status-changes'>ADR Status Changes</h2><h3 id='checking-validity-of-data-recipient-and-associated-software-product'>Checking Validity of Data Recipient and associated Software Product</h3>
+<h2 id='adr-software-product-status-changes'>ADR Software Product Status Changes</h2><h3 id='checking-validity-of-data-recipient-and-associated-software-product'>Checking Validity of Data Recipient and associated Software Product</h3>
 <p><img src="images/DataRecipientValidityCheck.png" ></img></p>
-<h3 id='adr-active'>ADR Active</h3>
-<p>Once a Data Recipient has been granted accreditation by the ACCC (as Data Recipient Accreditor) and has completed the necessary steps to be added to the Register (as specified in the rules), the following actions and responsibilities are:</p>
-
-<ol>
-<li> The Registrar will issue the Accredited Data Recipient all required certificates</br></li>
-<li> The Accredited Data Recipient’s status will be set to ‘active’</br></li>
-<li> Data Holders will retrieve the new ADR record as part of their regular metadata cache refresh</br></li>
-<li> All Data Holders will be required to disclose data, in accordance with the CDR rules, with this new Accredited Data Recipient</br></li>
-</ol>
-<h3 id='adr-suspended'>ADR Suspended</h3>
-<p>Where the ACCC (as Data Recipient Accreditor) has made a decision to suspend the accreditation of an Accredited Data Recipient, and has notified the decision to the Registrar the following actions and responsibilities will arise:</p>
-
-<ol>
-<li> The Registrar will revoke the Accredited Data Recipient’s resource client certificates for all associated software products</li>
-<li> The Registrar will update the CDR Register to change the Accredited Data Recipient’s status to ‘suspended’</li>
-<li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
-<li> All Data Holders will prevent disclosure of CDR data  with the Accredited Data Recipient while it is in a suspended state</li>
-</ol>
-<h3 id='adr-reactivated'>ADR Reactivated</h3>
-<p>An Accredited Data Recipient can move from the suspended status back to the active status where a suspension expires or is revoked by the ACCC (as Data Recipient Accreditor). Once this has occurred, the following actions and responsibilities are:</p>
-
-<ol>
-<li> The Registrar will reissue the Accredited Data Recipient’s resource client certificates for all associated software products</li>
-<li> The Registrar will update the CDR Register to change the Accredited Data Recipient’s status to ‘active’</li>
-<li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
-<li> All Data Holders will disclose CDR data as required by the CDR rules with this Accredited Data Recipient</li>
-</ol>
-<h3 id='adr-revoked'>ADR Revoked</h3>
-<p>Where the ACCC (as Data Recipient Accreditor) has made a decision to revoke the accreditation of an Accredited Data Recipient, and has notified the decision to the Registrar, the following actions and responsibilities will arise:</p>
-
-<ol>
-<li> The Registrar will revoke Accredited Data Recipient’s resource client certificates for all associated software products</li>
-<li> The Registrar will update the CDR Register to change the Accredited Data Recipient’s status to ‘revoked’</li>
-<li> The CDR Register will initiate the cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
-<li> All Data Holders prevent disclosure of CDR data with this Accredited Data Recipient</li>
-</ol>
-<h3 id='adr-surrendered'>ADR Surrendered</h3>
-<p>Where an Accredited Data Recipient has surrendered their accreditation, and the Data Recipient Accreditor has notified the Registrar of the surrender, the following actions and responsibilities will arise:</p>
-
-<ol>
-<li> The Registrar will revoke Accredited Data Recipient’s resource client certificates for all associated software products</li>
-<li> The Registrar will update the CDR Register to change the Accredited Data Recipient’s status to ‘surrendered’</li>
-<li> The CDR Register will initiate the cache update process with all Data Holders within the CDR</li>
-<li> All Data Holders will prevent disclosure of CDR data with this Accredited Data Recipient</li>
-</ol>
-<h2 id='software-product-status-changes'>Software Product Status Changes</h2><h3 id='new-software-product'>New Software Product</h3>
+<h2 id='software-product-status-changes'>Software Product Status Changes</h2><h3 id='new-adr-software-product-active'>New ADR Software Product Active</h3>
 <p>Once an Accredited Data Recipient has completed the necessary steps to add a new software product to the Register, the following actions and responsibilities are:</p>
 
 <ol>
@@ -738,7 +687,7 @@ Cache refreshes may be requested in the following scenarios:</p>
 <li> Data Holders will retrieve the new ADR record as part of their regular metadata cache refresh</li>
 <li> All Data Holders will be required to disclose data, in accordance with the CDR rules, with this new Accredited Data Recipient Software Product</li>
 </ol>
-<h3 id='software-product-suspended'>Software Product Suspended</h3>
+<h3 id='adr-software-product-suspended'>ADR Software Product Suspended</h3>
 <p>Where the ACCC (as Data Recipient Accreditor) has made a decision to suspend the status of an Accredited Data Recipient’s Software Product, and has notified the decision to the Registrar the following actions and responsibilities will arise:</p>
 
 <ol>
@@ -747,7 +696,7 @@ Cache refreshes may be requested in the following scenarios:</p>
 <li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
 <li> All Data Holders will prevent disclosure of CDR data with the Accredited Data Recipient’s Software Product while it is in a suspended state</li>
 </ol>
-<h3 id='software-product-reactivated'>Software Product Reactivated</h3>
+<h3 id='adr-software-product-reactivated'>ADR Software Product Reactivated</h3>
 <p>A Software Product can move from the suspended status back to the active status where a suspension expires or is revoked by the ACCC (as Data Recipient Accreditor). Once this has occurred, the following actions and responsibilities are:</p>
 
 <ol>
@@ -756,7 +705,7 @@ Cache refreshes may be requested in the following scenarios:</p>
 <li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
 <li> All Data Holders will disclose CDR data as required by the CDR rules with this Accredited Data Recipient’s Software Product</li>
 </ol>
-<h3 id='software-product-revoked'>Software Product Revoked</h3>
+<h3 id='adr-software-product-revoked'>ADR Software Product Revoked</h3>
 <p>Where the ACCC (as Data Recipient Accreditor) has made a decision to revoke the status of an Accredited Data Recipient’s Software Product, and has notified the decision to the Registrar, the following actions and responsibilities will arise:</p>
 
 <ol>
@@ -765,7 +714,7 @@ Cache refreshes may be requested in the following scenarios:</p>
 <li> The CDR Register will initiate the cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
 <li> All Data Holders prevent disclosure of CDR data with this Accredited Data Recipient’s Software Product</li>
 </ol>
-<h3 id='software-product-surrendered'>Software Product Surrendered</h3>
+<h3 id='adr-software-product-surrendered'>ADR Software Product Surrendered</h3>
 <p>Where an Accredited Data Recipient decommissions a Software Product, and the Data Recipient Accreditor has notified the Registrar of the decommissioning, the following actions and responsibilities will arise:</p>
 
 <ol>
@@ -776,7 +725,49 @@ Cache refreshes may be requested in the following scenarios:</p>
 </ol>
 <h2 id='data-holder-status-change'>Data Holder Status Change</h2>
 <p>Rules regarding Data Holder off-boarding and revocation have not yet been provided. Updates to this design will be added once the rules have been defined.</p>
-<h1 id='certificate-management'>Certificate Management</h1><h2 id='accc-certificate-requirements'>ACCC Certificate Requirements</h2>
+<h1 id='endpoints'>Endpoints</h1>
+<p>Participants will be required to register base URIs to group the implementation of the Consumer Data Standards</p>
+
+<table><thead>
+<tr>
+<th>Base URI</th>
+<th>DH</th>
+<th>ADR</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>PublicBaseUri</strong></td>
+<td><i class="icon-check"></i></td>
+<td></td>
+<td>Base URI for the Consumer Data Standard public endpoints. This should encompass all endpoints not requiring authentication</td>
+</tr>
+<tr>
+<td><strong>ResourceBaseUri</strong></td>
+<td><i class="icon-check"></i></td>
+<td></td>
+<td>Base URI for the Consumer Data Standard resource endpoints. This should encompass all CDS resource endpoints requiring authentication</td>
+</tr>
+<tr>
+<td><strong>InfoSecBaseUri</strong></td>
+<td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
+<td>Base URI for the Consumer Data Standard InfoSec endpoints. This should encompass all authentication and authorisation related endpoints <br> This BaseURI must sit on a different domain to the ResourceBaseUri</td>
+</tr>
+<tr>
+<td><strong>AdminBaseUri</strong></td>
+<td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
+<td>Base URI for the Consumer Data Standard admin endpoints called by the CDR Register</td>
+</tr>
+<tr>
+<td><strong>ExtensionBaseUri</strong></td>
+<td><i class="icon-check"></i></td>
+<td></td>
+<td>Base URI for the Data Holder extension endpoints to the Consumer Data Standard (optional)</td>
+</tr>
+</tbody></table>
+<h2 id='certificate-management'>Certificate Management</h2><h3 id='accc-certificate-requirements'>ACCC Certificate Requirements</h3>
 <ul>
 <li><p>ACCC requires the ability to suspend or revoke the accreditation of a Data Recipient and thereby prevent the transfer of consumer data from a Data Holder to that Data Recipient</p></li>
 <li><p>ACCC requires consumers to be able to withdraw authorisation via their Data Holder</p></li>
@@ -785,47 +776,41 @@ Cache refreshes may be requested in the following scenarios:</p>
 </ul>
 
 <p>To satisfy these requirements, the ecosystem has been designed so consent and consumer data endpoints will be secured with separate certificates.</p>
-<h2 id='issued-by-accc-ca'>Issued by ACCC CA</h2><h3 id='data-holder'>Data Holder</h3>
+<h3 id='issued-by-accc-ca'>Issued by ACCC CA</h3>
 <table><thead>
 <tr>
-<th></th>
-<th></th>
+<th>Certificate</th>
+<th>DH</th>
+<th>ADR</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>Server Base URI Certificate</strong></td>
-<td>Facilitates Mutually Authenticated TLS between ADR and DH for API access <br> Certificate is issued to a FQDN <br> Certificate is revocable</td>
+<td><strong>Resource Server Certificate</strong></td>
+<td><i class="icon-check"></i></td>
+<td></td>
+<td>- Facilitates Mutually Authenticated TLS between ADR and DH for API access <br> - Certificate is issued to a FQDN <br> - Certificate is revocable</td>
 </tr>
 <tr>
-<td><strong>Server Consent Withdrawal URI Certificate</strong></td>
-<td>Facilitates Mutually Authenticated TLS between ADR and DH for consent withdrawal <br> Certificate is issued to a FQDN <br> Certificate is NOT revocable</td>
+<td><strong>Resource Client Certificate</strong></td>
+<td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
+<td>- Facilitates Mutually Authenticated TLS between ADR and DH for API access <br> - Facilitates Mutually Authenticated TLS between DH/ADR and CDR Register for API access <br> - Certificate is revocable</td>
 </tr>
 <tr>
-<td><strong>Client Consent Withdrawal Certificate</strong></td>
-<td>Facilitates Mutually Authenticated TLS between DH to ADR consent withdrawal <br> Certificate is NOT revocable</td>
+<td><strong>InfoSec Server Certificate</strong></td>
+<td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
+<td>- Facilitates Transport Security on InfoSec Endpoints <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">https://consumerdatastandardsaustralia.github.io/standards/#end-points</a><br> - Certificate is issued to a FQDN <br> - Certificate is NOT revocable</td>
+</tr>
+<tr>
+<td><strong>InfoSec Client Certificate</strong></td>
+<td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
+<td>- Facilitates Mutually Authenticated TLS between DH and ADR for consent <br> - Certificate is NOT revocable</td>
 </tr>
 </tbody></table>
-<h3 id='accredited-data-recipients'>Accredited Data Recipients</h3>
-<table><thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead><tbody>
-<tr>
-<td><strong>Client Organisation Certificate</strong></td>
-<td>Facilitates Mutually Authenticated TLS between ADR and DH for API access <br> Facilitates Mutually Authenticated TLS between ADR and Register for API access <br> Certificate is revocable</td>
-</tr>
-<tr>
-<td><strong>Consent Withdrawal URI Certificate</strong></td>
-<td>Facilitates Mutually Authenticated TLS between DH to ADR for consent withdrawal <br> Certificate is issued to a FQDN <br> Certificate is NOT revocable</td>
-</tr>
-<tr>
-<td><strong>Client Consent Certificate</strong></td>
-<td>Facilitates Mutually Authenticated TLS between ADR and DH consent withdrawal <br> Certificate is NOT revocable</td>
-</tr>
-</tbody></table>
-<h2 id='cdr-certificate-authority'>CDR Certificate Authority</h2>
+<h3 id='cdr-certificate-authority'>CDR Certificate Authority</h3>
 <p>DigiCert will act as the certificate authority that issues and manages certificates to CDR participants as directed by the ACCC in its capacity as the CDR Registrar.</p>
 <h1 id='availability'>Availability</h1>
 <p>The following scenarios outline the expectations of Data Holders and Accredited Data Recipients within the Consumer Data Right ecosystem when outages occur. </p>
@@ -1010,11 +995,11 @@ The Register Discovery API is currently in draft and subject to change.
 <p>Base URLs:</p>
 
 <ul>
-<li><a href="https://api.discovery.cdr.gov.au/cdr-register/v1">https://api.discovery.cdr.gov.au/cdr-register/v1</a></li>
+<li><a href="https://api.discovery.cdr.gov.au/cds-register/v1">https://api.discovery.cdr.gov.au/cds-register/v1</a></li>
 </ul>
 
 <p>Operations related to the Register Discovery API</p>
-<h2 id='get-data-holders'>Get Data Holders</h2>
+<h2 id='get-register-data-holders-with-metadata'>Get Register Data Holders with metadata</h2>
 <p><a id="opIdgetRegisterDataHolders"></a></p>
 
 <blockquote>
@@ -1026,7 +1011,7 @@ Accept: application/json
 </code></pre>
 <p><code>GET /register/holders</code></p>
 
-<p>Get Data Holders with metadata</p>
+<p>Get Register Data Holders with metadata</p>
 
 <h3 id="get-register-data-holders-with-metadata-parameters">Parameters</h3>
 
@@ -1070,29 +1055,23 @@ Accept: application/json
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"shortName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"legalName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUS"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"industryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"organisationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SOLE_TRADER"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="s2">"string"</span><span class="w">
           </span><span class="p">]</span><span class="w">
@@ -1101,38 +1080,36 @@ Accept: application/json
       </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"cdrBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"cdrMetricsUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"resourceBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"termsofServiceUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"supportUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"policyUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+            </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"string"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
           </span><span class="p">},</span><span class="w">
           </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="p">{</span><span class="w">
               </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"oAuthAuthorisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"tokenisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"introspectionUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"userInfoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"revocationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+              </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
             </span><span class="p">}</span><span class="w">
           </span><span class="p">]</span><span class="w">
         </span><span class="p">}</span><span class="w">
-      </span><span class="p">]</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1181,7 +1158,7 @@ Accept: application/json
 <aside class="warning">
 Authentication requirements for this operation will be published in a future iteration
 </aside>
-<h2 id='get-accredited-data-recipients'>Get Accredited Data Recipients</h2>
+<h2 id='get-accredited-data-recipients-with-metadata'>Get Accredited Data Recipients with metadata</h2>
 <p><a id="opIdgetRegisterDataRecipients"></a></p>
 
 <blockquote>
@@ -1237,29 +1214,26 @@ Accept: application/json
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
+        </span><span class="s2">"accreditationDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"shortName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"legalName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUS"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"industryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"organisationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SOLE_TRADER"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="s2">"string"</span><span class="w">
           </span><span class="p">]</span><span class="w">
@@ -1267,35 +1241,33 @@ Accept: application/json
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"productAccreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="p">{</span><span class="w">
               </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+              </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
             </span><span class="p">}</span><span class="w">
           </span><span class="p">],</span><span class="w">
           </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"jwk"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-              </span><span class="p">{</span><span class="w">
-                </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
-              </span><span class="p">}</span><span class="w">
-            </span><span class="p">]</span><span class="w">
+            </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"string"</span><span class="w">
+              </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
           </span><span class="p">}</span><span class="w">
         </span><span class="p">}</span><span class="w">
-      </span><span class="p">]</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1351,29 +1323,23 @@ Authentication requirements for this operation will be published in a future ite
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"shortName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"legalName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUS"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"industryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"organisationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SOLE_TRADER"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="s2">"string"</span><span class="w">
           </span><span class="p">]</span><span class="w">
@@ -1382,38 +1348,36 @@ Authentication requirements for this operation will be published in a future ite
       </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"cdrBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"cdrMetricsUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"resourceBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"termsofServiceUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"supportUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"policyUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+            </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"string"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
           </span><span class="p">},</span><span class="w">
           </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="p">{</span><span class="w">
               </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"oAuthAuthorisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"tokenisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"introspectionUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"userInfoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"revocationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+              </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
             </span><span class="p">}</span><span class="w">
           </span><span class="p">]</span><span class="w">
         </span><span class="p">}</span><span class="w">
-      </span><span class="p">]</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1468,29 +1432,23 @@ Authentication requirements for this operation will be published in a future ite
 
 <p><a id="schemaregisterdataholder"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"shortName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"legalName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUS"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"industryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"organisationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SOLE_TRADER"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="s2">"string"</span><span class="w">
       </span><span class="p">]</span><span class="w">
@@ -1499,38 +1457,36 @@ Authentication requirements for this operation will be published in a future ite
   </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"cdrBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"cdrMetricsUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"resourceBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"termsofServiceUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"supportUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"policyUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+        </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"oAuthAuthorisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"tokenisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"introspectionUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"userInfoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"revocationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
@@ -1546,32 +1502,62 @@ Authentication requirements for this operation will be published in a future ite
 </tr>
 </thead><tbody>
 <tr>
-<td>accreditation</td>
-<td><a href="#schemaregisteraccreditation">RegisterAccreditation</a></td>
-<td>false</td>
+<td>id</td>
+<td>string</td>
+<td>true</td>
 <td>none</td>
-<td>Accreditation information of Data Recipient as per ACCC register</td>
+<td>Unique Register identifier</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Registration status of the Data Holder</td>
 </tr>
 <tr>
 <td>participant</td>
 <td><a href="#schemaregisterparticipant">RegisterParticipant</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>Represents a single participant of either Data Holder or Data Recipient within the Register</td>
+<td>Represents a single participant (Data Holder / Data Recipient) within the Register</td>
 </tr>
 <tr>
 <td>endpointDetail</td>
 <td>[<a href="#schemaregisterdataholderserviceendpoint">RegisterDataHolderServiceEndpoint</a>]</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>Current List of Accredited Endpoint URLs</td>
+<td>List of Endpoints</td>
 </tr>
 <tr>
 <td>authDetail</td>
 <td>[<a href="#schemaregisterdataholderauth">RegisterDataHolderAuth</a>]</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>List of authorisation methods for Data Holders</td>
+</tr>
+<tr>
+<td>lastUpdated</td>
+<td>string(date-time)</td>
+<td>true</td>
+<td>none</td>
+<td>The date/time that the Data Holder data was last updated in the Register</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>ACTIVE</td>
+</tr>
+<tr>
+<td>status</td>
+<td>INACTIVE</td>
 </tr>
 </tbody></table>
 
@@ -1671,12 +1657,8 @@ Authentication requirements for this operation will be published in a future ite
 
 <p><a id="schemaregisteraccreditation"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
+  </span><span class="s2">"accreditationDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
@@ -1692,59 +1674,27 @@ Authentication requirements for this operation will be published in a future ite
 </tr>
 </thead><tbody>
 <tr>
-<td>reference</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>The unique identifier that will allow users to communicate about which approved participant they are referring to</td>
-</tr>
-<tr>
-<td>accreditationDate</td>
+<td>accreditationDateTime</td>
 <td>string(date-time)</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>The date/time that the participant was made active on the Register</td>
 </tr>
 <tr>
-<td>sector</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>The sector that the registration pertains to (e.g. Banking)</td>
-</tr>
-<tr>
 <td>accreditationStatus</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>The current accreditation status on the register. This reflects the life cycle of participation in the CDR</td>
 </tr>
-<tr>
-<td>suspensionStartDate</td>
-<td>string(date-time)</td>
-<td>false</td>
-<td>none</td>
-<td>The date the current suspension commences</td>
-</tr>
-<tr>
-<td>suspensionEndDate</td>
-<td>string(date-time)</td>
-<td>false</td>
-<td>none</td>
-<td>The date the current suspension will end</td>
-</tr>
 </tbody></table>
-<h3 id='enumerated-values'>Enumerated Values</h3>
+<h4 id='enumerated-values-2'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
 <th>Value</th>
 </tr>
 </thead><tbody>
-<tr>
-<td>sector</td>
-<td>BANKING</td>
-</tr>
 <tr>
 <td>accreditationStatus</td>
 <td>ACTIVE</td>
@@ -1767,20 +1717,20 @@ Authentication requirements for this operation will be published in a future ite
 
 <p><a id="schemaregisterparticipant"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"shortName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"legalName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUS"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"industryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"organisationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SOLE_TRADER"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">]</span><span class="w">
@@ -1788,7 +1738,7 @@ Authentication requirements for this operation will be published in a future ite
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
-<p><em>Represents a single participant of either Data Holder or Data Recipient within the Register</em></p>
+<p><em>Represents a single participant (Data Holder / Data Recipient) within the Register</em></p>
 <h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
@@ -1800,35 +1750,42 @@ Authentication requirements for this operation will be published in a future ite
 </tr>
 </thead><tbody>
 <tr>
-<td>name</td>
+<td>displayName</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>Name of the organisation ( Data Holder / Data Recipient )</td>
+<td>Display full name of the participant</td>
 </tr>
 <tr>
-<td>participantId</td>
+<td>shortName</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>Unique Registry identifier of participant</td>
+<td>Display short name of the participant</td>
 </tr>
 <tr>
 <td>participantType</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>none</td>
 </tr>
 <tr>
+<td>sector</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The sector that the registration pertains to (e.g. Banking)</td>
+</tr>
+<tr>
 <td>organisation</td>
 <td><a href="#schemacommonorganisationdetail">CommonOrganisationDetail</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>The data that is common to all organisations, regardless of the type (e.g. company, trust, partnership, government)</td>
 </tr>
 </tbody></table>
-<h3 id='enumerated-values-2'>Enumerated Values</h3>
+<h4 id='enumerated-values-3'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -1843,6 +1800,10 @@ Authentication requirements for this operation will be published in a future ite
 <td>participantType</td>
 <td>RECIPIENT</td>
 </tr>
+<tr>
+<td>sector</td>
+<td>BANKING</td>
+</tr>
 </tbody></table>
 
 <h2 id="tocSregisterdataholderauth">RegisterDataHolderAuth</h2>
@@ -1855,19 +1816,14 @@ Security requirements are subject to change as they are currently under internal
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+    </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"oAuthAuthorisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"tokenisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"introspectionUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"userInfoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"revocationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1887,21 +1843,21 @@ Security requirements are subject to change as they are currently under internal
 <tr>
 <td>registerUType</td>
 <td><a href="#schemaregisterauthtype">RegisterAuthType</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>The type of authentication and authorisation in use</td>
 </tr>
 <tr>
 <td>jwks</td>
 <td><a href="#schemaregisterjwk">RegisterJWK</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>none</td>
 </tr>
 <tr>
 <td>hybridFlow</td>
 <td>[<a href="#schemaregisterdataholderauthhybridflow">RegisterDataHolderAuthHybridFlow</a>]</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>Detail for Hybrid flow for DSB standard version</td>
 </tr>
@@ -1909,19 +1865,10 @@ Security requirements are subject to change as they are currently under internal
 
 <h2 id="tocSregisterdataholderauthhybridflow">RegisterDataHolderAuthHybridFlow</h2>
 
-<aside class="warning">
-Security requirements are subject to change as they are currently under internal review
-</aside>
-
 <p><a id="schemaregisterdataholderauthhybridflow"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"oAuthAuthorisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"tokenisationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"redirectUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"introspectionUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"userInfoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"revocationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
@@ -1939,51 +1886,16 @@ Security requirements are subject to change as they are currently under internal
 <tr>
 <td>version</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>ACCC Data Standard Version</td>
+<td>Consumer Data Standard Version</td>
 </tr>
 <tr>
-<td>oAuthAuthorisationUrl</td>
+<td>redirectUri</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>InfoSec Profile still in development</td>
-</tr>
-<tr>
-<td>tokenisationUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>This is the endpoint for the Data Recipient to get the oAuth Token</td>
-</tr>
-<tr>
-<td>redirectUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>This is the endpoint for the Data Recipient to redirect to the Data Holders website for the consumer to authorise the Data Recipient</td>
-</tr>
-<tr>
-<td>introspectionUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>The  Introspection Endpoint is to allow Data Recipients to determine the status and expiry date of Refresh Tokens</td>
-</tr>
-<tr>
-<td>userInfoUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>The UserInfo Endpoint is an oAuth 2.0 Protected Resource that returns Claims about the authenticated Data Recipients</td>
-</tr>
-<tr>
-<td>revocationUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>The Revocation Endpoint serves as a revocation mechanism that allows the Data Recipient to invalidate its token as required to allow for token clean up</td>
+<td>The endpoint for the Data Recipient to redirect to the Data Holder&#39;s website for the consumer to authorise the Data Recipient</td>
 </tr>
 </tbody></table>
 
@@ -2016,7 +1928,7 @@ Security requirements are subject to change as they are currently under internal
 <td>The type of authentication and authorisation in use</td>
 </tr>
 </tbody></table>
-<h3 id='enumerated-values-3'>Enumerated Values</h3>
+<h4 id='enumerated-values-4'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2034,15 +1946,17 @@ Security requirements are subject to change as they are currently under internal
 <p><a id="schemaregisterdataholderserviceendpoint"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cdrBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cdrMetricsUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"resourceBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"termsofServiceUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supportUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"policyUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
@@ -2060,86 +1974,96 @@ Security requirements are subject to change as they are currently under internal
 <tr>
 <td>version</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>ACCC Data Standard Version</td>
+<td>Consumer Data Standard Version</td>
 </tr>
 <tr>
-<td>cdrBaseUri</td>
+<td>publicBaseUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Base URI for the Consumer Data Standard public endpoints</td>
+</tr>
+<tr>
+<td>resourceBaseUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Base URI for the Consumer Data Standard resource endpoints</td>
+</tr>
+<tr>
+<td>infosecBaseUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Base URI for the Consumer Data Standard infosec endpoints</td>
+</tr>
+<tr>
+<td>adminBaseUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Base URI for the Consumer Data Standard admin endpoints</td>
+</tr>
+<tr>
+<td>extensionBaseUri</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>Base URI for the Consumer Data Standrd API&#39;s published by the Data Holder</td>
+<td>Base URI for the Data Holder extension endpoints to the Consumer Data Standard (optional)</td>
 </tr>
 <tr>
-<td>cdrRevocationUri</td>
+<td>websiteUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Publicly available website or web resource URI</td>
+</tr>
+<tr>
+<td>termsofServiceUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>URI to retrieve the terms of services</td>
+</tr>
+<tr>
+<td>logoUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>URI to retrieve a logo image for general use</td>
+</tr>
+<tr>
+<td>consentLogoUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>URI to retrieve a logo image for used during consent</td>
+</tr>
+<tr>
+<td>supportUri</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>This is the URI for the Data Recipients to notify the Data Holders that the consumer withdrawn the consent</td>
+<td>URI to retrieve support details</td>
 </tr>
 <tr>
-<td>cdrCacheRefreshUrl</td>
+<td>policyUri</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>This is the URL to be used by ACCC to notify the Data Holders that their metadata cache must be updated</td>
-</tr>
-<tr>
-<td>cdrMetricsUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>This end point allows the ACCC to obtain operational statistics from the Data Holder on the operation of their CDR compliant implementation</td>
-</tr>
-<tr>
-<td>publicUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>This is the publicly available website or web resource URL</td>
-</tr>
-<tr>
-<td>termsofServiceUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>This is the URL to retrieve the terms of services</td>
-</tr>
-<tr>
-<td>logoUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>This is the URL to retrieve a logo image</td>
-</tr>
-<tr>
-<td>supportUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>This is the URL to retrieve support details</td>
-</tr>
-<tr>
-<td>policyUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>This is the URL to retrieve policy details</td>
+<td>URI to retrieve policy details</td>
 </tr>
 </tbody></table>
 
 <h2 id="tocSregisterjwk">RegisterJWK</h2>
 
-<aside class="warning">
-Security requirements are subject to change as they are currently under internal review
-</aside>
-
 <p><a id="schemaregisterjwk"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+  </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h3 id='properties-11'>Properties</h3>
@@ -2153,41 +2077,11 @@ Security requirements are subject to change as they are currently under internal
 </tr>
 </thead><tbody>
 <tr>
-<td>publicKey</td>
-<td>string</td>
-<td>false</td>
+<td>keys</td>
+<td>[string]</td>
+<td>true</td>
 <td>none</td>
-<td>Public JWK supplied by the participant.</td>
-</tr>
-<tr>
-<td>approvedOn</td>
-<td>string(date-time)</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-<tr>
-<td>status</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>The current status of the record.</td>
-</tr>
-</tbody></table>
-<h3 id='enumerated-values-4'>Enumerated Values</h3>
-<table><thead>
-<tr>
-<th>Property</th>
-<th>Value</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>status</td>
-<td>ACTIVE</td>
-</tr>
-<tr>
-<td>status</td>
-<td>DELETED</td>
+<td>List of JWK objects</td>
 </tr>
 </tbody></table>
 
@@ -2195,16 +2089,15 @@ Security requirements are subject to change as they are currently under internal
 
 <p><a id="schemacommonorganisationdetail"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"legalName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUS"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"industryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"organisationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SOLE_TRADER"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">]</span><span class="w">
@@ -2223,39 +2116,32 @@ Security requirements are subject to change as they are currently under internal
 </tr>
 </thead><tbody>
 <tr>
-<td>name</td>
+<td>legalName</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>Company Registered in Australia : Unique legal name of the entity. Company Not Registered in Australia : Unique registered name of the entity. Trustee - Organisation:  Unique legal name of the entity. Partner - Organisation : Unique legal name of the entity</td>
-</tr>
-<tr>
-<td>registeredInAustralia</td>
-<td>boolean</td>
-<td>false</td>
-<td>none</td>
-<td>Flag to indicate if the organisation is registered in Australia or not</td>
 </tr>
 <tr>
 <td>registrationNumber</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>Unique registration number (if the company is regitered outside Australia)</td>
+<td>Unique registration number (if the company is registered outside Australia)</td>
 </tr>
 <tr>
 <td>registrationDate</td>
-<td>string(date-time)</td>
+<td>string(date)</td>
 <td>false</td>
 <td>none</td>
-<td>Date of registration (if the company is regitered outside Australia)</td>
+<td>Date of registration (if the company is registered outside Australia)</td>
 </tr>
 <tr>
-<td>countryOfRegistration</td>
+<td>registeredCountry</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>Country of registeration (if the company is regitered outside Australia)</td>
+<td>Country of registeration. Enumeration with values from <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166 Alpha-3</a> country codes.</td>
 </tr>
 <tr>
 <td>abn</td>
@@ -2279,18 +2165,18 @@ Security requirements are subject to change as they are currently under internal
 <td>Australian Registered Body Number.  ARBNs are issued to registrable Australian bodies and foreign companies</td>
 </tr>
 <tr>
-<td>anzsicCode</td>
+<td>industryCode</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>The ANZSIC code for the organisation</td>
+<td>Industry Code for the organisation. <a href="http://www.abs.gov.au/anzsic">ANZSIC (2006)</a></td>
 </tr>
 <tr>
-<td>EntityType</td>
+<td>organisationType</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>Type of the organisation</td>
+<td>Legal organisation type</td>
 </tr>
 <tr>
 <td>businessNames</td>
@@ -2300,7 +2186,7 @@ Security requirements are subject to change as they are currently under internal
 <td>Business names for the entity</td>
 </tr>
 </tbody></table>
-<h3 id='enumerated-values-5'>Enumerated Values</h3>
+<h4 id='enumerated-values-5'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2308,16 +2194,28 @@ Security requirements are subject to change as they are currently under internal
 </tr>
 </thead><tbody>
 <tr>
-<td>EntityType</td>
+<td>organisationType</td>
+<td>SOLE_TRADER</td>
+</tr>
+<tr>
+<td>organisationType</td>
 <td>COMPANY</td>
 </tr>
 <tr>
-<td>EntityType</td>
+<td>organisationType</td>
+<td>PARTNERSHIP</td>
+</tr>
+<tr>
+<td>organisationType</td>
 <td>TRUST</td>
 </tr>
 <tr>
-<td>EntityType</td>
-<td>PARTNERSHIP</td>
+<td>organisationType</td>
+<td>GOVERNMENT_ENTITY</td>
+</tr>
+<tr>
+<td>organisationType</td>
+<td>OTHER</td>
 </tr>
 </tbody></table>
 
@@ -2388,29 +2286,26 @@ Security requirements are subject to change as they are currently under internal
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
+        </span><span class="s2">"accreditationDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"shortName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"legalName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUS"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"industryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"organisationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SOLE_TRADER"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="s2">"string"</span><span class="w">
           </span><span class="p">]</span><span class="w">
@@ -2418,35 +2313,33 @@ Security requirements are subject to change as they are currently under internal
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"productAccreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="p">{</span><span class="w">
               </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+              </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
             </span><span class="p">}</span><span class="w">
           </span><span class="p">],</span><span class="w">
           </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"jwk"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-              </span><span class="p">{</span><span class="w">
-                </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
-              </span><span class="p">}</span><span class="w">
-            </span><span class="p">]</span><span class="w">
+            </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"string"</span><span class="w">
+              </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
           </span><span class="p">}</span><span class="w">
         </span><span class="p">}</span><span class="w">
-      </span><span class="p">]</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2501,29 +2394,26 @@ Security requirements are subject to change as they are currently under internal
 
 <p><a id="schemaregisterdatarecipient"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"suspensionStartDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"suspensionEndDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="w">
+    </span><span class="s2">"accreditationDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"participantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"shortName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"participantType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOLDER"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"registeredInAustralia"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"legalName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"countryOfRegistration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUS"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"arbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"anzsicCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"EntityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPANY"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"industryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"organisationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SOLE_TRADER"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"businessNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="s2">"string"</span><span class="w">
       </span><span class="p">]</span><span class="w">
@@ -2531,35 +2421,33 @@ Security requirements are subject to change as they are currently under internal
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"productAccreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"jwk"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
-          </span><span class="p">}</span><span class="w">
-        </span><span class="p">]</span><span class="w">
+        </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
@@ -2575,25 +2463,39 @@ Security requirements are subject to change as they are currently under internal
 </tr>
 </thead><tbody>
 <tr>
+<td>id</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Unique Register identifier for the Data Recipient</td>
+</tr>
+<tr>
 <td>accreditation</td>
 <td><a href="#schemaregisteraccreditation">RegisterAccreditation</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>Accreditation information of Data Recipient as per ACCC register</td>
 </tr>
 <tr>
 <td>participant</td>
 <td><a href="#schemaregisterparticipant">RegisterParticipant</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>Represents a single participant of either Data Holder or Data Recipient within the Register</td>
+<td>Represents a single participant (Data Holder / Data Recipient) within the Register</td>
 </tr>
 <tr>
 <td>products</td>
 <td>[<a href="#schemaregisterproduct">RegisterProduct</a>]</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>List of products / services that this Data Recipient is accredited for</td>
+<td>List of products / services accredited with this Data Recipient</td>
+</tr>
+<tr>
+<td>lastUpdated</td>
+<td>string(date-time)</td>
+<td>true</td>
+<td>none</td>
+<td>The date/time that the Data Holder data was last updated in the Register</td>
 </tr>
 </tbody></table>
 
@@ -2601,32 +2503,29 @@ Security requirements are subject to change as they are currently under internal
 
 <p><a id="schemaregisterproduct"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"productAccreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"jwk"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+    </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -2643,49 +2542,56 @@ Security requirements are subject to change as they are currently under internal
 </tr>
 </thead><tbody>
 <tr>
-<td>softwareProductName</td>
+<td>id</td>
 <td>string</td>
 <td>false</td>
+<td>none</td>
+<td>Unique Register identifier for the Software Product</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>true</td>
 <td>none</td>
 <td>The name of the software product that has been included in the accreditation for the ADR</td>
 </tr>
 <tr>
 <td>softwareProductDescription</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>The description of the software product that has been included in the accreditation for the ADR</td>
 </tr>
 <tr>
-<td>productAccreditationStatus</td>
+<td>status</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>The current sub-status of the record. This reflects the life cycle of participation in the CDR</td>
+<td>The current status of the Software Product</td>
 </tr>
 <tr>
 <td>accessLevel</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>The access level granted to the software product under the accreditation for the ADR</td>
 </tr>
 <tr>
 <td>endpointDetail</td>
 <td>[<a href="#schemaregisterproductserviceendpoint">RegisterProductServiceEndPoint</a>]</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>List of end point details related to the product</td>
 </tr>
 <tr>
 <td>authDetail</td>
 <td><a href="#schemaregisterproductauth">RegisterProductAuth</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>Provides details of authorisation details per Product</td>
+<td>Authorisation details per Product</td>
 </tr>
 </tbody></table>
-<h3 id='enumerated-values-6'>Enumerated Values</h3>
+<h4 id='enumerated-values-6'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2693,20 +2599,20 @@ Security requirements are subject to change as they are currently under internal
 </tr>
 </thead><tbody>
 <tr>
-<td>productAccreditationStatus</td>
-<td>DRAFT</td>
-</tr>
-<tr>
-<td>productAccreditationStatus</td>
-<td>APPROVED</td>
-</tr>
-<tr>
-<td>productAccreditationStatus</td>
+<td>status</td>
 <td>ACTIVE</td>
 </tr>
 <tr>
-<td>productAccreditationStatus</td>
-<td>INACTIVE</td>
+<td>status</td>
+<td>SUSPENDED</td>
+</tr>
+<tr>
+<td>status</td>
+<td>REVOKED</td>
+</tr>
+<tr>
+<td>status</td>
+<td>SURRENDERED</td>
 </tr>
 <tr>
 <td>accessLevel</td>
@@ -2720,25 +2626,19 @@ Security requirements are subject to change as they are currently under internal
 
 <h2 id="tocSregisterproductauth">RegisterProductAuth</h2>
 
-<aside class="warning">
-Security requirements are subject to change as they are currently under internal review
-</aside>
-
 <p><a id="schemaregisterproductauth"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"jwk"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"approvedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11T01:07:40Z"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
-<p><em>Provides details of authorisation details per Product</em></p>
+<p><em>Authorisation details per Product</em></p>
 <h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
@@ -2752,23 +2652,23 @@ Security requirements are subject to change as they are currently under internal
 <tr>
 <td>registerUType</td>
 <td><a href="#schemaregisterauthtype">RegisterAuthType</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>The type of authentication and authorisation in use</td>
 </tr>
 <tr>
 <td>clientId</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>Client id allocated by ACCC for the product</td>
+<td>Client id allocated for the product</td>
 </tr>
 <tr>
-<td>jwk</td>
-<td>[<a href="#schemaregisterjwk">RegisterJWK</a>]</td>
-<td>false</td>
+<td>jwks</td>
+<td><a href="#schemaregisterjwk">RegisterJWK</a></td>
+<td>true</td>
 <td>none</td>
-<td>List of JWK that the product holds</td>
+<td>none</td>
 </tr>
 </tbody></table>
 
@@ -2777,17 +2677,15 @@ Security requirements are subject to change as they are currently under internal
 <p><a id="schemaregisterproductserviceendpoint"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cdrRevocationUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cdrCacheRefreshUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"publicUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"termsofServiceUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"policyUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
-<p><em>List of URI / URL&#39;s that are relevant to the product</em></p>
+<p><em>List of endpoints that are relevant to the product</em></p>
 <h3 id='properties-18'>Properties</h3>
 <table><thead>
 <tr>
@@ -2801,58 +2699,44 @@ Security requirements are subject to change as they are currently under internal
 <tr>
 <td>version</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>ACCC Data Standard Version</td>
+<td>Consumer Data Standard Version</td>
 </tr>
 <tr>
-<td>cdrRevocationUri</td>
+<td>infosecBaseUri</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>This is the URI for the Data Holders to notify the Data Recipients that the consumer revoked the consent</td>
+<td>Base URI for the Consumer Data Standard infosec endpoints, published by the Data Recipient</td>
 </tr>
 <tr>
-<td>cdrCacheRefreshUrl</td>
+<td>adminBaseUri</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>This is the URL to be used by ACCC to notify the Data Recipients that their metadata cache must be updated</td>
+<td>Base URI for the Consumer Data Standard admin endpoints, published by the Data Recipient</td>
 </tr>
 <tr>
-<td>publicUrl</td>
+<td>websiteUri</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>This is the publicly available website or web resource URL</td>
+<td>The publicly available website or web resource URI</td>
 </tr>
 <tr>
-<td>termsofServiceUrl</td>
+<td>logoUri</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>This is the URL to retrieve the terms of services</td>
+<td>The URI to retrieve a logo image for general use</td>
 </tr>
 <tr>
-<td>logoUrl</td>
+<td>consentLogoUri</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>This is the URL to retrieve a logo image</td>
-</tr>
-<tr>
-<td>supportUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>This is the URL to retrieve support details</td>
-</tr>
-<tr>
-<td>policyUrl</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>This is the URL to retrieve policy details</td>
+<td>The URI to retrieve a logo image for used during consent</td>
 </tr>
 </tbody></table>
 <h1 id='change-log'>Change Log</h1>
@@ -2866,6 +2750,18 @@ Security requirements are subject to change as they are currently under internal
 <th>Detail Of change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>29/07/2019</td>
+<td>0.2.0</td>
+<td>Update to Participant Statuses</td>
+<td>Simplified the validity of Data Recipient Checks to only use Certificate Status and Software Product Status</td>
+</tr>
+<tr>
+<td>29/07/2019</td>
+<td>0.2.0</td>
+<td>Addition of Endpoints</td>
+<td>Grouped Endpoints and Certificate Management, outlining participant requirements to group and secure endpoints</td>
+</tr>
 <tr>
 <td>23/07/2019</td>
 <td>0.1.0</td>
