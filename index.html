@@ -810,6 +810,28 @@ Cache refreshes may be requested in the following scenarios:</p>
 <td>- Facilitates Mutually Authenticated TLS between DH and ADR for consent <br> - Certificate is NOT revocable</td>
 </tr>
 </tbody></table>
+<h3 id='securing-endpoint-base-uris'>Securing Endpoint Base URIs</h3>
+<table><thead>
+<tr>
+<th>Certificate Type</th>
+<th>Secured Base URI</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Resource Server Certificate</strong></td>
+<td>ResourceBaseUri</td>
+</tr>
+<tr>
+<td><strong>InfoSec Server Certificate</strong></td>
+<td>InfoSecBaseUri <br> AdminBaseUri (Optional)</td>
+</tr>
+<tr>
+<td><strong>Admin Server Certificate</strong></td>
+<td>AdminBaseUri (Optional)</td>
+</tr>
+</tbody></table>
+
+<p><em>Data Holders and Accredited Data Recipients will have the option of bundling their AdminBaseUri and InfoSecBaseUri onto the same domain and therefore won’t require an additional Admin Server certificate</em></p>
 <h3 id='cdr-certificate-authority'>CDR Certificate Authority</h3>
 <p>DigiCert will act as the certificate authority that issues and manages certificates to CDR participants as directed by the ACCC in its capacity as the CDR Registrar.</p>
 <h1 id='availability'>Availability</h1>
@@ -2761,6 +2783,12 @@ Security requirements are subject to change as they are currently under internal
 <td>0.2.0</td>
 <td>Addition of Endpoints</td>
 <td>Grouped Endpoints and Certificate Management, outlining participant requirements to group and secure endpoints</td>
+</tr>
+<tr>
+<td>29/07/2019</td>
+<td>0.2.0</td>
+<td>Updated Swagger definition</td>
+<td>Updates include updates to endpoint sets and removing of suspension dates</td>
 </tr>
 <tr>
 <td>23/07/2019</td>
