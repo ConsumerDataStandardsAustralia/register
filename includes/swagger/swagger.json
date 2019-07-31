@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Consumer Data Right (CDR) Register Discovery API",
-    "version": "0.2"
+    "version": "0.3"
   },
   "host": "api.discovery.cdr.gov.au",
   "basePath": "/cds-register/v1",
@@ -277,11 +277,11 @@
         "accreditationStatus"
       ],
       "properties": {
-        "accreditationDateTime": {
-          "description": "The date/time that the participant was made active on the Register",
+        "accreditationDate": {
+          "description": "The date that the Data Recipient was accredited",
           "type": "string",
-          "format": "date-time",
-          "x-cds-type": "DateTimeString"
+          "format": "date",
+          "x-cds-type": "DateString"
         },
         "accreditationStatus": {
           "description": "The current accreditation status on the register. This reflects the life cycle of participation in the CDR",
@@ -434,11 +434,6 @@
           "type": "string",
           "x-cds-type": "URIString"
         },
-        "termsofServiceUri": {
-          "description": "URI to retrieve the terms of services",
-          "type": "string",
-          "x-cds-type": "URIString"
-        },
         "logoUri": {
           "description": "URI to retrieve a logo image for general use",
           "type": "string",
@@ -446,16 +441,6 @@
         },
         "consentLogoUri": {
           "description": "URI to retrieve a logo image for used during consent",
-          "type": "string",
-          "x-cds-type": "URIString"
-        },
-        "supportUri": {
-          "description": "URI to retrieve support details",
-          "type": "string",
-          "x-cds-type": "URIString"
-        },
-        "policyUri": {
-          "description": "URI to retrieve policy details",
           "type": "string",
           "x-cds-type": "URIString"
         }
@@ -653,7 +638,7 @@
         "authDetail"
       ],
       "properties": {
-      "id": {
+        "id": {
           "description": "Unique Register identifier for the Software Product",
           "type": "string"
         },

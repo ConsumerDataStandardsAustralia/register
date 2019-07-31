@@ -294,10 +294,7 @@
             <a href="#participant-statuses" class="toc-h1 toc-link" data-title="Participant Statuses">Participant Statuses</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#adr-and-software-product-states" class="toc-h2 toc-link" data-title="ADR and Software Product States">ADR and Software Product States</a>
-                  </li>
-                  <li>
-                    <a href="#adr-software-product-status-changes" class="toc-h2 toc-link" data-title="ADR Software Product Status Changes">ADR Software Product Status Changes</a>
+                    <a href="#adr-and-software-product-statuses" class="toc-h2 toc-link" data-title="ADR and Software Product Statuses">ADR and Software Product Statuses</a>
                   </li>
                   <li>
                     <a href="#software-product-status-changes" class="toc-h2 toc-link" data-title="Software Product Status Changes">Software Product Status Changes</a>
@@ -639,7 +636,7 @@ Cache refreshes may be requested in the following scenarios:</p>
 <p>(b)   obligations on Data Holders and Accredited Data Recipients to notify the ACCC of security incidents that may affect the security of the CDR ecosystem – including the way that those incidents should be reported and a practical timeframe for that occurring.</p>
 
 <p><em>Feedback for this section can be lodged at:</em> <a href="https://github.com/cdr-register/register/issues/5">https://github.com/cdr-register/register/issues/5</a></p>
-<h1 id='participant-statuses'>Participant Statuses</h1><h2 id='adr-and-software-product-states'>ADR and Software Product States</h2>
+<h1 id='participant-statuses'>Participant Statuses</h1><h2 id='adr-and-software-product-statuses'>ADR and Software Product Statuses</h2>
 <p>The accreditation status of Accredited Data Recipients, and the status of their associated software products, may traverse through multiple states in the CDR as a result of decisions by the ACCC, in its capacity as Data Recipient Accreditor, or where an Accredited Data Recipient surrenders accreditation.</p>
 
 <p>Data Holders will have the responsibility to ensure that CDR data relating to consumers is disclosed to Accredited Data Recipients and to cease sharing data where the accreditation of a data recipient is</p>
@@ -655,7 +652,7 @@ Cache refreshes may be requested in the following scenarios:</p>
 
 <table><thead>
 <tr>
-<th><strong>Accredited Data Recipient &amp; Software Product States</strong></th>
+<th><strong>Accredited Data Recipient &amp; Software Product Statuses</strong></th>
 <th><strong>Data Holder’s Responsibility</strong></th>
 </tr>
 </thead><tbody>
@@ -676,7 +673,7 @@ Cache refreshes may be requested in the following scenarios:</p>
 <td>Cease disclosure of CDR data </br> Cease facilitating consent authorisation requests</td>
 </tr>
 </tbody></table>
-<h2 id='adr-software-product-status-changes'>ADR Software Product Status Changes</h2><h3 id='checking-validity-of-data-recipient-and-associated-software-product'>Checking Validity of Data Recipient and associated Software Product</h3>
+<h3 id='checking-validity-of-data-recipient-and-associated-software-product'>Checking Validity of Data Recipient and associated Software Product</h3>
 <p><img src="images/DataRecipientValidityCheck.png" ></img></p>
 <h2 id='software-product-status-changes'>Software Product Status Changes</h2><h3 id='new-adr-software-product-active'>New ADR Software Product Active</h3>
 <p>Once an Accredited Data Recipient has completed the necessary steps to add a new software product to the Register, the following actions and responsibilities are:</p>
@@ -1108,11 +1105,8 @@ Accept: application/json
           </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"termsofServiceUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"supportUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"policyUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1238,7 +1232,7 @@ Accept: application/json
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"accreditationDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-31"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1249,7 +1243,7 @@ Accept: application/json
         </span><span class="s2">"organisation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"legalName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-31"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUS"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -1376,11 +1370,8 @@ Authentication requirements for this operation will be published in a future ite
           </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"termsofServiceUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"supportUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"policyUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1485,11 +1476,8 @@ Authentication requirements for this operation will be published in a future ite
       </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"termsofServiceUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"supportUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"policyUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1679,7 +1667,7 @@ Authentication requirements for this operation will be published in a future ite
 
 <p><a id="schemaregisteraccreditation"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"accreditationDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-31"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -1696,11 +1684,11 @@ Authentication requirements for this operation will be published in a future ite
 </tr>
 </thead><tbody>
 <tr>
-<td>accreditationDateTime</td>
-<td>string(date-time)</td>
-<td>true</td>
+<td>accreditationDate</td>
+<td>string(date)</td>
+<td>false</td>
 <td>none</td>
-<td>The date/time that the participant was made active on the Register</td>
+<td>The date that the Data Recipient was accredited</td>
 </tr>
 <tr>
 <td>accreditationStatus</td>
@@ -1974,11 +1962,8 @@ Security requirements are subject to change as they are currently under internal
   </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"termsofServiceUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"supportUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"policyUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
@@ -2043,13 +2028,6 @@ Security requirements are subject to change as they are currently under internal
 <td>Publicly available website or web resource URI</td>
 </tr>
 <tr>
-<td>termsofServiceUri</td>
-<td>string</td>
-<td>true</td>
-<td>none</td>
-<td>URI to retrieve the terms of services</td>
-</tr>
-<tr>
 <td>logoUri</td>
 <td>string</td>
 <td>true</td>
@@ -2062,20 +2040,6 @@ Security requirements are subject to change as they are currently under internal
 <td>true</td>
 <td>none</td>
 <td>URI to retrieve a logo image for used during consent</td>
-</tr>
-<tr>
-<td>supportUri</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>URI to retrieve support details</td>
-</tr>
-<tr>
-<td>policyUri</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>URI to retrieve policy details</td>
 </tr>
 </tbody></table>
 
@@ -2310,7 +2274,7 @@ Security requirements are subject to change as they are currently under internal
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"accreditationDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-31"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2418,7 +2382,7 @@ Security requirements are subject to change as they are currently under internal
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"accreditation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"accreditationDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-29T08:06:39Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"accreditationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-31"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"accreditationStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"participant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2772,6 +2736,12 @@ Security requirements are subject to change as they are currently under internal
 <th>Detail Of change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>31/07/2019</td>
+<td>0.3.0</td>
+<td>Updated Swagger definition</td>
+<td>Removed TermsOfServiceUri, PolicyUri &amp; SupportUri</td>
+</tr>
 <tr>
 <td>29/07/2019</td>
 <td>0.2.0</td>
