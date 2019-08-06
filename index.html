@@ -305,8 +305,20 @@
               </ul>
           </li>
           <li>
-            <a href="#endpoints" class="toc-h1 toc-link" data-title="Endpoints">Endpoints</a>
+            <a href="#security-profile" class="toc-h1 toc-link" data-title="Security Profile">Security Profile</a>
               <ul class="toc-list-h2">
+                  <li>
+                    <a href="#overview" class="toc-h2 toc-link" data-title="Overview">Overview</a>
+                  </li>
+                  <li>
+                    <a href="#client-authentication" class="toc-h2 toc-link" data-title="Client Authentication">Client Authentication</a>
+                  </li>
+                  <li>
+                    <a href="#transaction-security" class="toc-h2 toc-link" data-title="Transaction Security">Transaction Security</a>
+                  </li>
+                  <li>
+                    <a href="#endpoints" class="toc-h2 toc-link" data-title="Endpoints">Endpoints</a>
+                  </li>
                   <li>
                     <a href="#certificate-management" class="toc-h2 toc-link" data-title="Certificate Management">Certificate Management</a>
                   </li>
@@ -600,6 +612,22 @@ However, the CDR Register is designed using Static Client Registration to satisf
 
 <p>The CDR Register Discovery API definition is available at:
 <a href="https://cdr-register.github.io/register/#consumer-data-right-cdr-register-discovery-api">https://cdr-register.github.io/register/#consumer-data-right-cdr-register-discovery-api</a></p>
+<h3 id='metadata-cache-management-metrics'>Metadata Cache Management Metrics</h3>
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Maximum Cache update period</strong></td>
+<td>6 hours</td>
+</tr>
+<tr>
+<td><strong>Maximum Time between Cache Refresh Metadata Request <br> and call to Discovery API</strong></td>
+<td>5 minutes</td>
+</tr>
+</tbody></table>
 <h2 id='cache-refresh-metadata-request'>Cache Refresh Metadata Request</h2>
 <p>Data Holders and Accredited Data Recipients will be required to implement the Admin endpoint as per CDS standard: <a href="https://consumerdatastandardsaustralia.github.io/standards/#admin-apis">https://consumerdatastandardsaustralia.github.io/standards/#admin-apis</a></p>
 
@@ -609,10 +637,10 @@ Cache refreshes may be requested in the following scenarios:</p>
 <ol>
 <li> A new Data Holder becomes active</li>
 <li> A new Accredited Data Recipient becomes active</li>
-<li> A Data Holder has been removed from the CDR Register</li>
-<li> An Accredited Data Recipient has been suspended, revoked or surrendered from the CDR Register</li>
-<li> Data Holder JWKS or endpoints have changed</li>
-<li> Accredited Data Recipient JWKS or endpoints have changed</li>
+<li> A Data Holder has been surrendered from the CDR</li>
+<li> An Accredited Data Recipient has been suspended, revoked, reactivated or surrendered from the CDR Register</li>
+<li> A Data Holder&#39;s or Accredited Data Recipient&#39;s JWK has been removed due to compromise</li>
+<li> Data Holder&#39;s or Accredited Data Recipient&#39;s endpoints have changed</li>
 </ol>
 <h3 id='data-holder-discovery-of-accredited-data-recipients'>Data Holder Discovery of Accredited Data Recipients</h3>
 <p><img src="images/DataHolderDiscovery.png" alt="Dataholderdiscovery" /></p>
@@ -675,12 +703,57 @@ Cache refreshes may be requested in the following scenarios:</p>
 </tbody></table>
 <h3 id='checking-validity-of-data-recipient-and-associated-software-product'>Checking Validity of Data Recipient and associated Software Product</h3>
 <p><img src="images/DataRecipientValidityCheck.png" ></img></p>
+<h3 id='adr-active'>ADR Active</h3>
+<p>Once a Data Recipient has been granted accreditation by the ACCC (as Data Recipient Accreditor) and has completed the necessary steps to be added to the Register (as specified in the rules), the following actions and responsibilities are:</p>
+
+<ol>
+<li> The Registrar will issue the Accredited Data Recipient all <a href="#certificate-management">required certificates</a></br></li>
+<li> The Accredited Data Recipient&#39;s status will be set to <strong>&#39;active&#39;</strong></br></li>
+<li> Data Holders will retrieve the new ADR record as part of their regular metadata cache refresh</br></li>
+<li> All Data Holders will be required to disclose data, in accordance with the CDR rules, with this new Accredited Data Recipient</br></li>
+</ol>
+<h3 id='adr-suspended'>ADR Suspended</h3>
+<p>Where the ACCC (as Data Recipient Accreditor) has made a decision to suspend the accreditation of an Accredited Data Recipient, and has notified the decision to the Registrar the following actions and responsibilities will arise:</p>
+
+<ol>
+<li> The Registrar will revoke the Accredited Data Recipient&#39;s <a href="#certificate-management">resource client certificates</a> for all associated software products</li>
+<li> The Registrar will update the CDR Register to change the Accredited Data Recipient&#39;s status (and status of all associated software products) to <strong>&#39;suspended&#39;</strong></li>
+<li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
+<li> All Data Holders will prevent disclosure of CDR data  with the Accredited Data Recipient while it is in a suspended state</li>
+</ol>
+<h3 id='adr-reactivated'>ADR Reactivated</h3>
+<p>An Accredited Data Recipient can move from the suspended status back to the active status where a suspension expires or is revoked by the ACCC (as Data Recipient Accreditor). Once this has occurred, the following actions and responsibilities are:</p>
+
+<ol>
+<li> The Registrar will reissue the Accredited Data Recipient&#39;s <a href="#certificate-management">resource client certificates</a> for all associated software products</li>
+<li> The Registrar will update the CDR Register to change the Accredited Data Recipient&#39;s status (and status of all associated software products) to <strong>&#39;active&#39;</strong></li>
+<li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
+<li> All Data Holders will disclose CDR data as required by the CDR rules with this Accredited Data Recipient</li>
+</ol>
+<h3 id='adr-revoked'>ADR Revoked</h3>
+<p>Where the ACCC (as Data Recipient Accreditor) has made a decision to revoke the accreditation of an Accredited Data Recipient, and has notified the decision to the Registrar, the following actions and responsibilities will arise:</p>
+
+<ol>
+<li> The Registrar will revoke Accredited Data Recipient&#39;s <a href="#certificate-management">resource client certificates</a> for all associated software products</li>
+<li> The Registrar will update the CDR Register to change the Accredited Data Recipient&#39;s status (and status of all associated software products) to <strong>&#39;revoked&#39;</strong></li>
+<li> The CDR Register will initiate the cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
+<li> All Data Holders prevent disclosure of CDR data with this Accredited Data Recipient</li>
+</ol>
+<h3 id='adr-surrendered'>ADR Surrendered</h3>
+<p>Where an Accredited Data Recipient has surrendered their accreditation, and the Data Recipient Accreditor has notified the Registrar of the surrender, the following actions and responsibilities will arise:</p>
+
+<ol>
+<li> The Registrar will revoke Accredited Data Recipient&#39;s <a href="#certificate-management">resource client certificates</a> for all associated software products</li>
+<li> The Registrar will update the CDR Register to change the Accredited Data Recipient&#39;s status (and status of all associated software products) to <strong>&#39;surrendered&#39;</strong></li>
+<li> The CDR Register will initiate the cache update process with all Data Holders within the CDR</li>
+<li> All Data Holders will prevent disclosure of CDR data with this Accredited Data Recipient</li>
+</ol>
 <h2 id='software-product-status-changes'>Software Product Status Changes</h2><h3 id='new-adr-software-product-active'>New ADR Software Product Active</h3>
 <p>Once an Accredited Data Recipient has completed the necessary steps to add a new software product to the Register, the following actions and responsibilities are:</p>
 
 <ol>
-<li> The Registrar will issue the Software Product’s resource client certificate</li>
-<li> The Software Product status will be set to ‘active’</li>
+<li> The Registrar will issue the Software Product’s <a href="#certificate-management">resource client certificate</a></li>
+<li> The Software Product status will be set to <strong>&#39;active&#39;</strong></li>
 <li> Data Holders will retrieve the new ADR record as part of their regular metadata cache refresh</li>
 <li> All Data Holders will be required to disclose data, in accordance with the CDR rules, with this new Accredited Data Recipient Software Product</li>
 </ol>
@@ -688,8 +761,8 @@ Cache refreshes may be requested in the following scenarios:</p>
 <p>Where the ACCC (as Data Recipient Accreditor) has made a decision to suspend the status of an Accredited Data Recipient’s Software Product, and has notified the decision to the Registrar the following actions and responsibilities will arise:</p>
 
 <ol>
-<li> The Registrar will revoke the Software Product’s resource client certificate</li>
-<li> The Registrar will update the CDR Register to change the Software Product’s status to ‘suspended’</li>
+<li> The Registrar will revoke the Software Product’s <a href="#certificate-management">resource client certificate</a></li>
+<li> The Registrar will update the CDR Register to change the Software Product’s status to <strong>&#39;suspended&#39;</strong></li>
 <li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
 <li> All Data Holders will prevent disclosure of CDR data with the Accredited Data Recipient’s Software Product while it is in a suspended state</li>
 </ol>
@@ -697,8 +770,8 @@ Cache refreshes may be requested in the following scenarios:</p>
 <p>A Software Product can move from the suspended status back to the active status where a suspension expires or is revoked by the ACCC (as Data Recipient Accreditor). Once this has occurred, the following actions and responsibilities are:</p>
 
 <ol>
-<li> The Registrar will reissue the Software Product’s resource client certificate</li>
-<li> The Registrar will update the CDR Register to change the Software Product’s status to ‘active’</li>
+<li> The Registrar will reissue the Software Product’s <a href="#certificate-management">resource client certificate</a></li>
+<li> The Registrar will update the CDR Register to change the Software Product’s status to <strong>&#39;active&#39;</strong></li>
 <li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
 <li> All Data Holders will disclose CDR data as required by the CDR rules with this Accredited Data Recipient’s Software Product</li>
 </ol>
@@ -706,8 +779,8 @@ Cache refreshes may be requested in the following scenarios:</p>
 <p>Where the ACCC (as Data Recipient Accreditor) has made a decision to revoke the status of an Accredited Data Recipient’s Software Product, and has notified the decision to the Registrar, the following actions and responsibilities will arise:</p>
 
 <ol>
-<li> The Registrar will revoke the Software Product’s resource client certificate</li>
-<li> The Registrar will update the CDR Register to change the Software Product’s status to ‘revoked’</li>
+<li> The Registrar will revoke the Software Product’s <a href="#certificate-management">resource client certificate</a></li>
+<li> The Registrar will update the CDR Register to change the Software Product’s status to <strong>&#39;revoked&#39;</strong></li>
 <li> The CDR Register will initiate the cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache within the specified timeframe</li>
 <li> All Data Holders prevent disclosure of CDR data with this Accredited Data Recipient’s Software Product</li>
 </ol>
@@ -715,14 +788,160 @@ Cache refreshes may be requested in the following scenarios:</p>
 <p>Where an Accredited Data Recipient decommissions a Software Product, and the Data Recipient Accreditor has notified the Registrar of the decommissioning, the following actions and responsibilities will arise:</p>
 
 <ol>
-<li> The Registrar will revoke the Software Product’s resource client certificate</li>
-<li> The Registrar will update the CDR Register to change the Software Product’s status to ‘surrendered’</li>
+<li> The Registrar will revoke the Software Product’s <a href="#certificate-management">resource client certificate</a></li>
+<li> The Registrar will update the CDR Register to change the Software Product’s status to <strong>&#39;surrendered&#39;</strong></li>
 <li> The CDR Register will initiate the cache update process with all Data Holders within the CDR</li>
 <li> All Data Holders will prevent disclosure of CDR data with this Accredited Data Recipient’s Software Product</li>
 </ol>
 <h2 id='data-holder-status-change'>Data Holder Status Change</h2>
 <p>Rules regarding Data Holder off-boarding and revocation have not yet been provided. Updates to this design will be added once the rules have been defined.</p>
-<h1 id='endpoints'>Endpoints</h1>
+<h1 id='security-profile'>Security Profile</h1><h2 id='overview'>Overview</h2>
+<p>The security profile of the CDR Register follows the conventions defined by the <a href="https://consumerdatastandardsaustralia.github.io/standards/#security-profile">Consumer Data Standards Security Profile</a></p>
+
+<ol>
+<li><p>The CDR Register Discovery API will use <code>Mutual Authentication TLS</code> <strong>[MTLS]</strong> as the transport security and the OIDC <code>client_credentials</code> grant type authentication. All client and server certificates are generated by the CDR Register to facilitate this transport .</p></li>
+<li><p>The Client Authentication method to be used by ADRs or DHs to the CDR Register will use <code>private_key_jwt</code> for procuring the Access Token.</p></li>
+</ol>
+
+<p>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#security-profile">Consumer Data Standards Security Overview</a> for Symbols and Abbreviated Terms</p>
+<h2 id='client-authentication'>Client Authentication</h2>
+<p>Using the same client authentication approach as the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standard</a>, interactions with and by the CDR Register use <code>private_key_jwt</code> Client Authentication method as specified at <a href="https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication">section 9</a> of <strong>[OIDC]</strong>.</p>
+
+<ul>
+<li><p>Data Holders MUST support the authentication of the CDR Register using the <code>private_key_jwt</code> client authentication method</p></li>
+<li><p>Data Recipients MUST support the authentication of the CDR Register using the <code>private_key_jwt</code> client authentication method</p></li>
+<li><p>The CDR Register MUST support the authentication of the Data Holders using the <code>private_key_jwt</code> client authentication method</p></li>
+<li><p>The CDR Register MUST support the authentication of the Data Recipients using the <code>private_key_jwt</code> client authentication method</p></li>
+<li><p>Data Holder and Data Recipient public keys MUST only be obtained from the CDR Register. </br></p></li>
+<li><p>CDR Register public keys MUST only be obtained from the exposed endpoint <todo: supply reference></p></li>
+</ul>
+
+<p>As per the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standards</a>, While <strong>[MTLS]</strong> is utilised for transaction security and as a Holder of Key mechanism the PKI Mutual TLS OAuth Client Authentication Method SHALL NOT be supported as the mechanism for client authentication.</p>
+<h3 id='private_key_jwt'>private_key_jwt</h3><h3 id='cdr-discovery-access-token-request-using-client-authentication'>CDR Discovery Access Token Request using Client Authentication</h3>
+<blockquote>
+<p>Non-Normative Examples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>POST /token HTTP/1.1
+Host: www.api.discovery.cdr.gov.au
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&amp;
+  client_id=12345&amp;
+  client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&amp;
+  client_assertion=eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNDU2In0.ey ...
+
+## Decoded client assertion JWT
+{
+  "alg": "PS256",
+  "typ": "JWT",
+  "kid": "12456"
+}
+{
+  "iss": "12345",
+  "sub": "12345",
+  "exp": 1516239322,
+  "aud": "https://www.infosec.cdr.gov.au/token",
+  "jti": "37747cd1-c105-4569-9f75-4adf28b73e31"
+}
+</code></pre>
+<ol>
+<li>Access Token will be requested as per the Assertion Framework for OAuth2 Client Authentication profile</li>
+<li>Data Holder and Data Recipient public keys are retrieved from the CDR Register<br></li>
+<li>Refresh tokens will not be provided for grant_type <code>client_credentials</code> </li>
+<li> The JWT must contain the following Claim Values :</li>
+</ol>
+
+<ul>
+<li>  <code>iss</code>: The issuer claim which contains a unique identifier for the entity that issued the JWT</li>
+<li>  <code>sub</code>: The principal that is the subject of the JWT for client authentication</li>
+<li>  <code>aud</code>: The URL of the end point being invoked</li>
+<li>  <code>exp</code>: The expiration claim that limits the time window during which the assertion can be used</li>
+<li>  <code>jti</code>: The JWT ID claim that provides a unique identifier for the token</li>
+</ul>
+
+<p>When invoking a protected end point, the assertion MUST be sent with the <code>POST</code> method and MUST include the following parameters:</p>
+
+<ul>
+<li>  <code>grant_type</code>: This MUST be set to <code>client_credentials</code></li>
+<li>  <code>client_id</code>: This MUST be set to the ID of the calling client</li>
+<li>  <code>client_assertion_type</code>: This MUST be set to: <em>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</em></li>
+<li>  <code>client_assertion</code>: This MUST be set to the digitally signed JWT</li>
+</ul>
+<h3 id='cdr-register-calling-participant-admin-api-using-client-authentication'>CDR Register Calling Participant Admin API using Client Authentication</h3>
+<blockquote>
+</blockquote>
+<pre class="highlight plaintext"><code>GET /admin/registry/metadata HTTP/1.1
+Host: www.admin.dataholder.com.au
+Content-Type: application/x-www-form-urlencoded
+
+  client_id=register.cdr.gov.au&amp;
+  client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&amp;
+  client_assertion=eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNDU2In0.ey ...
+
+## Decoded client assertion JWT
+{
+  "alg": "PS256",
+  "typ": "JWT",
+  "kid": "12456"
+}
+{
+  "iss": "register.cdr.gov.au",
+  "sub": "register.cdr.gov.au",
+  "exp": 1516239322,
+  "aud": "https://www.infosec.cdr.gov.au/token",
+  "jti": "37747cd1-c105-4569-9f75-4adf28b73e31"
+}
+</code></pre>
+<ol>
+<li>The CDR Register will expose an endpoint to distribute it&#39;s public keys<br></li>
+<li> The JWT must contain the following Claim Values :</li>
+</ol>
+
+<ul>
+<li>  <code>iss</code>: The issuer claim which contains a unique identifier for the entity that issued the JWT</li>
+<li>  <code>sub</code>: The principal that is the subject of the JWT for client authentication</li>
+<li>  <code>aud</code>: The URL of the end point being invoked</li>
+<li>  <code>exp</code>: The expiration claim that limits the time window during which the assertion can be used</li>
+<li>  <code>jti</code>: The JWT ID claim that provides a unique identifier for the token</li>
+</ul>
+
+<p>When invoking a protected end point, the assertion MUST be sent with the <code>POST</code> method and MUST include the following parameters:</p>
+
+<ul>
+<li>  <code>client_id</code>: This MUST be set to the ID of the calling client</li>
+<li>  <code>client_assertion_type</code>: This MUST be set to: <em>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</em></li>
+<li>  <code>client_assertion</code>: This MUST be set to the digitally signed JWT</li>
+</ul>
+<h3 id='identifiers'>Identifiers</h3>
+<p><code>client_id</code>, <code>iss</code> and <code>sub</code> are expected to contain the unique identifier for the client.<br>
+The following client identifiers will be used:</p>
+
+<table><thead>
+<tr>
+<th>Client</th>
+<th>Scenario</th>
+<th>Identifier</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>CDR Register</strong></td>
+<td>Calls to Participant Admin APIs</td>
+<td><strong>TDB</strong></td>
+</tr>
+<tr>
+<td><strong>Data Holder</strong></td>
+<td>Calls to CDR Register Discovery API</td>
+<td>Data Holder ID</td>
+</tr>
+<tr>
+<td><strong>Data Recipient</strong></td>
+<td>Calls to CDR Register Discovery API</td>
+<td>Data Recipient Product ID</td>
+</tr>
+</tbody></table>
+<h2 id='transaction-security'>Transaction Security</h2>
+<p>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#transaction-security">Consumer Data Standards Transaction Security</a> for Transaction Security details</p>
+<h2 id='endpoints'>Endpoints</h2>
 <p>Participants will be required to register base URIs to group the implementation of the Consumer Data Standards</p>
 
 <table><thead>
@@ -2736,6 +2955,12 @@ Security requirements are subject to change as they are currently under internal
 <th>Detail Of change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>06/08/2019</td>
+<td>0.3.0</td>
+<td>Addition of Security Profile</td>
+<td>Thi section outlines all the security requirements for interacting with the CDR Register</td>
+</tr>
 <tr>
 <td>31/07/2019</td>
 <td>0.3.0</td>
