@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Consumer Data Right (CDR) Register Discovery API",
-    "version": "0.3"
+    "version": "0.4"
   },
   "host": "api.discovery.cdr.gov.au",
   "basePath": "/cds-register/v1",
@@ -181,12 +181,7 @@
           "$ref": "#/definitions/RegisterParticipant"
         },
         "endpointDetail": {
-          "description": "List of Endpoints",
-          "uniqueItems": true,
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RegisterDataHolderServiceEndpoint"
-          }
+          "$ref": "#/definitions/RegisterDataHolderServiceEndpoint"
         },
         "authDetail": {
           "description": "List of authorisation methods for Data Holders",
@@ -307,18 +302,21 @@
       "properties": {
         "displayName": {
           "description": "Display full name of the participant",
-          "type": "string"
+          "type": "string",
+          "x-cds-type": "ASCIIString"
         },
         "shortName": {
           "description": "Display short name of the participant",
-          "type": "string"
+          "type": "string",
+          "x-cds-type": "ASCIIString"
         },
         "participantType": {
           "enum": [
             "HOLDER",
             "RECIPIENT"
           ],
-          "type": "string"
+          "type": "string",
+          "x-cds-type": "ASCIIString"
         },
         "sector": {
           "description": "The sector that the registration pertains to (e.g. Banking)",
@@ -338,15 +336,11 @@
       "type": "object",
       "required": [
         "registerUType",
-        "jwks",
         "hybridFlow"
       ],
       "properties": {
         "registerUType": {
           "$ref": "#/definitions/RegisterAuthType"
-        },
-        "jwks": {
-          "$ref": "#/definitions/RegisterJWK"
         },
         "hybridFlow": {
           "description": "Detail for Hybrid flow for DSB standard version",
@@ -363,7 +357,8 @@
       "type": "object",
       "required": [
         "version",
-        "redirectUri"
+        "redirectUri",
+        "jwks"
       ],
       "properties": {
         "version": {
@@ -375,6 +370,9 @@
           "description": "The endpoint for the Data Recipient to redirect to the Data Holder's website for the consumer to authorise the Data Recipient",
           "type": "string",
           "x-cds-type": "URIString"
+        },
+        "jwks": {
+          "$ref": "#/definitions/RegisterJWK"
         }
       }
     },
@@ -455,11 +453,81 @@
         "keys": {
           "description": "List of JWK objects",
           "type": "array",
-          "minItems": 1,
           "items": {
-            "description": "JWK json object",
+            "$ref": "#/definitions/JWK"
+          }
+        }
+      }
+    },
+    "JWK": {
+      "type": "object",
+      "description": "JWK object conforming to [RFC 7517](https://tools.ietf.org/html/rfc7517)",
+      "required": [
+        "kty"
+      ],
+      "properties": {
+        "kty": {
+          "description": "Identifies the cryptographic algorithm family used with the key.",
+          "type": "string",
+          "enum": [
+            "EC"
+          ],
+          "default": "EC"
+        },
+        "use": {
+          "description": "The use (public key use) member identifies the intended use of the public key.",
+          "type": "string",
+          "enum": [
+            "sig",
+            "env"
+          ]
+        },
+        "key_ops": {
+          "description": "The key_ops (key operations) member identifies the operation(s) that the key is intended to be used for.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "sign",
+              "verify",
+              "encrypt",
+              "decrypt",
+              "wrapKey",
+              "unwrapKey",
+              "deriveKey",
+              "deriveBits"
+            ]
+          },
+          "minItems": 1
+        },
+        "alg": {
+          "type": "string",
+          "enum": [
+            "RS256"
+          ]
+        },
+        "kid": {
+          "type": "string"
+        },
+        "x5u": {
+          "description": "The x5u (X.509 URL) member is a URI [RFC3986] that refers to a resource for an X.509 public key certificate or certificate chain.",
+          "type": "string",
+          "format": "uri"
+        },
+        "x5c": {
+          "description": "The \"x5c\" (X.509 Certificate Chain) member contains a chain of one or more PKIX certificates. The certificate chain is represented as a JSON array of certificate value strings.",
+          "type": "array",
+          "items": {
             "type": "string"
           }
+        },
+        "x5t": {
+          "description": "The \"x5t\" (X.509 Certificate SHA-1 Thumbprint) member is a base64url encoded SHA-1 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate [RFC5280].",
+          "type": "string"
+        },
+        "x5t#S256": {
+          "description": "The \"x5t#S256\" (X.509 Certificate SHA-256 Thumbprint) member is a base64url encoded SHA-256 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate",
+          "type": "string"
         }
       }
     },
@@ -669,12 +737,7 @@
           "type": "string"
         },
         "endpointDetail": {
-          "description": "List of end point details related to the product",
-          "uniqueItems": true,
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RegisterProductServiceEndPoint"
-          }
+          "$ref": "#/definitions/RegisterProductServiceEndPoint"
         },
         "authDetail": {
           "$ref": "#/definitions/RegisterProductAuth"
@@ -696,6 +759,11 @@
         "clientId": {
           "description": "Client id allocated for the product",
           "type": "string"
+        },
+        "redirectUri": {
+          "description": "Product URI redirected to after authorisation",
+          "type": "string",
+          "x-cds-type": "URIString"
         },
         "jwks": {
           "$ref": "#/definitions/RegisterJWK"

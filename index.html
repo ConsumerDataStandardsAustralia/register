@@ -395,6 +395,9 @@
                     <a href="#tocSregisterjwk" class="toc-h2 toc-link" data-title="RegisterJWK">RegisterJWK</a>
                   </li>
                   <li>
+                    <a href="#tocSjwk" class="toc-h2 toc-link" data-title="JWK">JWK</a>
+                  </li>
+                  <li>
                     <a href="#tocScommonorganisationdetail" class="toc-h2 toc-link" data-title="CommonOrganisationDetail">CommonOrganisationDetail</a>
                   </li>
                   <li>
@@ -864,7 +867,7 @@ grant_type=client_credentials&amp;
 <ul>
 <li>  <code>grant_type</code>: This MUST be set to <code>client_credentials</code></li>
 <li>  <code>client_id</code>: This MUST be set to the ID of the calling client</li>
-<li>  <code>client_assertion_type</code>: This MUST be set to: <em>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</em></li>
+<li>  <code>client_assertion_type</code>: This MUST be set to: <code>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</code></li>
 <li>  <code>client_assertion</code>: This MUST be set to the digitally signed JWT</li>
 </ul>
 <h3 id='cdr-register-calling-participant-admin-api-using-client-authentication'>CDR Register Calling Participant Admin API using Client Authentication</h3>
@@ -909,7 +912,7 @@ Content-Type: application/x-www-form-urlencoded
 
 <ul>
 <li>  <code>client_id</code>: This MUST be set to the ID of the calling client</li>
-<li>  <code>client_assertion_type</code>: This MUST be set to: <em>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</em></li>
+<li>  <code>client_assertion_type</code>: This MUST be set to: <code>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</code></li>
 <li>  <code>client_assertion</code>: This MUST be set to the digitally signed JWT</li>
 </ul>
 <h3 id='identifiers'>Identifiers</h3>
@@ -1315,31 +1318,39 @@ Accept: application/json
           </span><span class="p">]</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"resourceBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"resourceBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
       </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-              </span><span class="s2">"string"</span><span class="w">
-            </span><span class="p">]</span><span class="w">
-          </span><span class="p">},</span><span class="w">
           </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="p">{</span><span class="w">
               </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+              </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                  </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+                    </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+                    </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+              </span><span class="p">}</span><span class="w">
             </span><span class="p">}</span><span class="w">
           </span><span class="p">]</span><span class="w">
         </span><span class="p">}</span><span class="w">
@@ -1481,22 +1492,35 @@ Accept: application/json
           </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-            </span><span class="p">{</span><span class="w">
-              </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-            </span><span class="p">}</span><span class="w">
-          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
           </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
               </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="s2">"sign"</span><span class="w">
+                  </span><span class="p">],</span><span class="w">
+                  </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="s2">"string"</span><span class="w">
+                  </span><span class="p">],</span><span class="w">
+                  </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
               </span><span class="p">]</span><span class="w">
             </span><span class="p">}</span><span class="w">
           </span><span class="p">}</span><span class="w">
@@ -1580,31 +1604,39 @@ Authentication requirements for this operation will be published in a future ite
           </span><span class="p">]</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"resourceBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"resourceBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
       </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-              </span><span class="s2">"string"</span><span class="w">
-            </span><span class="p">]</span><span class="w">
-          </span><span class="p">},</span><span class="w">
           </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="p">{</span><span class="w">
               </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+              </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                  </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+                    </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+                    </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+              </span><span class="p">}</span><span class="w">
             </span><span class="p">}</span><span class="w">
           </span><span class="p">]</span><span class="w">
         </span><span class="p">}</span><span class="w">
@@ -1686,31 +1718,43 @@ Authentication requirements for this operation will be published in a future ite
       </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"resourceBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"resourceBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"extensionBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
   </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="s2">"string"</span><span class="w">
-        </span><span class="p">]</span><span class="w">
-      </span><span class="p">},</span><span class="w">
       </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                  </span><span class="s2">"sign"</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                  </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">}</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
@@ -1753,10 +1797,10 @@ Authentication requirements for this operation will be published in a future ite
 </tr>
 <tr>
 <td>endpointDetail</td>
-<td>[<a href="#schemaregisterdataholderserviceendpoint">RegisterDataHolderServiceEndpoint</a>]</td>
+<td><a href="#schemaregisterdataholderserviceendpoint">RegisterDataHolderServiceEndpoint</a></td>
 <td>true</td>
 <td>none</td>
-<td>List of Endpoints</td>
+<td>Endpoints related to Data Holder services</td>
 </tr>
 <tr>
 <td>authDetail</td>
@@ -2044,15 +2088,29 @@ Security requirements are subject to change as they are currently under internal
 <p><a id="schemaregisterdataholderauth"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"string"</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
   </span><span class="s2">"hybridFlow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"sign"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"string"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -2077,13 +2135,6 @@ Security requirements are subject to change as they are currently under internal
 <td>The type of authentication and authorisation in use</td>
 </tr>
 <tr>
-<td>jwks</td>
-<td><a href="#schemaregisterjwk">RegisterJWK</a></td>
-<td>true</td>
-<td>none</td>
-<td>none</td>
-</tr>
-<tr>
 <td>hybridFlow</td>
 <td>[<a href="#schemaregisterdataholderauthhybridflow">RegisterDataHolderAuthHybridFlow</a>]</td>
 <td>true</td>
@@ -2097,7 +2148,26 @@ Security requirements are subject to change as they are currently under internal
 <p><a id="schemaregisterdataholderauthhybridflow"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"sign"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
@@ -2125,6 +2195,13 @@ Security requirements are subject to change as they are currently under internal
 <td>true</td>
 <td>none</td>
 <td>The endpoint for the Data Recipient to redirect to the Data Holder&#39;s website for the consumer to authorise the Data Recipient</td>
+</tr>
+<tr>
+<td>jwks</td>
+<td><a href="#schemaregisterjwk">RegisterJWK</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
 </tr>
 </tbody></table>
 
@@ -2267,7 +2344,21 @@ Security requirements are subject to change as they are currently under internal
 <p><a id="schemaregisterjwk"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"sign"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -2283,10 +2374,130 @@ Security requirements are subject to change as they are currently under internal
 </thead><tbody>
 <tr>
 <td>keys</td>
-<td>[string]</td>
+<td>[<a href="#schemajwk">JWK</a>]</td>
 <td>true</td>
 <td>none</td>
 <td>List of JWK objects</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSjwk">JWK</h2>
+
+<p><a id="schemajwk"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"sign"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>JWK object conforming to <a href="https://tools.ietf.org/html/rfc7517">RFC 7517</a></em></p>
+<h3 id='properties-12'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>kty</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Identifies the cryptographic algorithm family used with the key.</td>
+</tr>
+<tr>
+<td>use</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The use (public key use) member identifies the intended use of the public key.</td>
+</tr>
+<tr>
+<td>key_ops</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>The key_ops (key operations) member identifies the operation(s) that the key is intended to be used for.</td>
+</tr>
+<tr>
+<td>alg</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>kid</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>x5u</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>none</td>
+<td>The x5u (X.509 URL) member is a URI [RFC3986] that refers to a resource for an X.509 public key certificate or certificate chain.</td>
+</tr>
+<tr>
+<td>x5c</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>The &quot;x5c&quot; (X.509 Certificate Chain) member contains a chain of one or more PKIX certificates. The certificate chain is represented as a JSON array of certificate value strings.</td>
+</tr>
+<tr>
+<td>x5t</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The &quot;x5t&quot; (X.509 Certificate SHA-1 Thumbprint) member is a base64url encoded SHA-1 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate [RFC5280].</td>
+</tr>
+<tr>
+<td>x5t#S256</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The &quot;x5t#S256&quot; (X.509 Certificate SHA-256 Thumbprint) member is a base64url encoded SHA-256 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-5'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>kty</td>
+<td>EC</td>
+</tr>
+<tr>
+<td>use</td>
+<td>sig</td>
+</tr>
+<tr>
+<td>use</td>
+<td>env</td>
+</tr>
+<tr>
+<td>alg</td>
+<td>RS256</td>
 </tr>
 </tbody></table>
 
@@ -2310,7 +2521,7 @@ Security requirements are subject to change as they are currently under internal
 
 </span></code></pre>
 <p><em>The data that is common to all organisations, regardless of the type (e.g. company, trust, partnership, government)</em></p>
-<h3 id='properties-12'>Properties</h3>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2391,7 +2602,7 @@ Security requirements are subject to change as they are currently under internal
 <td>Business names for the entity</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-5'>Enumerated Values</h4>
+<h4 id='enumerated-values-6'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2438,7 +2649,7 @@ Security requirements are subject to change as they are currently under internal
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-13'>Properties</h3>
+</span></code></pre><h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2523,22 +2734,35 @@ Security requirements are subject to change as they are currently under internal
           </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-            </span><span class="p">{</span><span class="w">
-              </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-            </span><span class="p">}</span><span class="w">
-          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
           </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
               </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="s2">"sign"</span><span class="w">
+                  </span><span class="p">],</span><span class="w">
+                  </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="s2">"string"</span><span class="w">
+                  </span><span class="p">],</span><span class="w">
+                  </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
               </span><span class="p">]</span><span class="w">
             </span><span class="p">}</span><span class="w">
           </span><span class="p">}</span><span class="w">
@@ -2562,7 +2786,7 @@ Security requirements are subject to change as they are currently under internal
 
 </span></code></pre>
 <p><em>Response containing a list of Register Data Recipients</em></p>
-<h3 id='properties-14'>Properties</h3>
+<h3 id='properties-15'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2631,22 +2855,35 @@ Security requirements are subject to change as they are currently under internal
       </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
       </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-            </span><span class="s2">"string"</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"sign"</span><span class="w">
+              </span><span class="p">],</span><span class="w">
+              </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"string"</span><span class="w">
+              </span><span class="p">],</span><span class="w">
+              </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
           </span><span class="p">]</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
@@ -2657,7 +2894,7 @@ Security requirements are subject to change as they are currently under internal
 
 </span></code></pre>
 <p><em>A single Data Recipient within the Register</em></p>
-<h3 id='properties-15'>Properties</h3>
+<h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2713,22 +2950,35 @@ Security requirements are subject to change as they are currently under internal
   </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"accessLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"READONLY"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"infosecBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"adminBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"websiteUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"consentLogoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
   </span><span class="s2">"authDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"sign"</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
       </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -2736,7 +2986,7 @@ Security requirements are subject to change as they are currently under internal
 
 </span></code></pre>
 <p><em>Details for the software products that are included in the ADR accreditation</em></p>
-<h3 id='properties-16'>Properties</h3>
+<h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2783,10 +3033,10 @@ Security requirements are subject to change as they are currently under internal
 </tr>
 <tr>
 <td>endpointDetail</td>
-<td>[<a href="#schemaregisterproductserviceendpoint">RegisterProductServiceEndPoint</a>]</td>
+<td><a href="#schemaregisterproductserviceendpoint">RegisterProductServiceEndPoint</a></td>
 <td>true</td>
 <td>none</td>
-<td>List of end point details related to the product</td>
+<td>List of endpoints that are relevant to the product</td>
 </tr>
 <tr>
 <td>authDetail</td>
@@ -2796,7 +3046,7 @@ Security requirements are subject to change as they are currently under internal
 <td>Authorisation details per Product</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-6'>Enumerated Values</h4>
+<h4 id='enumerated-values-7'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2835,16 +3085,31 @@ Security requirements are subject to change as they are currently under internal
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"redirectUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"sign"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"x5u"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"x5t#S256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
 <p><em>Authorisation details per Product</em></p>
-<h3 id='properties-17'>Properties</h3>
+<h3 id='properties-18'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2869,6 +3134,13 @@ Security requirements are subject to change as they are currently under internal
 <td>Client id allocated for the product</td>
 </tr>
 <tr>
+<td>redirectUri</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Product URI redirected to after authorisation</td>
+</tr>
+<tr>
 <td>jwks</td>
 <td><a href="#schemaregisterjwk">RegisterJWK</a></td>
 <td>true</td>
@@ -2891,7 +3163,7 @@ Security requirements are subject to change as they are currently under internal
 
 </span></code></pre>
 <p><em>List of endpoints that are relevant to the product</em></p>
-<h3 id='properties-18'>Properties</h3>
+<h3 id='properties-19'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2956,10 +3228,16 @@ Security requirements are subject to change as they are currently under internal
 </tr>
 </thead><tbody>
 <tr>
+<td>14/08/2019</td>
+<td>0.4.0</td>
+<td>Updated Swagger Definition</td>
+<td>Updated JWK schema to conform to <a href="https://tools.ietf.org/html/rfc7517">RFC 7517</a><br>Added redirectUri to whitelist per product</td>
+</tr>
+<tr>
 <td>06/08/2019</td>
 <td>0.3.0</td>
 <td>Addition of Security Profile</td>
-<td>Thi section outlines all the security requirements for interacting with the CDR Register</td>
+<td>This section outlines all the security requirements for interacting with the CDR Register</td>
 </tr>
 <tr>
 <td>31/07/2019</td>
