@@ -520,16 +520,15 @@ Discovery API is defined at:
 <a href="#certificate-management">Certificate Management</a></p>
 <h1 id='client-registration'>Client Registration</h1>
 <aside class="info">
-The Register Client Registration design is currently in draft and undergoing collaborative review </br>
-<a href="https://github.com/cdr-register/register/issues/24">https://github.com/cdr-register/register/issues/24</a>
+The Register Client Registration design is undergoing collaborative review </br>
+<a href="https://github.com/cdr-register/register/issues/25">https://github.com/cdr-register/register/issues/25</a>
 </aside>
 <h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
-<p>Software Products within the Consumer Data Right will dynamically register with one or more Data Holders, to obtain client identifiers used to retrieve consumer data on behalf of a consumer.</p>
+<p>Accredited Data Recipient Software Products within the Consumer Data Right will dynamically register with one or more Data Holders, to obtain client credentials used to retrieve consumer data on behalf of a consumer.</p>
 
 <p>The CDR Registration model is derived from the Open Banking UK model with design input from the ABA <a href="https://github.com/cdr-register/register/files/3577911/ABA_RESPONSE_DYvS_SA_05092019_Appendix.pdf">https://github.com/cdr-register/register/files/3577911/ABA_RESPONSE_DYvS_SA_05092019_Appendix.pdf</a></p>
 <h3 id='overview'>Overview</h3>
-<p><strong>Pre-Requisite:</strong> Data Recipient is accredited and the associated Software Product has been configured within the CDR Register
-[Collaboration diagram]</p>
+<p><strong>Pre-Requisite:</strong> Data Recipient is accredited and the associated Software Product has been configured within the CDR Register</p>
 <h3 id='software-statement-assertion-ssa-design'>Software Statement Assertion (SSA) Design</h3>
 <p>A Software Statement is defined in RFC7591 as:
 A digitally signed JSON Web Token (JWT) [RFC7519] that asserts metadata values about the client software.</p>
@@ -727,22 +726,22 @@ SSA’s obtained via an API will have a lifetime of <strong>2 minutes</strong></
 <tr>
 <td><strong>token_endpoint_auth_signing_method</strong></td>
 <td>Required</td>
-<td><strong>value:</strong> private_key_jwt</td>
+<td><strong>value: private_key_jwt</strong></td>
 </tr>
 <tr>
 <td><strong>grant_types</strong></td>
 <td>Required</td>
-<td><strong>value:</strong> [authorization_code, refresh_token, urn:ietf:params:oauth:grant-type:jwtbearer]</td>
+<td><strong>value: [authorization_code, refresh_token, urn:ietf:params:oauth:grant-type:jwtbearer]</strong></td>
 </tr>
 <tr>
 <td><strong>response_types</strong></td>
 <td>Required</td>
-<td><strong>value:</strong> [code id_token]</td>
+<td><strong>value: [code id_token]</strong></td>
 </tr>
 <tr>
 <td><strong>application_type</strong></td>
 <td>Required</td>
-<td><strong>value:</strong>[OIDC-R]</td>
+<td><strong>value: [OIDC-R]</strong></td>
 </tr>
 <tr>
 <td><strong>id_token_signed_response_alg</strong></td>
