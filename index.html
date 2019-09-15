@@ -528,10 +528,10 @@ The Register Client Registration design is undergoing collaborative review </br>
 
 <p>The CDR Registration model is derived from the Open Banking UK model with design input from the ABA <a href="https://github.com/cdr-register/register/files/3577911/ABA_RESPONSE_DYvS_SA_05092019_Appendix.pdf">https://github.com/cdr-register/register/files/3577911/ABA_RESPONSE_DYvS_SA_05092019_Appendix.pdf</a></p>
 <h3 id='overview'>Overview</h3>
-<p><strong>Pre-Requisite:</strong> Data Recipient is accredited and the associated Software Product has been configured within the CDR Register</p>
+<p><strong>Pre-Requisite:</strong> The registering Data Recipient is accredited and the associated Software Product has been configured within the CDR Register</p>
 <h3 id='software-statement-assertion-ssa-design'>Software Statement Assertion (SSA) Design</h3>
 <p>A Software Statement is defined in RFC7591 as:
-A digitally signed JSON Web Token (JWT) [RFC7519] that asserts metadata values about the client software.</p>
+A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts metadata values about the client software.</p>
 
 <p>Within the Consumer Data Right, the CDR Register will issue Software Statements for Accredited Data Recipient Software Products</p>
 
@@ -559,12 +559,12 @@ accepted.</p>
 </tr>
 </tbody></table>
 <h3 id='namespacing'>Namespacing</h3>
-<p>The design will conform to RFC7591 and not use the software namespace as the convention used in the Open Banking UK Dynamic Registration standard.</p>
+<p>The design will conform to RFC7591 and not use the software namespace convention used in the Open Banking UK Dynamic Registration Standard</p>
 <h3 id='digital-signing-algorithm'>Digital Signing Algorithm</h3>
 <p>Conforming to FAPI-RW, SSAs will be signed on the CDR Register using <strong>ES256</strong></p>
 <h3 id='ssa-lifetime'>SSA Lifetime</h3>
 <p>Downloaded SSAs will have a lifetime of <strong>30 minutes</strong>
-SSA’s obtained via an API will have a lifetime of <strong>2 minutes</strong></p>
+</br>SSA’s obtained via an API will have a lifetime of <strong>2 minutes</strong></p>
 <h3 id='ssa-definition'>SSA Definition</h3>
 <table><thead>
 <tr>
@@ -645,7 +645,7 @@ SSA’s obtained via an API will have a lifetime of <strong>2 minutes</strong></
 </tr>
 <tr>
 <td><strong>policy_uri</strong></td>
-<td>Required</td>
+<td>Optional</td>
 <td>URL string that points to a humanreadable policy document for the Software Product</td>
 </tr>
 <tr>
@@ -679,7 +679,7 @@ SSA’s obtained via an API will have a lifetime of <strong>2 minutes</strong></
 <h3 id='cdr-register-ssa-signing'>CDR Register SSA Signing</h3>
 <p>SSAs will be signed by the Register. Register public keys will be exposed on a dedicated JWKS URI endpoint at: [TBD]</p>
 <h3 id='software-product-jwks'>Software Product JWKS</h3>
-<p>JWKS will be decentralised and the URI described in the OIDC Discovery endpoint</p>
+<p>JWKS will be decentralised and the URI described in the OIDC Discovery endpoint </p>
 <h2 id='registration-request-using-jwt'>Registration Request using JWT</h2>
 <table><thead>
 <tr>
