@@ -283,7 +283,10 @@ definitions:
         type: string
         x-cds-type: URIString
       authDetail:
-        $ref: '#/definitions/RegisterDataHolderAuth'
+        type: array
+        uniqueItems: false
+        items:
+          $ref: '#/definitions/RegisterDataHolderAuth'
   RegisterDataHolderAuth:
     description: Provides details of authorisation endpoints for Data Holders
     type: object

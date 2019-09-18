@@ -394,7 +394,11 @@
           "x-cds-type": "URIString"
         },
         "authDetail": {
-          "$ref": "#/definitions/RegisterDataHolderAuth"
+          "type": "array",
+          "uniqueItems": false,
+          "items": {
+            "$ref": "#/definitions/RegisterDataHolderAuth"
+          }
         }
       }
     },
