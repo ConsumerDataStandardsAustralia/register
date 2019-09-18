@@ -1,416 +1,230 @@
 swagger: '2.0'
 info:
-  title: Consumer Data Right (CDR) Register Discovery API
-  version: '0.4'
-host: api.discovery.cdr.gov.au
-basePath: /cds-register/v1
+  version: '0.5'
+  title: Consumer Data Right (CDR) Register - Data Holder Discovery API
 schemes:
   - https
-consumes:
-  - application/json
-produces:
-  - application/json
+host: api.discovery.cdr.gov.au
+basePath: /cdr-register/v1
 paths:
-  /register/holders:
+  /register/data-holder-brands:
     get:
-      description: Get Register Data Holders with metadata
-      operationId: getRegisterDataHolders
-      summary: Get Register Data Holders with metadata
       tags:
-        - Register
+        - DataHolderBrands
+      summary: Get Data Holder Brands from the CDR Register
+      operationId: GetDataHolderBrands
+      consumes:
+        - application/json
+      produces:
+        - application/json
       parameters:
-        - $ref: '#/parameters/ParamUpdatedSince'
-        - $ref: '#/parameters/ParamPage'
-        - $ref: '#/parameters/ParamPageSize'
+        - name: updated-since
+          in: query
+          description: ''
+          required: false
+          type: string
+          format: date-time
+        - name: page
+          in: query
+          description: ''
+          required: false
+          type: integer
+          format: int32
+        - name: page-size
+          in: query
+          description: ''
+          required: false
+          type: integer
+          format: int32
+        - name: x-v
+          in: header
+          required: false
+          type: string
       responses:
         '200':
           description: Success
           schema:
-            $ref: '#/definitions/ResponseRegisterDataHolderList'
+            $ref: '#/definitions/ResponseRegisterDataHolderBrandList'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ResponseRegisterErrorList'
-        '422':
-          description: The request was well formed but was unable to be processed due to business logic specific to the request
+            $ref: '#/definitions/ResponseErrorList'
+        '403':
+          description: Forbidden
           schema:
-            $ref: '#/definitions/ResponseRegisterErrorList'
-  /register/recipients:
+            $ref: '#/definitions/ResponseErrorList'
+  '/register/datarecipientbrands/{dataRecipientBrandId}/softwareproducts/{softwareProductId}/SSA':
     get:
-      description: Get Accredited Data Recipients with metadata
-      operationId: getRegisterDataRecipients
-      summary: Get Accredited Data Recipients with metadata
       tags:
-        - Register
+        - SoftwareStatementAssertion
+      summary: Get a Software Statement Assertion (SSA) for a software product on the CDR Register to be used for Dynamic Registration with a Data Holder
+      operationId: GetSoftwareStatementAssertion
+      consumes:
+        - application/json
+      produces:
+        - application/json
       parameters:
-        - $ref: '#/parameters/ParamUpdatedSince'
-        - $ref: '#/parameters/ParamPage'
-        - $ref: '#/parameters/ParamPageSize'
+        - name: dataRecipientBrandId
+          in: path
+          description: Unique id for the Accredited Data Recipient Brand that the Software Product is associated with in the CDR Register
+          required: true
+          type: string
+        - name: softwareProductId
+          in: path
+          description: Unique id for the Accredited Data Recipient Software Product in the CDR Register
+          required: true
+          type: string
+        - name: x-v
+          in: header
+          required: false
+          type: string
       responses:
         '200':
           description: Success
           schema:
-            $ref: '#/definitions/ResponseRegisterDataRecipientList'
+            type: string
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ResponseRegisterErrorList'
-        '422':
-          description: The request was well formed but was unable to be processed due to business logic specific to the request
+            $ref: '#/definitions/ResponseErrorList'
+        '403':
+          description: Forbidden
           schema:
-            $ref: '#/definitions/ResponseRegisterErrorList'
-parameters:
-  ParamUpdatedSince:
-    name: updated-since
-    in: query
-    description: Only include software products that have been updated after the specified date and time. If absent defaults to include all software products
-    required: false
-    type: string
-    format: date-time
-    x-cds-type: DateTimeString
-  ParamPage:
-    name: page
-    in: query
-    description: Page of results to request (standard pagination)
-    required: false
-    type: integer
-    x-cds-type: PositiveInteger
-    default: '1'
-  ParamPageSize:
-    name: page-size
-    in: query
-    description: Page size to request. Default is 25 (standard pagination)
-    required: false
-    type: integer
-    x-cds-type: PositiveInteger
-    default: '25'
+            $ref: '#/definitions/ResponseErrorList'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ResponseErrorList'
+  /register/softwareproducts:
+    get:
+      tags:
+        - SoftwareProducts
+      summary: Get the metadata (including status) for software products from the CDR Register
+      operationId: GetSoftwareProducts
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: x-v
+          in: header
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/SoftwareProductList'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ResponseErrorList'
 definitions:
-  ResponseRegisterDataHolderList:
-    description: Response containing a list of Register Data Holder objects
-    type: object
+  ResponseRegisterDataHolderBrandList:
+    description: Response containing a list of Register Data Holder Brand objects
     required:
       - data
       - links
       - meta
+    type: object
     properties:
       data:
         description: Response data for the query
+        uniqueItems: false
         type: array
         items:
-          $ref: '#/definitions/RegisterDataHolder'
+          $ref: '#/definitions/RegisterDataHolderBrand'
       links:
         $ref: '#/definitions/LinksPaginated'
       meta:
         $ref: '#/definitions/MetaPaginated'
-  RegisterDataHolder:
-    description: A single Data Holder within the Register
-    type: object
+  RegisterDataHolderBrand:
     required:
-      - id
-      - status
-      - participant
-      - endpointDetail
-      - authDetail
-      - lastUpdated
-    properties:
-      id:
-        description: Unique Register identifier
-        type: string
-      status:
-        description: Registration status of the Data Holder
-        enum:
-          - ACTIVE
-          - INACTIVE
-        type: string
-      participant:
-        $ref: '#/definitions/RegisterParticipant'
-      endpointDetail:
-        $ref: '#/definitions/RegisterDataHolderServiceEndpoint'
-      authDetail:
-        description: List of authorisation methods for Data Holders
-        uniqueItems: true
-        type: array
-        items:
-          $ref: '#/definitions/RegisterDataHolderAuth'
-      lastUpdated:
-        description: 'The date/time that the Data Holder data was last updated in the Register '
-        type: string
-        format: date-time
-        x-cds-type: DateTimeString
-  LinksPaginated:
-    type: object
-    required:
-      - self
-    properties:
-      first:
-        description: URI to the first page of this set. Mandatory if this response is not the first page
-        type: string
-        format: uri
-        x-cds-type: URIString
-      last:
-        description: URI to the last page of this set. Mandatory if this response is not the last page
-        type: string
-        format: uri
-        x-cds-type: URIString
-      next:
-        description: URI to the next page of this set. Mandatory if this response is not the last page
-        type: string
-        format: uri
-        x-cds-type: URIString
-      prev:
-        description: URI to the previous page of this set. Mandatory if this response is not the first page
-        type: string
-        format: uri
-        x-cds-type: URIString
-      self:
-        description: Fully qualified link to this API call
-        type: string
-        format: uri
-        x-cds-type: URIString
-    x-conditional:
-      - first
-      - last
-      - next
-      - prev
-  MetaPaginated:
-    type: object
-    required:
-      - totalPages
-      - totalRecords
-    properties:
-      totalPages:
-        description: The total number of pages in the full set
-        type: integer
-        format: int32
-        x-cds-type: PositiveInteger
-      totalRecords:
-        description: The total number of records in the full set
-        type: integer
-        format: int32
-        x-cds-type: PositiveInteger
-  RegisterAccreditation:
-    description: Accreditation information of Data Recipient as per ACCC register
-    type: object
-    required:
-      - accreditationDateTime
-      - accreditationStatus
-    properties:
-      accreditationDate:
-        description: The date that the Data Recipient was accredited
-        type: string
-        format: date
-        x-cds-type: DateString
-      accreditationStatus:
-        description: The current accreditation status on the register. This reflects the life cycle of participation in the CDR
-        enum:
-          - ACTIVE
-          - SUSPENDED
-          - REVOKED
-          - SURRENDERED
-        type: string
-  RegisterParticipant:
-    description: Represents a single participant (Data Holder / Data Recipient) within the Register
-    type: object
-    required:
-      - displayName
-      - participantType
+      - dataHolderBrandId
+      - brandName
       - sector
-      - organisation
+      - legalEntity
+      - registerStatus
+      - endpointDetail
+      - lastUpdated
+    type: object
     properties:
-      displayName:
-        description: Display full name of the participant
+      dataHolderBrandId:
         type: string
-        x-cds-type: ASCIIString
-      shortName:
-        description: Display short name of the participant
+      brandName:
         type: string
-        x-cds-type: ASCIIString
-      participantType:
-        enum:
-          - HOLDER
-          - RECIPIENT
-        type: string
-        x-cds-type: ASCIIString
       sector:
-        description: The sector that the registration pertains to (e.g. Banking)
         enum:
           - BANKING
         type: string
-        x-cds-type: ASCIIString
-      organisation:
-        $ref: '#/definitions/CommonOrganisationDetail'
-  RegisterDataHolderAuth:
-    description: Provides details of authorisation endpoints for Data Holders
-    type: object
+      legalEntity:
+        $ref: '#/definitions/LegalEntityDetail'
+      registerStatus:
+        enum:
+          - ACTIVE
+          - INACTIVE
+          - REMOVED
+        type: string
+      endpointDetail:
+        $ref: '#/definitions/RegisterDataHolderBrandServiceEndpoint'
+      lastUpdated:
+        description: 'The date/time that the Data Holder Brand data was last updated in the Register '
+        type: string
+        format: date-time
+        x-cds-type: DateTimeString
+  SoftwareProductList:
     required:
-      - registerUType
-      - hybridFlow
+      - softwareProducts
+    type: object
     properties:
-      registerUType:
-        $ref: '#/definitions/RegisterAuthType'
-      hybridFlow:
-        description: Detail for Hybrid flow for DSB standard version
+      softwareProducts:
         uniqueItems: true
         type: array
         items:
-          $ref: '#/definitions/RegisterDataHolderAuthHybridFlow'
-  RegisterDataHolderAuthHybridFlow:
-    description: Provides specific detail for Hybrid flow
-    type: object
+          $ref: '#/definitions/SoftwareProduct'
+  SoftwareProduct:
     required:
-      - version
-      - redirectUri
-      - jwks
-    properties:
-      version:
-        description: Consumer Data Standard Version
-        type: string
-        x-cds-type: ASCIIString
-      redirectUri:
-        description: The endpoint for the Data Recipient to redirect to the Data Holder's website for the consumer to authorise the Data Recipient
-        type: string
-        x-cds-type: URIString
-      jwks:
-        $ref: '#/definitions/RegisterJWK'
-  RegisterAuthType:
-    type: string
-    description: The type of authentication and authorisation in use
-    enum:
-      - HYBRIDFLOW-JWKS
-  RegisterDataHolderServiceEndpoint:
-    description: Endpoints related to Data Holder services
+      - softwareProductId
+      - softwareProductStatus
     type: object
-    required:
-      - version
-      - publicBaseUri
-      - resourceBaseUri
-      - infosecBaseUri
-      - adminBaseUri
-      - websiteUri
-      - termsofServiceUri
-      - logoUri
-      - consentLogoUri
     properties:
-      version:
-        description: Consumer Data Standard Version
+      softwareProductId:
+        description: Unique id of the software product issued by the CDR Register
         type: string
-      publicBaseUri:
-        description: Base URI for the Consumer Data Standard public endpoints
-        type: string
-        x-cds-type: URIString
-      resourceBaseUri:
-        description: Base URI for the Consumer Data Standard resource endpoints
-        type: string
-        x-cds-type: URIString
-      infosecBaseUri:
-        description: Base URI for the Consumer Data Standard infosec endpoints
-        type: string
-        x-cds-type: URIString
-      adminBaseUri:
-        description: Base URI for the Consumer Data Standard admin endpoints
-        type: string
-        x-cds-type: URIString
-      extensionBaseUri:
-        description: Base URI for the Data Holder extension endpoints to the Consumer Data Standard (optional)
-        type: string
-        x-cds-type: URIString
-      websiteUri:
-        description: Publicly available website or web resource URI
-        type: string
-        x-cds-type: URIString
-      logoUri:
-        description: URI to retrieve a logo image for general use
-        type: string
-        x-cds-type: URIString
-      consentLogoUri:
-        description: URI to retrieve a logo image for used during consent
-        type: string
-        x-cds-type: URIString
-  RegisterJWK:
-    type: object
-    required:
-      - keys
-    properties:
-      keys:
-        description: List of JWK objects
-        type: array
-        items:
-          $ref: '#/definitions/JWK'
-  JWK:
-    type: object
-    description: JWK object conforming to [RFC 7517](https://tools.ietf.org/html/rfc7517)
-    required:
-      - kty
-    properties:
-      kty:
-        description: Identifies the cryptographic algorithm family used with the key.
-        type: string
+      softwareProductStatus:
+        description: Software product status in CDR Register
         enum:
-          - EC
-        default: EC
-      use:
-        description:  The use (public key use) member identifies the intended use of the public key.
+          - ACTIVE
+          - INACTIVE
+          - REMOVED
         type: string
-        enum:
-          - sig
-          - env
-      key_ops:
-        description: The key_ops (key operations) member identifies the operation(s) that the key is intended to be used for.
-        type: array
-        items:
-          type: string
-          enum:
-            - sign
-            - verify
-            - encrypt
-            - decrypt
-            - wrapKey
-            - unwrapKey
-            - deriveKey
-            - deriveBits
-        minItems: 1
-      alg:
-        type: string
-        enum:
-          - RS256
-      kid:
-        type: string
-      x5u:
-        description: The x5u (X.509 URL) member is a URI [RFC3986] that refers to a resource for an X.509 public key certificate or certificate chain. 
-        type: string
-        format: uri
-      x5c:
-        description: The "x5c" (X.509 Certificate Chain) member contains a chain of one or more PKIX certificates. The certificate chain is represented as a JSON array of certificate value strings.
-        type: array
-        items:
-          type: string
-      x5t:
-        description: The "x5t" (X.509 Certificate SHA-1 Thumbprint) member is a base64url encoded SHA-1 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate [RFC5280].
-        type: string
-      x5t#S256:
-        description: The "x5t#S256" (X.509 Certificate SHA-256 Thumbprint) member is a base64url encoded SHA-256 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate
-        type: string
-  CommonOrganisationDetail:
+  LegalEntityDetail:
     description: 'The data that is common to all organisations, regardless of the type (e.g. company, trust, partnership, government)'
-    type: object
     required:
-      - legalName
+      - legalEntityId
+      - legalEntityName
       - registeredCountry
+    type: object
     properties:
-      legalName:
-        description: 'Company Registered in Australia : Unique legal name of the entity. Company Not Registered in Australia : Unique registered name of the entity. Trustee - Organisation:  Unique legal name of the entity. Partner - Organisation : Unique legal name of the entity'
+      legalEntityId:
+        description: Unique legal name of the organisation
+        type: string
+      legalEntityName:
+        description: Unique legal name of the organisation
         type: string
       registrationNumber:
-        description: Unique registration number (if the company is registered outside Australia)
+        description: Unique registration number (if the company is regitered outside Australia)
         type: string
       registrationDate:
-        description: Date of registration (if the company is registered outside Australia)
+        format: date-time
+        description: Date of registration (if the company is regitered outside Australia)
         type: string
-        format: date
         x-cds-type: DateString
       registeredCountry:
-        description: 'Country of registeration. Enumeration with values from [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country codes.'
-        default: AUS
+        description: Country of registeration (if the company is regitered outside Australia)
         type: string
       abn:
         description: Australian Business Number for the organisation
@@ -434,173 +248,119 @@ definitions:
           - GOVERNMENT_ENTITY
           - OTHER
         type: string
-      businessNames:
-        description: Business names for the entity
-        uniqueItems: true
-        type: array
-        items:
-          description: Business name for the entity
-          type: string
-  ResponseRegisterErrorList:
-    type: object
-    required:
-      - errors
-    properties:
-      errors:
-        type: array
-        items:
-          type: object
-          required:
-            - code
-            - title
-            - detail
-          properties:
-            code:
-              type: string
-              description: Error code
-            title:
-              type: string
-              description: Error title
-            detail:
-              type: string
-              description: Error detail
-            meta:
-              type: object
-              description: Optional additional data for specific error types
-  ResponseRegisterDataRecipientList:
-    description: Response containing a list of Register Data Recipients
-    type: object
-    required:
-      - data
-      - links
-      - meta
-    properties:
-      data:
-        description: Response data for the query
-        type: array
-        items:
-          $ref: '#/definitions/RegisterDataRecipient'
-      links:
-        $ref: '#/definitions/LinksPaginated'
-      meta:
-        $ref: '#/definitions/MetaPaginated'
-  RegisterDataRecipient:
-    description: A single Data Recipient within the Register
-    type: object
-    required:
-      - id
-      - accreditation
-      - participant
-      - products
-      - lastUpdated
-    properties:
-      id:
-        description: Unique Register identifier for the Data Recipient
-        type: string
-      accreditation:
-        $ref: '#/definitions/RegisterAccreditation'
-      participant:
-        $ref: '#/definitions/RegisterParticipant'
-      products:
-        description: List of products / services accredited with this Data Recipient
-        type: array
-        items:
-          $ref: '#/definitions/RegisterProduct'
-      lastUpdated:
-        description: 'The date/time that the Data Holder data was last updated in the Register '
-        type: string
-        format: date-time
-        x-cds-type: DateTimeString
-  RegisterProduct:
-    description: Details for the software products that are included in the ADR accreditation
-    type: object
-    required:
-      - name
-      - softwareProductDescription
-      - status
-      - accessLevel
-      - endpointDetail
-      - authDetail
-    properties:
-      id:
-        description: Unique Register identifier for the Software Product
-        type: string
-      name:
-        description: The name of the software product that has been included in the accreditation for the ADR
-        type: string
-      softwareProductDescription:
-        description: The description of the software product that has been included in the accreditation for the ADR
-        type: string
-      status:
-        description: The current status of the Software Product
-        enum:
-          - ACTIVE
-          - SUSPENDED
-          - REVOKED
-          - SURRENDERED
-        type: string
-      accessLevel:
-        description: The access level granted to the software product under the accreditation for the ADR
-        enum:
-          - READONLY
-          - READANDWRITE
-        type: string
-      endpointDetail:
-          $ref: '#/definitions/RegisterProductServiceEndPoint'
-      authDetail:
-        $ref: '#/definitions/RegisterProductAuth'
-  RegisterProductAuth:
-    description: Authorisation details per Product
-    type: object
-    required:
-      - registerUType
-      - clientId
-      - jwks
-    properties:
-      registerUType:
-        $ref: '#/definitions/RegisterAuthType'
-      clientId:
-        description: Client id allocated for the product
-        type: string
-      redirectUri:
-        description: Product URI redirected to after authorisation 
-        type: string
-        x-cds-type: URIString
-      jwks:
-        $ref: '#/definitions/RegisterJWK'
-  RegisterProductServiceEndPoint:
-    description: List of endpoints that are relevant to the product
-    type: object
+  RegisterDataHolderBrandServiceEndpoint:
+    description: Endpoints related to Data Holder Brand services
     required:
       - version
+      - publicBaseUri
+      - resourceBaseUri
       - infosecBaseUri
-      - adminBaseUri
       - websiteUri
-      - logoUri
-      - consentLogoUri
+      - authDetail
+    type: object
     properties:
       version:
-        description: Consumer Data Standard Version
+        description: 'The major version of the high level standards. This is not the version of the endpoint or the payload being requested but the version of the overall standards being applied. This version number will be "v" followed by the major version of the standards as a positive integer (e.g. v1, v12 or v76)'
         type: string
-      infosecBaseUri:
-        description: 'Base URI for the Consumer Data Standard infosec endpoints, published by the Data Recipient'
+      publicBaseUri:
+        description: Base URI for the Data Holder's Consumer Data Standard public endpoints
         type: string
         x-cds-type: URIString
-      adminBaseUri:
-        description: 'Base URI for the Consumer Data Standard admin endpoints, published by the Data Recipient'
+      resourceBaseUri:
+        description: Base URI for the Data Holder's Consumer Data Standard resource endpoints
+        type: string
+        x-cds-type: URIString
+      infosecBaseUri:
+        description: Base URI for the Data Holder's Consumer Data Standard information security endpoints
+        type: string
+        x-cds-type: URIString
+      extensionBaseUri:
+        description: Base URI for the Data Holder extension endpoints to the Consumer Data Standard (optional)
         type: string
         x-cds-type: URIString
       websiteUri:
-        description: The publicly available website or web resource URI
-        type: string
-      logoUri:
-        description: The URI to retrieve a logo image for general use
+        description: Publicly available website or web resource URI
         type: string
         x-cds-type: URIString
-      consentLogoUri:
-        description: The URI to retrieve a logo image for used during consent
+      authDetail:
+        $ref: '#/definitions/RegisterDataHolderAuth'
+  RegisterDataHolderAuth:
+    description: Provides details of authorisation endpoints for Data Holders
+    type: object
+    required:
+      - registerUType
+      - jwksEndpoint
+    properties:
+      registerUType:
+        type: string
+        description: The type of authentication and authorisation in use
+        enum:
+          - HYBRIDFLOW-JWKS
+      jwksEndpoint:
+        description: JWKS endpoint for private_key_jwt client auth with Data Recipient
         type: string
         x-cds-type: URIString
-tags:
-  - name: Register
-    description: Operations related to the Register Discovery API
+  LinksPaginated:
+    required:
+      - self
+    type: object
+    properties:
+      first:
+        description: URI to the first page of this set. Mandatory if this response is not the first page
+        type: string
+      last:
+        description: URI to the last page of this set. Mandatory if this response is not the last page
+        type: string
+      next:
+        description: URI to the next page of this set. Mandatory if this response is not the last page
+        type: string
+      prev:
+        description: URI to the previous page of this set. Mandatory if this response is not the first page
+        type: string
+      self:
+        description: Fully qualified link to this API call
+        type: string
+  MetaPaginated:
+    required:
+      - totalPages
+      - totalRecords
+    type: object
+    properties:
+      totalPages:
+        format: int32
+        description: The total number of pages in the full set
+        type: integer
+      totalRecords:
+        format: int32
+        description: The total number of records in the full set
+        type: integer
+  ResponseErrorList:
+    required:
+      - errors
+    type: object
+    properties:
+      errors:
+        uniqueItems: false
+        type: array
+        items:
+          $ref: '#/definitions/Error'
+  Error:
+    required:
+      - code
+      - title
+      - detail
+    type: object
+    properties:
+      code:
+        description: Error code
+        type: string
+      title:
+        description: Error title
+        type: string
+      detail:
+        description: Error detail
+        type: string
+      meta:
+        description: Optional additional data for specific error types
+        type: object
+tags: []
