@@ -4,7 +4,6 @@ info:
   title: Consumer Data Right (CDR) Register - Data Holder Discovery API
 schemes:
   - https
-host: api.discovery.cdr.gov.au
 basePath: /cdr-register/v1
 paths:
   /register/data-holder-brands:
@@ -53,7 +52,7 @@ paths:
           description: Forbidden
           schema:
             $ref: '#/definitions/ResponseErrorList'
-  '/register/datarecipientbrands/{dataRecipientBrandId}/softwareproducts/{softwareProductId}/SSA':
+  /register/data-recipient-brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa:
     get:
       tags:
         - SoftwareStatementAssertion
@@ -95,7 +94,7 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/ResponseErrorList'
-  /register/softwareproducts:
+  /register/software-products:
     get:
       tags:
         - SoftwareProducts
@@ -149,6 +148,7 @@ definitions:
       - legalEntity
       - registerStatus
       - endpointDetail
+      - authDetails
       - lastUpdated
     type: object
     properties:
@@ -170,6 +170,11 @@ definitions:
         type: string
       endpointDetail:
         $ref: '#/definitions/RegisterDataHolderBrandServiceEndpoint'
+      authDetails:
+        type: array
+        uniqueItems: false
+        items:
+          $ref: '#/definitions/RegisterDataHolderAuth'
       lastUpdated:
         description: 'The date/time that the Data Holder Brand data was last updated in the Register '
         type: string
@@ -216,15 +221,15 @@ definitions:
         description: Unique legal name of the organisation
         type: string
       registrationNumber:
-        description: Unique registration number (if the company is regitered outside Australia)
+        description: Unique registration number (if the company is registered outside Australia)
         type: string
       registrationDate:
-        format: date-time
-        description: Date of registration (if the company is regitered outside Australia)
+        format: date
+        description: Date of registration (if the company is registered outside Australia)
         type: string
         x-cds-type: DateString
       registeredCountry:
-        description: Country of registeration (if the company is regitered outside Australia)
+        description: Country of registeration (if the company is registered outside Australia)
         type: string
       abn:
         description: Australian Business Number for the organisation
@@ -256,7 +261,6 @@ definitions:
       - resourceBaseUri
       - infosecBaseUri
       - websiteUri
-      - authDetail
     type: object
     properties:
       version:
@@ -282,11 +286,6 @@ definitions:
         description: Publicly available website or web resource URI
         type: string
         x-cds-type: URIString
-      authDetail:
-        type: array
-        uniqueItems: false
-        items:
-          $ref: '#/definitions/RegisterDataHolderAuth'
   RegisterDataHolderAuth:
     description: Provides details of authorisation endpoints for Data Holders
     type: object
