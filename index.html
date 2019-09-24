@@ -683,6 +683,63 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <p>Downloaded SSAs will have a lifetime of <strong>30 minutes</strong>
 </br>SSA’s obtained via an API will have a lifetime of <strong>10 minutes</strong>. The intention here is this should be sufficient time to batch register with all relevant Data Holders</p>
 <h3 id='ssa-definition'>SSA Definition</h3>
+<blockquote>
+</blockquote>
+<pre class="highlight plaintext"><code>{
+   "alg":"PS256",
+   "kid":"ee56beb7e67a4f028ee86df915cf681c",
+   "typ":"JWT"
+},
+{
+   "iss":"cdr-register",
+   "iat":1568598151,
+   "exp":1568598751,
+   "jti":"ee56beb7e67a4f028ee86df915cf681d",
+   "org_id":"3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
+   "org_name":"Mock Company Inc.",
+   "org_contacts":[
+      {
+         "name":"John Doe",
+         "email":"john.doe@mockcompany.com.au",
+         "phone":"02 65555 294",
+         "type":"PrimaryBusinessContact"
+      },
+      {
+         "name":"Jane Doe",
+         "email":"jane.doe@mockcompany.com.au",
+         "phone":"02 65555 308",
+         "type":"PrimaryItContact"
+      }
+   ],
+   “iss_tos_uri”:”cdr.gov.au/tos.html”,
+   "client_name":"Mock Software",
+   "client_description":"A mock software product",
+   "client_uri":"https://www.mockcompany.com.au",
+   "redirect_uris":[
+      "https://www.mockcompany.com.au/redirects/redirect1",
+      "https://www.mockcompany.com.au/redirects/redirect2"
+   ],
+   "logo_uri":"https://www.mockcompany.com.au/logos/logo1.png",
+   "tos_uri":"https://www.mockcompany.com.au/tos.html",
+   "policy_uri":"https://www.mockcompany.com.au/policy.html",
+   "jwks_uri":"https://www.mockcompany.com.au/jwks",
+   "revocation_uri":"https://www.mockcompany.com.au/revocation",
+   "software_id":"FBFFD12F-0196-45A3-8E77-AE10EC4561FF",
+   "software_version":"V1.0.0",
+   "software_roles":[
+      "data_recipient"
+   ],
+   "scopes":[
+      "bank:accounts.basic:read",
+      "bank:accounts.detail:read",
+      "bank:transactions:read",
+      "bank:payees:read",
+      "bank:regular_payments:read",
+      "common:customer.basic:read",
+      "common:customer.detail:read"
+   ]
+}
+</code></pre>
 <table><thead>
 <tr>
 <th>Client Metadata</th>
@@ -726,7 +783,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td>JSON object containing the contact details of the Primary Business Contact and Primary Technical Contact <em></br>[{</br>name: firstname + lastname, </br>email: email address, </br>phone: telephone or mobilephone, </br>type: Primary Business Contact </br>}, … ]</em></td>
 </tr>
 <tr>
-<td><strong>iss_tos</strong></td>
+<td><strong>iss_tos_uri</strong></td>
 <td>Optional</td>
 <td>URL string that points to a humanreadable terms of service document for the Consumer Data Right Regime</td>
 </tr>
@@ -741,6 +798,11 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td>Human-readable string name of the software product description to be presented to the end user during authorization</td>
 </tr>
 <tr>
+<td><strong>client_uri</strong></td>
+<td>Required</td>
+<td>URL string of a web page providing information about the client.</td>
+</tr>
+<tr>
 <td><strong>redirect_uris</strong></td>
 <td>Required</td>
 <td>Array of redirection URI strings for use in redirect-based flows</td>
@@ -749,11 +811,6 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td><strong>logo_uri</strong></td>
 <td>Required</td>
 <td>URL string that references a logo for the client. If present, the server SHOULD display this image to the end-user during approval</td>
-</tr>
-<tr>
-<td><strong>scope</strong></td>
-<td>Required</td>
-<td>String containing a space-separated list of scope values that the client can use when requesting access tokens.</td>
 </tr>
 <tr>
 <td><strong>tos_uri</strong></td>
@@ -766,9 +823,14 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td>URL string that points to a humanreadable policy document for the Software Product</td>
 </tr>
 <tr>
-<td><strong>jwks_endpoint</strong></td>
+<td><strong>jwks_uri</strong></td>
 <td>Required</td>
 <td>URL string referencing the client&#39;s JSON Web Key (JWK) Set [RFC7517] document, which contains the client&#39;s public keys</td>
+</tr>
+<tr>
+<td><strong>revocation_uri</strong></td>
+<td>Required</td>
+<td>URI string that references the location of the Software Product consent revocation endpoint as per <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">https://consumerdatastandardsaustralia.github.io/standards/#end-points</a></td>
 </tr>
 <tr>
 <td><strong>software_id</strong></td>
@@ -783,12 +845,12 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <tr>
 <td><strong>software_roles</strong></td>
 <td>Required</td>
-<td>String containing a role of the software in the CDR Regime. Initially the only value used with be <strong>“Data Recipient”</strong></td>
+<td>String containing a role of the software in the CDR Regime. Initially the only value used with be <strong>“data_recipient”</strong></td>
 </tr>
 <tr>
-<td><strong>revocation_uri</strong></td>
+<td><strong>scopes</strong></td>
 <td>Required</td>
-<td>URI string that references the location of the Software Product consent revocation endpoint as per <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">https://consumerdatastandardsaustralia.github.io/standards/#end-points</a></td>
+<td>String containing a space-separated list of scope values that the client can use when requesting access tokens.</td>
 </tr>
 </tbody></table>
 <h3 id='logos'>Logos</h3>
@@ -798,6 +860,43 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <h3 id='software-product-jwks'>Software Product JWKS</h3>
 <p>JWKS will be decentralised and the URI described in the OIDC Discovery endpoint</p>
 <h2 id='registration-request-using-jwt'>Registration Request using JWT</h2>
+<blockquote>
+</blockquote>
+<pre class="highlight plaintext"><code>POST /register HTTP/1.1
+Content-Type: application/jwt
+Accept: application/json
+Host: secure.api.dataholder.com
+
+## Decoded JWT
+{
+   "alg":"PS256",
+   "typ":"JWT",
+   "kid":"12456"
+},
+{
+   "iss":"Mock Company",
+   "iat":"12345",
+   "exp":1516239322,
+   "jti":"37747cd1-c105-4569-9f75-4adf28b73e31",
+   "aud":"https://www.infosec.cdr.gov.au/token",
+   "redirect_uris":[
+      "https://www.mockcompany.com.au/redirects/redirect1",
+      "https://www.mockcompany.com.au/redirects/redirect2"
+   ],
+   "token_endpoint_auth_signing_alg":"ES256",
+   "token_endpoint_auth_signing_method":"private_key_jwt",
+   "grant_types":"[
+      authorization_code,
+      refresh_token,
+      urn:ietf:params:oauth:grant-type:jwtbearer
+   ]",
+   "response_types":"[code id_token]",
+   "application_type":"[OIDC-R]]",
+   "id_token_signed_response_alg":"ES256",
+   "request_object_signing_alg":"ES256",
+   "software_statement":…
+}
+</code></pre>
 <table><thead>
 <tr>
 <th>Claim</th>
@@ -829,11 +928,6 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td><strong>aud</strong></td>
 <td>Required</td>
 <td>Data Holder auth server URI</td>
-</tr>
-<tr>
-<td><strong>software_statement</strong></td>
-<td>Required</td>
-<td>Software statement assertion issued by the CDR Register</td>
 </tr>
 <tr>
 <td><strong>redirect_uris</strong></td>
@@ -874,6 +968,11 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td><strong>request_object_signing_alg</strong></td>
 <td>Optional</td>
 <td>Algorithm which the ADR expects to sign the request object if a request object will be part of the authorization request sent to the Data Holder</br></br>Supported values as constrained by FAPI-RW</td>
+</tr>
+<tr>
+<td><strong>software_statement</strong></td>
+<td>Required</td>
+<td>Software statement assertion issued by the CDR Register</td>
 </tr>
 </tbody></table>
 <h2 id='data-holder-authorisation-server-requirements'>Data Holder Authorisation Server Requirements</h2><h3 id='registration-api-endpoints'>Registration API Endpoints</h3>
@@ -916,7 +1015,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <h3 id='modify-registration'>Modify Registration</h3>
 <p><img src="images/registration/ModifyRegistration.png" ></img></p>
 
-<p>Registration request details are described at: <a href="#registration-request-using-jwt">#registration-request-using-jwt</a></p>
+<p>Registration request details are described at: <a href="#registration-request-using-jwt">registration-request-using-jwt</a></p>
 <h1 id='participant-statuses'>Participant Statuses</h1><h2 id='adr-and-software-product-statuses'>ADR and Software Product Statuses</h2>
 <p>The accreditation status of Accredited Data Recipients, and the status of their associated software products, may traverse through multiple states in the CDR as a result of decisions by the ACCC, in its capacity as Data Recipient Accreditor, or where an Accredited Data Recipient surrenders accreditation.</p>
 
