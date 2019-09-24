@@ -727,7 +727,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
    "software_id":"FBFFD12F-0196-45A3-8E77-AE10EC4561FF",
    "software_version":"V1.0.0",
    "software_roles":[
-      "data_recipient"
+      "data-recipient"
    ],
    "scopes":[
       "bank:accounts.basic:read",
@@ -845,7 +845,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <tr>
 <td><strong>software_roles</strong></td>
 <td>Required</td>
-<td>String containing a role of the software in the CDR Regime. Initially the only value used with be <strong>“data_recipient”</strong></td>
+<td>String containing a role of the software in the CDR Regime. Initially the only value used with be <strong>“data-recipient”</strong></td>
 </tr>
 <tr>
 <td><strong>scopes</strong></td>
@@ -856,9 +856,8 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <h3 id='logos'>Logos</h3>
 <p>Logos will be incorporated within the SSA to ensure there is consistency between the logos published on the Public Register and those passed to Data Holders as part of Registration</p>
 <h3 id='cdr-register-ssa-signing'>CDR Register SSA Signing</h3>
-<p>SSAs will be signed by the Register. Register public keys will be exposed on a dedicated JWKS URI endpoint at: [TBD]</p>
-<h3 id='software-product-jwks'>Software Product JWKS</h3>
-<p>JWKS will be decentralised and the URI described in the OIDC Discovery endpoint</p>
+<p>SSAs will be signed by the Register. Register public keys will be exposed on a dedicated JWKS URI endpoint at: [TBD]
+CDR Register JWKS will be exposed on an unauthenticated endpoint, using TLS. This allows for distribution via CDN, increasing tolerance for Register outage.</p>
 <h2 id='registration-request-using-jwt'>Registration Request using JWT</h2>
 <blockquote>
 </blockquote>
@@ -883,7 +882,7 @@ Host: secure.api.dataholder.com
       "https://www.mockcompany.com.au/redirects/redirect1",
       "https://www.mockcompany.com.au/redirects/redirect2"
    ],
-   "token_endpoint_auth_signing_alg":"ES256",
+   "token_endpoint_auth_signing_alg":"PS256",
    "token_endpoint_auth_signing_method":"private_key_jwt",
    "grant_types":"[
       authorization_code,
@@ -892,8 +891,8 @@ Host: secure.api.dataholder.com
    ]",
    "response_types":"[code id_token]",
    "application_type":"[OIDC-R]]",
-   "id_token_signed_response_alg":"ES256",
-   "request_object_signing_alg":"ES256",
+   "id_token_signed_response_alg":"PS256",
+   "request_object_signing_alg":"PS256",
    "software_statement":…
 }
 </code></pre>
@@ -1007,13 +1006,16 @@ Host: secure.api.dataholder.com
 </tr>
 </tbody></table>
 
-<p>Client Credentials grant must conform to OIDC Client Authentication using private_key_jwt as specified in <a href="https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication">section 9</a> of <strong>[OIDC]</strong></p>
+<p>Registration endpoints will be exposed under the InfoSecBaseUri, as described at: <a href="#endpoints">endpoints</a></p>
+<h3 id='transaction-security'>Transaction Security</h3>
+<p>DCR API endpoints will conform to the same transaction security requirements as Data Holder Resource endpoints.
+</br>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#transaction-security">Consumer Data Standards Transaction Security</a> for Transaction Security details</p>
 <h2 id='registration-flows'>Registration Flows</h2>
 <p>The following sequence diagrams outline the responsibities for each party during the dynamic client registration processes.</p>
 <h3 id='create-registration'>Create Registration</h3>
-<p><img src="images/registration/CreateRegistration.png" ></img></p>
+<p><img src="images/registration/CreateRegistration1.png" ></img></p>
 <h3 id='modify-registration'>Modify Registration</h3>
-<p><img src="images/registration/ModifyRegistration.png" ></img></p>
+<p><img src="images/registration/ModifyRegistration1.png" ></img></p>
 
 <p>Registration request details are described at: <a href="#registration-request-using-jwt">registration-request-using-jwt</a></p>
 <h1 id='participant-statuses'>Participant Statuses</h1><h2 id='adr-and-software-product-statuses'>ADR and Software Product Statuses</h2>
@@ -1248,7 +1250,7 @@ grant_type=client_credentials&amp;
 <ol>
 <li>Access Token will be requested as per the Assertion Framework for OAuth2 Client Authentication profile</li>
 <li>Data Holder and Data Recipient public keys are retrieved from the CDR Register<br></li>
-<li>Refresh tokens will not be provided for grant_type <code>client_credentials</code> </li>
+<li>Refresh tokens will not be provided for grant_type <code>client_credentials</code></li>
 <li> The JWT must contain the following Claim Values :</li>
 </ol>
 
@@ -1294,7 +1296,7 @@ Content-Type: application/x-www-form-urlencoded
 }
 </code></pre>
 <ol>
-<li>The CDR Register will expose an endpoint to distribute it&#39;s public keys<br></li>
+<li>The CDR Register will expose an endpoint to distribute it&#39;s public keys</li>
 <li> The JWT must contain the following Claim Values :</li>
 </ol>
 
@@ -1327,17 +1329,17 @@ The following client identifiers will be used:</p>
 <tr>
 <td><strong>CDR Register</strong></td>
 <td>Calls to Participant Admin APIs</td>
-<td><strong>TDB</strong></td>
+<td><strong>cdr-register</strong></td>
 </tr>
 <tr>
 <td><strong>Data Holder</strong></td>
 <td>Calls to CDR Register Discovery API</td>
-<td>Data Holder ID</td>
+<td><strong>Data Holder ID</strong></td>
 </tr>
 <tr>
 <td><strong>Data Recipient</strong></td>
 <td>Calls to CDR Register Discovery API</td>
-<td>Data Recipient Product ID</td>
+<td><strong>Data Recipient Software Product ID</strong></td>
 </tr>
 </tbody></table>
 <h2 id='transaction-security'>Transaction Security</h2>
