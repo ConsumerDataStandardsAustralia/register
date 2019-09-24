@@ -282,6 +282,9 @@
                   <li>
                     <a href="#data-holder-authorisation-server-requirements" class="toc-h2 toc-link" data-title="Data Holder Authorisation Server Requirements">Data Holder Authorisation Server Requirements</a>
                   </li>
+                  <li>
+                    <a href="#registration-flows" class="toc-h2 toc-link" data-title="Registration Flows">Registration Flows</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -642,7 +645,7 @@ The Register Client Registration design is undergoing collaborative review </br>
 <h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
 <p>Accredited Data Recipient Software Products within the Consumer Data Right will dynamically register with one or more Data Holders, to obtain client credentials used to retrieve consumer data on behalf of a consumer.</p>
 
-<p>The CDR Registration model is derived from the Open Banking UK model with design input from the ABA </br><a href="https://github.com/cdr-register/register/files/3577911/ABA_RESPONSE_DYvS_SA_05092019_Appendix.pdf">https://github.com/cdr-register/register/files/3577911/ABA_RESPONSE_DYvS_SA_05092019_Appendix.pdf</a></p>
+<p>The CDR Registration model is derived from the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/36667724/The+OpenBanking+OpenID+Dynamic+Client+Registration+Specification+-+v1.0.0-rc2">Open Banking UK model</a> with design input from the <a href="https://github.com/cdr-register/register/files/3577911/ABA_RESPONSE_DYvS_SA_05092019_Appendix.pdf">ABA</a></p>
 
 <p><strong>Pre-Requisites:</strong> Prior to registration, the registering Data Recipient must be accredited and the associated Software Product must be configured within the CDR Register</p>
 <h3 id='software-statement-assertion-ssa-design'>Software Statement Assertion (SSA) Design</h3>
@@ -833,6 +836,11 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td>Software statement assertion issued by the CDR Register</td>
 </tr>
 <tr>
+<td><strong>redirect_uris</strong></td>
+<td>Optional</td>
+<td>Array of redirection URI strings for use in redirect-based flows. Only required if overwrites a list of values in the software statement. If used, redirect_uris MUST match or be a subset of the redirect_uris as defined in the SSA</td>
+</tr>
+<tr>
 <td><strong>token_endpoint_auth_signing_alg</strong></td>
 <td>Required</td>
 <td>The algorithm used for signing the JWT</td>
@@ -901,6 +909,14 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 </tbody></table>
 
 <p>Client Credentials grant must conform to OIDC Client Authentication using private_key_jwt as specified in <a href="https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication">section 9</a> of <strong>[OIDC]</strong></p>
+<h2 id='registration-flows'>Registration Flows</h2>
+<p>The following sequence diagrams outline the responsibities for each party during the dynamic client registration processes.</p>
+<h3 id='create-registration'>Create Registration</h3>
+<p><img src="images/registration/CreateRegistration.png" ></img></p>
+<h3 id='modify-registration'>Modify Registration</h3>
+<p><img src="images/registration/ModifyRegistration.png" ></img></p>
+
+<p>Registration request details are described at: <a href="#registration-request-using-jwt">#registration-request-using-jwt</a></p>
 <h1 id='participant-statuses'>Participant Statuses</h1><h2 id='adr-and-software-product-statuses'>ADR and Software Product Statuses</h2>
 <p>The accreditation status of Accredited Data Recipients, and the status of their associated software products, may traverse through multiple states in the CDR as a result of decisions by the ACCC, in its capacity as Data Recipient Accreditor, or where an Accredited Data Recipient surrenders accreditation.</p>
 
@@ -2599,6 +2615,12 @@ This operation does not require authentication
 <th>Detail Of change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>25/09/2019</td>
+<td>0.6.0</td>
+<td>Updated Dynamic Client Registration</td>
+<td>Added sequence diagrams to add clarification to the process</td>
+</tr>
 <tr>
 <td>23/09/2019</td>
 <td>0.6.0</td>
