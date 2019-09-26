@@ -280,6 +280,9 @@
                     <a href="#registration-request-using-jwt" class="toc-h2 toc-link" data-title="Registration Request using JWT">Registration Request using JWT</a>
                   </li>
                   <li>
+                    <a href="#registration-response" class="toc-h2 toc-link" data-title="Registration Response">Registration Response</a>
+                  </li>
+                  <li>
                     <a href="#data-holder-authorisation-server-requirements" class="toc-h2 toc-link" data-title="Data Holder Authorisation Server Requirements">Data Holder Authorisation Server Requirements</a>
                   </li>
                   <li>
@@ -511,7 +514,7 @@ Note that ADRs are expected to have one or more Software Applications consuming 
 </tr>
 <tr>
 <td><strong>MetaData Cache</strong></td>
-<td>Cache of discovered Data Holders within the CDR ecosystem. Caching rules and logic are described at: <br> <a href="#cache-refresh-metadata-request">Cache Refresh Metadata Request</a></td>
+<td>Cache of discovered Accredited Data Recipients and their associated Software Products within the CDR ecosystem. Caching rules and logic are described at: <br> <a href="#cache-refresh-metadata-request">Cache Refresh Metadata Request</a></td>
 </tr>
 <tr>
 <td><strong>MetaData Update &amp; Reporting</strong></td>
@@ -645,11 +648,11 @@ The Register Client Registration design is undergoing collaborative review </br>
 <h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
 <p>Accredited Data Recipient Software Products within the Consumer Data Right will dynamically register with one or more Data Holders, to obtain client credentials used to retrieve consumer data on behalf of a consumer.</p>
 
-<p>The CDR Registration model is derived from the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/36667724/The+OpenBanking+OpenID+Dynamic+Client+Registration+Specification+-+v1.0.0-rc2">Open Banking UK model</a> with design input from the <a href="https://github.com/cdr-register/register/files/3577911/ABA_RESPONSE_DYvS_SA_05092019_Appendix.pdf">ABA</a></p>
+<p>The CDR Registration model follows standard <a href="https://tools.ietf.org/html/rfc7591"><strong>[RFC7591]</strong></a> and is derived from <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/36667724/The+OpenBanking+OpenID+Dynamic+Client+Registration+Specification+-+v1.0.0-rc2"><strong>Open Banking UK model</strong></a> with design input from the <a href="https://github.com/cdr-register/register/files/3577911/ABA_RESPONSE_DYvS_SA_05092019_Appendix.pdf"><strong>ABA</strong></a></p>
 
 <p><strong>Pre-Requisites:</strong> Prior to registration, the registering Data Recipient must be accredited and the associated Software Product must be configured within the CDR Register</p>
 <h3 id='software-statement-assertion-ssa-design'>Software Statement Assertion (SSA) Design</h3>
-<p>A Software Statement is defined in RFC7591 as:
+<p>A Software Statement is defined in <strong>[RFC7591]</strong> as:
 A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts metadata values about the client software.</p>
 
 <p>Within the Consumer Data Right, the CDR Register will issue Software Statements for Accredited Data Recipient Software Products</p>
@@ -676,7 +679,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 </tr>
 </tbody></table>
 <h3 id='namespacing'>Namespacing</h3>
-<p>The design will conform to RFC7591 and not use the software namespace convention used in the Open Banking UK Dynamic Registration Standard</p>
+<p>The design will conform to <strong>[RFC7591]</strong> and not use the software namespace convention used in the Open Banking UK Dynamic Registration Standard</p>
 <h3 id='digital-signing-algorithm'>Digital Signing Algorithm</h3>
 <p>Conforming to FAPI-RW, SSAs will be signed on the CDR Register using <strong>PS256</strong></p>
 <h3 id='ssa-lifetime'>SSA Lifetime</h3>
@@ -711,7 +714,6 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
          "type":"PrimaryItContact"
       }
    ],
-   “iss_tos_uri”:”cdr.gov.au/tos.html”,
    "client_name":"Mock Software",
    "client_description":"A mock software product",
    "client_uri":"https://www.mockcompany.com.au",
@@ -726,18 +728,15 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
    "revocation_uri":"https://www.mockcompany.com.au/revocation",
    "software_id":"FBFFD12F-0196-45A3-8E77-AE10EC4561FF",
    "software_version":"V1.0.0",
-   "software_roles":[
-      "data-recipient"
-   ],
-   "scopes":[
-      "bank:accounts.basic:read",
-      "bank:accounts.detail:read",
-      "bank:transactions:read",
-      "bank:payees:read",
-      "bank:regular_payments:read",
-      "common:customer.basic:read",
-      "common:customer.detail:read"
-   ]
+   "software_roles": "data-recipient-software-product",
+   "scope":
+      "bank:accounts.basic:read
+       bank:accounts.detail:read
+       bank:transactions:read
+       bank:payees:read
+       bank:regular_payments:read
+       common:customer.basic:read
+       common:customer.detail:read"
 }
 </code></pre>
 <table><thead>
@@ -783,11 +782,6 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td>JSON object containing the contact details of the Primary Business Contact and Primary Technical Contact <em></br>[{</br>name: firstname + lastname, </br>email: email address, </br>phone: telephone or mobilephone, </br>type: Primary Business Contact </br>}, … ]</em></td>
 </tr>
 <tr>
-<td><strong>iss_tos_uri</strong></td>
-<td>Optional</td>
-<td>URL string that points to a humanreadable terms of service document for the Consumer Data Right Regime</td>
-</tr>
-<tr>
 <td><strong>client_name</strong></td>
 <td>Required</td>
 <td>Human-readable string name of the software product to be presented to the end-user during authorization</td>
@@ -825,7 +819,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <tr>
 <td><strong>jwks_uri</strong></td>
 <td>Required</td>
-<td>URL string referencing the client&#39;s JSON Web Key (JWK) Set [RFC7517] document, which contains the client&#39;s public keys</td>
+<td>URL string referencing the client&#39;s JSON Web Key (JWK) Set <strong>[RFC7517]</strong> document, which contains the client&#39;s public keys</td>
 </tr>
 <tr>
 <td><strong>revocation_uri</strong></td>
@@ -845,12 +839,12 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <tr>
 <td><strong>software_roles</strong></td>
 <td>Required</td>
-<td>String containing a role of the software in the CDR Regime. Initially the only value used with be <strong>“data-recipient”</strong></td>
+<td>String containing a role of the software in the CDR Regime. Initially the only value used with be <strong>“data-recipient-software-product”</strong></td>
 </tr>
 <tr>
-<td><strong>scopes</strong></td>
+<td><strong>scope</strong></td>
 <td>Required</td>
-<td>String containing a space-separated list of scope values that the client can use when requesting access tokens.</td>
+<td>String containing a space-separated list of scope values that the client can use when requesting access tokens. These scope values are defined at: <a href="https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes">https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes</a></td>
 </tr>
 </tbody></table>
 <h3 id='logos'>Logos</h3>
@@ -860,18 +854,19 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 CDR Register JWKS will be exposed on an unauthenticated endpoint, using TLS. This allows for distribution via CDN, increasing tolerance for Register outage.</p>
 <h2 id='registration-request-using-jwt'>Registration Request using JWT</h2>
 <blockquote>
+<p>Example Request</p>
 </blockquote>
 <pre class="highlight plaintext"><code>POST /register HTTP/1.1
 Content-Type: application/jwt
 Accept: application/json
 Host: secure.api.dataholder.com
 
-## Decoded JWT
+## Non-normative Decoded JWT
 {
    "alg":"PS256",
    "typ":"JWT",
    "kid":"12456"
-},
+}
 {
    "iss":"Mock Company",
    "iat":"12345",
@@ -883,19 +878,30 @@ Host: secure.api.dataholder.com
       "https://www.mockcompany.com.au/redirects/redirect2"
    ],
    "token_endpoint_auth_signing_alg":"PS256",
-   "token_endpoint_auth_signing_method":"private_key_jwt",
+   "token_endpoint_auth_method":"private_key_jwt",
    "grant_types":"[
       authorization_code,
       refresh_token,
       urn:ietf:params:oauth:grant-type:jwtbearer
    ]",
    "response_types":"[code id_token]",
-   "application_type":"[OIDC-R]]",
+   "application_type":"web",
    "id_token_signed_response_alg":"PS256",
    "request_object_signing_alg":"PS256",
    "software_statement":…
 }
+{
+  signature...
+}
 </code></pre>
+<p>To register a Software Product at a Data Holder, the Accredited Data Recipient sends an HTTP POST to the Data Holder registration endpoint.</p>
+
+<p>The request MUST be presented in the format of a <strong>[RFC7519]</strong> compliant JWT. The request MUST use the HTTP POST method, using the application/jwt method.</p>
+
+<p>The JWT MUST be signed using algorithms specified in <strong>[FAPI-RW]</strong> Section 8.6.</p>
+
+<p>The client registration request MUST contain the following claims in the JWT payload unless designated as Optional</p>
+
 <table><thead>
 <tr>
 <th>Claim</th>
@@ -906,7 +912,7 @@ Host: secure.api.dataholder.com
 <tr>
 <td><strong>iss</strong></td>
 <td>Required</td>
-<td>Contains the identifier for the ADR Software Product as defined in the ACCC Register</td>
+<td>Contains the identifier for the ADR Software Product as defined in the CDR Register</td>
 </tr>
 <tr>
 <td><strong>iat</strong></td>
@@ -921,7 +927,7 @@ Host: secure.api.dataholder.com
 <tr>
 <td><strong>jti</strong></td>
 <td>Required</td>
-<td>&quot;JWT ID&quot; claim</td>
+<td>&quot;JWT ID&quot; claim. A unique identifier for the token, used to prevent reuse of the token.</td>
 </tr>
 <tr>
 <td><strong>aud</strong></td>
@@ -939,7 +945,7 @@ Host: secure.api.dataholder.com
 <td>The algorithm used for signing the JWT</td>
 </tr>
 <tr>
-<td><strong>token_endpoint_auth_signing_method</strong></td>
+<td><strong>token_endpoint_auth_method</strong></td>
 <td>Required</td>
 <td><strong>value: private_key_jwt</strong></td>
 </tr>
@@ -955,8 +961,8 @@ Host: secure.api.dataholder.com
 </tr>
 <tr>
 <td><strong>application_type</strong></td>
-<td>Required</td>
-<td><strong>value: [OIDC-R]</strong></td>
+<td>Optional</td>
+<td><strong>value: web</strong></td>
 </tr>
 <tr>
 <td><strong>id_token_signed_response_alg</strong></td>
@@ -974,6 +980,93 @@ Host: secure.api.dataholder.com
 <td>Software statement assertion issued by the CDR Register</td>
 </tr>
 </tbody></table>
+<h2 id='registration-response'>Registration Response</h2>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight plaintext"><code>HTTP/1.1 201 Created
+Content-Type: application/json
+{
+   "client_id":"abcd1234",
+   "client_id_issued_at":"12345",
+   "client_name":"Mock Software",
+   "client_description":"A mock software product",
+   "client_uri":"https://www.mockcompany.com.au",
+   "org_id":"3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
+   "org_name":"Mock Company Inc.",
+   "org_contacts":[
+      {
+         "name":"John Doe",
+         "email":"john.doe@mockcompany.com.au",
+         "phone":"02 65555 294",
+         "type":"PrimaryBusinessContact"
+      },
+      {
+         "name":"Jane Doe",
+         "email":"jane.doe@mockcompany.com.au",
+         "phone":"02 65555 308",
+         "type":"PrimaryItContact"
+      }
+   ],
+   "redirect_uris":[
+      "https://www.mockcompany.com.au/redirects/redirect1",
+      "https://www.mockcompany.com.au/redirects/redirect2"
+   ],
+   "logo_uri":"https://www.mockcompany.com.au/logos/logo1.png",
+   "tos_uri":"https://www.mockcompany.com.au/tos.html",
+   "policy_uri":"https://www.mockcompany.com.au/policy.html",
+   "jwks_uri":"https://www.mockcompany.com.au/jwks",
+   "revocation_uri":"https://www.mockcompany.com.au/revocation",
+   "software_id":"FBFFD12F-0196-45A3-8E77-AE10EC4561FF",
+   "software_version":"V1.0.0",
+   "software_roles": "data-recipient-software-product",
+   "scope":
+      "bank:accounts.basic:read
+       bank:accounts.detail:read
+       bank:transactions:read
+       bank:payees:read
+       bank:regular_payments:read
+       common:customer.basic:read
+       common:customer.detail:read"
+   "redirect_uris":[
+      "https://www.mockcompany.com.au/redirects/redirect1",
+      "https://www.mockcompany.com.au/redirects/redirect2"
+   ],
+   "token_endpoint_auth_signing_alg":"PS256",
+   "token_endpoint_auth_method":"private_key_jwt",
+   "grant_types":"[
+      authorization_code,
+      refresh_token,
+      urn:ietf:params:oauth:grant-type:jwtbearer
+   ]",
+   "application_type":"web",
+   "id_token_signed_response_alg":"PS256",
+   "request_object_signing_alg":"PS256",
+
+}
+</code></pre>
+<p>On successful registration, the response MUST be returned to the Accredited Data Recipient conforming to Section 3.2.1 of <strong>[RFC7591]</strong></p>
+
+<table><thead>
+<tr>
+<th>Claim</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>client_id</strong></td>
+<td>Required</td>
+<td>Contains the dynamically generated identifier for the ADR Software Product issued by the Data Holder</td>
+</tr>
+<tr>
+<td><strong>client_id_issued_at</strong></td>
+<td>Optional</td>
+<td>“Issued at time”</td>
+</tr>
+</tbody></table>
+
+<p>As per Section 3.2.1 of <strong>[RFC7591]</strong>, additionally, the authorisation server MUST return all registered metadata about this client, including any fields provisioned by the authorisation server itself</p>
 <h2 id='data-holder-authorisation-server-requirements'>Data Holder Authorisation Server Requirements</h2><h3 id='registration-api-endpoints'>Registration API Endpoints</h3>
 <p>Data Holder Authorisation Servers must expose the following Dynamic Client Registration API endpoints</p>
 
@@ -981,41 +1074,52 @@ Host: secure.api.dataholder.com
 <tr>
 <th>HTTP Verb</th>
 <th>Authorisation Server Support</th>
+<th>TLS-MA</th>
+<th>HoK</th>
 <th>Grant Type</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><strong>POST /register</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
+<td></td>
 <td>N/A</td>
 </tr>
 <tr>
 <td><strong>PUT /register/{clientID}</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
 <td>Client Credentials</td>
 </tr>
 <tr>
 <td><strong>GET /register/{clientID}</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
 <td>Client Credentials</td>
 </tr>
 <tr>
 <td><strong>DELETE /register/{clientID}</strong></td>
 <td>Optional</td>
+<td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
 <td>Client Credentials</td>
 </tr>
 </tbody></table>
 
-<p>Registration endpoints will be exposed under the InfoSecBaseUri, as described at: <a href="#endpoints">endpoints</a></p>
+<p>Registration endpoints will be exposed under the InfoSecBaseUri, as described at: <a href="#endpoints">endpoints</a>
+Registration endpoints</p>
 <h3 id='transaction-security'>Transaction Security</h3>
-<p>DCR API endpoints will conform to the same transaction security requirements as Data Holder Resource endpoints.
+<p>DCR API endpoints will conform to the same transaction security requirements as Data Holder Resource endpoints
 </br>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#transaction-security">Consumer Data Standards Transaction Security</a> for Transaction Security details</p>
 <h2 id='registration-flows'>Registration Flows</h2>
 <p>The following sequence diagrams outline the responsibities for each party during the dynamic client registration processes.</p>
 <h3 id='create-registration'>Create Registration</h3>
-<p><img src="images/registration/CreateRegistration1.png" ></img></p>
+<p><img src="images/registration/CreateRegistration.png" ></img></p>
 <h3 id='modify-registration'>Modify Registration</h3>
-<p><img src="images/registration/ModifyRegistration1.png" ></img></p>
+<p><img src="images/registration/ModifyRegistration.png" ></img></p>
 
 <p>Registration request details are described at: <a href="#registration-request-using-jwt">registration-request-using-jwt</a></p>
 <h1 id='participant-statuses'>Participant Statuses</h1><h2 id='adr-and-software-product-statuses'>ADR and Software Product Statuses</h2>
@@ -2717,15 +2821,21 @@ This operation does not require authentication
 </tr>
 </thead><tbody>
 <tr>
+<td>26/09/2019</td>
+<td>0.6.0</td>
+<td>Updated Client Registration</td>
+<td>Removed iss_tos_uri as feedback from the community indicated that there is no known use case for this field</br>Added response details and example</br>Added clarification on Data Holder Authorisation Server requirements</td>
+</tr>
+<tr>
 <td>25/09/2019</td>
 <td>0.6.0</td>
-<td>Updated Dynamic Client Registration</td>
+<td>Updated Client Registration</td>
 <td>Added sequence diagrams to add clarification to the process</td>
 </tr>
 <tr>
 <td>23/09/2019</td>
 <td>0.6.0</td>
-<td>Updated Dynamic Client Registration</td>
+<td>Updated Client Registration</td>
 <td>Changed signing algorithm to PS256</br>Added clarification for client authentication model for Registration endpoints</br>Added <strong>register</strong> as the registration URI base path</br>Changed SSA API lifetime to <strong>10 minutes</strong> to ensure sufficient time for batch calls to all relevant Data Holders</td>
 </tr>
 <tr>
