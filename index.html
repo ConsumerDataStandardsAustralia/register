@@ -879,19 +879,19 @@ Host: secure.api.dataholder.com
    ],
    "token_endpoint_auth_signing_alg":"PS256",
    "token_endpoint_auth_method":"private_key_jwt",
-   "grant_types":"[
-      authorization_code,
-      refresh_token,
-      urn:ietf:params:oauth:grant-type:jwtbearer
-   ]",
-   "response_types":"[code id_token]",
+   "grant_types":[
+      "authorization_code",
+      "refresh_token",
+      "urn:ietf:params:oauth:grant-type:jwt-bearer"
+   ],
+   "response_types":["code id_token"],
    "application_type":"web",
    "id_token_signed_response_alg":"PS256",
    "request_object_signing_alg":"PS256",
    "software_statement":…
 }
 {
-  signature...
+  "signature":...
 }
 </code></pre>
 <p>To register a Software Product at a Data Holder, the Accredited Data Recipient sends an HTTP POST to the Data Holder registration endpoint.</p>
@@ -1034,11 +1034,11 @@ Content-Type: application/json
    ],
    "token_endpoint_auth_signing_alg":"PS256",
    "token_endpoint_auth_method":"private_key_jwt",
-   "grant_types":"[
-      authorization_code,
-      refresh_token,
-      urn:ietf:params:oauth:grant-type:jwtbearer
-   ]",
+   "grant_types":[
+      "authorization_code",
+      "refresh_token",
+      "urn:ietf:params:oauth:grant-type:jwt-bearer"
+   ],
    "application_type":"web",
    "id_token_signed_response_alg":"PS256",
    "request_object_signing_alg":"PS256",
@@ -1111,7 +1111,7 @@ Content-Type: application/json
 
 <p>Registration endpoints will be exposed under the InfoSecBaseUri, as described at: <a href="#endpoints">endpoints</a>
 Registration endpoints</p>
-<h3 id='transaction-security'>Transaction Security</h3>
+<h3 id='registration-transaction-security'>Registration Transaction Security</h3>
 <p>DCR API endpoints will conform to the same transaction security requirements as Data Holder Resource endpoints
 </br>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#transaction-security">Consumer Data Standards Transaction Security</a> for Transaction Security details</p>
 <h2 id='registration-flows'>Registration Flows</h2>
@@ -1705,10 +1705,6 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 </tr>
 </tbody></table>
 <h1 id="consumer-data-right-cdr-register-apis">Register APIs</h1>
-
-<aside>
-The Register APIs are currently in review and subject to change.
-</aside>
 
 <p>Base URLs:</p>
 
@@ -2820,6 +2816,12 @@ This operation does not require authentication
 <th>Detail Of change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>11/10/2019</td>
+<td>0.6.0</td>
+<td>Updated Client Registration</td>
+<td>Corrected grant type <code>urn:ietf:params:oauth:grant-type:jwt-bearer</code> in the example</br>Corrected grant types and response_types from string to array of strings</td>
+</tr>
 <tr>
 <td>26/09/2019</td>
 <td>0.6.0</td>
