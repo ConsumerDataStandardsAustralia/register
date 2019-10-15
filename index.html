@@ -294,7 +294,7 @@
             <a href="#participant-statuses" class="toc-h1 toc-link" data-title="Participant Statuses">Participant Statuses</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#adr-and-software-product-statuses" class="toc-h2 toc-link" data-title="ADR and Software Product Statuses">ADR and Software Product Statuses</a>
+                    <a href="#accredited-data-recipient-and-software-product-statuses" class="toc-h2 toc-link" data-title="Accredited Data Recipient and Software Product Statuses">Accredited Data Recipient and Software Product Statuses</a>
                   </li>
                   <li>
                     <a href="#software-product-status-changes" class="toc-h2 toc-link" data-title="Software Product Status Changes">Software Product Status Changes</a>
@@ -683,8 +683,24 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <h3 id='digital-signing-algorithm'>Digital Signing Algorithm</h3>
 <p>Conforming to FAPI-RW, SSAs will be signed on the CDR Register using <strong>PS256</strong></p>
 <h3 id='ssa-lifetime'>SSA Lifetime</h3>
-<p>Downloaded SSAs will have a lifetime of <strong>30 minutes</strong>
-</br>SSA’s obtained via an API will have a lifetime of <strong>10 minutes</strong>. The intention here is this should be sufficient time to batch register with all relevant Data Holders</p>
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Lifetime (mins)</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Download through RAAP Portal</strong></td>
+<td>30</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Obtain via API</strong></td>
+<td>10</td>
+<td>The intention here is this should be sufficient time to </br>batch register with all relevant Data Holders</td>
+</tr>
+</tbody></table>
 <h3 id='ssa-definition'>SSA Definition</h3>
 <blockquote>
 </blockquote>
@@ -749,22 +765,22 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <tr>
 <td><strong>iss</strong></td>
 <td>Required</td>
-<td>MUST contain an &quot;iss&quot; (issuer) claim denoting the party attesting to the claims in the software statement</br><strong>value: &quot;cdr-register&quot;</strong></td>
+<td>MUST contain an <code>iss</code> (issuer) claim denoting the party attesting to the claims in the software statement</br><strong>value: &quot;cdr-register&quot;</strong></td>
 </tr>
 <tr>
 <td><strong>iat</strong></td>
 <td>Required</td>
-<td>“Issued at time” claim</td>
+<td><code>Issued at time</code> claim</td>
 </tr>
 <tr>
 <td><strong>exp</strong></td>
 <td>Required</td>
-<td>&quot;Expiration Time&quot; claim</td>
+<td><code>Expiration Time</code> claim</td>
 </tr>
 <tr>
 <td><strong>jti</strong></td>
 <td>Required</td>
-<td>&quot;JWT ID&quot; claim</td>
+<td><code>JWT ID</code> claim</td>
 </tr>
 <tr>
 <td><strong>org_id</strong></td>
@@ -809,12 +825,12 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <tr>
 <td><strong>tos_uri</strong></td>
 <td>Optional</td>
-<td>URL string that points to a humanreadable terms of service document for the Software Product</td>
+<td>URL string that points to a human-readable terms of service document for the Software Product</td>
 </tr>
 <tr>
 <td><strong>policy_uri</strong></td>
 <td>Optional</td>
-<td>URL string that points to a humanreadable policy document for the Software Product</td>
+<td>URL string that points to a human-readable policy document for the Software Product</td>
 </tr>
 <tr>
 <td><strong>jwks_uri</strong></td>
@@ -856,10 +872,9 @@ CDR Register JWKS will be exposed on an unauthenticated endpoint, using TLS. Thi
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight plaintext"><code>POST /register HTTP/1.1
+<pre class="highlight plaintext"><code>HTTP/1.1 POST /register
 Content-Type: application/jwt
 Accept: application/json
-Host: secure.api.dataholder.com
 
 ## Non-normative Decoded JWT
 {
@@ -917,17 +932,17 @@ Host: secure.api.dataholder.com
 <tr>
 <td><strong>iat</strong></td>
 <td>Required</td>
-<td>“Issued at time” claim</td>
+<td><code>Issued at time</code> claim</td>
 </tr>
 <tr>
 <td><strong>exp</strong></td>
 <td>Required</td>
-<td>&quot;Expiration Time&quot; claim</td>
+<td><code>Expiration Time</code> claim</td>
 </tr>
 <tr>
 <td><strong>jti</strong></td>
 <td>Required</td>
-<td>&quot;JWT ID&quot; claim. A unique identifier for the token, used to prevent reuse of the token.</td>
+<td><code>JWT ID</code> claim. A unique identifier for the token, used to prevent reuse of the token.</td>
 </tr>
 <tr>
 <td><strong>aud</strong></td>
@@ -980,6 +995,8 @@ Host: secure.api.dataholder.com
 <td>Software statement assertion issued by the CDR Register</td>
 </tr>
 </tbody></table>
+
+<p><em>Any additional claims must be ignored and not returned on completion of the request</em></p>
 <h2 id='registration-response'>Registration Response</h2>
 <blockquote>
 <p>Example Response</p>
@@ -1067,7 +1084,33 @@ Content-Type: application/json
 </tbody></table>
 
 <p>As per Section 3.2.1 of <strong>[RFC7591]</strong>, additionally, the authorisation server MUST return all registered metadata about this client, including any fields provisioned by the authorisation server itself</p>
-<h2 id='data-holder-authorisation-server-requirements'>Data Holder Authorisation Server Requirements</h2><h3 id='registration-api-endpoints'>Registration API Endpoints</h3>
+<h2 id='data-holder-authorisation-server-requirements'>Data Holder Authorisation Server Requirements</h2><h3 id='token-endpoint-authentication'>Token Endpoint Authentication</h3>
+<p>The Accredited Data Recipient MUST use the private_key_jwt client authentication method with the client_credentials grant to authenticate with the Data Holder token endpoint</p>
+<pre class="highlight plaintext"><code>Non-Normative Example for access token retrieval
+
+HTTP/1.1 POST /token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&amp;
+  client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&amp;
+  client_assertion=eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNDU2In0.ey ...
+
+## Decoded client assertion JWT
+{
+  "alg": "PS256",
+  "typ": "JWT",
+  "kid": "12456"
+}
+{
+  "iss": "12345",
+  "sub": "12345",
+  "iat": 1516239022,
+  "exp": 1516239322,
+  "aud": "https://www.holder.com.au/token",
+  "jti": "37747cd1-c105-4569-9f75-4adf28b73e31"
+}
+
+</code></pre><h3 id='registration-api-endpoints'>Registration API Endpoints</h3>
 <p>Data Holder Authorisation Servers must expose the following Dynamic Client Registration API endpoints</p>
 
 <table><thead>
@@ -1122,8 +1165,8 @@ Registration endpoints</p>
 <p><img src="images/registration/ModifyRegistration.png" ></img></p>
 
 <p>Registration request details are described at: <a href="#registration-request-using-jwt">registration-request-using-jwt</a></p>
-<h1 id='participant-statuses'>Participant Statuses</h1><h2 id='adr-and-software-product-statuses'>ADR and Software Product Statuses</h2>
-<p>The accreditation status of Accredited Data Recipients, and the status of their associated software products, may traverse through multiple states in the CDR as a result of decisions by the ACCC, in its capacity as Data Recipient Accreditor, or where an Accredited Data Recipient surrenders accreditation.</p>
+<h1 id='participant-statuses'>Participant Statuses</h1><h2 id='accredited-data-recipient-and-software-product-statuses'>Accredited Data Recipient and Software Product Statuses</h2>
+<p>The accreditation status of Accredited Data Recipients, and the status of their associated software products, may traverse through multiple statuses in the CDR as a result of decisions by the ACCC, in its capacity as Data Recipient Accreditor, or where an Accredited Data Recipient surrenders accreditation.</p>
 
 <p>Data Holders will have the responsibility to ensure that CDR data relating to consumers is disclosed to Accredited Data Recipients and to cease sharing data where the accreditation of a data recipient is</p>
 
@@ -1134,13 +1177,13 @@ Registration endpoints</p>
 
 <p>The Register will notify all Data Holders of the above changes in Accredited Data Recipient status as per the ACCC’s decisions.</p>
 <h3 id='accredited-data-recipient-status'>Accredited Data Recipient Status</h3>
-<p><img class=medium-image src="images/AdrStateMachine.png" ></img></p>
+<p><img class=medium-image src="images/ADRStateMachine.png" ></img></p>
 <h3 id='software-product-status'>Software Product Status</h3>
 <p><img class=medium-image src="images/SoftwareProductStateMachine.png" ></img></p>
-<h3 id='adr-and-software-product-status-mapping'>ADR and Software Product Status Mapping</h3>
+<h3 id='accredited-data-recipient-and-software-product-status-mapping'>Accredited Data Recipient and Software Product Status Mapping</h3>
 <p>When the ACCC Registrar changes the accreditation status for an ADR, the associated Software Products status will be changed accordingly.</p>
 
-<p>The cascading status mappings and the Data Holder responsibilities are as follows:</p>
+<p>The cascading status mappings are as follows:</p>
 
 <table><thead>
 <tr>
@@ -1166,31 +1209,85 @@ Registration endpoints</p>
 </tr>
 </tbody></table>
 
-<p></br>The ACCC Registrar also has the ability to change the status of a Software Product independantly of the ADR accreditation status. Therefore, the Software Product Status should be referred to, to determine the Data Holder&#39;s data sharing responsibilities</p>
+<p></br>The ACCC Registrar also has the ability to change the status of a Software Product independently of the ADR accreditation status. Therefore, both the ADR and Software Product statuses should be referred to, to determine the Data Holder&#39;s data disclosure responsibilities
+&#39;</p>
 
 <table><thead>
 <tr>
+<th><strong>ADR Status</strong></th>
 <th><strong>Software Product Status</strong></th>
-<th><strong>Data Holder’s Responsibility</strong></th>
+<th><strong>Disclose of CDR Data</strong></th>
+<th><strong>Facilitate Consent Authorisations</strong></th>
+<th><strong>Facilitate Consent Withdrawal</strong></th>
 </tr>
 </thead><tbody>
 <tr>
 <td>Active</td>
-<td>Disclose CDR data in response to valid requests in accordance with the CDR rules and standards </br> Facilitate consent authorisation</td>
+<td>Active</td>
+<td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
 </tr>
 <tr>
+<td>Active</td>
 <td>Inactive</td>
-<td>Cease disclosure of CDR data </br> Cease facilitating consent authorisation requests</td>
+<td></td>
+<td></td>
+<td><i class="icon-check"></i></td>
 </tr>
 <tr>
+<td>Active</td>
 <td>Removed</td>
-<td>Cease disclosure of CDR data </br> Cease facilitating consent authorisation requests</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Suspended</td>
+<td>Inactive</td>
+<td></td>
+<td></td>
+<td><i class="icon-check"></i></td>
+</tr>
+<tr>
+<td>Suspended</td>
+<td>Removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Revoked</td>
+<td>Inactive</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Revoked</td>
+<td>Removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Surrendered</td>
+<td>Removed</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody></table>
+
+<ul>
+<li>Disclosure of CDR data MUST be in response to valid requests in accordance with the CDR rules and standards</li>
+<li>The status of an Accredited Data Recipient Brand does not impact data sharing and withdrawal of consent due to the cascade rules outlined above</li>
+<li>When an Accredited Data Recipient status is Suspended, Revoked or Surrendered the Software Product status cannot be Active</li>
+</ul>
 <h3 id='checking-validity-of-accredited-data-recipient-and-associated-software-product'>Checking Validity of Accredited Data Recipient and associated Software Product</h3>
 <p><img src="images/DataRecipientValidityCheck.png" ></img></p>
 <h3 id='adr-active'>ADR Active</h3>
-<p>Once a Data Recipient has been granted accreditation by the ACCC (as Data Recipient Accreditor) and has completed the necessary steps to be added to the Register (as specified in the rules), the following actions and responsibilities are:</p>
+<p>Once a Data Recipient has been granted accreditation by the ACCC (as Data Recipient Accreditor) and has completed the necessary steps to be added to the Register (as specified in the rules), the following actions and responsibilities will arise:</p>
 
 <ol>
 <li> The Registrar will issue the Accredited Data Recipient all <a href="#certificate-management">required certificates</a></br></li>
@@ -1205,6 +1302,7 @@ Registration endpoints</p>
 <li> The Registrar will update the CDR Register to change the Accredited Data Recipient&#39;s status to <strong>&#39;suspended&#39;</strong> and status of all associated Software Products to <strong>&#39;inactive&#39;</strong></li>
 <li> The CDR Register will initiate the metadata cache update process with all Data Holders within the CDR. Data Holders will be required to refresh their cache of software product statuses within the specified timeframe</li>
 <li> All Data Holders will prevent disclosure of CDR data with the Accredited Data Recipient while it is in a suspended state</li>
+<li> All Data Holders will facilitate consent withdrawal for consumers of the Accredited Data Recipient while it is in a suspended state</li>
 </ol>
 <h3 id='adr-reactivated'>ADR Reactivated</h3>
 <p>An Accredited Data Recipient can move from the suspended status back to the active status when a suspension expires or is revoked by the ACCC (as Data Recipient Accreditor). Once this has occurred, the following actions and responsibilities are:</p>
@@ -1233,7 +1331,7 @@ Registration endpoints</p>
 <li> All Data Holders will prevent disclosure of CDR data with this Accredited Data Recipient</li>
 </ol>
 <h2 id='software-product-status-changes'>Software Product Status Changes</h2><h3 id='new-adr-software-product-active'>New ADR Software Product Active</h3>
-<p>Once an Accredited Data Recipient has completed the necessary steps to add a new Software Product to the Register, the following actions and responsibilities are:</p>
+<p>Once an Accredited Data Recipient has completed the necessary steps to add a new Software Product to the Register, the following actions and responsibilities will arise:</p>
 
 <ol>
 <li> The Software Product status will be set to <strong>&#39;active&#39;</strong></li>
@@ -2810,23 +2908,35 @@ This operation does not require authentication
 
 <table><thead>
 <tr>
-<th>Change Date</th>
+<th>Date</th>
 <th>Version</th>
 <th>Description</th>
 <th>Detail Of change</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>16/10/2019</td>
+<td>0.6.0</td>
+<td>Updated Client Registration</td>
+<td>Added <code>client credentials</code> POST token example</td>
+</tr>
+<tr>
+<td>16/10/2019</td>
+<td>0.6.0</td>
+<td>Updated Client Registration</td>
+<td>Added <code>client credentials</code> POST token example</td>
+</tr>
+<tr>
 <td>11/10/2019</td>
 <td>0.6.0</td>
 <td>Updated Client Registration</td>
-<td>Corrected grant type <code>urn:ietf:params:oauth:grant-type:jwt-bearer</code> in the example</br>Corrected grant types and response_types from string to array of strings</td>
+<td>Corrected grant type <code>urn:ietf:params:oauth:grant-type:jwt-bearer</code> in the example</br>Corrected <code>grant_types</code> and <code>response_types</code> from string to array of strings</td>
 </tr>
 <tr>
 <td>26/09/2019</td>
 <td>0.6.0</td>
 <td>Updated Client Registration</td>
-<td>Removed iss_tos_uri as feedback from the community indicated that there is no known use case for this field</br>Added response details and example</br>Added clarification on Data Holder Authorisation Server requirements</td>
+<td>Removed <code>iss_tos_uri</code> as feedback from the community indicated that there is no known use case for this field</br>Added response details and associated example</br>Added clarification on Data Holder Authorisation Server requirements</td>
 </tr>
 <tr>
 <td>25/09/2019</td>
@@ -2838,7 +2948,7 @@ This operation does not require authentication
 <td>23/09/2019</td>
 <td>0.6.0</td>
 <td>Updated Client Registration</td>
-<td>Changed signing algorithm to PS256</br>Added clarification for client authentication model for Registration endpoints</br>Added <strong>register</strong> as the registration URI base path</br>Changed SSA API lifetime to <strong>10 minutes</strong> to ensure sufficient time for batch calls to all relevant Data Holders</td>
+<td>Changed signing algorithm to <code>PS256</code></br>Added clarification for client authentication model for Registration endpoints</br>Added <code>register</code> as the registration URI base path</br>Changed SSA API lifetime to <strong>10 minutes</strong> to ensure sufficient time for batch calls to all relevant Data Holders</td>
 </tr>
 <tr>
 <td>23/09/2019</td>
@@ -2874,19 +2984,19 @@ This operation does not require authentication
 <td>15/09/2019</td>
 <td>0.5.0</td>
 <td>Updated Client Registration</td>
-<td>Updated Client Registration section to detail Dynamic Registration, to reflect updates from <a href="https://github.com/cdr-register/register/issues/23">GitHub Issue 23</a></td>
+<td>Updated Client Registration section to detail Dynamic Registration, to reflect updates from <strong><a href="https://github.com/cdr-register/register/issues/23">GitHub Issue 23</a></strong></td>
 </tr>
 <tr>
 <td>15/09/2019</td>
 <td>0.5.0</td>
 <td>Updated Security Profile</td>
-<td>Updated Certificate Management section to reflect updates from <a href="https://github.com/cdr-register/register/issues/22">GitHub Issue 22</a></td>
+<td>Updated Certificate Management section to reflect updates from <strong><a href="https://github.com/cdr-register/register/issues/22">GitHub Issue 22</a></strong></td>
 </tr>
 <tr>
 <td>14/08/2019</td>
 <td>0.4.0</td>
 <td>Updated Swagger Definition</td>
-<td>Updated JWK schema to conform to <a href="https://tools.ietf.org/html/rfc7517">RFC 7517</a><br>Added redirectUri to whitelist per product</td>
+<td>Updated JWK schema to conform to <strong><a href="https://tools.ietf.org/html/rfc7517">RFC 7517</a></strong><br>Added redirectUri to whitelist per product</td>
 </tr>
 <tr>
 <td>06/08/2019</td>
