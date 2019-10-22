@@ -202,7 +202,7 @@
     <link href="images/favicon.ico" rel="icon" type="image/ico" />
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;]">
+  <body class="index" data-languages="[&quot;Examples&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -212,7 +212,7 @@
     <div class="toc-wrapper">
       <img src="images/ACCC_Stacked_RGB_Reverse.PNG" class="logo" alt="Accc stacked rgb reverse" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
+              <a href="#" data-language-name="Examples">Examples</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -363,7 +363,13 @@
                     <a href="#getsoftwarestatementassertion-ssa" class="toc-h2 toc-link" data-title="GetSoftwareStatementAssertion (SSA)">GetSoftwareStatementAssertion (SSA)</a>
                   </li>
                   <li>
-                    <a href="#getsoftwareproducts" class="toc-h2 toc-link" data-title="GetSoftwareProducts">GetSoftwareProducts</a>
+                    <a href="#getsoftwareproductsstatus" class="toc-h2 toc-link" data-title="GetSoftwareProductsStatus">GetSoftwareProductsStatus</a>
+                  </li>
+                  <li>
+                    <a href="#getdatarecipientsstatus" class="toc-h2 toc-link" data-title="GetDataRecipientsStatus">GetDataRecipientsStatus</a>
+                  </li>
+                  <li>
+                    <a href="#getdatarecipients" class="toc-h2 toc-link" data-title="GetDataRecipients">GetDataRecipients</a>
                   </li>
               </ul>
           </li>
@@ -377,10 +383,28 @@
                     <a href="#tocSregisterdataholderbrand" class="toc-h2 toc-link" data-title="RegisterDataHolderBrand">RegisterDataHolderBrand</a>
                   </li>
                   <li>
-                    <a href="#tocSsoftwareproductlist" class="toc-h2 toc-link" data-title="SoftwareProductList">SoftwareProductList</a>
+                    <a href="#tocSsoftwareproductsstatuslist" class="toc-h2 toc-link" data-title="SoftwareProductsStatusList">SoftwareProductsStatusList</a>
                   </li>
                   <li>
-                    <a href="#tocSsoftwareproduct" class="toc-h2 toc-link" data-title="SoftwareProduct">SoftwareProduct</a>
+                    <a href="#tocSsoftwareproductstatus" class="toc-h2 toc-link" data-title="SoftwareProductStatus">SoftwareProductStatus</a>
+                  </li>
+                  <li>
+                    <a href="#tocSdatarecipientsstatuslist" class="toc-h2 toc-link" data-title="DataRecipientsStatusList">DataRecipientsStatusList</a>
+                  </li>
+                  <li>
+                    <a href="#tocSdatarecipientstatus" class="toc-h2 toc-link" data-title="DataRecipientStatus">DataRecipientStatus</a>
+                  </li>
+                  <li>
+                    <a href="#tocSresponseregisterdatarecipientlist" class="toc-h2 toc-link" data-title="ResponseRegisterDataRecipientList">ResponseRegisterDataRecipientList</a>
+                  </li>
+                  <li>
+                    <a href="#tocSregisterdatarecipient" class="toc-h2 toc-link" data-title="RegisterDataRecipient">RegisterDataRecipient</a>
+                  </li>
+                  <li>
+                    <a href="#tocSdatarecipientbrandmetadata" class="toc-h2 toc-link" data-title="DataRecipientBrandMetaData">DataRecipientBrandMetaData</a>
+                  </li>
+                  <li>
+                    <a href="#tocSsoftwareproductmetadata" class="toc-h2 toc-link" data-title="SoftwareProductMetaData">SoftwareProductMetaData</a>
                   </li>
                   <li>
                     <a href="#tocSlegalentitydetail" class="toc-h2 toc-link" data-title="LegalEntityDetail">LegalEntityDetail</a>
@@ -681,7 +705,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <h3 id='namespacing'>Namespacing</h3>
 <p>The design will conform to <strong>[RFC7591]</strong> and not use the software namespace convention used in the Open Banking UK Dynamic Registration Standard</p>
 <h3 id='digital-signing-algorithm'>Digital Signing Algorithm</h3>
-<p>Conforming to FAPI-RW, SSAs will be signed on the CDR Register using <strong>PS256</strong></p>
+<p>Conforming to <strong>[FAPI-RW]</strong>, SSAs will be signed on the CDR Register using <strong>PS256</strong></p>
 <h3 id='ssa-lifetime'>SSA Lifetime</h3>
 <table><thead>
 <tr>
@@ -691,7 +715,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>Download through RAAP Portal</strong></td>
+<td><strong>Manually distributed</strong></td>
 <td>30</td>
 <td></td>
 </tr>
@@ -716,20 +740,6 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
    "jti":"ee56beb7e67a4f028ee86df915cf681d",
    "org_id":"3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
    "org_name":"Mock Company Inc.",
-   "org_contacts":[
-      {
-         "name":"John Doe",
-         "email":"john.doe@mockcompany.com.au",
-         "phone":"02 65555 294",
-         "type":"PrimaryBusinessContact"
-      },
-      {
-         "name":"Jane Doe",
-         "email":"jane.doe@mockcompany.com.au",
-         "phone":"02 65555 308",
-         "type":"PrimaryItContact"
-      }
-   ],
    "client_name":"Mock Software",
    "client_description":"A mock software product",
    "client_uri":"https://www.mockcompany.com.au",
@@ -743,7 +753,6 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
    "jwks_uri":"https://www.mockcompany.com.au/jwks",
    "revocation_uri":"https://www.mockcompany.com.au/revocation",
    "software_id":"FBFFD12F-0196-45A3-8E77-AE10EC4561FF",
-   "software_version":"V1.0.0",
    "software_roles": "data-recipient-software-product",
    "scope":
       "bank:accounts.basic:read
@@ -770,17 +779,17 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <tr>
 <td><strong>iat</strong></td>
 <td>Required</td>
-<td><code>Issued at time</code> claim</td>
+<td>Issued at time claim</td>
 </tr>
 <tr>
 <td><strong>exp</strong></td>
 <td>Required</td>
-<td><code>Expiration Time</code> claim</td>
+<td>Expiration Time claim</td>
 </tr>
 <tr>
 <td><strong>jti</strong></td>
 <td>Required</td>
-<td><code>JWT ID</code> claim</td>
+<td>JWT ID claim</td>
 </tr>
 <tr>
 <td><strong>org_id</strong></td>
@@ -791,11 +800,6 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td><strong>org_name</strong></td>
 <td>Required</td>
 <td>Human-readable string name of the Accredited Data Recipient to be presented to the end user during authorization.</td>
-</tr>
-<tr>
-<td><strong>org_contacts</strong></td>
-<td>Required</td>
-<td>JSON object containing the contact details of the Primary Business Contact and Primary Technical Contact <em></br>[{</br>name: firstname + lastname, </br>email: email address, </br>phone: telephone or mobilephone, </br>type: Primary Business Contact </br>}, … ]</em></td>
 </tr>
 <tr>
 <td><strong>client_name</strong></td>
@@ -846,11 +850,6 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td><strong>software_id</strong></td>
 <td>Required</td>
 <td>String representing a unique identifier assigned by the ACCC Register and used by registration endpoints to identify the software product to be dynamically registered. </br></br>The &quot;software_id&quot; will remain the same across multiple updates or versions of the same piece of software.</td>
-</tr>
-<tr>
-<td><strong>software_version</strong></td>
-<td>Required</td>
-<td>Internal version of the Software product registering</td>
 </tr>
 <tr>
 <td><strong>software_roles</strong></td>
@@ -1011,20 +1010,6 @@ Content-Type: application/json
    "client_uri":"https://www.mockcompany.com.au",
    "org_id":"3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
    "org_name":"Mock Company Inc.",
-   "org_contacts":[
-      {
-         "name":"John Doe",
-         "email":"john.doe@mockcompany.com.au",
-         "phone":"02 65555 294",
-         "type":"PrimaryBusinessContact"
-      },
-      {
-         "name":"Jane Doe",
-         "email":"jane.doe@mockcompany.com.au",
-         "phone":"02 65555 308",
-         "type":"PrimaryItContact"
-      }
-   ],
    "redirect_uris":[
       "https://www.mockcompany.com.au/redirects/redirect1",
       "https://www.mockcompany.com.au/redirects/redirect2"
@@ -1035,7 +1020,6 @@ Content-Type: application/json
    "jwks_uri":"https://www.mockcompany.com.au/jwks",
    "revocation_uri":"https://www.mockcompany.com.au/revocation",
    "software_id":"FBFFD12F-0196-45A3-8E77-AE10EC4561FF",
-   "software_version":"V1.0.0",
    "software_roles": "data-recipient-software-product",
    "scope":
       "bank:accounts.basic:read
@@ -1085,13 +1069,14 @@ Content-Type: application/json
 
 <p>As per Section 3.2.1 of <strong>[RFC7591]</strong>, additionally, the authorisation server MUST return all registered metadata about this client, including any fields provisioned by the authorisation server itself</p>
 <h2 id='data-holder-authorisation-server-requirements'>Data Holder Authorisation Server Requirements</h2><h3 id='token-endpoint-authentication'>Token Endpoint Authentication</h3>
-<p>The Accredited Data Recipient MUST use the private_key_jwt client authentication method with the client_credentials grant to authenticate with the Data Holder token endpoint</p>
+<p>The Accredited Data Recipient MUST use the <code>private_key_jwt client</code> authentication method with the <code>client_credentials</code> grant to authenticate with the Data Holder token endpoint</p>
 <pre class="highlight plaintext"><code>Non-Normative Example for access token retrieval
 
 HTTP/1.1 POST /token
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=client_credentials&amp;
+  scope=cdr:registration&amp;
   client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&amp;
   client_assertion=eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNDU2In0.ey ...
 
@@ -1120,6 +1105,7 @@ grant_type=client_credentials&amp;
 <th>TLS-MA</th>
 <th>HoK</th>
 <th>Grant Type</th>
+<th>Scope</th>
 </tr>
 </thead><tbody>
 <tr>
@@ -1128,6 +1114,7 @@ grant_type=client_credentials&amp;
 <td><i class="icon-check"></i></td>
 <td></td>
 <td>N/A</td>
+<td>None</td>
 </tr>
 <tr>
 <td><strong>PUT /register/{clientID}</strong></td>
@@ -1135,6 +1122,7 @@ grant_type=client_credentials&amp;
 <td><i class="icon-check"></i></td>
 <td><i class="icon-check"></i></td>
 <td>Client Credentials</td>
+<td>cdr:registration</td>
 </tr>
 <tr>
 <td><strong>GET /register/{clientID}</strong></td>
@@ -1142,6 +1130,7 @@ grant_type=client_credentials&amp;
 <td><i class="icon-check"></i></td>
 <td><i class="icon-check"></i></td>
 <td>Client Credentials</td>
+<td>cdr:registration</td>
 </tr>
 <tr>
 <td><strong>DELETE /register/{clientID}</strong></td>
@@ -1149,6 +1138,7 @@ grant_type=client_credentials&amp;
 <td><i class="icon-check"></i></td>
 <td><i class="icon-check"></i></td>
 <td>Client Credentials</td>
+<td>cdr:registration</td>
 </tr>
 </tbody></table>
 
@@ -1160,9 +1150,9 @@ Registration endpoints</p>
 <h2 id='registration-flows'>Registration Flows</h2>
 <p>The following sequence diagrams outline the responsibities for each party during the dynamic client registration processes.</p>
 <h3 id='create-registration'>Create Registration</h3>
-<p><img src="images/registration/CreateRegistration.png" ></img></p>
+<p><img class=medium-image src="images/registration/CreateRegistration.png" ></img></p>
 <h3 id='modify-registration'>Modify Registration</h3>
-<p><img src="images/registration/ModifyRegistration.png" ></img></p>
+<p><img class=medium-image src="images/registration/ModifyRegistration.png" ></img></p>
 
 <p>Registration request details are described at: <a href="#registration-request-using-jwt">registration-request-using-jwt</a></p>
 <h1 id='participant-statuses'>Participant Statuses</h1><h2 id='accredited-data-recipient-and-software-product-statuses'>Accredited Data Recipient and Software Product Statuses</h2>
@@ -1201,7 +1191,7 @@ Registration endpoints</p>
 </tr>
 <tr>
 <td>Revoked</td>
-<td>Inactive / Removed</td>
+<td>Inactive</td>
 </tr>
 <tr>
 <td>Surrendered</td>
@@ -1284,8 +1274,10 @@ Registration endpoints</p>
 <li>The status of an Accredited Data Recipient Brand does not impact data sharing and withdrawal of consent due to the cascade rules outlined above</li>
 <li>When an Accredited Data Recipient status is Suspended, Revoked or Surrendered the Software Product status cannot be Active</li>
 </ul>
-<h3 id='checking-validity-of-accredited-data-recipient-and-associated-software-product'>Checking Validity of Accredited Data Recipient and associated Software Product</h3>
-<p><img src="images/DataRecipientValidityCheck.png" ></img></p>
+<h3 id='request-for-data-sharing-checking-validity-of-accredited-data-recipient-and-associated-software-product'>Request for Data Sharing: Checking Validity of Accredited Data Recipient and associated Software Product</h3>
+<p><img src="images/ChecksForDhToShareData.png" ></img></p>
+<h3 id='request-for-consent-withdrawal-checking-validity-of-accredited-data-recipient-and-associated-software-product'>Request for Consent Withdrawal: Checking Validity of Accredited Data Recipient and associated Software Product</h3>
+<p><img src="images/ChecksForDhToWithdrawConsent.png" ></img></p>
 <h3 id='adr-active'>ADR Active</h3>
 <p>Once a Data Recipient has been granted accreditation by the ACCC (as Data Recipient Accreditor) and has completed the necessary steps to be added to the Register (as specified in the rules), the following actions and responsibilities will arise:</p>
 
@@ -1817,11 +1809,11 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/data-holder-brands HTTP/1.1
+<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/data-holder-brands HTTP/1.1
 Host: api.discovery.cdr.gov.au
 Accept: application/json
 </code></pre>
-<p><code>GET /register/data-holder-brands</code></p>
+<p><code>GET /register/data-holders/brands</code></p>
 
 <h3 id="get-data-holder-brands-from-the-cdr-register-parameters">Parameters</h3>
 
@@ -1879,7 +1871,7 @@ Accept: application/json
         </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-23"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -1887,7 +1879,7 @@ Accept: application/json
         </span><span class="s2">"industryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"organisationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SOLE_TRADER"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"registerStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -1902,7 +1894,7 @@ Accept: application/json
           </span><span class="s2">"jwksEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-23T05:18:35Z"</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1955,14 +1947,14 @@ Accept: application/json
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/datarecipientbrands/<span class="o">{</span>dataRecipientBrandId<span class="o">}</span>/softwareproducts/<span class="o">{</span>softwareProductId<span class="o">}</span>/SSA HTTP/1.1
+<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/datarecipientbrands/{dataRecipientBrandId}/softwareproducts/{softwareProductId}/SSA HTTP/1.1
 Host: api.discovery.cdr.gov.au
 Accept: application/json
 
 </code></pre>
-<p><code>GET /register/data-recipient-brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa</code></p>
+<p><code>GET /register/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa</code></p>
 
-<h3 id="get-a-software-statement-assertion-(ssa)-for-a-software-product-on-the-cdr-register-to-be-used-for-dynamic-registration-with-a-data-holder-parameters">Parameters</h3>
+<h3 id="get-a-software-statement-assertion-(ssa)-for-a-software-product-on-the-cdr-register-to-be-used-for-dynamic-client-registration-with-a-data-holder-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2003,7 +1995,7 @@ Accept: application/json
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 </span></code></pre>
-<h3 id="get-a-software-statement-assertion-(ssa)-for-a-software-product-on-the-cdr-register-to-be-used-for-dynamic-registration-with-a-data-holder-responses">Responses</h3>
+<h3 id="get-a-software-statement-assertion-(ssa)-for-a-software-product-on-the-cdr-register-to-be-used-for-dynamic-client-registration-with-a-data-holder-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2038,22 +2030,22 @@ Accept: application/json
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 </tbody></table>
-<h2 id='getsoftwareproducts'>GetSoftwareProducts</h2>
-<p>Get the metadata (including status) for software products from the CDR Register</p>
+<h2 id='getsoftwareproductsstatus'>GetSoftwareProductsStatus</h2>
+<p>Get the statuses for software products from the CDR Register</p>
 
-<p><a id="opIdGetSoftwareProducts"></a></p>
+<p><a id="opIdGetSoftwareProductsStatus"></a></p>
 
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/softwareproducts HTTP/1.1
+<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/softwareproducts HTTP/1.1
 Host: api.discovery.cdr.gov.au
 Accept: application/json
 
 </code></pre>
-<p><code>GET /register/software-products</code></p>
+<p><code>GET /register/data-recipients/brands/software-products/status</code></p>
 
-<h3 id="get-the-metadata-(including-status)-for-software-products-from-the-cdr-register-parameters">Parameters</h3>
+<h3 id="get-the-statuses-for-software-products-from-the-cdr-register-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2078,18 +2070,16 @@ Accept: application/json
 
 <p>200 Response</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"softwareProducts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"softwareProductId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"softwareProductStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"softwareProducts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"softwareProductId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"softwareProductStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h3 id="get-the-metadata-(including-status)-for-software-products-from-the-cdr-register-responses">Responses</h3>
+<h3 id="get-the-statuses-for-software-products-from-the-cdr-register-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2103,7 +2093,7 @@ Accept: application/json
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
 <td>Success</td>
-<td>Inline</td>
+<td><a href="#schemasoftwareproductsstatuslist">SoftwareProductsStatusList</a></td>
 </tr>
 <tr>
 <td>400</td>
@@ -2113,66 +2103,212 @@ Accept: application/json
 </tr>
 </tbody></table>
 
-<h3 id="get-the-metadata-(including-status)-for-software-products-from-the-cdr-register-responseschema">Response Schema</h3>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id='getdatarecipientsstatus'>GetDataRecipientsStatus</h2>
+<p>Get the statuses for Data Recipients from the CDR Register</p>
 
-<p>Status Code <strong>200</strong></p>
+<p><a id="opIdGetDataRecipientStatus"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/data-recipients/status HTTP/1.1
+Host: api.discovery.cdr.gov.au
+Accept: application/json
+
+</code></pre>
+<p><code>GET /register/data-recipients/status</code></p>
+
+<h3 id="get-the-statuses-for-data-recipients-from-the-cdr-register-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
 <th>Name</th>
+<th>In</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
-<td>[<a href="#schemasoftwareproductlist">SoftwareProductList</a>]</td>
+<td>x-v</td>
+<td>header</td>
+<td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
-</tr>
-<tr>
-<td>» softwareProducts</td>
-<td>[<a href="#schemasoftwareproduct">SoftwareProduct</a>]</td>
-<td>true</td>
-<td>none</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» softwareProductId</td>
-<td>string</td>
-<td>true</td>
-<td>none</td>
-<td>Unique id of the software product issued by the CDR Register</td>
-</tr>
-<tr>
-<td>»» softwareProductStatus</td>
-<td>string</td>
-<td>true</td>
-<td>none</td>
-<td>Software product status in CDR Register</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values'>Enumerated Values</h4>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"dataRecipients"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"dataRecipientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dataRecipientStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="get-the-statuses-for-data-recipients-from-the-cdr-register-responses">Responses</h3>
+
 <table><thead>
 <tr>
-<th>Property</th>
-<th>Value</th>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>softwareProductStatus</td>
-<td>ACTIVE</td>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Success</td>
+<td><a href="#schemadatarecipientsstatuslist">DataRecipientsStatusList</a></td>
 </tr>
 <tr>
-<td>softwareProductStatus</td>
-<td>INACTIVE</td>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Bad Request</td>
+<td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id='getdatarecipients'>GetDataRecipients</h2>
+<p><a id="opIdGetDataRecipients"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/data-recipients HTTP/1.1
+Host: api.discovery.cdr.gov.au
+Accept: application/json
+
+</code></pre>
+<p><code>GET /register/data-recipients</code></p>
+
+<h3 id="get-register-data-recipients-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>updated-since</td>
+<td>query</td>
+<td>string(date-time)</td>
+<td>false</td>
+<td>none</td>
 </tr>
 <tr>
-<td>softwareProductStatus</td>
-<td>REMOVED</td>
+<td>page</td>
+<td>query</td>
+<td>integer(int32)</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>page-size</td>
+<td>query</td>
+<td>integer(int32)</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>x-v</td>
+<td>header</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dataRecipientBrands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"dataRecipientBrandId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"brandName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"softwareProducts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"softwareProductId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"prev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="get-register-data-recipients-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Success</td>
+<td><a href="#schemaresponseregisterdatarecipientlist">ResponseRegisterDataRecipientList</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Bad Request</td>
+<td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+<td>Forbidden</td>
+<td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 </tbody></table>
 
@@ -2193,7 +2329,7 @@ This operation does not require authentication
         </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-23"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2201,7 +2337,7 @@ This operation does not require authentication
         </span><span class="s2">"industryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"organisationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SOLE_TRADER"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"registerStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2216,7 +2352,7 @@ This operation does not require authentication
           </span><span class="s2">"jwksEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-23T05:18:35Z"</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2278,7 +2414,7 @@ This operation does not require authentication
     </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-23"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2286,7 +2422,7 @@ This operation does not require authentication
     </span><span class="s2">"industryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"organisationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SOLE_TRADER"</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"registerStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"endpointDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"publicBaseUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2301,7 +2437,7 @@ This operation does not require authentication
       </span><span class="s2">"jwksEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-23T05:18:35Z"</span><span class="w">
+  </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h3 id='properties-2'>Properties</h3>
@@ -2343,7 +2479,7 @@ This operation does not require authentication
 <td>The data that is common to all organisations, regardless of the type (e.g. company, trust, partnership, government)</td>
 </tr>
 <tr>
-<td>registerStatus</td>
+<td>status</td>
 <td>string</td>
 <td>true</td>
 <td>none</td>
@@ -2371,7 +2507,7 @@ This operation does not require authentication
 <td>The date/time that the Data Holder Brand data was last updated in the Register</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-2'>Enumerated Values</h4>
+<h4 id='enumerated-values'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2383,22 +2519,22 @@ This operation does not require authentication
 <td>BANKING</td>
 </tr>
 <tr>
-<td>registerStatus</td>
+<td>status</td>
 <td>ACTIVE</td>
 </tr>
 <tr>
-<td>registerStatus</td>
+<td>status</td>
 <td>INACTIVE</td>
 </tr>
 <tr>
-<td>registerStatus</td>
+<td>status</td>
 <td>REMOVED</td>
 </tr>
 </tbody></table>
 
-<h2 id="tocSsoftwareproductlist">SoftwareProductList</h2>
+<h2 id="tocSsoftwareproductsstatuslist">SoftwareProductsStatusList</h2>
 
-<p><a id="schemasoftwareproductlist"></a></p>
+<p><a id="schemasoftwareproductsstatuslist"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"softwareProducts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -2420,16 +2556,16 @@ This operation does not require authentication
 </thead><tbody>
 <tr>
 <td>softwareProducts</td>
-<td>[<a href="#schemasoftwareproduct">SoftwareProduct</a>]</td>
+<td>[<a href="#schemasoftwareproductstatus">SoftwareProductStatus</a>]</td>
 <td>true</td>
 <td>none</td>
 <td>none</td>
 </tr>
 </tbody></table>
 
-<h2 id="tocSsoftwareproduct">SoftwareProduct</h2>
+<h2 id="tocSsoftwareproductstatus">SoftwareProductStatus</h2>
 
-<p><a id="schemasoftwareproduct"></a></p>
+<p><a id="schemasoftwareproductstatus"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"softwareProductId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"softwareProductStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
@@ -2457,10 +2593,10 @@ This operation does not require authentication
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>Software product status in CDR Register</td>
+<td>Software product status in the CDR Register</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-3'>Enumerated Values</h4>
+<h4 id='enumerated-values-2'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2481,6 +2617,460 @@ This operation does not require authentication
 </tr>
 </tbody></table>
 
+<h2 id="tocSdatarecipientsstatuslist">DataRecipientsStatusList</h2>
+
+<p><a id="schemadatarecipientsstatuslist"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"dataRecipients"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"dataRecipientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dataRecipientStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre><h3 id='properties-5'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>dataRecipients</td>
+<td>[<a href="#schemadatarecipientstatus">DataRecipientStatus</a>]</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSdatarecipientstatus">DataRecipientStatus</h2>
+
+<p><a id="schemadatarecipientstatus"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"dataRecipientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"dataRecipientStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre><h3 id='properties-6'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>dataRecipientId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Unique id of the Data Recipient in the CDR Register</td>
+</tr>
+<tr>
+<td>dataRecipientStatus</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Data Recipient status in the CDR Register</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-3'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>dataRecipientStatus</td>
+<td>ACTIVE</td>
+</tr>
+<tr>
+<td>dataRecipientStatus</td>
+<td>SUSPENDED</td>
+</tr>
+<tr>
+<td>dataRecipientStatus</td>
+<td>REVOKED</td>
+</tr>
+<tr>
+<td>dataRecipientStatus</td>
+<td>SURRENDERED</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSresponseregisterdatarecipientlist">ResponseRegisterDataRecipientList</h2>
+
+<p><a id="schemaresponseregisterdatarecipientlist"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dataRecipientBrands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"dataRecipientBrandId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"brandName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"softwareProducts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"softwareProductId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"prev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Response containing a list of Data Recipients in the CDR Register</em></p>
+<h3 id='properties-7'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>[<a href="#schemaregisterdatarecipient">RegisterDataRecipient</a>]</td>
+<td>true</td>
+<td>none</td>
+<td>Response data for the query</td>
+</tr>
+<tr>
+<td>links</td>
+<td><a href="#schemalinkspaginated">LinksPaginated</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>meta</td>
+<td><a href="#schemametapaginated">MetaPaginated</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSregisterdatarecipient">RegisterDataRecipient</h2>
+
+<p><a id="schemaregisterdatarecipient"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"dataRecipientBrands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"dataRecipientBrandId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"brandName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"softwareProducts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"softwareProductId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre><h3 id='properties-8'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>legalEntityId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Unique id of the Data Recipient Legal Entity</td>
+</tr>
+<tr>
+<td>legalEntityName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Legal name of the Data Recipient</td>
+</tr>
+<tr>
+<td>sector</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>logoUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Legal Entity logo URI</td>
+</tr>
+<tr>
+<td>dataRecipientBrands</td>
+<td>[<a href="#schemadatarecipientbrandmetadata">DataRecipientBrandMetaData</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>[Endpoints related to Data Holder Brand services]</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>lastUpdated</td>
+<td>string(date-time)</td>
+<td>true</td>
+<td>none</td>
+<td>The date/time that the Legal Entity was last updated in the Register</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-4'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sector</td>
+<td>BANKING</td>
+</tr>
+<tr>
+<td>status</td>
+<td>ACTIVE</td>
+</tr>
+<tr>
+<td>status</td>
+<td>SUSPENDED</td>
+</tr>
+<tr>
+<td>status</td>
+<td>REVOKED</td>
+</tr>
+<tr>
+<td>status</td>
+<td>SURRENDERED</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSdatarecipientbrandmetadata">DataRecipientBrandMetaData</h2>
+
+<p><a id="schemadatarecipientbrandmetadata"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"dataRecipientBrandId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"brandName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"softwareProducts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"softwareProductId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Endpoints related to Data Holder Brand services</em></p>
+<h3 id='properties-9'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>dataRecipientBrandId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Unique id of the Data Recipient brand</td>
+</tr>
+<tr>
+<td>brandName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Data Recipient Brand name</td>
+</tr>
+<tr>
+<td>logoUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Data Recipient Brand logo URI</td>
+</tr>
+<tr>
+<td>softwareProducts</td>
+<td>[<a href="#schemasoftwareproductmetadata">SoftwareProductMetaData</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>[Data Recipient Brand Software Products]</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-5'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>ACTIVE</td>
+</tr>
+<tr>
+<td>status</td>
+<td>INACTIVE</td>
+</tr>
+<tr>
+<td>status</td>
+<td>REMOVED</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSsoftwareproductmetadata">SoftwareProductMetaData</h2>
+
+<p><a id="schemasoftwareproductmetadata"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"softwareProductId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"softwareProductName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"softwareProductDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><em>Data Recipient Brand Software Products</em></p>
+<h3 id='properties-10'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>softwareProductId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Unique id of the Data Recipient software product</td>
+</tr>
+<tr>
+<td>softwareProductName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Name of the software product</td>
+</tr>
+<tr>
+<td>softwareProductDescription</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Description of the software product</td>
+</tr>
+<tr>
+<td>logoUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Software product logo URI</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-6'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>ACTIVE</td>
+</tr>
+<tr>
+<td>status</td>
+<td>INACTIVE</td>
+</tr>
+<tr>
+<td>status</td>
+<td>REMOVED</td>
+</tr>
+</tbody></table>
+
 <h2 id="tocSlegalentitydetail">LegalEntityDetail</h2>
 
 <p><a id="schemalegalentitydetail"></a></p>
@@ -2488,7 +3078,7 @@ This operation does not require authentication
   </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-23"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2499,7 +3089,7 @@ This operation does not require authentication
 
 </span></code></pre>
 <p><em>The data that is common to all organisations, regardless of the type (e.g. company, trust, partnership, government)</em></p>
-<h3 id='properties-5'>Properties</h3>
+<h3 id='properties-11'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2580,7 +3170,7 @@ This operation does not require authentication
 <td>Legal organisation type</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-4'>Enumerated Values</h4>
+<h4 id='enumerated-values-7'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2627,7 +3217,7 @@ This operation does not require authentication
 
 </span></code></pre>
 <p><em>Endpoints related to Data Holder Brand services</em></p>
-<h3 id='properties-6'>Properties</h3>
+<h3 id='properties-12'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2691,7 +3281,7 @@ This operation does not require authentication
 
 </span></code></pre>
 <p><em>Provides details of authorisation endpoints for Data Holders</em></p>
-<h3 id='properties-7'>Properties</h3>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2716,7 +3306,7 @@ This operation does not require authentication
 <td>JWKS endpoint for private_key_jwt client auth with Data Recipient</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-5'>Enumerated Values</h4>
+<h4 id='enumerated-values-8'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2740,7 +3330,7 @@ This operation does not require authentication
   </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-8'>Properties</h3>
+</span></code></pre><h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2795,7 +3385,7 @@ This operation does not require authentication
   </span><span class="s2">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-9'>Properties</h3>
+</span></code></pre><h3 id='properties-15'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2835,7 +3425,7 @@ This operation does not require authentication
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-10'>Properties</h3>
+</span></code></pre><h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2864,7 +3454,7 @@ This operation does not require authentication
   </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-11'>Properties</h3>
+</span></code></pre><h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2914,6 +3504,24 @@ This operation does not require authentication
 <th>Detail Of change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>23/10/2019</td>
+<td>0.7.0</td>
+<td>Updated Client Registration</td>
+<td>Added <code>scope</code> for registration endpoints</br>Removed <code>org_contacts</code> and <code>software_version</code> from the SSA definition</td>
+</tr>
+<tr>
+<td>23/10/2019</td>
+<td>0.7.0</td>
+<td>Updated Participant Statuses</td>
+<td>Added <code>Facilitate Consent Withdrawal</code> sequence diagram and updated <code>Request for Data Sharing</code> sequence diagram</td>
+</tr>
+<tr>
+<td>23/10/2019</td>
+<td>0.7.0</td>
+<td>Updated Register APIs</td>
+<td>Added <code>GetDataRecipientsStatus</code> and <code>GetDataRecipients</code> API definitions</td>
+</tr>
 <tr>
 <td>16/10/2019</td>
 <td>0.6.0</td>
@@ -3087,7 +3695,7 @@ This operation does not require authentication
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
+                <a href="#" data-language-name="Examples">Examples</a>
           </div>
       </div>
     </div>

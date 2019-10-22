@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "0.5",
+    "version": "0.7",
     "title": "Consumer Data Right (CDR) Register - Data Holder Discovery API"
   },
   "schemes": [
@@ -9,7 +9,7 @@
   ],
   "basePath": "/cdr-register/v1",
   "paths": {
-    "/register/data-holder-brands": {
+    "/register/data-holders/brands": {
       "get": {
         "tags": [
           "DataHolderBrands"
@@ -76,12 +76,12 @@
         }
       }
     },
-    "/register/data-recipient-brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa": {
+    "/register/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa": {
       "get": {
         "tags": [
           "SoftwareStatementAssertion"
         ],
-        "summary": "Get a Software Statement Assertion (SSA) for a software product on the CDR Register to be used for Dynamic Registration with a Data Holder",
+        "summary": "Get a Software Statement Assertion (SSA) for a software product on the CDR Register to be used for Dynamic Client Registration with a Data Holder",
         "operationId": "GetSoftwareStatementAssertion",
         "consumes": [
           "application/json"
@@ -139,13 +139,13 @@
         }
       }
     },
-    "/register/software-products": {
+    "/register/data-recipients/brands/software-products/status": {
       "get": {
         "tags": [
-          "SoftwareProducts"
+          "Software Products Status"
         ],
-        "summary": "Get the metadata (including status) for software products from the CDR Register",
-        "operationId": "GetSoftwareProducts",
+        "summary": "Get the statuses for software products from the CDR Register",
+        "operationId": "GetSoftwareProductsStatus",
         "consumes": [
           "application/json"
         ],
@@ -164,11 +164,7 @@
           "200": {
             "description": "Success",
             "schema": {
-              "uniqueItems": true,
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/SoftwareProductList"
-              }
+              "$ref": "#/definitions/SoftwareProductsStatusList"
             }
           },
           "400": {
@@ -179,8 +175,112 @@
           }
         }
       }
+    },
+    "/register/data-recipients/status": {
+    "get": {
+      "tags": [
+        "Data Recipients Status"
+      ],
+      "summary": "Get the statuses for Data Recipients from the CDR Register",
+      "operationId": "GetDataRecipientStatus",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "x-v",
+          "in": "header",
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Success",
+          "schema": {
+            "$ref": "#/definitions/DataRecipientsStatusList"
+          }
+        },
+        "400": {
+          "description": "Bad Request",
+          "schema": {
+            "$ref": "#/definitions/ResponseErrorList"
+          }
+        }
+      }
     }
   },
+    "/register/data-recipients": {
+    "get": {
+      "tags": [
+        "Data Recipients"
+      ],
+      "summary": "Get Register Data Recipients",
+      "operationId": "GetDataRecipients",
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "updated-since",
+          "in": "query",
+          "description": "",
+          "required": false,
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "description": "",
+          "required": false,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "page-size",
+          "in": "query",
+          "description": "",
+          "required": false,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "x-v",
+          "in": "header",
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Success",
+          "schema": {
+            "$ref": "#/definitions/ResponseRegisterDataRecipientList"
+          }
+        },
+        "400": {
+          "description": "Bad Request",
+          "schema": {
+            "$ref": "#/definitions/ResponseErrorList"
+          }
+        },
+        "403": {
+          "description": "Forbidden",
+          "schema": {
+            "$ref": "#/definitions/ResponseErrorList"
+          }
+        }
+      }
+    }
+  }
+},
   "definitions": {
     "ResponseRegisterDataHolderBrandList": {
       "description": "Response containing a list of Register Data Holder Brand objects",
@@ -213,7 +313,7 @@
         "brandName",
         "sector",
         "legalEntity",
-        "registerStatus",
+        "status",
         "endpointDetail",
         "authDetails",
         "lastUpdated"
@@ -235,7 +335,7 @@
         "legalEntity": {
           "$ref": "#/definitions/LegalEntityDetail"
         },
-        "registerStatus": {
+        "status": {
           "enum": [
             "ACTIVE",
             "INACTIVE",
@@ -261,7 +361,7 @@
         }
       }
     },
-    "SoftwareProductList": {
+    "SoftwareProductsStatusList": {
       "required": [
         "softwareProducts"
       ],
@@ -271,12 +371,12 @@
           "uniqueItems": true,
           "type": "array",
           "items": {
-            "$ref": "#/definitions/SoftwareProduct"
+            "$ref": "#/definitions/SoftwareProductStatus"
           }
         }
       }
     },
-    "SoftwareProduct": {
+    "SoftwareProductStatus": {
       "required": [
         "softwareProductId",
         "softwareProductStatus"
@@ -288,7 +388,201 @@
           "type": "string"
         },
         "softwareProductStatus": {
-          "description": "Software product status in CDR Register",
+          "description": "Software product status in the CDR Register",
+          "enum": [
+            "ACTIVE",
+            "INACTIVE",
+            "REMOVED"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "DataRecipientsStatusList": {
+      "required": [
+        "dataRecipients"
+      ],
+      "type": "object",
+      "properties": {
+        "dataRecipients": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataRecipientStatus"
+          }
+        }
+      }
+    },
+    "DataRecipientStatus": {
+      "required": [
+        "dataRecipientId",
+        "dataRecipientStatus"
+      ],
+      "type": "object",
+      "properties": {
+        "dataRecipientId": {
+          "description": "Unique id of the Data Recipient in the CDR Register",
+          "type": "string"
+        },
+        "dataRecipientStatus": {
+          "description": "Data Recipient status in the CDR Register",
+          "enum": [
+            "ACTIVE",
+            "SUSPENDED",
+            "REVOKED",
+            "SURRENDERED"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "ResponseRegisterDataRecipientList": {
+      "description": "Response containing a list of Data Recipients in the CDR Register",
+      "required": [
+        "data",
+        "links",
+        "meta"
+      ],
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "Response data for the query",
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegisterDataRecipient"
+          }
+        },
+        "links": {
+          "$ref": "#/definitions/LinksPaginated"
+        },
+        "meta": {
+          "$ref": "#/definitions/MetaPaginated"
+        }
+      }
+    },
+    "RegisterDataRecipient": {
+      "required": [
+        "legalEntityId",
+        "legalEntityName",
+        "sector",
+        "logoUri",
+        "status",
+        "lastUpdated"
+      ],
+      "type": "object",
+      "properties": {
+        "legalEntityId": {
+          "description": "Unique id of the Data Recipient Legal Entity",
+          "type": "string"
+        },
+        "legalEntityName": {
+          "description": "Legal name of the Data Recipient",
+          "type": "string"
+        },
+        "sector": {
+          "enum": [
+            "BANKING"
+          ],
+          "type": "string"
+        },
+        "logoUri": {
+          "description": "Legal Entity logo URI",
+          "type": "string",
+          "x-cds-type": "URIString"
+        },
+        "dataRecipientBrands": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataRecipientBrandMetaData"
+          }
+        },
+        "status": {
+          "enum": [
+            "ACTIVE",
+            "SUSPENDED",
+            "REVOKED",
+            "SURRENDERED"
+          ],
+          "type": "string"
+        },
+        "lastUpdated": {
+          "format": "date-time",
+          "description": "The date/time that the Legal Entity was last updated in the Register",
+          "type": "string",
+          "x-cds-type": "DateTimeString"
+        }
+      }
+    },
+    "DataRecipientBrandMetaData": {
+      "description": "Endpoints related to Data Holder Brand services",
+      "required": [
+        "dataRecipientBrandId",
+        "brandName",
+        "logoUri",
+        "status"
+      ],
+      "type": "object",
+      "properties": {
+        "dataRecipientBrandId": {
+          "description": "Unique id of the Data Recipient brand",
+          "type": "string"
+        },
+        "brandName": {
+          "description": "Data Recipient Brand name",
+          "type": "string"
+        },
+        "logoUri": {
+          "description": "Data Recipient Brand logo URI",
+          "type": "string",
+          "x-cds-type": "URIString"
+        },
+        "softwareProducts": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SoftwareProductMetaData"
+          }
+        },
+        "status": {
+          "enum": [
+            "ACTIVE",
+            "INACTIVE",
+            "REMOVED"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "SoftwareProductMetaData": {
+      "description": "Data Recipient Brand Software Products",
+      "required": [
+        "softwareProductId",
+        "softwareProductName",
+        "logoUri",
+        "status"
+      ],
+      "type": "object",
+      "properties": {
+        "softwareProductId": {
+          "description": "Unique id of the Data Recipient software product",
+          "type": "string"
+        },
+        "softwareProductName": {
+          "description": "Name of the software product",
+          "type": "string"
+        },
+        "softwareProductDescription": {
+          "description": "Description of the software product",
+          "type": "string"
+        },
+        "logoUri": {
+          "description": "Software product logo URI",
+          "type": "string",
+          "x-cds-type": "URIString"
+        },
+        "status": {
           "enum": [
             "ACTIVE",
             "INACTIVE",
