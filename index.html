@@ -283,7 +283,7 @@
                     <a href="#registration-response" class="toc-h2 toc-link" data-title="Registration Response">Registration Response</a>
                   </li>
                   <li>
-                    <a href="#data-holder-authorisation-server-requirements" class="toc-h2 toc-link" data-title="Data Holder Authorisation Server Requirements">Data Holder Authorisation Server Requirements</a>
+                    <a href="#authorisation-server-requirements" class="toc-h2 toc-link" data-title="Authorisation Server Requirements">Authorisation Server Requirements</a>
                   </li>
                   <li>
                     <a href="#registration-flows" class="toc-h2 toc-link" data-title="Registration Flows">Registration Flows</a>
@@ -727,42 +727,68 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 </tbody></table>
 <h3 id='ssa-definition'>SSA Definition</h3>
 <blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>eyJhbGciOiJQUzI1NiIsImtpZCI6ImI4ZmFjZjJmZjM5NDQ0Zjc4MWUwYmU1ZGI0YjE0ZjE2IiwidHlwIjoiSldUIn0.ew0KICAiaXNzIjogImNkci1yZWdpc3RlciIsDQogICJpYXQiOiAxNTcxODA4MTY3LA0KICAiZXhwIjogMjE0NzQ4MzY0NiwNCiAgImp0aSI6ICIzYmMyMDVhMWViYzk0M2ZiYjYyNGIxNGZjYjI0MTE5NiIsDQogICJvcmdfaWQiOiAiM0IwQjBBN0ItM0U3Qi00QTJDLTk0OTctRTM1N0E3MUQwN0M4IiwNCiAgIm9yZ19uYW1lIjogIk1vY2sgQ29tcGFueSBJbmMuIiwNCiAgImNsaWVudF9uYW1lIjogIk1vY2sgU29mdHdhcmUiLA0KICAiY2xpZW50X2Rlc2NyaXB0aW9uIjogIkEgbW9jayBzb2Z0d2FyZSBwcm9kdWN0IGZvciB0ZXN0aW5nIFNTQSIsDQogICJjbGllbnRfdXJpIjogImh0dHBzOi8vd3d3Lm1vY2tjb21wYW55LmNvbS5hdSIsDQogICJyZWRpcmVjdF91cmlzIjogWw0KICAgICJodHRwczovL3d3dy5tb2NrY29tcGFueS5jb20uYXUvcmVkaXJlY3RzL3JlZGlyZWN0MSIsDQogICAgImh0dHBzOi8vd3d3Lm1vY2tjb21wYW55LmNvbS5hdS9yZWRpcmVjdHMvcmVkaXJlY3QyIg0KICBdLA0KICAibG9nb191cmkiOiAiaHR0cHM6Ly93d3cubW9ja2NvbXBhbnkuY29tLmF1L2xvZ29zL2xvZ28xLnBuZyIsDQogICJ0b3NfdXJpIjogImh0dHBzOi8vd3d3Lm1vY2tjb21wYW55LmNvbS5hdS90b3MuaHRtbCIsDQogICJwb2xpY3lfdXJpIjogImh0dHBzOi8vd3d3Lm1vY2tjb21wYW55LmNvbS5hdS9wb2xpY3kuaHRtbCIsDQogICJqd2tzX3VyaSI6ICJodHRwczovL3d3dy5tb2NrY29tcGFueS5jb20uYXUvandrcyIsDQogICJyZXZvY2F0aW9uX3VyaSI6ICJodHRwczovL3d3dy5tb2NrY29tcGFueS5jb20uYXUvcmV2b2NhdGlvbiIsDQogICJzb2Z0d2FyZV9pZCI6ICI3NDBDMzY4Ri1FQ0Y5LTREMjktQTJFQS0wNTE0QTY2QjBDREUiLA0KICAic29mdHdhcmVfcm9sZXMiOiAiZGF0YS1yZWNpcGllbnQtc29mdHdhcmUtcHJvZHVjdCIsDQogICJzY29wZSI6ICJiYW5rOmFjY291bnRzLmJhc2ljOnJlYWQgYmFuazphY2NvdW50cy5kZXRhaWw6cmVhZCBiYW5rOnRyYW5zYWN0aW9uczpyZWFkIGJhbms6cGF5ZWVzOnJlYWQgYmFuazpyZWd1bGFyX3BheW1lbnRzOnJlYWQgY29tbW9uOmN1c3RvbWVyLmJhc2ljOnJlYWQgY29tbW9uOmN1c3RvbWVyLmRldGFpbDpyZWFkIg0KfQ.ZNKe8aBHcsZ_OfdP0GvUa0AHrjcoC0Coky4jQHrPsRoG3YMcS2XG9JtyB5zq-AMOQoaib1Ijx1m7B-JOEbVcnNJcLUZeVEIwnP8hRssAnGjWwaYGUAiY-DEFUsuXqpQWgyIOFz84W-FaHFcqpOSGxjGmjICZU9S1Pl4o8b5poA_kJ2n_wdiOBUG4xl3uXqzK_vstcGXbAubFyLhjOxhc_rqONO2NCtpyCwj83Zqi7Ve_A27-ty5N0AQa2xYWvjDt_Xh8xcxRI_ih7_sStvDTTy3gtyX5bAdXsDsweCcvN0d2vOCpm6-dnr8D1fXDTnlT3x2uQ0XAysWr6wU4mAZFVA
+</code></pre>
+<blockquote>
+<p>Associated JWKS:</p>
 </blockquote>
 <pre class="highlight plaintext"><code>{
-   "alg":"PS256",
-   "kid":"ee56beb7e67a4f028ee86df915cf681c",
-   "typ":"JWT"
-},
-{
-   "iss":"cdr-register",
-   "iat":1568598151,
-   "exp":1568598751,
-   "jti":"ee56beb7e67a4f028ee86df915cf681d",
-   "org_id":"3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
-   "org_name":"Mock Company Inc.",
-   "client_name":"Mock Software",
-   "client_description":"A mock software product",
-   "client_uri":"https://www.mockcompany.com.au",
-   "redirect_uris":[
-      "https://www.mockcompany.com.au/redirects/redirect1",
-      "https://www.mockcompany.com.au/redirects/redirect2"
-   ],
-   "logo_uri":"https://www.mockcompany.com.au/logos/logo1.png",
-   "tos_uri":"https://www.mockcompany.com.au/tos.html",
-   "policy_uri":"https://www.mockcompany.com.au/policy.html",
-   "jwks_uri":"https://www.mockcompany.com.au/jwks",
-   "revocation_uri":"https://www.mockcompany.com.au/revocation",
-   "software_id":"FBFFD12F-0196-45A3-8E77-AE10EC4561FF",
-   "software_roles": "data-recipient-software-product",
-   "scope":
-      "bank:accounts.basic:read
-       bank:accounts.detail:read
-       bank:transactions:read
-       bank:payees:read
-       bank:regular_payments:read
-       common:customer.basic:read
-       common:customer.detail:read"
+  "keys": [
+    {
+      "kid": "b8facf2ff39444f781e0be5db4b14f16",
+      "kty": "RSA",
+      "key_ops": [
+        "sign",
+        "verify"
+      ],
+      "n": "s0zGoaOEJE8HDfHjWtO0xLXtuPcwio8BEoj0-uu9kxxDIF7jH0jb06EwoPkb83BET59x6C0TtRfc_I5ZDksQKRClWXzbazqi62M5YhCgwyB-S09PJb8P1GfQBYyK346nLKARHbFJ1t1SHARcVFJA_8NeHfQn_0fyEc55R3GGNDL3YQtjEoTb-LMR-KpcPB2BpyDuie-jk-3f1t0EfvnkVp-6co1_KTXrbwuYtH31YBZLgU4JeZEJLTnGdMKmJppZ9SnyrBB461hMmw0HJHJj6uZJSiP2onmvlrUezv1T3NM3HOE7WHxlps9MUJj3vcpea-O6n5JBX8emTduLuLuKuw",
+      "e": "AQAB"
+    }
+  ]
 }
+</code></pre>
+<blockquote>
+<p>Decoded Response</p>
+</blockquote>
+<pre class="highlight plaintext"><code>{
+  "alg": "PS256",
+  "kid": "b8facf2ff39444f781e0be5db4b14f16",
+  "typ": "JWT"
+}
+
+{
+  "iss": "cdr-register",
+  "iat": 1571808167,
+  "exp": 2147483646,
+  "jti": "3bc205a1ebc943fbb624b14fcb241196",
+  "org_id": "3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
+  "org_name": "Mock Company Inc.",
+  "client_name": "Mock Software",
+  "client_description": "A mock software product for testing SSA",
+  "client_uri": "https://www.mockcompany.com.au",
+  "redirect_uris": [
+    "https://www.mockcompany.com.au/redirects/redirect1",
+    "https://www.mockcompany.com.au/redirects/redirect2"
+  ],
+  "logo_uri": "https://www.mockcompany.com.au/logos/logo1.png",
+  "tos_uri": "https://www.mockcompany.com.au/tos.html",
+  "policy_uri": "https://www.mockcompany.com.au/policy.html",
+  "jwks_uri": "https://www.mockcompany.com.au/jwks",
+  "revocation_uri": "https://www.mockcompany.com.au/revocation",
+  "software_id": "740C368F-ECF9-4D29-A2EA-0514A66B0CDE",
+  "software_roles": "data-recipient-software-product",
+  "scope":
+        "bank:accounts.basic:read
+         bank:accounts.detail:read
+         bank:transactions:read
+         bank:payees:read
+         bank:regular_payments:read
+         common:customer.basic:read
+         common:customer.detail:read"
+}
+
 </code></pre>
 <table><thead>
 <tr>
@@ -1068,7 +1094,7 @@ Content-Type: application/json
 </tbody></table>
 
 <p>As per Section 3.2.1 of <strong>[RFC7591]</strong>, additionally, the authorisation server MUST return all registered metadata about this client, including any fields provisioned by the authorisation server itself</p>
-<h2 id='data-holder-authorisation-server-requirements'>Data Holder Authorisation Server Requirements</h2><h3 id='token-endpoint-authentication'>Token Endpoint Authentication</h3>
+<h2 id='authorisation-server-requirements'>Authorisation Server Requirements</h2><h3 id='token-endpoint-authentication'>Token Endpoint Authentication</h3>
 <p>The Accredited Data Recipient MUST use the <code>private_key_jwt client</code> authentication method with the <code>client_credentials</code> grant to authenticate with the Data Holder token endpoint</p>
 <pre class="highlight plaintext"><code>Non-Normative Example for access token retrieval
 
@@ -1076,7 +1102,7 @@ HTTP/1.1 POST /token
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=client_credentials&amp;
-  scope=cdr:registration&amp;
+  scope=cdr%3Aregistration&amp;
   client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&amp;
   client_assertion=eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNDU2In0.ey ...
 
@@ -1142,8 +1168,7 @@ grant_type=client_credentials&amp;
 </tr>
 </tbody></table>
 
-<p>Registration endpoints will be exposed under the InfoSecBaseUri, as described at: <a href="#endpoints">endpoints</a>
-Registration endpoints</p>
+<p>Registration endpoints will be exposed under the InfoSecBaseUri, as described at: <a href="#endpoints">Endpoints</a></p>
 <h3 id='registration-transaction-security'>Registration Transaction Security</h3>
 <p>DCR API endpoints will conform to the same transaction security requirements as Data Holder Resource endpoints
 </br>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#transaction-security">Consumer Data Standards Transaction Security</a> for Transaction Security details</p>
@@ -1527,13 +1552,13 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Data Holder</strong></td>
-<td>Calls to CDR Register Discovery API</td>
+<td>Calls to CDR Register Authenticated APIs</td>
 <td><strong>Data Holder ID</strong></td>
 </tr>
 <tr>
 <td><strong>Data Recipient</strong></td>
-<td>Calls to CDR Register Discovery API</td>
-<td><strong>Data Recipient Software Product ID</strong></td>
+<td>Calls to CDR Register Authenticated APIs</td>
+<td><strong>Data Recipient ID</strong></td>
 </tr>
 </tbody></table>
 <h2 id='transaction-security'>Transaction Security</h2>
@@ -1813,7 +1838,7 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 Host: api.discovery.cdr.gov.au
 Accept: application/json
 </code></pre>
-<p><code>GET /register/data-holders/brands</code></p>
+<p><code>GET /{industry}/data-holders/brands</code></p>
 
 <h3 id="get-data-holder-brands-from-the-cdr-register-parameters">Parameters</h3>
 
@@ -1826,6 +1851,13 @@ Accept: application/json
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>industry</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>The industry the participant is retrieving data for (Banking, etc)</td>
+</tr>
 <tr>
 <td>updated-since</td>
 <td>query</td>
@@ -1855,6 +1887,18 @@ Accept: application/json
 <td>none</td>
 </tr>
 </tbody></table>
+<h4 id='enumerated-values'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>industry</td>
+<td>BANKING</td>
+</tr>
+</tbody></table>
 
 <blockquote>
 <p>Example responses</p>
@@ -1866,12 +1910,12 @@ Accept: application/json
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"dataHolderBrandId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"brandName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"legalEntity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -1894,7 +1938,7 @@ Accept: application/json
           </span><span class="s2">"jwksEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24T03:51:44Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1952,7 +1996,7 @@ Host: api.discovery.cdr.gov.au
 Accept: application/json
 
 </code></pre>
-<p><code>GET /register/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa</code></p>
+<p><code>GET /{industry}/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa</code></p>
 
 <h3 id="get-a-software-statement-assertion-(ssa)-for-a-software-product-on-the-cdr-register-to-be-used-for-dynamic-client-registration-with-a-data-holder-parameters">Parameters</h3>
 
@@ -1965,6 +2009,13 @@ Accept: application/json
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>industry</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>The industry the participant is retrieving data for (Banking, etc)</td>
+</tr>
 <tr>
 <td>dataRecipientBrandId</td>
 <td>path</td>
@@ -1985,6 +2036,18 @@ Accept: application/json
 <td>string</td>
 <td>false</td>
 <td>none</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-2'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>industry</td>
+<td>BANKING</td>
 </tr>
 </tbody></table>
 
@@ -2043,7 +2106,7 @@ Host: api.discovery.cdr.gov.au
 Accept: application/json
 
 </code></pre>
-<p><code>GET /register/data-recipients/brands/software-products/status</code></p>
+<p><code>GET /{industry}/data-recipients/brands/software-products/status</code></p>
 
 <h3 id="get-the-statuses-for-software-products-from-the-cdr-register-parameters">Parameters</h3>
 
@@ -2057,11 +2120,30 @@ Accept: application/json
 </tr>
 </thead><tbody>
 <tr>
+<td>industry</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>The industry the participant is retrieving data for (Banking, etc)</td>
+</tr>
+<tr>
 <td>x-v</td>
 <td>header</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-3'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>industry</td>
+<td>BANKING</td>
 </tr>
 </tbody></table>
 
@@ -2119,7 +2201,7 @@ Host: api.discovery.cdr.gov.au
 Accept: application/json
 
 </code></pre>
-<p><code>GET /register/data-recipients/status</code></p>
+<p><code>GET /{industry}/data-recipients/status</code></p>
 
 <h3 id="get-the-statuses-for-data-recipients-from-the-cdr-register-parameters">Parameters</h3>
 
@@ -2133,11 +2215,30 @@ Accept: application/json
 </tr>
 </thead><tbody>
 <tr>
+<td>industry</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>The industry the participant is retrieving data for (Banking, etc)</td>
+</tr>
+<tr>
 <td>x-v</td>
 <td>header</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-4'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>industry</td>
+<td>BANKING</td>
 </tr>
 </tbody></table>
 
@@ -2193,7 +2294,7 @@ Host: api.discovery.cdr.gov.au
 Accept: application/json
 
 </code></pre>
-<p><code>GET /register/data-recipients</code></p>
+<p><code>GET /{industry}/data-recipients</code></p>
 
 <h3 id="get-register-data-recipients-parameters">Parameters</h3>
 
@@ -2207,25 +2308,11 @@ Accept: application/json
 </tr>
 </thead><tbody>
 <tr>
-<td>updated-since</td>
-<td>query</td>
-<td>string(date-time)</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>page</td>
-<td>query</td>
-<td>integer(int32)</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>page-size</td>
-<td>query</td>
-<td>integer(int32)</td>
-<td>false</td>
-<td>none</td>
+<td>industry</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>The industry the participant is retrieving data for (Banking, etc)</td>
 </tr>
 <tr>
 <td>x-v</td>
@@ -2233,6 +2320,18 @@ Accept: application/json
 <td>string</td>
 <td>false</td>
 <td>none</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-5'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>industry</td>
+<td>BANKING</td>
 </tr>
 </tbody></table>
 
@@ -2246,7 +2345,7 @@ Accept: application/json
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"dataRecipientBrands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -2266,20 +2365,9 @@ Accept: application/json
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24T03:51:44Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"prev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id="get-register-data-recipients-responses">Responses</h3>
@@ -2324,12 +2412,12 @@ This operation does not require authentication
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"dataHolderBrandId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"brandName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"legalEntity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2352,7 +2440,7 @@ This operation does not require authentication
           </span><span class="s2">"jwksEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24T03:51:44Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2409,12 +2497,12 @@ This operation does not require authentication
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"dataHolderBrandId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"brandName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"legalEntity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2437,7 +2525,7 @@ This operation does not require authentication
       </span><span class="s2">"jwksEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
+  </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24T03:51:44Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h3 id='properties-2'>Properties</h3>
@@ -2465,7 +2553,7 @@ This operation does not require authentication
 <td>none</td>
 </tr>
 <tr>
-<td>sector</td>
+<td>industry</td>
 <td>string</td>
 <td>true</td>
 <td>none</td>
@@ -2507,7 +2595,7 @@ This operation does not require authentication
 <td>The date/time that the Data Holder Brand data was last updated in the Register</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values'>Enumerated Values</h4>
+<h4 id='enumerated-values-6'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2515,7 +2603,7 @@ This operation does not require authentication
 </tr>
 </thead><tbody>
 <tr>
-<td>sector</td>
+<td>industry</td>
 <td>BANKING</td>
 </tr>
 <tr>
@@ -2596,7 +2684,7 @@ This operation does not require authentication
 <td>Software product status in the CDR Register</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-2'>Enumerated Values</h4>
+<h4 id='enumerated-values-7'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2681,7 +2769,7 @@ This operation does not require authentication
 <td>Data Recipient status in the CDR Register</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-3'>Enumerated Values</h4>
+<h4 id='enumerated-values-8'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2714,7 +2802,7 @@ This operation does not require authentication
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"dataRecipientBrands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -2734,20 +2822,9 @@ This operation does not require authentication
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24T03:51:44Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"prev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
@@ -2769,20 +2846,6 @@ This operation does not require authentication
 <td>none</td>
 <td>Response data for the query</td>
 </tr>
-<tr>
-<td>links</td>
-<td><a href="#schemalinkspaginated">LinksPaginated</a></td>
-<td>true</td>
-<td>none</td>
-<td>none</td>
-</tr>
-<tr>
-<td>meta</td>
-<td><a href="#schemametapaginated">MetaPaginated</a></td>
-<td>true</td>
-<td>none</td>
-<td>none</td>
-</tr>
 </tbody></table>
 
 <h2 id="tocSregisterdatarecipient">RegisterDataRecipient</h2>
@@ -2791,7 +2854,7 @@ This operation does not require authentication
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BANKING"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"dataRecipientBrands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -2811,7 +2874,7 @@ This operation does not require authentication
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22T01:41:48Z"</span><span class="w">
+  </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24T03:51:44Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h3 id='properties-8'>Properties</h3>
@@ -2839,7 +2902,7 @@ This operation does not require authentication
 <td>Legal name of the Data Recipient</td>
 </tr>
 <tr>
-<td>sector</td>
+<td>industry</td>
 <td>string</td>
 <td>true</td>
 <td>none</td>
@@ -2874,7 +2937,7 @@ This operation does not require authentication
 <td>The date/time that the Legal Entity was last updated in the Register</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-4'>Enumerated Values</h4>
+<h4 id='enumerated-values-9'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2882,7 +2945,7 @@ This operation does not require authentication
 </tr>
 </thead><tbody>
 <tr>
-<td>sector</td>
+<td>industry</td>
 <td>BANKING</td>
 </tr>
 <tr>
@@ -2970,7 +3033,7 @@ This operation does not require authentication
 <td>none</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-5'>Enumerated Values</h4>
+<h4 id='enumerated-values-10'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -3045,12 +3108,12 @@ This operation does not require authentication
 <tr>
 <td>status</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>none</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-6'>Enumerated Values</h4>
+<h4 id='enumerated-values-11'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -3078,7 +3141,7 @@ This operation does not require authentication
   </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-22"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"abn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"acn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -3170,7 +3233,7 @@ This operation does not require authentication
 <td>Legal organisation type</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-7'>Enumerated Values</h4>
+<h4 id='enumerated-values-12'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -3306,7 +3369,7 @@ This operation does not require authentication
 <td>JWKS endpoint for private_key_jwt client auth with Data Recipient</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-8'>Enumerated Values</h4>
+<h4 id='enumerated-values-13'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -3506,6 +3569,18 @@ This operation does not require authentication
 </thead><tbody>
 <tr>
 <td>23/10/2019</td>
+<td>0.8.0</td>
+<td>Updated Client Registration</td>
+<td>Added SSA example with associated JWKS and decoded payload</td>
+</tr>
+<tr>
+<td>24/10/2019</td>
+<td>0.8.0</td>
+<td>Updated Register APIs</td>
+<td>Added <code>industry</code> parameter on all routes so the associated industry doesn&#39;t need to be inferred</br>Renamed <code>sector</code> to <code>industry</code> to be consistent to the CDS</br>Removed pagination from GetDataRecipients as this is intended to be called infrequently and cached to CDN</td>
+</tr>
+<tr>
+<td>23/10/2019</td>
 <td>0.7.0</td>
 <td>Updated Client Registration</td>
 <td>Added <code>scope</code> for registration endpoints</br>Removed <code>org_contacts</code> and <code>software_version</code> from the SSA definition</td>
@@ -3521,12 +3596,6 @@ This operation does not require authentication
 <td>0.7.0</td>
 <td>Updated Register APIs</td>
 <td>Added <code>GetDataRecipientsStatus</code> and <code>GetDataRecipients</code> API definitions</td>
-</tr>
-<tr>
-<td>16/10/2019</td>
-<td>0.6.0</td>
-<td>Updated Client Registration</td>
-<td>Added <code>client credentials</code> POST token example</td>
 </tr>
 <tr>
 <td>16/10/2019</td>

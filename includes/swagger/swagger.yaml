@@ -1,12 +1,12 @@
 swagger: '2.0'
 info:
-  version: '0.7'
+  version: '0.8'
   title: Consumer Data Right (CDR) Register - Data Holder Discovery API
 schemes:
   - https
 basePath: /cdr-register/v1
 paths:
-  /register/data-holders/brands:
+  '/{industry}/data-holders/brands':
     get:
       tags:
         - DataHolderBrands
@@ -17,6 +17,13 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: industry
+          in: path
+          description: 'The industry the participant is retrieving data for (Banking, etc)'
+          required: true
+          enum:
+            - BANKING
+          type: string
         - name: updated-since
           in: query
           description: ''
@@ -52,7 +59,7 @@ paths:
           description: Forbidden
           schema:
             $ref: '#/definitions/ResponseErrorList'
-  '/register/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa':
+  '/{industry}/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa':
     get:
       tags:
         - SoftwareStatementAssertion
@@ -63,6 +70,13 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: industry
+          in: path
+          description: 'The industry the participant is retrieving data for (Banking, etc)'
+          required: true
+          enum:
+            - BANKING
+          type: string
         - name: dataRecipientBrandId
           in: path
           description: Unique id for the Accredited Data Recipient Brand that the Software Product is associated with in the CDR Register
@@ -94,7 +108,7 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/ResponseErrorList'
-  /register/data-recipients/brands/software-products/status:
+  '/{industry}/data-recipients/brands/software-products/status':
     get:
       tags:
         - Software Products Status
@@ -105,6 +119,13 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: industry
+          in: path
+          description: 'The industry the participant is retrieving data for (Banking, etc)'
+          required: true
+          enum:
+            - BANKING
+          type: string
         - name: x-v
           in: header
           required: false
@@ -118,7 +139,7 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/ResponseErrorList'
-  /register/data-recipients/status:
+  '/{industry}/data-recipients/status':
     get:
       tags:
         - Data Recipients Status
@@ -129,6 +150,13 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: industry
+          in: path
+          description: 'The industry the participant is retrieving data for (Banking, etc)'
+          required: true
+          enum:
+            - BANKING
+          type: string
         - name: x-v
           in: header
           required: false
@@ -142,7 +170,7 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/ResponseErrorList'
-  /register/data-recipients:
+  '/{industry}/data-recipients':
     get:
       tags:
         - Data Recipients
@@ -153,24 +181,13 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: updated-since
-          in: query
-          description: ''
-          required: false
+        - name: industry
+          in: path
+          description: 'The industry the participant is retrieving data for (Banking, etc)'
+          required: true
+          enum:
+            - BANKING
           type: string
-          format: date-time
-        - name: page
-          in: query
-          description: ''
-          required: false
-          type: integer
-          format: int32
-        - name: page-size
-          in: query
-          description: ''
-          required: false
-          type: integer
-          format: int32
         - name: x-v
           in: header
           required: false
@@ -211,7 +228,7 @@ definitions:
     required:
       - dataHolderBrandId
       - brandName
-      - sector
+      - industry
       - legalEntity
       - status
       - endpointDetail
@@ -223,7 +240,7 @@ definitions:
         type: string
       brandName:
         type: string
-      sector:
+      industry:
         enum:
           - BANKING
         type: string
@@ -314,15 +331,11 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/RegisterDataRecipient'
-      links:
-        $ref: '#/definitions/LinksPaginated'
-      meta:
-        $ref: '#/definitions/MetaPaginated'
   RegisterDataRecipient:
     required:
       - legalEntityId
       - legalEntityName
-      - sector
+      - industry
       - logoUri
       - status
       - lastUpdated
@@ -334,7 +347,7 @@ definitions:
       legalEntityName:
         description: Legal name of the Data Recipient
         type: string
-      sector:
+      industry:
         enum:
           - BANKING
         type: string

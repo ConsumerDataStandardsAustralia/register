@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "0.7",
+    "version": "0.8",
     "title": "Consumer Data Right (CDR) Register - Data Holder Discovery API"
   },
   "schemes": [
@@ -9,7 +9,7 @@
   ],
   "basePath": "/cdr-register/v1",
   "paths": {
-    "/register/data-holders/brands": {
+    "/{industry}/data-holders/brands": {
       "get": {
         "tags": [
           "DataHolderBrands"
@@ -23,6 +23,16 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "industry",
+            "in": "path",
+            "description": "The industry the participant is retrieving data for (Banking, etc)",
+            "required": true,
+            "enum": [
+              "BANKING"
+            ],
+            "type": "string"
+          },
           {
             "name": "updated-since",
             "in": "query",
@@ -76,7 +86,7 @@
         }
       }
     },
-    "/register/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa": {
+    "/{industry}/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa": {
       "get": {
         "tags": [
           "SoftwareStatementAssertion"
@@ -90,6 +100,16 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "industry",
+            "in": "path",
+            "description": "The industry the participant is retrieving data for (Banking, etc)",
+            "required": true,
+            "enum": [
+              "BANKING"
+            ],
+            "type": "string"
+          },
           {
             "name": "dataRecipientBrandId",
             "in": "path",
@@ -139,7 +159,7 @@
         }
       }
     },
-    "/register/data-recipients/brands/software-products/status": {
+    "/{industry}/data-recipients/brands/software-products/status": {
       "get": {
         "tags": [
           "Software Products Status"
@@ -153,6 +173,16 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "industry",
+            "in": "path",
+            "description": "The industry the participant is retrieving data for (Banking, etc)",
+            "required": true,
+            "enum": [
+              "BANKING"
+            ],
+            "type": "string"
+          },
           {
             "name": "x-v",
             "in": "header",
@@ -176,111 +206,107 @@
         }
       }
     },
-    "/register/data-recipients/status": {
-    "get": {
-      "tags": [
-        "Data Recipients Status"
-      ],
-      "summary": "Get the statuses for Data Recipients from the CDR Register",
-      "operationId": "GetDataRecipientStatus",
-      "consumes": [
-        "application/json"
-      ],
-      "produces": [
-        "application/json"
-      ],
-      "parameters": [
-        {
-          "name": "x-v",
-          "in": "header",
-          "required": false,
-          "type": "string"
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "Success",
-          "schema": {
-            "$ref": "#/definitions/DataRecipientsStatusList"
+    "/{industry}/data-recipients/status": {
+      "get": {
+        "tags": [
+          "Data Recipients Status"
+        ],
+        "summary": "Get the statuses for Data Recipients from the CDR Register",
+        "operationId": "GetDataRecipientStatus",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "industry",
+            "in": "path",
+            "description": "The industry the participant is retrieving data for (Banking, etc)",
+            "required": true,
+            "enum": [
+              "BANKING"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "x-v",
+            "in": "header",
+            "required": false,
+            "type": "string"
           }
-        },
-        "400": {
-          "description": "Bad Request",
-          "schema": {
-            "$ref": "#/definitions/ResponseErrorList"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DataRecipientsStatusList"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseErrorList"
+            }
+          }
+        }
+      }
+    },
+    "/{industry}/data-recipients": {
+      "get": {
+        "tags": [
+          "Data Recipients"
+        ],
+        "summary": "Get Register Data Recipients",
+        "operationId": "GetDataRecipients",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "industry",
+            "in": "path",
+            "description": "The industry the participant is retrieving data for (Banking, etc)",
+            "required": true,
+            "enum": [
+              "BANKING"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "x-v",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseRegisterDataRecipientList"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseErrorList"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/ResponseErrorList"
+            }
           }
         }
       }
     }
   },
-    "/register/data-recipients": {
-    "get": {
-      "tags": [
-        "Data Recipients"
-      ],
-      "summary": "Get Register Data Recipients",
-      "operationId": "GetDataRecipients",
-      "consumes": [
-        "application/json"
-      ],
-      "produces": [
-        "application/json"
-      ],
-      "parameters": [
-        {
-          "name": "updated-since",
-          "in": "query",
-          "description": "",
-          "required": false,
-          "type": "string",
-          "format": "date-time"
-        },
-        {
-          "name": "page",
-          "in": "query",
-          "description": "",
-          "required": false,
-          "type": "integer",
-          "format": "int32"
-        },
-        {
-          "name": "page-size",
-          "in": "query",
-          "description": "",
-          "required": false,
-          "type": "integer",
-          "format": "int32"
-        },
-        {
-          "name": "x-v",
-          "in": "header",
-          "required": false,
-          "type": "string"
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "Success",
-          "schema": {
-            "$ref": "#/definitions/ResponseRegisterDataRecipientList"
-          }
-        },
-        "400": {
-          "description": "Bad Request",
-          "schema": {
-            "$ref": "#/definitions/ResponseErrorList"
-          }
-        },
-        "403": {
-          "description": "Forbidden",
-          "schema": {
-            "$ref": "#/definitions/ResponseErrorList"
-          }
-        }
-      }
-    }
-  }
-},
   "definitions": {
     "ResponseRegisterDataHolderBrandList": {
       "description": "Response containing a list of Register Data Holder Brand objects",
@@ -311,7 +337,7 @@
       "required": [
         "dataHolderBrandId",
         "brandName",
-        "sector",
+        "industry",
         "legalEntity",
         "status",
         "endpointDetail",
@@ -326,7 +352,7 @@
         "brandName": {
           "type": "string"
         },
-        "sector": {
+        "industry": {
           "enum": [
             "BANKING"
           ],
@@ -452,12 +478,6 @@
           "items": {
             "$ref": "#/definitions/RegisterDataRecipient"
           }
-        },
-        "links": {
-          "$ref": "#/definitions/LinksPaginated"
-        },
-        "meta": {
-          "$ref": "#/definitions/MetaPaginated"
         }
       }
     },
@@ -465,7 +485,7 @@
       "required": [
         "legalEntityId",
         "legalEntityName",
-        "sector",
+        "industry",
         "logoUri",
         "status",
         "lastUpdated"
@@ -480,7 +500,7 @@
           "description": "Legal name of the Data Recipient",
           "type": "string"
         },
-        "sector": {
+        "industry": {
           "enum": [
             "BANKING"
           ],
