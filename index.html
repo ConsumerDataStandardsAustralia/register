@@ -1157,7 +1157,7 @@ Content-Type: application/json
  </span><span class="s2">"error_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Duplicate registrations for a given software_id are not valid"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Registration error responses but conform to the standards defined in the <a href="#dcr-api">DCR API</a></p>
+<p>Registration error responses but conform to the standards defined in the <a href="#dcr-api">API Documentation</a></p>
 <h2 id='client-registration-management'>Client Registration Management</h2><h3 id='registration-api-endpoints'>Registration API Endpoints</h3>
 <p>Data Holder Authorisation Servers must expose the following Client Registration Management endpoints</p>
 
@@ -4531,246 +4531,217 @@ Authorization: string
 <tr>
 <th>Date</th>
 <th>Register API Ver</th>
-<th>DCR API Ver</th>
 <th>Description</th>
 <th>Detail Of change</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>31/10/2019</td>
+<td>1.0.0</td>
+<td>Baseline version 1</td>
+<td>This release is the baseline release of the CDR Register design, aligned to the CDS V1.0 release, intended for implementation February 2020</td>
+</tr>
+<tr>
 <td>30/10/2019</td>
 <td>0.8.0</td>
-<td>0.1.0</td>
 <td>Updated Client Registration</td>
 <td>Reverted back <strong>Registration flows</strong> sequence diagrams to no longer include status checks for the <code>software_id</code>, instead relying on the CDR Register controls</br>Added non-normative examples for maintenance flows and error scenarios</br>SSAs will only be issued for <strong>active</strong> software products</br>Added <strong>Registration Validation</strong> section</td>
 </tr>
 <tr>
 <td>30/10/2019</td>
 <td>0.8.0</td>
-<td>0.1.0</td>
 <td>Added DCR APIs</td>
 <td>Added <strong>DCR Swagger</strong> definitions for Data Holders</td>
 </tr>
 <tr>
 <td>24/10/2019</td>
 <td>0.8.0</td>
-<td></td>
 <td>Updated Client Registration</td>
 <td>Added SSA example with associated JWKS and decoded payload</td>
 </tr>
 <tr>
 <td>24/10/2019</td>
 <td>0.8.0</td>
-<td></td>
 <td>Updated Register APIs</td>
 <td>Added <code>industry</code> parameter on all routes so the associated industry doesn&#39;t need to be inferred</br>Renamed <code>sector</code> to <code>industry</code> to be consistent to the CDS</br>Removed pagination from GetDataRecipients as this is intended to be called infrequently and cached to CDN</td>
 </tr>
 <tr>
 <td>23/10/2019</td>
 <td>0.7.0</td>
-<td></td>
 <td>Updated Client Registration</td>
 <td>Updated <strong>Registration flows</strong> sequence diagrams to include a check for Software status</td>
 </tr>
 <tr>
 <td>23/10/2019</td>
 <td>0.7.0</td>
-<td></td>
 <td>Updated Participant Statuses</td>
 <td>Added <strong>Facilitate Consent Withdrawal</strong> sequence diagram and updated <strong>Request for Data Sharing</strong> sequence diagram</td>
 </tr>
 <tr>
 <td>23/10/2019</td>
 <td>0.7.0</td>
-<td></td>
 <td>Updated Register APIs</td>
 <td>Added <strong>GetDataRecipientsStatus</strong> and <strong>GetDataRecipients</strong> API definitions</td>
 </tr>
 <tr>
 <td>16/10/2019</td>
 <td>0.6.0</td>
-<td></td>
 <td>Updated Client Registration</td>
 <td>Added <code>client credentials</code> POST token example</td>
 </tr>
 <tr>
 <td>11/10/2019</td>
 <td>0.6.0</td>
-<td></td>
 <td>Updated Client Registration</td>
 <td>Corrected grant type <code>urn:ietf:params:oauth:grant-type:jwt-bearer</code> in the example</br>Corrected <code>grant_types</code> and <code>response_types</code> from string to array of strings</td>
 </tr>
 <tr>
 <td>26/09/2019</td>
 <td>0.6.0</td>
-<td></td>
 <td>Updated Client Registration</td>
 <td>Removed <code>iss_tos_uri</code> as feedback from the community indicated that there is no known use case for this field</br>Added response details and associated example</br>Added clarification on Data Holder Authorisation Server requirements</td>
 </tr>
 <tr>
 <td>25/09/2019</td>
 <td>0.6.0</td>
-<td></td>
 <td>Updated Client Registration</td>
 <td>Added sequence diagrams to add clarification to the process</td>
 </tr>
 <tr>
 <td>23/09/2019</td>
 <td>0.6.0</td>
-<td></td>
 <td>Updated Client Registration</td>
 <td>Changed signing algorithm to <code>PS256</code></br>Added clarification for client authentication model for Registration endpoints</br>Added <code>register</code> as the registration URI base path</br>Changed SSA API lifetime to <strong>10 minutes</strong> to ensure sufficient time for batch calls to all relevant Data Holders</td>
 </tr>
 <tr>
 <td>23/09/2019</td>
 <td>0.6.0</td>
-<td></td>
 <td>Updated Overview</td>
 <td>Updated participant statuses to reflect updates to the entity model to accommodate brands</td>
 </tr>
 <tr>
 <td>23/09/2019</td>
 <td>0.6.0</td>
-<td></td>
 <td>Updated Overview</td>
 <td>Updated component diagram to reflect changes for dynamic client registration</td>
 </tr>
 <tr>
 <td>23/09/2019</td>
 <td>0.6.0</td>
-<td></td>
 <td>Updated Register APIs</td>
 <td>Ensured all paths follow kebab-case. </br>Moved authDetail object out of the endpoint definition. The authDetail object outlines how the Data Holder will call the consent revocation API and therefore, shouldn&#39;t be coupled to the endpoint definition</td>
 </tr>
 <tr>
 <td>19/09/2019</td>
 <td>0.5.0</td>
-<td></td>
 <td>Updated Client Registration</td>
 <td>Updated Register Delete endpoint to be optional</td>
 </tr>
 <tr>
 <td>19/09/2019</td>
 <td>0.5.0</td>
-<td></td>
 <td>Updated Register APIs</td>
 <td>Updated Register APIs to reflect discovery of data holder brands and facilitate Dynamic Registration</td>
 </tr>
 <tr>
 <td>15/09/2019</td>
 <td>0.5.0</td>
-<td></td>
 <td>Updated Client Registration</td>
 <td>Updated Client Registration section to detail Dynamic Registration, to reflect updates from <strong><a href="https://github.com/cdr-register/register/issues/23">GitHub Issue 23</a></strong></td>
 </tr>
 <tr>
 <td>15/09/2019</td>
 <td>0.5.0</td>
-<td></td>
 <td>Updated Security Profile</td>
 <td>Updated Certificate Management section to reflect updates from <strong><a href="https://github.com/cdr-register/register/issues/22">GitHub Issue 22</a></strong></td>
 </tr>
 <tr>
 <td>14/08/2019</td>
 <td>0.4.0</td>
-<td></td>
 <td>Updated Swagger Definition</td>
 <td>Updated JWK schema to conform to <strong><a href="https://tools.ietf.org/html/rfc7517">RFC 7517</a></strong><br>Added redirectUri to whitelist per product</td>
 </tr>
 <tr>
 <td>06/08/2019</td>
 <td>0.3.0</td>
-<td></td>
 <td>Addition of Security Profile</td>
 <td>This section outlines all the security requirements for interacting with the CDR Register</td>
 </tr>
 <tr>
 <td>31/07/2019</td>
 <td>0.3.0</td>
-<td></td>
 <td>Updated Swagger definition</td>
 <td>Removed TermsOfServiceUri, PolicyUri &amp; SupportUri</td>
 </tr>
 <tr>
 <td>29/07/2019</td>
 <td>0.2.0</td>
-<td></td>
 <td>Update to Participant Statuses</td>
 <td>Simplified the validity of Data Recipient Checks to only use Certificate Status and Software Product Status</td>
 </tr>
 <tr>
 <td>29/07/2019</td>
 <td>0.2.0</td>
-<td></td>
 <td>Addition of Endpoints</td>
 <td>Grouped Endpoints and Certificate Management, outlining participant requirements to group and secure endpoints</td>
 </tr>
 <tr>
 <td>29/07/2019</td>
 <td>0.2.0</td>
-<td></td>
 <td>Updated Swagger definition</td>
 <td>Updates include updates to endpoint sets and removing of suspension dates</td>
 </tr>
 <tr>
 <td>23/07/2019</td>
 <td>0.1.0</td>
-<td></td>
 <td>Addition of Versioning</td>
 <td>Outline of Versioning strategy noting that industry collaboration is required for deprecation strategy</td>
 </tr>
 <tr>
 <td>23/07/2019</td>
 <td>0.1.0</td>
-<td></td>
 <td>Addition of Participant Statuses</td>
 <td>Outline of Participant Statuses and expectations on participants within the ecosystem</td>
 </tr>
 <tr>
 <td>23/07/2019</td>
 <td>0.1.0</td>
-<td></td>
 <td>Update to Consumer Data Right Register Section</td>
 <td>Updated component diagram to reflect software product relationship for Data Recipients</td>
 </tr>
 <tr>
 <td>09/07/2019</td>
 <td>0.1.0</td>
-<td></td>
 <td>Update to Consumer Data Right Register Section</td>
 <td>Updated component diagram to reflect Identity Provider requirements for Data Recipients</td>
 </tr>
 <tr>
 <td>08/07/2019</td>
 <td>0.1.0</td>
-<td></td>
 <td>Update to Consumer Data Right Register Section</td>
 <td>Provided ecosystem component diagram with responsibilities of each participant</td>
 </tr>
 <tr>
 <td>08/07/2019</td>
 <td>0.1.0</td>
-<td></td>
 <td>Addition of Certificate Management Section</td>
 <td>Outline of Participant Certificate Issuance and Management expectations</td>
 </tr>
 <tr>
 <td>03/07/2019</td>
 <td>0.1.0</td>
-<td></td>
 <td>Addition of Availability Section</td>
 <td>Outline of Participant Availability expectations</td>
 </tr>
 <tr>
 <td>30/06/2019</td>
 <td>0.1.0</td>
-<td></td>
 <td>Addition of Client Registration Section</td>
 <td>Outline of Client Registration Process</td>
 </tr>
 <tr>
-<td>18/12/2018</td>
+<td>30/06/2019</td>
 <td>0.1.0</td>
-<td></td>
 <td>Addition of change log</td>
 <td>This change log was added to the standards documentation</td>
 </tr>

@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '0.8'
+  version: '1.0'
   title: Consumer Data Right (CDR) Register - Data Holder Discovery API
 schemes:
   - https
