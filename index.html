@@ -354,9 +354,6 @@
                   <li>
                     <a href="#data-holder-unavailable" class="toc-h2 toc-link" data-title="Data Holder Unavailable">Data Holder Unavailable</a>
                   </li>
-                  <li>
-                    <a href="#availability-questions" class="toc-h2 toc-link" data-title="Availability Questions">Availability Questions</a>
-                  </li>
               </ul>
           </li>
           <li>
@@ -1290,16 +1287,17 @@ grant_type=client_credentials&amp;
 </tr>
 </tbody></table>
 
-<p></br>The ACCC Registrar also has the ability to change the status of a Software Product independently of the ADR accreditation status. Therefore, both the ADR and Software Product statuses should be referred to, to determine the Data Holder&#39;s data disclosure responsibilities
+<p></br>The ACCC Registrar also has the ability to change the status of a Software Product independently of the ADR accreditation status. Therefore, both the ADR and Software Product statuses should be referred to, to determine the Data Holder&#39;s responsibilities for data disclosure, consent and registration management
 &#39;</p>
 
 <table><thead>
 <tr>
 <th><strong>ADR Status</strong></th>
-<th><strong>Software Product Status</strong></th>
+<th><strong>SP Status</strong></th>
 <th><strong>Disclose of CDR Data</strong></th>
-<th><strong>Facilitate Consent Authorisations</strong></th>
+<th><strong>Facilitate Consent Authorisation</strong></th>
 <th><strong>Facilitate Consent Withdrawal</strong></th>
+<th><strong>Cleanup Registration</strong></th>
 </tr>
 </thead><tbody>
 <tr>
@@ -1308,6 +1306,7 @@ grant_type=client_credentials&amp;
 <td><i class="icon-check"></i></td>
 <td><i class="icon-check"></i></td>
 <td><i class="icon-check"></i></td>
+<td></td>
 </tr>
 <tr>
 <td>Active</td>
@@ -1315,6 +1314,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td></td>
 <td><i class="icon-check"></i></td>
+<td></td>
 </tr>
 <tr>
 <td>Active</td>
@@ -1322,6 +1322,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td></td>
 <td></td>
+<td><i class="icon-check"></i></td>
 </tr>
 <tr>
 <td>Suspended</td>
@@ -1329,6 +1330,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td></td>
 <td><i class="icon-check"></i></td>
+<td></td>
 </tr>
 <tr>
 <td>Suspended</td>
@@ -1336,10 +1338,12 @@ grant_type=client_credentials&amp;
 <td></td>
 <td></td>
 <td></td>
+<td><i class="icon-check"></i></td>
 </tr>
 <tr>
 <td>Revoked</td>
 <td>Inactive</td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -1350,6 +1354,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td></td>
 <td></td>
+<td><i class="icon-check"></i></td>
 </tr>
 <tr>
 <td>Surrendered</td>
@@ -1357,6 +1362,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td></td>
 <td></td>
+<td><i class="icon-check"></i></td>
 </tr>
 </tbody></table>
 
@@ -1712,7 +1718,7 @@ The following client identifiers will be used:</p>
 <h3 id='cdr-certificate-authority'>CDR Certificate Authority</h3>
 <p>DigiCert will act as the certificate authority that issues and manages certificates to CDR participants as directed by the ACCC in its capacity as the CDR Registrar.</p>
 <h1 id='availability'>Availability</h1>
-<p>The following scenarios outline the expectations of Data Holders and Accredited Data Recipients within the Consumer Data Right ecosystem when outages occur. </p>
+<p>The following scenarios outline the expectations of Data Holders and Accredited Data Recipients within the Consumer Data Right ecosystem when outages occur</p>
 <h2 id='cdr-register-unavailable'>CDR Register Unavailable</h2>
 <table><thead>
 <tr>
@@ -1733,7 +1739,7 @@ The following client identifiers will be used:</p>
 <td>Participants will not be able to refresh their metadata caches with new participants</td>
 </tr>
 <tr>
-<td><strong>Proposal</strong></td>
+<td><strong>Expectation</strong></td>
 <td>Participants will continue to operate until their metadata caches reach a maximum age. <br>Once this time has been reached, consumer data will not be shared. <br>Once the CDR Register becomes available, all participants will receive a refresh cache notification</td>
 </tr>
 </tbody></table>
@@ -1750,11 +1756,11 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Impact</strong></td>
-<td>Participants will not be able verify the status of certificates</td>
+<td>Participants will not be able verify the status of CA certificates</td>
 </tr>
 <tr>
-<td><strong>Proposal</strong></td>
-<td>Participants will honour cached Certificate statuses from previous OCSP checks. <br>Once certificate statuses have expired, data sharing will stop. <br>Once the CA becomes available, certificate statuses are updated through OCSP</td>
+<td><strong>Expectation</strong></td>
+<td>Participants will honour cached Certificate statuses from previous OCSP checks. <br>Once cached certificate statuses have expired, data sharing will stop<br>It can be expected that CA certificate statuses will not change while the CA is unavailable<br>Once the CA becomes available, certificate statuses are again updated through OCSP</td>
 </tr>
 </tbody></table>
 <h2 id='accredited-data-recipient-unavailable'>Accredited Data Recipient Unavailable</h2>
@@ -1773,7 +1779,7 @@ The following client identifiers will be used:</p>
 <td>Data Holders will not be able to inform ADRs that consent has been withdrawn</td>
 </tr>
 <tr>
-<td><strong>Proposal</strong></td>
+<td><strong>Expectation</strong></td>
 <td>Data Holders will need to continually poll the ADR until recovery.<br>Upon recovery, the consent withdrawal process will need to be executed</td>
 </tr>
 </tbody></table>
@@ -1793,7 +1799,7 @@ The following client identifiers will be used:</p>
 <td>The CDR Register will not be able to inform the ADRs that they will need to refresh their metadata cache</td>
 </tr>
 <tr>
-<td><strong>Proposal</strong></td>
+<td><strong>Expectation</strong></td>
 <td>Accredited Data Recipients will be expected to refresh their metadata cache upon recovery from any outage</td>
 </tr>
 </tbody></table>
@@ -1817,8 +1823,8 @@ The following client identifiers will be used:</p>
 <td>Accredited Data Recipients will not be able to retrieve Product &amp; Consumer data</td>
 </tr>
 <tr>
-<td><strong>Proposal</strong></td>
-<td>Accredited Data Recipients will need to continually poll the DH until recovery. <br>Upon recovery, the consent withdrawal process will need to be executed</td>
+<td><strong>Expectation</strong></td>
+<td>Accredited Data Recipients will need to continually poll the DH until recovery<br>Upon recovery, the consent withdrawal process will need to be executed</td>
 </tr>
 </tbody></table>
 
@@ -1837,14 +1843,10 @@ The following client identifiers will be used:</p>
 <td>The CDR Register will not be able to inform the Data Holder they will need to refresh their metadata cache</td>
 </tr>
 <tr>
-<td><strong>Proposal</strong></td>
+<td><strong>Expectation</strong></td>
 <td>Data Holders will be expected to refresh their metadata cache upon recovery from any outage</td>
 </tr>
 </tbody></table>
-<h2 id='availability-questions'>Availability Questions</h2>
-<p>What current caching ages do you mandate for your security data?</p>
-
-<p><em>Feedback for this section can be lodged at:</em> <a href="https://github.com/cdr-register/register/issues/6">https://github.com/cdr-register/register/issues/6</a></p>
 <h1 id='versioning'>Versioning</h1>
 <p>ACCC will follow the versioning conventions outlined by the Data Standards Body. <br>
 Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versioning">https://consumerdatastandardsaustralia.github.io/standards/#versioning</a></p>
@@ -4535,6 +4537,18 @@ Authorization: string
 <th>Detail Of Change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>06/11/2019</td>
+<td>1.0.1</td>
+<td>Updated Availability</td>
+<td>Added clarification on what is expected to change during outages</td>
+</tr>
+<tr>
+<td>06/11/2019</td>
+<td>1.0.1</td>
+<td>Updated Participant Statuses</td>
+<td>Added Registration cleanup expectations on Software Product status change</td>
+</tr>
 <tr>
 <td>31/10/2019</td>
 <td>1.0.0</td>
