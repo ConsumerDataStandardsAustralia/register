@@ -363,6 +363,15 @@
             <a href="#consumer-data-right-cdr-register-apis" class="toc-h1 toc-link" data-title="Register APIs">Register APIs</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#apis-to-be-consumed-by-active-accredited-data-recipients" class="toc-h2 toc-link" data-title="APIs to be consumed by Active Accredited Data Recipients">APIs to be consumed by Active Accredited Data Recipients</a>
+                  </li>
+                  <li>
+                    <a href="#apis-to-be-consumed-by-data-holders" class="toc-h2 toc-link" data-title="APIs to be consumed by Data Holders">APIs to be consumed by Data Holders</a>
+                  </li>
+                  <li>
+                    <a href="#base-urls" class="toc-h2 toc-link" data-title="Base URLs:">Base URLs:</a>
+                  </li>
+                  <li>
                     <a href="#getdataholderbrands" class="toc-h2 toc-link" data-title="GetDataHolderBrands">GetDataHolderBrands</a>
                   </li>
                   <li>
@@ -1297,6 +1306,7 @@ grant_type=client_credentials&amp;
 <th><strong>Disclose of CDR Data</strong></th>
 <th><strong>Facilitate Consent Authorisation</strong></th>
 <th><strong>Facilitate Consent Withdrawal</strong></th>
+<th><strong>Consents Expire</strong></th>
 <th><strong>Cleanup Registration</strong></th>
 </tr>
 </thead><tbody>
@@ -1307,6 +1317,7 @@ grant_type=client_credentials&amp;
 <td><i class="icon-check"></i></td>
 <td><i class="icon-check"></i></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>Active</td>
@@ -1315,6 +1326,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td><i class="icon-check"></i></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>Active</td>
@@ -1322,6 +1334,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td></td>
 <td></td>
+<td><i class="icon-check"></i></td>
 <td><i class="icon-check"></i></td>
 </tr>
 <tr>
@@ -1331,6 +1344,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td><i class="icon-check"></i></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>Suspended</td>
@@ -1339,6 +1353,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td></td>
 <td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
 </tr>
 <tr>
 <td>Revoked</td>
@@ -1346,6 +1361,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td></td>
 <td></td>
+<td><i class="icon-check"></i></td>
 <td></td>
 </tr>
 <tr>
@@ -1354,6 +1370,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td></td>
 <td></td>
+<td><i class="icon-check"></i></td>
 <td><i class="icon-check"></i></td>
 </tr>
 <tr>
@@ -1362,6 +1379,7 @@ grant_type=client_credentials&amp;
 <td></td>
 <td></td>
 <td></td>
+<td><i class="icon-check"></i></td>
 <td><i class="icon-check"></i></td>
 </tr>
 </tbody></table>
@@ -1504,10 +1522,9 @@ Cache refreshes may be requested in the following scenarios:</p>
 <ul>
 <li><p>Data Holders MUST support the authentication of the CDR Register using the <code>private_key_jwt</code> client authentication method</p></li>
 <li><p>Data Recipients MUST support the authentication of the CDR Register using the <code>private_key_jwt</code> client authentication method</p></li>
-<li><p>The CDR Register MUST support the authentication of the Data Holders using the <code>private_key_jwt</code> client authentication method</p></li>
+<li><p>Data Holders are NOT required to authenticate with the CDR Register. There are no protected APIs available to Data Holders</p></li>
 <li><p>The CDR Register MUST support the authentication of the Data Recipients using the <code>private_key_jwt</code> client authentication method</p></li>
-<li><p>Data Holder and Data Recipient public keys MUST only be obtained from the CDR Register. </br></p></li>
-<li><p>CDR Register public keys MUST only be obtained from the exposed endpoint <todo: supply reference></p></li>
+<li><p>CDR Register public keys MUST only be obtained from the exposed endpoint exposed for this purpose.</p></li>
 </ul>
 
 <p>As per the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standards</a>, While <strong>[MTLS]</strong> is utilised for transaction security and as a Holder of Key mechanism the PKI Mutual TLS OAuth Client Authentication Method SHALL NOT be supported as the mechanism for client authentication.</p>
@@ -1564,11 +1581,11 @@ grant_type=client_credentials&amp;
 <h3 id='cdr-register-calling-participant-admin-api-using-client-authentication'>CDR Register Calling Participant Admin API using Client Authentication</h3>
 <blockquote>
 </blockquote>
-<pre class="highlight plaintext"><code>GET /admin/registry/metadata HTTP/1.1
+<pre class="highlight plaintext"><code>POST /admin/register/metadata HTTP/1.1
 Host: www.admin.dataholder.com.au
 Content-Type: application/x-www-form-urlencoded
 
-  client_id=register.cdr.gov.au&amp;
+  client_id=cdr-register&amp;
   client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&amp;
   client_assertion=eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNDU2In0.ey ...
 
@@ -1888,9 +1905,57 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 </tr>
 </tbody></table>
 <h1 id="consumer-data-right-cdr-register-apis">Register APIs</h1>
-
-<p>Base URLs:</p>
-
+<h3 id='apis-to-be-consumed-by-active-accredited-data-recipients'>APIs to be consumed by Active Accredited Data Recipients</h3>
+<table><thead>
+<tr>
+<th>API</th>
+<th>MTLS</th>
+<th>TLS</th>
+<th>Bearer Token Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>GetDataHolderBrands</td>
+<td><i class="icon-check"></i></td>
+<td></td>
+<td><i class="icon-check"></i></td>
+</tr>
+<tr>
+<td>GetSoftwareStatementAssertion</td>
+<td><i class="icon-check"></i></td>
+<td></td>
+<td><i class="icon-check"></i></td>
+</tr>
+</tbody></table>
+<h3 id='apis-to-be-consumed-by-data-holders'>APIs to be consumed by Data Holders</h3>
+<table><thead>
+<tr>
+<th>API</th>
+<th>MTLS</th>
+<th>TLS</th>
+<th>Bearer Token Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>GetSoftwareProductsStatus</td>
+<td></td>
+<td><i class="icon-check"></i></td>
+<td></td>
+</tr>
+<tr>
+<td>GetDataRecipientsStatus</td>
+<td></td>
+<td><i class="icon-check"></i></td>
+<td></td>
+</tr>
+<tr>
+<td>GetDataRecipients</td>
+<td></td>
+<td><i class="icon-check"></i></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='base-urls'>Base URLs:</h3>
 <ul>
 <li><a href="https://api.discovery.cdr.gov.au/cdr-register/v1">https://api.discovery.cdr.gov.au/cdr-register/v1</a></li>
 </ul>
@@ -4527,7 +4592,33 @@ Authorization: string
 </tr>
 </tbody></table>
 <h1 id='change-log'>Change Log</h1>
-<p>The following table lists the changes made in reverse date order (most recent change is at the top).</p>
+<p>Documentation versioning will follow the following conventions</p>
+
+<table><thead>
+<tr>
+<th>x.y.z</th>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>x</strong></td>
+<td>major version</td>
+<td>formal release and breaking changes</td>
+</tr>
+<tr>
+<td><strong>y</strong></td>
+<td>minor version</td>
+<td>design changes</td>
+</tr>
+<tr>
+<td><strong>y</strong></td>
+<td>point version</td>
+<td>documentation improvements and clarification</td>
+</tr>
+</tbody></table>
+
+<p></br></br>The following table lists the changes made in reverse date order (most recent change is at the top).</p>
 
 <table><thead>
 <tr>
@@ -4537,6 +4628,24 @@ Authorization: string
 <th>Detail Of Change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>07/11/2019</td>
+<td>1.0.2</td>
+<td>Updated Security Profile</td>
+<td>Cleaned up out of date statements in client authentication</td>
+</tr>
+<tr>
+<td>07/11/2019</td>
+<td>1.0.2</td>
+<td>Updated Participant Statuses</td>
+<td>Added Consent Expires column to status mapping to explicitly detail when consent should be cleaned up</td>
+</tr>
+<tr>
+<td>07/11/2019</td>
+<td>1.0.2</td>
+<td>Updated Register API</td>
+<td>Added tables to add clarification as to who is consuming the APIs, authentication requirements and transport security</td>
+</tr>
 <tr>
 <td>06/11/2019</td>
 <td>1.0.1</td>
