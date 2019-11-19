@@ -363,12 +363,6 @@
             <a href="#consumer-data-right-cdr-register-apis" class="toc-h1 toc-link" data-title="Register APIs">Register APIs</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#apis-to-be-consumed-by-active-accredited-data-recipients" class="toc-h2 toc-link" data-title="APIs to be consumed by Active Accredited Data Recipients">APIs to be consumed by Active Accredited Data Recipients</a>
-                  </li>
-                  <li>
-                    <a href="#apis-to-be-consumed-by-data-holders" class="toc-h2 toc-link" data-title="APIs to be consumed by Data Holders">APIs to be consumed by Data Holders</a>
-                  </li>
-                  <li>
                     <a href="#base-urls" class="toc-h2 toc-link" data-title="Base URLs:">Base URLs:</a>
                   </li>
                   <li>
@@ -708,12 +702,7 @@ Note that ADRs are expected to have one or more Software Applications consuming 
 <h2 id='certificate-authority'>Certificate Authority</h2>
 <p>The CDR Register will be using DigiCert as the ACCC endorsed Certificate Authority. Further details on certificate management can be found at:
 <a href="#certificate-management">Certificate Management</a></p>
-<h1 id='client-registration'>Client Registration</h1>
-<aside class="info">
-The Register Client Registration design is undergoing collaborative review </br>
-<a href="https://github.com/cdr-register/register/issues/25">https://github.com/cdr-register/register/issues/25</a>
-</aside>
-<h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
+<h1 id='client-registration'>Client Registration</h1><h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
 <p>Accredited Data Recipient Software Products within the Consumer Data Right will dynamically register with one or more Data Holders, to obtain client credentials used to retrieve consumer data on behalf of a consumer.</p>
 
 <p>The CDR Registration model follows standard <a href="https://tools.ietf.org/html/rfc7591"><strong>[RFC7591]</strong></a> and is derived from <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/36667724/The+OpenBanking+OpenID+Dynamic+Client+Registration+Specification+-+v1.0.0-rc2"><strong>Open Banking UK model</strong></a> with design input from the <a href="https://github.com/cdr-register/register/files/3577911/ABA_RESPONSE_DYvS_SA_05092019_Appendix.pdf"><strong>ABA</strong></a></p>
@@ -727,7 +716,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 
 <p>The trust relationship the authorization server has with the issuer of the software statement is to be used as an input to the evaluation of whether the registration request is accepted.</p>
 
-<p>A software statement is presented by Accredited Data Recipient’s software to Data Holder’s authorisation server as part of a client registration request.</p>
+<p>A software statement is presented by Accredited Data Recipient’s Software Product to Data Holder’s authorisation server as part of a client registration request.</p>
 
 <p>An SSA will be issued for each <em>active</em> Software Product and is retrievable using the following methods:</p>
 
@@ -830,7 +819,8 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
          bank:payees:read
          bank:regular_payments:read
          common:customer.basic:read
-         common:customer.detail:read"
+         common:customer.detail:read
+         cdr:registration"
 }
 
 </code></pre>
@@ -929,13 +919,11 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <tr>
 <td><strong>scope</strong></td>
 <td>Required</td>
-<td>String containing a space-separated list of scope values that the client can use when requesting access tokens. These scope values are defined at: <a href="https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes">https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes</a></td>
+<td>String containing a space-separated list of scope values that the client can use when requesting access tokens. </br>These CDS scope values are defined at: <a href="https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes">https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes</a></br>The DCR scope value is defined at: <a href="#client-registration-management">Client Registration Management</a></td>
 </tr>
 </tbody></table>
 <h3 id='client-registration-considerations'>Client Registration Considerations</h3>
-<ul>
-<li>The CDR Register will only issue SSAs for Software Products which are currently in the Active state</li>
-</ul>
+<p>The CDR Register will only issue SSAs for Software Products which are currently in the Active state</p>
 <h3 id='logos'>Logos</h3>
 <p>Logos will be incorporated within the SSA to ensure there is consistency between the logos published on the Public Register and those passed to Data Holders as part of Registration</p>
 <h3 id='cdr-register-ssa-signing'>CDR Register SSA Signing</h3>
@@ -960,7 +948,7 @@ Accept: application/json
    "kid":"12456"
 }
 {
-   "iss":"Mock Company",
+   "iss":"CDR Software Product ID",
    "iat":"1571808167",
    "exp":2147483646,
    "jti":"37747cd1c10545699f754adf28b73e31",
@@ -972,6 +960,7 @@ Accept: application/json
    "token_endpoint_auth_signing_alg":"PS256",
    "token_endpoint_auth_method":"private_key_jwt",
    "grant_types":[
+      "client_credentials",
       "authorization_code",
       "refresh_token",
       "urn:ietf:params:oauth:grant-type:jwt-bearer"
@@ -1044,7 +1033,7 @@ Accept: application/json
 <tr>
 <td><strong>grant_types</strong></td>
 <td>Required</td>
-<td>Array of OAuth 2.0 grant type strings that the client can use at the token endpoint. Supported values: [authorization_code, refresh_token, urn:ietf:params:oauth:grant-type:jwtbearer]**</td>
+<td>Array of OAuth 2.0 grant type strings that the client can use at the token endpoint. Supported values: <strong>[client_credentials, authorization_code, refresh_token, urn:ietf:params:oauth:grant-type:jwtbearer]</strong></td>
 </tr>
 <tr>
 <td><strong>response_types</strong></td>
@@ -1077,7 +1066,9 @@ Accept: application/json
 
 <p>Validation of the SSA <code>software_id</code> and the associated software status is not required as the SSA will have been issued and signed by the CDR Register</p>
 
-<p>Each <code>software_id</code> issued by the CDR Register should only be registered on each Data Holder Brand IDP once. Multiple registrations per <code>software_id</code> are NOT permitted</p>
+<p>Each <code>software_id</code> issued by the CDR Register should only be registered on each Data Holder Brand IDP once. Multiple registrations per <code>software_id</code> are NOT permitted.</p>
+
+<p>Error codes returned for invalid registration requests can be found at: <a href="#tocSregistrationerror">Error Codes</a></p>
 <h2 id='registration-response'>Registration Response</h2>
 <blockquote>
 <p>Example Created Response</p>
@@ -1110,7 +1101,8 @@ Content-Type: application/json
        bank:payees:read
        bank:regular_payments:read
        common:customer.basic:read
-       common:customer.detail:read"
+       common:customer.detail:read
+       cdr:registration"
    "redirect_uris":[
       "https://www.mockcompany.com.au/redirects/redirect1",
       "https://www.mockcompany.com.au/redirects/redirect2"
@@ -1118,6 +1110,7 @@ Content-Type: application/json
    "token_endpoint_auth_signing_alg":"PS256",
    "token_endpoint_auth_method":"private_key_jwt",
    "grant_types":[
+      "client_credentials",
       "authorization_code",
       "refresh_token",
       "urn:ietf:params:oauth:grant-type:jwt-bearer"
@@ -1213,7 +1206,10 @@ Content-Type: application/json
 
 <p>Please refer to <a href="#dcr-api">API documentation</a> for further examples</p>
 
-<p>Registration endpoints will be exposed under the InfoSecBaseUri, as described at: <a href="#endpoints">Endpoints</a></p>
+<ul>
+<li>During registration management requests, Data Holders must validate the scope of access tokens provided matches <code>cdr:registration</code></li>
+<li>Registration endpoints will be exposed under the InfoSecBaseUri, as described at: <a href="#endpoints">Endpoints</a></li>
+</ul>
 <h2 id='authorisation-server-requirements'>Authorisation Server Requirements</h2><pre class="highlight plaintext"><code>Non-Normative Example for access token retrieval
 
 HTTP/1.1 POST /token
@@ -1267,21 +1263,17 @@ grant_type=client_credentials&amp;
 <p><img class=medium-image src="images/ADRStateMachine.png" ></img></p>
 <h3 id='software-product-status'>Software Product Status</h3>
 <p><img class=medium-image src="images/SoftwareProductStateMachine.png" ></img></p>
-<h3 id='accredited-data-recipient-and-software-product-status-mapping'>Accredited Data Recipient and Software Product Status Mapping</h3>
-<p>When the ACCC Registrar changes the accreditation status for an ADR, the associated Software Products status will be changed accordingly.</p>
+<h3 id='status-mapping'>Status Mapping</h3>
+<p>When the ACCC Registrar changes the accreditation status for an ADR for any status other than active, the associated Software Products status will be changed accordingly.</p>
 
 <p>The cascading status mappings are as follows:</p>
 
 <table><thead>
 <tr>
 <th><strong>ADR Status</strong></th>
-<th><strong>Cascaded Software Product Status</strong></th>
+<th><strong>Cascaded SP Status</strong></th>
 </tr>
 </thead><tbody>
-<tr>
-<td>Active</td>
-<td>Active</td>
-</tr>
 <tr>
 <td>Suspended</td>
 <td>Inactive</td>
@@ -1390,9 +1382,11 @@ grant_type=client_credentials&amp;
 <li>When an Accredited Data Recipient status is Suspended, Revoked or Surrendered the Software Product status cannot be Active</li>
 </ul>
 <h3 id='request-for-data-sharing-checking-validity-of-accredited-data-recipient-and-associated-software-product'>Request for Data Sharing: Checking Validity of Accredited Data Recipient and associated Software Product</h3>
-<p><img src="images/ChecksForDhToShareData.png" ></img></p>
+<p><img src="images/ChecksForDhToShareData.png" ></img>
+<em>Pre-requisites: SSL connection has been established between all parties and Data Recipient has been issued an access token</em></p>
 <h3 id='request-for-consent-withdrawal-checking-validity-of-accredited-data-recipient-and-associated-software-product'>Request for Consent Withdrawal: Checking Validity of Accredited Data Recipient and associated Software Product</h3>
-<p><img src="images/ChecksForDhToWithdrawConsent.png" ></img></p>
+<p><img src="images/ChecksForDhToWithdrawConsent.png" ></img>
+<em>Pre-requisites: SSL connection has been established between all parties</em></p>
 <h3 id='adr-active'>ADR Active</h3>
 <p>Once a Data Recipient has been granted accreditation by the ACCC (as Data Recipient Accreditor) and has completed the necessary steps to be added to the Register (as specified in the rules), the following actions and responsibilities will arise:</p>
 
@@ -1905,51 +1899,47 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 </tr>
 </tbody></table>
 <h1 id="consumer-data-right-cdr-register-apis">Register APIs</h1>
-<h3 id='apis-to-be-consumed-by-active-accredited-data-recipients'>APIs to be consumed by Active Accredited Data Recipients</h3>
+
 <table><thead>
 <tr>
 <th>API</th>
-<th>MTLS</th>
+<th>Caller</th>
+<th>mTLS</th>
 <th>TLS</th>
-<th>Bearer Token Required</th>
+<th>Bearer Token</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>GetDataHolderBrands</td>
+<td>Active ADR</td>
 <td><i class="icon-check"></i></td>
 <td></td>
 <td><i class="icon-check"></i></td>
 </tr>
 <tr>
 <td>GetSoftwareStatementAssertion</td>
+<td>Active ADR</td>
 <td><i class="icon-check"></i></td>
 <td></td>
 <td><i class="icon-check"></i></td>
 </tr>
-</tbody></table>
-<h3 id='apis-to-be-consumed-by-data-holders'>APIs to be consumed by Data Holders</h3>
-<table><thead>
-<tr>
-<th>API</th>
-<th>MTLS</th>
-<th>TLS</th>
-<th>Bearer Token Required</th>
-</tr>
-</thead><tbody>
 <tr>
 <td>GetSoftwareProductsStatus</td>
+<td>Data Holder</td>
 <td></td>
 <td><i class="icon-check"></i></td>
 <td></td>
 </tr>
 <tr>
 <td>GetDataRecipientsStatus</td>
+<td>Data Holder</td>
 <td></td>
 <td><i class="icon-check"></i></td>
 <td></td>
 </tr>
 <tr>
 <td>GetDataRecipients</td>
+<td>Data Holder</td>
 <td></td>
 <td><i class="icon-check"></i></td>
 <td></td>
@@ -3694,8 +3684,8 @@ This operation does not require authentication
 
 <p><br>
 <table>
-<tr><td><a href='./includes/swagger/swagger_dcr.json'>Admin Swagger (JSON)</a></td></tr>
-<tr><td><a href='./includes/swagger/swagger_dcr.yaml'>Admin Swagger (YAML)</a></td></tr>
+<tr><td><a href='./includes/swagger/swagger_dcr.json'>DCR Swagger (JSON)</a></td></tr>
+<tr><td><a href='./includes/swagger/swagger_dcr.yaml'>DCR Swagger (YAML)</a></td></tr>
 </table></p>
 <h2 id='register-a-client-using-a-cdr-register-issued-software-statement-assertion'>Register a client using a CDR Register issued Software Statement Assertion</h2>
 <blockquote>
@@ -4557,7 +4547,7 @@ Authorization: string
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>Predefined error code as described in <a href="https://openid.net/specs/openid-connect-registration-1_0.html">section 3.3 OIDC Dynamic Client Registration</a></td>
+<td>Predefined error code as described in <a href="https://openid.net/specs/openid-connect-registration-1_0.html">section 3.3 OIDC Dynamic Client Registration</a>  </br><code>invalid_redirect_uri</code> - The value of one or more redirection URIs is invalid. </br><code>invalid_client_metadata</code> - The value of one of the client metadata fields is invalid and the server has rejected this request. This error value is also used when attempts at duplicate registrations for the same software_id are rejected </br><code>invalid_software_statement</code> - The software statement presented is invalid. </br><code>unapproved_software_statement</code> - The software statement presented is not approved for use by this authorization server.</td>
 </tr>
 <tr>
 <td>error_description</td>
@@ -4609,10 +4599,10 @@ Authorization: string
 <tr>
 <td><strong>y</strong></td>
 <td>minor version</td>
-<td>design changes</td>
+<td>non-breaking design changes</td>
 </tr>
 <tr>
-<td><strong>y</strong></td>
+<td><strong>z</strong></td>
 <td>point version</td>
 <td>documentation improvements and clarification</td>
 </tr>
@@ -4628,6 +4618,24 @@ Authorization: string
 <th>Detail Of Change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>20/11/2019</td>
+<td>1.0.3</td>
+<td>Updated DCR Swagger</td>
+<td>Added descriptions to error codes to explicitly detail how duplicate registration requests are handled</td>
+</tr>
+<tr>
+<td>20/11/2019</td>
+<td>1.0.3</td>
+<td>Client Registration</td>
+<td>Updated Registration Request using JWT adding support for the <code>client_credentials</code> grant type</br>Explicitly detailed that Data Holders must validate scope for DCR management requests</br>Updated examples to outline that the <code>cdr:registration</code> scope is required</td>
+</tr>
+<tr>
+<td>20/11/2019</td>
+<td>1.0.3</td>
+<td>Participant Statuses</td>
+<td>Updated sequence diagrams to explicitly call out the status APIs being called to populate the metadata cache</br>Updated Status Mapping to clarify that cascading statuses do not cascade to active</td>
+</tr>
 <tr>
 <td>07/11/2019</td>
 <td>1.0.2</td>
