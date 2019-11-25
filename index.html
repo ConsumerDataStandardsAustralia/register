@@ -242,9 +242,6 @@
                   <li>
                     <a href="#feedback-sought" class="toc-h2 toc-link" data-title="Feedback sought">Feedback sought</a>
                   </li>
-                  <li>
-                    <a href="#further-consultation" class="toc-h2 toc-link" data-title="Further consultation">Further consultation</a>
-                  </li>
               </ul>
           </li>
           <li>
@@ -304,6 +301,12 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#accredited-data-recipient-and-software-product-statuses" class="toc-h2 toc-link" data-title="Accredited Data Recipient and Software Product Statuses">Accredited Data Recipient and Software Product Statuses</a>
+                  </li>
+                  <li>
+                    <a href="#data-holder-responsibilities" class="toc-h2 toc-link" data-title="Data Holder Responsibilities">Data Holder Responsibilities</a>
+                  </li>
+                  <li>
+                    <a href="#checking-request-validity" class="toc-h2 toc-link" data-title="Checking Request Validity">Checking Request Validity</a>
                   </li>
                   <li>
                     <a href="#software-product-status-changes" class="toc-h2 toc-link" data-title="Software Product Status Changes">Software Product Status Changes</a>
@@ -527,19 +530,10 @@ Depending on the number of responses/comments we get, we will assess what the mo
 <p><a href="https://github.com/cdr-register/register">CDR Register on GitHub</a></p>
 <h2 id='feedback-sought'>Feedback sought</h2>
 <p>To guide responses and comments, we are seeking input which will assist us in ensuring that the Register designs meets the needs of the overarching CDR ecosystem. The focus should be on validating the designs, and providing any necessary context and reasoning. </p>
-<h2 id='further-consultation'>Further consultation</h2>
-<p>The ACCC is currently designing and building the CDR Register, and will engage further with interested stakeholders as part of this process. </p>
-
-<p>The ACCC expects to soon publish for consultation concepts relating to the CDR Register including:</p>
-
-<ul>
-<li>  Business and technical design principles</li>
-<li>  Versioning</li>
-</ul>
 <h1 id='consumer-data-right-register'>Consumer Data Right Register</h1>
-<p>The ACCC will perform the role of the CDR Registrar. The CDR Registrar will have the function of maintaining the Register of Accredited Persons (the Register) who have been granted accreditation by the ACCC in its capacity as Data Recipient Accreditor. Accredited persons become accredited data recipients upon receipt of CDR data.</p>
+<p>The ACCC will perform the role of the CDR Registrar. The CDR Registrar will have the function of maintaining the Register of Accredited Persons (the Register) who have been granted accreditation by the ACCC in its capacity as Data Recipient Accreditor. Accredited persons become Accredited Data Recipients upon receipt of CDR data.</p>
 
-<p>The Register will also include information about data holders. Information about accredited data recipients and data holders recorded in the Register will be made available to the public in accordance with the CDR rules. Additional information held in the Register will be available to accredited data recipients and data holders.</p>
+<p>The Register will also include information about Data Holders. Information about Accredited Data Recipients and Data Holders recorded in the Register will be made available to the public in accordance with the CDR rules. Additional information held in the Register will be available to accredited data recipients and data holders.</p>
 <h2 id='ecosystem-entities'>Ecosystem Entities</h2><h3 id='cdr-consumer'>CDR consumer</h3>
 <p>A consumer, as defined in the CDR rules, who is able to a make a request for disclosure of CDR data to themselves or to an accredited data recipient.</p>
 <h3 id='data-holder'>Data Holder</h3>
@@ -550,7 +544,7 @@ Depending on the number of responses/comments we get, we will assess what the mo
 <p>The following is a high level overview of the CDR ecosystem outlining the components and API endpoints each participant within the ecosystem will be expected to implement.
 Note that ADRs are expected to have one or more Software Applications consuming CDR data.</p>
 
-<p><img src="images/ComponentDiagram_DR.png" alt="Componentdiagram dr" /></p>
+<p><img src="images/Ecosystem.png" alt="Ecosystem" /></p>
 <h2 id='data-holder-2'>Data Holder</h2>
 <table><thead>
 <tr>
@@ -668,11 +662,13 @@ Note that ADRs are expected to have one or more Software Applications consuming 
 </tr>
 </tbody></table>
 <h2 id='register'>Register</h2>
-<p>The Register exposed APIs to satisfy three main requirements:</p>
+<p>The Register exposed APIs to satisfy the following main requirements:</p>
 
-<p><strong>1.</strong> Facilitates discovery of Data Holders within the CDR regime</br>
-<strong>2.</strong> Provides SSAs and public JWKS to facilitate Dynamic Client Registration</br>
-<strong>3.</strong> Identifies when participants within the ecosystem change significantly and notifies relevant Data Holders and Accredited Data Recipients of those changes via the MetaData Update call on the Admin API
+<p><strong>1.</strong> Facilitates discovery of Data Holders and their endpoint details within the CDR regime</br>
+<strong>2.</strong> Facilitates discovery of Data Recipient details within the CDR regime</br>
+<strong>3.</strong> Provides SSAs facilitate Dynamic Client Registration</br>
+<strong>4.</strong> Provides public JWKS to assert SSAs are trusted by the CDR Register</br>
+<strong>5.</strong> Identifies when participants within the ecosystem change significantly, notifying relevant Data Holders and Accredited Data Recipients of those changes via the MetaData Update calls on the Admin API
 </br>Details on this process is outlined at:
 <a href="#cache-refresh-metadata-request">Cache Refresh Metadata Request</a></p>
 
@@ -683,20 +679,20 @@ Note that ADRs are expected to have one or more Software Applications consuming 
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>Data Holder Brands API</strong></td>
-<td>API exposing the discovery of Data Holders within the CDR regime. API is described at: <a href="#getdataholderbrands">GetDataHolderBrands</a></td>
+<td><strong>Discovery APIs</strong></td>
+<td>APIs exposing the discovery of Data Holder Brands and Data Recipients within the CDR regime. APIs are described at: <a href="#getdataholderbrands">GetDataHolderBrands</a>, <a href="#getdatarecipients">GetDataRecipients</a></td>
+</tr>
+<tr>
+<td><strong>Status APIs</strong></td>
+<td>APIs exposing the statuses of Accredited Data Recipients and associated Software Products within the CDR regime. APIs are described at: <a href="#getdatarecipientsstatus">GetDataRecipientsStatus</a>, <a href="#getsoftwareproductsstatus">GetSoftwareProductsStatus</a></td>
 </tr>
 <tr>
 <td><strong>SSA API</strong></td>
 <td>API exposing the retrieval of SSAs used by Accredited Data Recipients to register with Data Holders within the CDR regime. API is described at: <a href="#getsoftwarestatementassertion-ssa">GetSoftwareStatementAssertion</a></td>
 </tr>
 <tr>
-<td><strong>Software Product Metadata API</strong></td>
-<td>API exposing the statuses of Accredited Data Recipient Software Products within the CDR regime. API is described at: <a href="#getsoftwareproducts">GetSoftwareProducts</a></td>
-</tr>
-<tr>
-<td><strong>JWKS Endpoint</strong></td>
-<td>Endpoint exposing the public JWKS for the Register. These JWKS are used to verify the signature of SSA payloads. Further details are available at:  <a href="#dynamic-client-registration">Dynamic Client Registration</a></td>
+<td><strong>InfoSec APIs</strong></td>
+<td>API exposing endpoints to facilitate OIDC as well as exposing Register public JWKS used to verify the signature of SSA payloads. Further details are available at:  <a href="#dynamic-client-registration">Dynamic Client Registration</a></td>
 </tr>
 </tbody></table>
 <h2 id='certificate-authority'>Certificate Authority</h2>
@@ -1075,37 +1071,13 @@ Accept: application/json
 </blockquote>
 <pre class="highlight plaintext"><code>HTTP/1.1 201 Created
 Content-Type: application/json
+
 {
-   "client_id":"35a5a70b-5b8d-41f4-9cbd-96cfbc15c58a",
-   "client_id_issued_at":"1571808167",
-   "client_name":"Mock Software",
-   "client_description":"A mock software product",
-   "client_uri":"https://www.mockcompany.com.au",
-   "org_id":"3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
-   "org_name":"Mock Company Inc.",
-   "redirect_uris":[
-      "https://www.mockcompany.com.au/redirects/redirect1",
-      "https://www.mockcompany.com.au/redirects/redirect2"
-   ],
-   "logo_uri":"https://www.mockcompany.com.au/logos/logo1.png",
-   "tos_uri":"https://www.mockcompany.com.au/tos.html",
-   "policy_uri":"https://www.mockcompany.com.au/policy.html",
-   "jwks_uri":"https://www.mockcompany.com.au/jwks",
-   "revocation_uri":"https://www.mockcompany.com.au/revocation",
-   "software_id":"FBFFD12F-0196-45A3-8E77-AE10EC4561FF",
-   "software_roles": "data-recipient-software-product",
-   "scope":
-      "bank:accounts.basic:read
-       bank:accounts.detail:read
-       bank:transactions:read
-       bank:payees:read
-       bank:regular_payments:read
-       common:customer.basic:read
-       common:customer.detail:read
-       cdr:registration"
-   "redirect_uris":[
-      "https://www.mockcompany.com.au/redirects/redirect1",
-      "https://www.mockcompany.com.au/redirects/redirect2"
+  "client_id": "2cfefa98-7d4a-4bcb-95da-47063b84d410",
+  "client_id_issued_at": 1574398823,
+  "redirect_uris": [
+     "https://www.mockcompany.com.au/redirects/redirect1",
+     "https://www.mockcompany.com.au/redirects/redirect2"
    ],
    "token_endpoint_auth_signing_alg":"PS256",
    "token_endpoint_auth_method":"private_key_jwt",
@@ -1115,10 +1087,33 @@ Content-Type: application/json
       "refresh_token",
       "urn:ietf:params:oauth:grant-type:jwt-bearer"
    ],
+   "response_types":["code id_token"],
    "application_type":"web",
    "id_token_signed_response_alg":"PS256",
    "request_object_signing_alg":"PS256",
-
+   "software_statement":"…",
+   "org_id": "3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
+   "org_name": "Mock Company Inc.",
+   "client_name": "Mock Software",
+   "client_description": "A mock software product for testing SSA",
+   "client_uri": "https://www.mockcompany.com.au",
+   "logo_uri": "https://www.mockcompany.com.au/logos/logo1.png",
+   "tos_uri": "https://www.mockcompany.com.au/tos.html",
+   "policy_uri": "https://www.mockcompany.com.au/policy.html",
+   "jwks_uri": "https://www.mockcompany.com.au/jwks",
+   "revocation_uri": "https://www.mockcompany.com.au/revocation",
+   "software_id": "740C368F-ECF9-4D29-A2EA-0514A66B0CDE",
+   "software_roles": "data-recipient-software-product",
+   "scope":
+         "openid
+          bank:accounts.basic:read
+          bank:accounts.detail:read
+          bank:transactions:read
+          bank:payees:read
+          bank:regular_payments:read
+          common:customer.basic:read
+          common:customer.detail:read
+          cdr:registration"
 }
 </code></pre>
 <p>On successful registration, the response MUST be returned to the Accredited Data Recipient conforming to Section 3.2.1 of <strong>[RFC7591]</strong></p>
@@ -1142,7 +1137,9 @@ Content-Type: application/json
 </tr>
 </tbody></table>
 
-<p>As per Section 3.2.1 of <strong>[RFC7591]</strong>, additionally, the authorisation server MUST return all registered metadata about this client, including any fields provisioned by the authorisation server itself</p>
+<p>As per Section 3.2.1 of <strong>[RFC7591]</strong>, additionally, the authorisation server MUST return all registered metadata about this client, including any fields provisioned by the authorisation server itself.</p>
+
+<p>The Software Statement value MUST be returned unmodified. Client metadata elements used from the software statement MUST also be returned directly as top-level client metadata values in the registration response</p>
 
 <p>Any additional claims MUST be ignored and not returned on completion of the request</p>
 <h2 id='registration-errors'>Registration Errors</h2>
@@ -1156,7 +1153,11 @@ Content-Type: application/json
  </span><span class="s2">"error_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Duplicate registrations for a given software_id are not valid"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Registration error responses but conform to the standards defined in the <a href="#dcr-api">API Documentation</a></p>
+<p>When an error condition occurs during a registration request, the response MUST be returned to the Accredited Data Recipient conforming to Section 3.2.2 of <strong>[RFC7591]</strong></p>
+
+<p>Duplicate registrations are not permitted so attempts to create a registration which already exists MUST return an HTTP 400  error</p>
+
+<p>Registration error responses schemas are defined in the <a href="#dcr-api">API Documentation</a></p>
 <h2 id='client-registration-management'>Client Registration Management</h2><h3 id='registration-api-endpoints'>Registration API Endpoints</h3>
 <p>Data Holder Authorisation Servers must expose the following Client Registration Management endpoints</p>
 
@@ -1287,8 +1288,8 @@ grant_type=client_credentials&amp;
 <td>Removed</td>
 </tr>
 </tbody></table>
-
-<p></br>The ACCC Registrar also has the ability to change the status of a Software Product independently of the ADR accreditation status. Therefore, both the ADR and Software Product statuses should be referred to, to determine the Data Holder&#39;s responsibilities for data disclosure, consent and registration management
+<h2 id='data-holder-responsibilities'>Data Holder Responsibilities</h2>
+<p></br>The ACCC Registrar has the ability to change the status of a Software Product independently of the ADR accreditation status. Therefore, both the ADR and Software Product statuses should be referred to, to determine the Data Holder&#39;s responsibilities for data disclosure, consent and registration management
 &#39;</p>
 
 <table><thead>
@@ -1381,7 +1382,7 @@ grant_type=client_credentials&amp;
 <li>The status of an Accredited Data Recipient Brand does not impact data sharing and withdrawal of consent due to the cascade rules outlined above</li>
 <li>When an Accredited Data Recipient status is Suspended, Revoked or Surrendered the Software Product status cannot be Active</li>
 </ul>
-<h3 id='request-for-data-sharing-checking-validity-of-accredited-data-recipient-and-associated-software-product'>Request for Data Sharing: Checking Validity of Accredited Data Recipient and associated Software Product</h3>
+<h2 id='checking-request-validity'>Checking Request Validity</h2><h3 id='request-for-disclosure-of-cdr-data-checking-validity-of-accredited-data-recipient-and-associated-software-product'>Request for Disclosure of CDR Data: Checking Validity of Accredited Data Recipient and associated Software Product</h3>
 <p><img src="images/ChecksForDhToShareData.png" ></img>
 <em>Pre-requisites: SSL connection has been established between all parties and Data Recipient has been issued an access token</em></p>
 <h3 id='request-for-consent-withdrawal-checking-validity-of-accredited-data-recipient-and-associated-software-product'>Request for Consent Withdrawal: Checking Validity of Accredited Data Recipient and associated Software Product</h3>
@@ -1618,7 +1619,7 @@ Content-Type: application/x-www-form-urlencoded
 <li>  <code>client_assertion</code>: This MUST be set to the digitally signed JWT</li>
 </ul>
 <h3 id='identifiers'>Identifiers</h3>
-<p><code>client_id</code>, <code>iss</code> and <code>sub</code> are expected to contain the unique identifier for the client.<br>
+<p><code>client_id</code>, <code>sub</code> and where appropriate <code>iss</code>, are expected to contain the unique identifier for the client.<br>
 The following client identifiers will be used:</p>
 
 <table><thead>
@@ -1629,19 +1630,29 @@ The following client identifiers will be used:</p>
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>CDR Register</strong></td>
-<td>Calls to Participant Admin APIs</td>
-<td><strong>cdr-register</strong></td>
-</tr>
-<tr>
-<td><strong>Data Holder</strong></td>
-<td>Calls to CDR Register Authenticated APIs</td>
-<td><strong>Data Holder ID</strong></td>
+<td><strong>Data Recipient</strong></td>
+<td>Calls to Data Holder Brand Authenticated APIs</td>
+<td><strong>Client ID as issued by the target Data Holder Brand</strong></td>
 </tr>
 <tr>
 <td><strong>Data Recipient</strong></td>
 <td>Calls to CDR Register Authenticated APIs</td>
-<td><strong>Data Recipient ID</strong></td>
+<td><strong>Data Recipient ID as issued by CDR Register</strong></td>
+</tr>
+<tr>
+<td><strong>Data Holder Brand</strong></td>
+<td>Calls to Data Recipient Revocation API</td>
+<td><strong>Data Holder Brand ID as issued by CDR Register</strong></td>
+</tr>
+<tr>
+<td><strong>Data Holder Brand</strong></td>
+<td>Calls to CDR Register Authenticated APIs</td>
+<td><strong>Data Holder Brand ID as issued by CDR Register</strong></td>
+</tr>
+<tr>
+<td><strong>CDR Register</strong></td>
+<td>Calls to Participant Admin APIs</td>
+<td><strong>value: cdr-register</strong></td>
 </tr>
 </tbody></table>
 <h2 id='transaction-security'>Transaction Security</h2>
@@ -1717,7 +1728,7 @@ The following client identifiers will be used:</p>
 </thead><tbody>
 <tr>
 <td><strong>Client Certificate</strong></td>
-<td>Secures the following:</br>- Consuming Register APIs</br>- Notifying ADRs of consent withdrawal</td>
+<td>Secures the following:</br>- Consuming Register APIs</br>- Consuming Data Holder APIs</td>
 <td></td>
 </tr>
 <tr>
@@ -1904,6 +1915,7 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 <tr>
 <th>API</th>
 <th>Caller</th>
+<th>Description</th>
 <th>mTLS</th>
 <th>TLS</th>
 <th>Bearer Token</th>
@@ -1911,14 +1923,16 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 </thead><tbody>
 <tr>
 <td>GetDataHolderBrands</td>
-<td>Active ADR</td>
+<td>Data Recipient</td>
+<td>Discovery of DH Brands and their associated endpoints</td>
 <td><i class="icon-check"></i></td>
 <td></td>
 <td><i class="icon-check"></i></td>
 </tr>
 <tr>
 <td>GetSoftwareStatementAssertion</td>
-<td>Active ADR</td>
+<td>Data Recipient</td>
+<td>Get SSA for a Software Product to be used in <a href="#dynamic-client-registration">Dynamic Client Registration</a></td>
 <td><i class="icon-check"></i></td>
 <td></td>
 <td><i class="icon-check"></i></td>
@@ -1926,6 +1940,7 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 <tr>
 <td>GetSoftwareProductsStatus</td>
 <td>Data Holder</td>
+<td>Software Product Statuses to check validity of ADR <a href="#accredited-data-recipient-and-software-product-statuses">requests</a></td>
 <td></td>
 <td><i class="icon-check"></i></td>
 <td></td>
@@ -1933,6 +1948,7 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 <tr>
 <td>GetDataRecipientsStatus</td>
 <td>Data Holder</td>
+<td>Data Recipient Statuses to check validity of ADR <a href="#accredited-data-recipient-and-software-product-statuses">requests</a></td>
 <td></td>
 <td><i class="icon-check"></i></td>
 <td></td>
@@ -1940,6 +1956,7 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 <tr>
 <td>GetDataRecipients</td>
 <td>Data Holder</td>
+<td>Data Recipient, brand and product details to render Data Holder Consumer Dashboard</td>
 <td></td>
 <td><i class="icon-check"></i></td>
 <td></td>
@@ -1957,7 +1974,7 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/data-holder-brands HTTP/1.1
+<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/{industry}/data-holders/brands HTTP/1.1
 Host: api.discovery.cdr.gov.au
 Accept: application/json
 </code></pre>
@@ -2114,7 +2131,7 @@ Accept: application/json
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/datarecipientbrands/{dataRecipientBrandId}/softwareproducts/{softwareProductId}/SSA HTTP/1.1
+<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/{industry}/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa HTTP/1.1
 Host: api.discovery.cdr.gov.au
 Accept: application/json
 
@@ -2224,7 +2241,7 @@ Accept: application/json
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/softwareproducts HTTP/1.1
+<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/{industry}/data-recipients/brands/software-products/status HTTP/1.1
 Host: api.discovery.cdr.gov.au
 Accept: application/json
 
@@ -2319,7 +2336,7 @@ This operation does not require authentication
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/data-recipients/status HTTP/1.1
+<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/{industry}/data-recipients/status HTTP/1.1
 Host: api.discovery.cdr.gov.au
 Accept: application/json
 
@@ -2412,7 +2429,7 @@ This operation does not require authentication
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/register/data-recipients HTTP/1.1
+<pre class="highlight plaintext"><code>GET https://api.discovery.cdr.gov.au/cdr-register/v1/{industry}/data-recipients HTTP/1.1
 Host: api.discovery.cdr.gov.au
 Accept: application/json
 
@@ -4608,7 +4625,7 @@ Authorization: string
 </tr>
 </tbody></table>
 
-<p></br></br>The following table lists the changes made in reverse date order (most recent change is at the top).</p>
+<p></br></br>The following table lists the changes made in reverse date order (most recent change is at the top)</p>
 
 <table><thead>
 <tr>
@@ -4618,6 +4635,36 @@ Authorization: string
 <th>Detail Of Change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>25/11/2019</td>
+<td>1.0.4</td>
+<td>Participant Statuses</td>
+<td>Updated status sequence diagrams to explicitly model the status checks required</td>
+</tr>
+<tr>
+<td>25/11/2019</td>
+<td>1.0.4</td>
+<td>Register APIs</td>
+<td>Added use case descriptions to each API to explicitly outline their intent</td>
+</tr>
+<tr>
+<td>25/11/2019</td>
+<td>1.0.4</td>
+<td>CDR Register</td>
+<td>Updated ecosystem so that CDR Register exposes InfoSec APIs to facilitate OIDC</br>Updated API requirements to include Data Recipient information discovery</td>
+</tr>
+<tr>
+<td>25/11/2019</td>
+<td>1.0.4</td>
+<td>Security Profile</td>
+<td>Updated client authentication identifiers references to include the DH to ADR revocation API and specify where the identifiers are issued from</br>Up[dated Client Certificates, corrected Accredited Data Recipients certificates to be used for consuming the Register and DH APIs</td>
+</tr>
+<tr>
+<td>25/11/2019</td>
+<td>1.0.4</td>
+<td>Client Registration</td>
+<td>Updated references to the <strong>RFC7591</strong> standards and added further detail to the provided examples</td>
+</tr>
 <tr>
 <td>20/11/2019</td>
 <td>1.0.3</td>
