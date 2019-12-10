@@ -332,13 +332,16 @@
                     <a href="#overview" class="toc-h2 toc-link" data-title="Overview">Overview</a>
                   </li>
                   <li>
+                    <a href="#register-endpoints" class="toc-h2 toc-link" data-title="Register Endpoints">Register Endpoints</a>
+                  </li>
+                  <li>
                     <a href="#client-authentication" class="toc-h2 toc-link" data-title="Client Authentication">Client Authentication</a>
                   </li>
                   <li>
                     <a href="#transaction-security" class="toc-h2 toc-link" data-title="Transaction Security">Transaction Security</a>
                   </li>
                   <li>
-                    <a href="#endpoints" class="toc-h2 toc-link" data-title="Endpoints">Endpoints</a>
+                    <a href="#participant-endpoints" class="toc-h2 toc-link" data-title="Participant Endpoints">Participant Endpoints</a>
                   </li>
                   <li>
                     <a href="#certificate-management" class="toc-h2 toc-link" data-title="Certificate Management">Certificate Management</a>
@@ -827,97 +830,116 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <tr>
 <th>Client Metadata</th>
 <th>Required</th>
+<th>Modifiable</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><strong>iss</strong></td>
 <td>Required</td>
+<td></td>
 <td>MUST contain an <code>iss</code> (issuer) claim denoting the party attesting to the claims in the software statement</br><strong>value: &quot;cdr-register&quot;</strong></td>
 </tr>
 <tr>
 <td><strong>iat</strong></td>
 <td>Required</td>
+<td></td>
 <td>Issued at time claim</td>
 </tr>
 <tr>
 <td><strong>exp</strong></td>
 <td>Required</td>
+<td></td>
 <td>Expiration Time claim</td>
 </tr>
 <tr>
 <td><strong>jti</strong></td>
 <td>Required</td>
+<td></td>
 <td>JWT ID claim</td>
 </tr>
 <tr>
 <td><strong>org_id</strong></td>
 <td>Required</td>
+<td></td>
 <td>A unique identifier string assigned by the CDR Register that identifies the Accredited Data Recipient Brand</td>
 </tr>
 <tr>
 <td><strong>org_name</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
 <td>Human-readable string name of the Accredited Data Recipient Brand to be presented to the end user during authorization</td>
 </tr>
 <tr>
 <td><strong>client_name</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
 <td>Human-readable string name of the software product to be presented to the end-user during authorization</td>
 </tr>
 <tr>
 <td><strong>client_description</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
 <td>Human-readable string name of the software product description to be presented to the end user during authorization</td>
 </tr>
 <tr>
 <td><strong>client_uri</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
 <td>URL string of a web page providing information about the client</td>
 </tr>
 <tr>
 <td><strong>redirect_uris</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
 <td>Array of redirection URI strings for use in redirect-based flows</td>
 </tr>
 <tr>
 <td><strong>logo_uri</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
 <td>URL string that references a logo for the client. If present, the server SHOULD display this image to the end-user during approval</td>
 </tr>
 <tr>
 <td><strong>tos_uri</strong></td>
 <td>Optional</td>
+<td><i class="icon-check"></i></td>
 <td>URL string that points to a human-readable terms of service document for the Software Product</td>
 </tr>
 <tr>
 <td><strong>policy_uri</strong></td>
 <td>Optional</td>
+<td><i class="icon-check"></i></td>
 <td>URL string that points to a human-readable policy document for the Software Product</td>
 </tr>
 <tr>
 <td><strong>jwks_uri</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
 <td>URL string referencing the client&#39;s JSON Web Key (JWK) Set <strong>[RFC7517]</strong> document, which contains the client&#39;s public keys</td>
 </tr>
 <tr>
 <td><strong>revocation_uri</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
 <td>URI string that references the location of the Software Product consent revocation endpoint as per <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">https://consumerdatastandardsaustralia.github.io/standards/#end-points</a></td>
 </tr>
 <tr>
 <td><strong>software_id</strong></td>
 <td>Required</td>
+<td></td>
 <td>String representing a unique identifier assigned by the ACCC Register and used by registration endpoints to identify the software product to be dynamically registered. </br></br>The &quot;software_id&quot; will remain the same across multiple updates or versions of the same piece of software.</br>The software_id should be used as the primary external identifier for the client to prevent duplicate client registrations</td>
 </tr>
 <tr>
 <td><strong>software_roles</strong></td>
 <td>Required</td>
+<td></td>
 <td>String containing a role of the software in the CDR Regime. Initially the only value used with be <strong>“data-recipient-software-product”</strong></td>
 </tr>
 <tr>
 <td><strong>scope</strong></td>
 <td>Required</td>
+<td><i class="icon-check"></i></td>
 <td>String containing a space-separated list of scope values that the client can use when requesting access tokens. </br>These CDS scope values are defined at: <a href="https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes">https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes</a></br>The DCR scope value is defined at: <a href="#client-registration-management">Client Registration Management</a></td>
 </tr>
 </tbody></table>
@@ -1508,11 +1530,76 @@ Cache refreshes may be requested in the following scenarios:</p>
 <p>The security profile of the CDR Register follows the conventions defined by the <a href="https://consumerdatastandardsaustralia.github.io/standards/#security-profile">Consumer Data Standards Security Profile</a></p>
 
 <ol>
-<li><p>The CDR Register Discovery API will use <code>Mutual Authentication TLS</code> <strong>[MTLS]</strong> as the transport security and the OIDC <code>client_credentials</code> grant type authentication. All client and server certificates are generated by the CDR Register to facilitate this transport .</p></li>
-<li><p>The Client Authentication method to be used by ADRs or DHs to the CDR Register will use <code>private_key_jwt</code> for procuring the Access Token.</p></li>
+<li><p>The CDR Register Secured APIs will use <code>Mutual Authentication TLS</code> <strong>[MTLS]</strong> as the transport security and the OIDC </br><code>client_credentials</code> grant type authentication </p></li>
+<li><p>The CDR Register unsecured APIs will use <strong>[TLS]</strong> as the transport security with no authentication requirements</p></li>
+<li><p>All client and server certificates are generated by the CDR Register certificate authority to facilitate this transport. Please see the <a href="#certificate-management">Certificate Management section</a> for further details</p></li>
+<li><p>The Client Authentication method to be used by ADRs to the CDR Register will use <code>private_key_jwt</code> for procuring access tokens</p></li>
 </ol>
 
 <p>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#security-profile">Consumer Data Standards Security Overview</a> for Symbols and Abbreviated Terms</p>
+<h2 id='register-endpoints'>Register Endpoints</h2>
+<p>The CDR Register exposes an OIDC Configuration Endpoint with associated JWKS and token endpoints to faciliate issuance of access tokens to consume the protected Register APIs. </p>
+
+<blockquote>
+<p>Retrieve CDR Register OIDC Discovery Endpoint</p>
+</blockquote>
+<pre class="highlight plaintext"><code>GET /.well-known/openid-configuration HTTP/1.1
+Host: cdr.register
+
+## Response
+{
+    "issuer": "https://cdr.register/idp",
+    "jwks_uri": "https://cdr.register/idp/.well-known/openid-configuration/jwks",
+    "token_endpoint": "https://cdr.register/idp/connect/token",
+    "claims_supported": ["sub"],
+    "id_token_signing_alg_values_supported": ["PS256"],
+    "subject_types_supported": ["public"],
+    "scopes_supported": ["cdr-register:bank:read"],
+    "response_types_supported": ["token"],
+    "grant_types_supported": ["client_credentials"],
+    "token_endpoint_auth_methods_supported": ["private_key_jwt"],
+    "mutual_tls_sender_constrained_access_tokens": true,
+    "request_object_signing_alg_values_supported": ["PS256"]
+}
+
+</code></pre>
+<blockquote>
+<p>Request CDR Register Access Token </p>
+</blockquote>
+<pre class="highlight plaintext"><code>POST /token HTTP/1.1
+Host: cdr.register
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&amp;
+  client_id=12345&amp;
+  client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&amp;
+  client_assertion=eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNDU2In0.ey ...&amp;
+  scope=cdr-register%3Abank%3Aread
+
+## Decoded client assertion JWT
+{
+  "alg": "PS256",
+  "typ": "JWT",
+  "kid": "b50641343f8f4717a4865d238b6297b8"
+}
+{
+  "iss": "12345",
+  "sub": "12345",
+  "exp": 1516239322,
+  "aud": "https://cdr.register/idp",
+  "jti": "37747cd1-c105-4569-9f75-4adf28b73e31"
+}
+
+
+## Response
+{
+    "access_token": "eyJhbGciOiJQUz...",
+    "expires_in": 7200,
+    "token_type": "Bearer",
+    "scope": "cdr-register:bank:read openid"
+}
+</code></pre><h3 id='retrieving-access-token'>Retrieving Access Token</h3>
+<p><img class=medium-image src="images/RetrieveAccessToken.png" ></img></p>
 <h2 id='client-authentication'>Client Authentication</h2>
 <p>Using the same client authentication approach as the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standard</a>, interactions with and by the CDR Register use <code>private_key_jwt</code> Client Authentication method as specified at <a href="https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication">section 9</a> of <strong>[OIDC]</strong>.</p>
 
@@ -1525,33 +1612,7 @@ Cache refreshes may be requested in the following scenarios:</p>
 </ul>
 
 <p>As per the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standards</a>, While <strong>[MTLS]</strong> is utilised for transaction security and as a Holder of Key mechanism the PKI Mutual TLS OAuth Client Authentication Method SHALL NOT be supported as the mechanism for client authentication.</p>
-<h3 id='private_key_jwt'>private_key_jwt</h3><h3 id='cdr-discovery-access-token-request-using-client-authentication'>CDR Discovery Access Token Request using Client Authentication</h3>
-<blockquote>
-<p>Non-Normative Examples</p>
-</blockquote>
-<pre class="highlight plaintext"><code>POST /token HTTP/1.1
-Host: www.api.discovery.cdr.gov.au
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=client_credentials&amp;
-  client_id=12345&amp;
-  client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&amp;
-  client_assertion=eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNDU2In0.ey ...
-
-## Decoded client assertion JWT
-{
-  "alg": "PS256",
-  "typ": "JWT",
-  "kid": "12456"
-}
-{
-  "iss": "12345",
-  "sub": "12345",
-  "exp": 1516239322,
-  "aud": "https://www.infosec.cdr.gov.au/token",
-  "jti": "37747cd1-c105-4569-9f75-4adf28b73e31"
-}
-</code></pre>
+<h3 id='private_key_jwt'>private_key_jwt</h3><h3 id='cdr-register-access-token-request-using-client-authentication'>CDR Register Access Token Request using Client Authentication</h3>
 <ol>
 <li>Access Token will be requested as per the Assertion Framework for OAuth2 Client Authentication profile</li>
 <li>Data Holder and Data Recipient public keys are retrieved from the CDR Register<br></li>
@@ -1577,9 +1638,10 @@ grant_type=client_credentials&amp;
 </ul>
 <h3 id='cdr-register-calling-participant-admin-api-using-client-authentication'>CDR Register Calling Participant Admin API using Client Authentication</h3>
 <blockquote>
+<p>Non-Normative Example</p>
 </blockquote>
 <pre class="highlight plaintext"><code>POST /admin/register/metadata HTTP/1.1
-Host: www.admin.dataholder.com.au
+Host: admin.dataholder.com.au
 Content-Type: application/x-www-form-urlencoded
 
   client_id=cdr-register&amp;
@@ -1593,10 +1655,10 @@ Content-Type: application/x-www-form-urlencoded
   "kid": "12456"
 }
 {
-  "iss": "register.cdr.gov.au",
-  "sub": "register.cdr.gov.au",
+  "iss": "cdr.register",
+  "sub": "cdr.register",
   "exp": 1516239322,
-  "aud": "https://www.infosec.cdr.gov.au/token",
+  "aud": "https://admin.dataholder.com.au/admin/register/metadata",
   "jti": "37747cd1-c105-4569-9f75-4adf28b73e31"
 }
 </code></pre>
@@ -1632,24 +1694,24 @@ The following client identifiers will be used:</p>
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>Data Recipient</strong></td>
+<td><strong>Data Recipient Brand</strong></td>
 <td>Calls to Data Holder Brand Authenticated APIs</td>
-<td><strong>Client ID as issued by the target Data Holder Brand</strong></td>
+<td>Client ID as issued by the target Data Holder Brand</td>
 </tr>
 <tr>
-<td><strong>Data Recipient</strong></td>
+<td><strong>Data Recipient Brand</strong></td>
 <td>Calls to CDR Register Authenticated APIs</td>
-<td><strong>Data Recipient ID as issued by CDR Register</strong></td>
+<td>Data Recipient Brand ID as issued by CDR Register</td>
 </tr>
 <tr>
 <td><strong>Data Holder Brand</strong></td>
 <td>Calls to Data Recipient Revocation API</td>
-<td><strong>Data Holder Brand ID as issued by CDR Register</strong></td>
+<td>Data Holder Brand ID as issued by CDR Register</td>
 </tr>
 <tr>
 <td><strong>Data Holder Brand</strong></td>
 <td>Calls to CDR Register Authenticated APIs</td>
-<td><strong>Data Holder Brand ID as issued by CDR Register</strong></td>
+<td>Data Holder Brand ID as issued by CDR Register</td>
 </tr>
 <tr>
 <td><strong>CDR Register</strong></td>
@@ -1659,7 +1721,7 @@ The following client identifiers will be used:</p>
 </tbody></table>
 <h2 id='transaction-security'>Transaction Security</h2>
 <p>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#transaction-security">Consumer Data Standards Transaction Security</a> for Transaction Security details</p>
-<h2 id='endpoints'>Endpoints</h2>
+<h2 id='participant-endpoints'>Participant Endpoints</h2>
 <p>Participants will be required to register base URIs to group the implementation of the Consumer Data Standards</p>
 
 <table><thead>
@@ -4638,6 +4700,18 @@ Authorization: string
 </tr>
 </thead><tbody>
 <tr>
+<td>10/12/2019</td>
+<td>1.0.5</td>
+<td>Updated Security Profile</td>
+<td>Added Register Endpoint section detailing Register access token retrieval</br>Updated overview to clarify security profile requirements</td>
+</tr>
+<tr>
+<td>10/12/2019</td>
+<td>1.0.5</td>
+<td>Updated Client Registration</td>
+<td>Added modifiable column to the SSA definition to explicitly outline what can be changed</td>
+</tr>
+<tr>
 <td>25/11/2019</td>
 <td>1.0.4</td>
 <td>Participant Statuses</td>
@@ -4659,7 +4733,7 @@ Authorization: string
 <td>25/11/2019</td>
 <td>1.0.4</td>
 <td>Security Profile</td>
-<td>Updated client authentication identifiers references to include the DH to ADR revocation API and specify where the identifiers are issued from</br>Up[dated Client Certificates, corrected Accredited Data Recipients certificates to be used for consuming the Register and DH APIs</td>
+<td>Updated client authentication identifier references to include the DH to ADR revocation API and specify where the identifiers are issued from</br>Updated Client Certificates, corrected Accredited Data Recipients certificates to be used for consuming the Register and DH APIs</td>
 </tr>
 <tr>
 <td>25/11/2019</td>
