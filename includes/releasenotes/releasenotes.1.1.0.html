@@ -1,0 +1,413 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Consumer Data Right Register Design - v1.1.0 Release Notes</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="../../stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="../../stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="../../javascripts/all_nosearch.js"></script>
+    <link href="../../images/favicon.ico" rel="icon" type="image/ico" />
+  </head>
+
+  <body class="includes includes_releasenotes includes_releasenotes_releasenotes" data-languages="[]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="../../images/ACCC_Stacked_RGB_Reverse.PNG" class="logo" alt="Accc stacked rgb reverse" />
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#v1-1-0-release-notes" class="toc-h1 toc-link" data-title="V1.1.0 Release Notes">V1.1.0 Release Notes</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#consumer-data-right-register" class="toc-h2 toc-link" data-title="Consumer Data Right Register">Consumer Data Right Register</a>
+                  </li>
+                  <li>
+                    <a href="#client-registration" class="toc-h2 toc-link" data-title="Client Registration">Client Registration</a>
+                  </li>
+                  <li>
+                    <a href="#participant-statuses" class="toc-h2 toc-link" data-title="Participant Statuses">Participant Statuses</a>
+                  </li>
+                  <li>
+                    <a href="#security-profile" class="toc-h2 toc-link" data-title="Security Profile">Security Profile</a>
+                  </li>
+                  <li>
+                    <a href="#availability" class="toc-h2 toc-link" data-title="Availability">Availability</a>
+                  </li>
+                  <li>
+                    <a href="#register-apis" class="toc-h2 toc-link" data-title="Register APIs">Register APIs</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href='../../index.html'>CDR Register Design</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='v1-1-0-release-notes'>V1.1.0 Release Notes</h1>
+<p>Release notes for version 1.1.0 of the <a href="../../">CDR Register Design</a>.</p>
+<h2 id='consumer-data-right-register'>Consumer Data Right Register</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#ecosystem-entities">Ecosystem Entities</a></td>
+<td>Added Entity Relationship Diagram</td>
+<td>Provides context on the relationship between entities and where entity identifiers are used within this documentation</td>
+</tr>
+<tr>
+<td><a href="../../#ecosystem-entities">Ecosystem Entities</a></td>
+<td>Updated Ecosystem Component Diagram</td>
+<td>Changes reflect removal of Metadata Update requests to ADRs</td>
+</tr>
+</tbody></table>
+<h2 id='client-registration'>Client Registration</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#dynamic-client-registration">Dynamic Client Registration</a></td>
+<td>Removed SSA Phases</td>
+<td>SSAs are retrievable via a dedicated API. No manual distribution is required</td>
+</tr>
+<tr>
+<td><a href="../../#dynamic-client-registration">Dynamic Client Registration</a></td>
+<td>Added Sector Identifiers section</td>
+<td>Outlines how the sector identifier is derived from the Registration metadata</td>
+</tr>
+<tr>
+<td><a href="../../#registration-request-using-jwt">Registration Request using JWT</a></td>
+<td>Updated Claims</td>
+<td>Added <code>id_token_encrypted_response_alg</code> and <code>id_token_encrypted_response_enc</code> claims with ecosystem usage to facilitate id_token encryption negotiation </br> Updated <code>id_token_signed_response_alg</code> to required as the default value does not conform to <strong>[FAPI-RW]</strong></td>
+</tr>
+<tr>
+<td><a href="../../#registration-errors">Registration Errors</a></td>
+<td>Updated section to reference HTTP error codes from the CDS</td>
+<td>Provides guidelines to handle those error conditions which don&#39;t map to <strong>[RFC7591]</strong></td>
+</tr>
+<tr>
+<td><a href="../../#authorisation-server">Authorisation Server</a></td>
+<td>Added Access Token Separation of Duties section</td>
+<td>Outlined that tokens should be requested for either client registration maintenance or consuming CDR data</td>
+</tr>
+<tr>
+<td><a href="../../#registration-flows">Registration Flows</a></td>
+<td>Updated Sequence Diagrams</td>
+<td>Moved format registration request inside the loop as the aud claim will be different for each request</td>
+</tr>
+<tr>
+<td><a href="../../#dcr-api">DCR API</a></td>
+<td>Updated Swagger</td>
+<td>Added support for ID token encryption negotiation with claims <code>id_token_encrypted_response_alg</code> and <code>id_token_encrypted_response_enc</code></td>
+</tr>
+<tr>
+<td><a href="../../#dcr-api">DCR API</a></td>
+<td>Added Authorization Header examples</td>
+<td>Added meaningful Authorization header examples to example requests</td>
+</tr>
+</tbody></table>
+<h2 id='participant-statuses'>Participant Statuses</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#data-holder-responsibilities">Data Holder Responsibilities</a></td>
+<td>Updated the Metadata Cache Management section</td>
+<td>Outlines polling requirements to ensure reactions to status changes are timely</td>
+</tr>
+<tr>
+<td><a href="../../#status-changes">Status Changes</a></td>
+<td>Updated the status changes section</td>
+<td>Updated the scenarios to be consistent with the status state machine diagrams, including reactivation scenarios</td>
+</tr>
+<tr>
+<td><a href="../../#cache-refresh-metadata-request">Cache Refresh Metadata Request</a></td>
+<td>De-scoped as a future release requirement</td>
+<td>Metadata Update Request functionality has been de-scoped for the initial release of the Register design. This design will be revisited in a future iteration of the ecosystem to improve scalability</td>
+</tr>
+</tbody></table>
+<h2 id='security-profile'>Security Profile</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#client-authentication">Client Authentication</a></td>
+<td>Removed duplication from the Client Authentication section</td>
+<td>Now referencing the CDS. This corrects the inconsistency between Data Holder calling Data Recipient revocation endpoint client authentication definitions</td>
+</tr>
+<tr>
+<td><a href="../../#client-authentication">Client Authentication</a></td>
+<td>Updated CDR Register scenario in the identifiers list</td>
+<td>CDR Register now only makes authenticated calls to Data Holder Brands and not Accredited Data Recipients</td>
+</tr>
+<tr>
+<td><a href="../../#participant-endpoints">Participant Endpoints</a></td>
+<td>Added example usage of BaseUris</td>
+<td>Added OIDC Discovery Endpoint example derived from the InfoSecBaseUri</td>
+</tr>
+<tr>
+<td><a href="../../#participant-endpoints">Participant Endpoints</a></td>
+<td>Updated participant endpoint table</td>
+<td>ADRs are not required to register AdminBaseUri</td>
+</tr>
+<tr>
+<td><a href="../../#certificate-management">Certificate Management</a></td>
+<td>Updated ADR Certificate Issuance table</td>
+<td>ADRs are not required to implement the Admin API so Server certificates will not be issued for this endpoint</td>
+</tr>
+</tbody></table>
+<h2 id='availability'>Availability</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#availability">General</a></td>
+<td>Updated Register, DH and ADR Availability</td>
+<td>Updated availability scenarios to incorporate the removal of the CDR Register Metadata Update to participants</td>
+</tr>
+</tbody></table>
+<h2 id='register-apis'>Register APIs</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#consumer-data-right-cdr-register-apis">General</a></td>
+<td>Updated Swagger</td>
+<td>Enumerations for industry are now lowercase. They are used in construction of URLs and being case sensitive, was inconsistent with CDS usage</td>
+</tr>
+<tr>
+<td><a href="../../#consumer-data-right-cdr-register-apis">General</a></td>
+<td>Updated Swagger</td>
+<td>Added Authorization header details to authenticated APIs so as to be consistent to documentation</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>

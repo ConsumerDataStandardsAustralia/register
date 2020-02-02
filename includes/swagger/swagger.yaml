@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.0'
+  version: '1.1.0'
   title: Consumer Data Right (CDR) Register - Data Holder Discovery API
 schemes:
   - https
@@ -17,13 +17,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: industry
-          in: path
-          description: 'The industry the participant is retrieving data for (Banking, etc)'
-          required: true
-          enum:
-            - BANKING
-          type: string
+        - $ref: '#/parameters/Industry'
         - name: updated-since
           in: query
           description: ''
@@ -42,10 +36,8 @@ paths:
           required: false
           type: integer
           format: int32
-        - name: x-v
-          in: header
-          required: false
-          type: string
+        - $ref: '#/parameters/Authorization'
+        - $ref: '#/parameters/XV'
       responses:
         '200':
           description: Success
@@ -70,13 +62,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: industry
-          in: path
-          description: 'The industry the participant is retrieving data for (Banking, etc)'
-          required: true
-          enum:
-            - BANKING
-          type: string
+        - $ref: '#/parameters/Industry'
         - name: dataRecipientBrandId
           in: path
           description: Unique id for the Accredited Data Recipient Brand that the Software Product is associated with in the CDR Register
@@ -87,10 +73,8 @@ paths:
           description: Unique id for the Accredited Data Recipient Software Product in the CDR Register
           required: true
           type: string
-        - name: x-v
-          in: header
-          required: false
-          type: string
+        - $ref: '#/parameters/Authorization'
+        - $ref: '#/parameters/XV'
       responses:
         '200':
           description: Success
@@ -119,17 +103,8 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: industry
-          in: path
-          description: 'The industry the participant is retrieving data for (Banking, etc)'
-          required: true
-          enum:
-            - BANKING
-          type: string
-        - name: x-v
-          in: header
-          required: false
-          type: string
+        - $ref: '#/parameters/Industry'
+        - $ref: '#/parameters/XV'
       responses:
         '200':
           description: Success
@@ -150,17 +125,8 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: industry
-          in: path
-          description: 'The industry the participant is retrieving data for (Banking, etc)'
-          required: true
-          enum:
-            - BANKING
-          type: string
-        - name: x-v
-          in: header
-          required: false
-          type: string
+        - $ref: '#/parameters/Industry'
+        - $ref: '#/parameters/XV'
       responses:
         '200':
           description: Success
@@ -181,17 +147,8 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: industry
-          in: path
-          description: 'The industry the participant is retrieving data for (Banking, etc)'
-          required: true
-          enum:
-            - BANKING
-          type: string
-        - name: x-v
-          in: header
-          required: false
-          type: string
+        - $ref: '#/parameters/Industry'
+        - $ref: '#/parameters/XV'
       responses:
         '200':
           description: Success
@@ -205,6 +162,26 @@ paths:
           description: Forbidden
           schema:
             $ref: '#/definitions/ResponseErrorList'
+parameters:
+  Authorization:
+    name: Authorization
+    in: header
+    required: true
+    description: 'An Authorisation Token as per [RFC6750](https://tools.ietf.org/html/rfc6750)'
+    type: string
+  XV:
+    name: x-v
+    in: header
+    required: false
+    type: string
+  Industry:
+    name: industry
+    in: path
+    description: 'The industry the participant is retrieving data for (Banking, etc)'
+    required: true
+    enum:
+      - banking
+    type: string
 definitions:
   ResponseRegisterDataHolderBrandList:
     description: Response containing a list of Register Data Holder Brand objects
@@ -242,7 +219,7 @@ definitions:
         type: string
       industry:
         enum:
-          - BANKING
+          - banking
         type: string
       legalEntity:
         $ref: '#/definitions/LegalEntityDetail'
@@ -349,7 +326,7 @@ definitions:
         type: string
       industry:
         enum:
-          - BANKING
+          - banking
         type: string
       logoUri:
         description: Legal Entity logo URI

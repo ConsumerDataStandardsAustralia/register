@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0",
+    "version": "1.1.0",
     "title": "Consumer Data Right (CDR) Register - Data Holder Discovery API"
   },
   "schemes": [
@@ -24,14 +24,7 @@
         ],
         "parameters": [
           {
-            "name": "industry",
-            "in": "path",
-            "description": "The industry the participant is retrieving data for (Banking, etc)",
-            "required": true,
-            "enum": [
-              "BANKING"
-            ],
-            "type": "string"
+            "$ref": "#/parameters/Industry"
           },
           {
             "name": "updated-since",
@@ -58,10 +51,10 @@
             "format": "int32"
           },
           {
-            "name": "x-v",
-            "in": "header",
-            "required": false,
-            "type": "string"
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/XV"
           }
         ],
         "responses": {
@@ -101,14 +94,7 @@
         ],
         "parameters": [
           {
-            "name": "industry",
-            "in": "path",
-            "description": "The industry the participant is retrieving data for (Banking, etc)",
-            "required": true,
-            "enum": [
-              "BANKING"
-            ],
-            "type": "string"
+            "$ref": "#/parameters/Industry"
           },
           {
             "name": "dataRecipientBrandId",
@@ -125,10 +111,10 @@
             "type": "string"
           },
           {
-            "name": "x-v",
-            "in": "header",
-            "required": false,
-            "type": "string"
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/XV"
           }
         ],
         "responses": {
@@ -174,20 +160,10 @@
         ],
         "parameters": [
           {
-            "name": "industry",
-            "in": "path",
-            "description": "The industry the participant is retrieving data for (Banking, etc)",
-            "required": true,
-            "enum": [
-              "BANKING"
-            ],
-            "type": "string"
+            "$ref": "#/parameters/Industry"
           },
           {
-            "name": "x-v",
-            "in": "header",
-            "required": false,
-            "type": "string"
+            "$ref": "#/parameters/XV"
           }
         ],
         "responses": {
@@ -221,20 +197,10 @@
         ],
         "parameters": [
           {
-            "name": "industry",
-            "in": "path",
-            "description": "The industry the participant is retrieving data for (Banking, etc)",
-            "required": true,
-            "enum": [
-              "BANKING"
-            ],
-            "type": "string"
+            "$ref": "#/parameters/Industry"
           },
           {
-            "name": "x-v",
-            "in": "header",
-            "required": false,
-            "type": "string"
+            "$ref": "#/parameters/XV"
           }
         ],
         "responses": {
@@ -268,20 +234,10 @@
         ],
         "parameters": [
           {
-            "name": "industry",
-            "in": "path",
-            "description": "The industry the participant is retrieving data for (Banking, etc)",
-            "required": true,
-            "enum": [
-              "BANKING"
-            ],
-            "type": "string"
+            "$ref": "#/parameters/Industry"
           },
           {
-            "name": "x-v",
-            "in": "header",
-            "required": false,
-            "type": "string"
+            "$ref": "#/parameters/XV"
           }
         ],
         "responses": {
@@ -305,6 +261,31 @@
           }
         }
       }
+    }
+  },
+  "parameters": {
+    "Authorization": {
+      "name": "Authorization",
+      "in": "header",
+      "required": true,
+      "description": "An Authorisation Token as per [RFC6750](https://tools.ietf.org/html/rfc6750)",
+      "type": "string"
+    },
+    "XV": {
+      "name": "x-v",
+      "in": "header",
+      "required": false,
+      "type": "string"
+    },
+    "Industry": {
+      "name": "industry",
+      "in": "path",
+      "description": "The industry the participant is retrieving data for (Banking, etc)",
+      "required": true,
+      "enum": [
+        "banking"
+      ],
+      "type": "string"
     }
   },
   "definitions": {
@@ -354,7 +335,7 @@
         },
         "industry": {
           "enum": [
-            "BANKING"
+            "banking"
           ],
           "type": "string"
         },
@@ -502,7 +483,7 @@
         },
         "industry": {
           "enum": [
-            "BANKING"
+            "banking"
           ],
           "type": "string"
         },

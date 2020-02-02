@@ -3,7 +3,7 @@
   "info": {
     "title": "CDR Dynamic Client Registration API",
     "description": "This specification defines the APIs for Data Holders exposing Dynamic Client Registration endpoints\n",
-    "version": "0.1"
+    "version": "0.2"
   },
   "schemes": [
     "https"
@@ -202,6 +202,8 @@
         "scope",
         "token_endpoint_auth_signing_alg",
         "token_endpoint_auth_method",
+        "id_token_encrypted_response_alg",
+        "id_token_encrypted_response_enc",
         "grant_types",
         "response_types",
         "software_statement"
@@ -291,7 +293,8 @@
           "description": "The algorithm used for signing the JWT",
           "type": "string",
           "enum": [
-            "PS256"
+            "PS256",
+            "ES256"
           ]
         },
         "grant_types": {
@@ -324,17 +327,29 @@
           ]
         },
         "id_token_signed_response_alg": {
-          "description": "Algorithm which the ADR expects id_token to be signed with, if an id_token is returned",
+          "description": "Algorithm with which an id_token is to be signed",
           "type": "string",
           "enum": [
-            "PS256"
+            "PS256",
+            "ES256"
           ]
+        },
+        "id_token_encrypted_response_alg": {
+          "description": "JWE `alg` algorithm with which an id_token is to be encrypted",
+          "type": "string",
+          "example": "RSA-OAEP"
+        },
+        "id_token_encrypted_response_enc": {
+          "description": "JWE `enc` algorithm with which an id_token is to be encrypted",
+          "type": "string",
+          "example": "A256GCM"
         },
         "request_object_signing_alg": {
           "description": "Algorithm which the ADR expects to sign the request object if a request object will be part of the authorization request sent to the Data Holder",
           "type": "string",
           "enum": [
-            "PS256"
+            "PS256",
+            "ES256"
           ]
         },
         "software_statement": {
