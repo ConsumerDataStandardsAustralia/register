@@ -1680,7 +1680,40 @@ grant_type=client_credentials&amp;
 </code></pre><h3 id='retrieving-access-token'>Retrieving Access Token</h3>
 <p><img class=medium-image src="images/RetrieveAccessToken.png" ></img></p>
 <h2 id='client-authentication'>Client Authentication</h2>
-<p>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standard</a> for reference to the client authentication methods</p>
+<p>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standard</a> for reference to the client authentication methods between participants</p>
+<h3 id='client-authentication-with-the-cdr-register'>Client Authentication with the CDR Register</h3>
+<p>Using the same client authentication approach as the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standards</a>, interactions with the CDR Register use <code>private_key_jwt</code> Client Authentication method as specified at <a href="https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication">section 9</a> of <strong>[OIDC]</strong>.</p>
+<h3 id='cdr-register-access-token-request-using-client-authentication'>CDR Register Access Token Request using Client Authentication</h3>
+<ul>
+<li><p>The CDR Register MUST support the authentication of the Data Recipients using the <code>private_key_jwt</code> client authentication method</p></li>
+<li><p>CDR Register public keys MUST only be obtained from the exposed endpoint exposed for this purpose.</p></li>
+</ul>
+
+<p>As per the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standards</a>, While <strong>[MTLS]</strong> is utilised for transaction security and as a Holder of Key mechanism the PKI Mutual TLS OAuth Client Authentication Method SHALL NOT be supported as the mechanism for client authentication.</p>
+
+<ol>
+<li>Access Token will be requested as per the Assertion Framework for OAuth2 Client Authentication profile</li>
+<li>Data Holder and Data Recipient public keys are retrieved from the CDR Register</li>
+<li>Refresh tokens will not be provided for grant_type <code>client_credentials</code></li>
+<li> The JWT must contain the following Claim Values :</li>
+</ol>
+
+<ul>
+<li>  <code>iss</code>: The issuer claim which contains a unique identifier for the entity that issued the JWT</li>
+<li>  <code>sub</code>: The principal that is the subject of the JWT for client authentication</li>
+<li>  <code>aud</code>: The URL of the end point being invoked</li>
+<li>  <code>exp</code>: The expiration claim that limits the time window during which the assertion can be used</li>
+<li>  <code>jti</code>: The JWT ID claim that provides a unique identifier for the token</li>
+</ul>
+
+<p>When invoking the protected end point, the assertion MUST be sent with the <code>POST</code> method and MUST include the following parameters:</p>
+
+<ul>
+<li>  <code>grant_type</code>: This MUST be set to <code>client_credentials</code></li>
+<li>  <code>client_id</code>: This MUST be set to the ID of the calling client</li>
+<li>  <code>client_assertion_type</code>: This MUST be set to: <code>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</code></li>
+<li>  <code>client_assertion</code>: This MUST be set to the digitally signed JWT</li>
+</ul>
 <h3 id='identifiers'>Identifiers</h3>
 <p><code>client_id</code>, <code>sub</code> and where appropriate <code>iss</code>, are expected to contain the unique identifier for the client.<br>
 The following client identifiers will be used:</p>
