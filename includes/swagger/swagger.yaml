@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  version: '1.1.0'
-  title: Consumer Data Right (CDR) Register - Data Holder Discovery API
+  version: '1.1.1'
+  title: Consumer Data Right (CDR) Register - Participant Discovery APIs
 schemes:
   - https
 basePath: /cdr-register/v1
@@ -47,10 +47,12 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/ResponseErrorList'
-        '403':
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/ResponseErrorList'
+        '401':
+          description: Unauthorized
+        '406':
+          description: Not Acceptable
+      x-scopes:
+        - cdr-register:bank:read
   '/{industry}/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa':
     get:
       tags:
@@ -84,14 +86,16 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/ResponseErrorList'
+        '401':
+          description: Unauthorized
         '403':
           description: Forbidden
           schema:
             $ref: '#/definitions/ResponseErrorList'
-        '404':
-          description: Not Found
-          schema:
-            $ref: '#/definitions/ResponseErrorList'
+        '406':
+          description: Not Acceptable
+      x-scopes:
+        - cdr-register:bank:read
   '/{industry}/data-recipients/brands/software-products/status':
     get:
       tags:
@@ -114,6 +118,8 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/ResponseErrorList'
+        '406':
+          description: Not Acceptable
   '/{industry}/data-recipients/status':
     get:
       tags:
@@ -136,11 +142,13 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/ResponseErrorList'
+        '406':
+          description: Not Acceptable
   '/{industry}/data-recipients':
     get:
       tags:
         - Data Recipients
-      summary: Get Register Data Recipients
+      summary: Get Data Recipients from the CDR Register
       operationId: GetDataRecipients
       consumes:
         - application/json
@@ -162,6 +170,8 @@ paths:
           description: Forbidden
           schema:
             $ref: '#/definitions/ResponseErrorList'
+        '406':
+          description: Not Acceptable
 parameters:
   Authorization:
     name: Authorization
@@ -206,6 +216,7 @@ definitions:
       - dataHolderBrandId
       - brandName
       - industry
+      - logoUri
       - legalEntity
       - status
       - endpointDetail
@@ -221,6 +232,10 @@ definitions:
         enum:
           - banking
         type: string
+      logoUri:
+        description: Brand logo URI
+        type: string
+        x-cds-type: URIString
       legalEntity:
         $ref: '#/definitions/LegalEntityDetail'
       status:
@@ -350,7 +365,7 @@ definitions:
         type: string
         x-cds-type: DateTimeString
   DataRecipientBrandMetaData:
-    description: Endpoints related to Data Holder Brand services
+    description: Metadata related to Data Recipient Brand
     required:
       - dataRecipientBrandId
       - brandName
@@ -412,7 +427,7 @@ definitions:
     required:
       - legalEntityId
       - legalEntityName
-      - registeredCountry
+      - logoUri
     type: object
     properties:
       legalEntityId:
@@ -421,6 +436,10 @@ definitions:
       legalEntityName:
         description: Unique legal name of the organisation
         type: string
+      logoUri:
+        description: Legal Entity logo URI
+        type: string
+        x-cds-type: URIString
       registrationNumber:
         description: Unique registration number (if the company is registered outside Australia)
         type: string
@@ -496,11 +515,11 @@ definitions:
     properties:
       registerUType:
         type: string
-        description: The type of authentication and authorisation in use
+        description: The type of authentication and authorisation mechanism in use
         enum:
-          - HYBRIDFLOW-JWKS
+          - SIGNED-JWT
       jwksEndpoint:
-        description: JWKS endpoint for private_key_jwt client auth with Data Recipient
+        description: JWKS endpoint for private_key_jwt client authentication with Data Recipient
         type: string
         x-cds-type: URIString
   LinksPaginated:

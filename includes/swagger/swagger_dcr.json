@@ -126,7 +126,7 @@
             "$ref": "#/responses/403Error"
           },
           "405": {
-            "$ref": "#/responses/403Error"
+            "$ref": "#/responses/405Error"
           }
         }
       }
@@ -180,7 +180,7 @@
       "description": "The client does not have permission to read, update or delete the Client"
     },
     "405Error": {
-      "description": "Method Not Allowed"
+      "description": "Method Not Allowed. The requested method is unsupported"
     }
   },
   "definitions": {
@@ -246,7 +246,7 @@
           "type": "string"
         },
         "redirect_uris": {
-          "description": "Array of redirection URI strings for use in redirect-based flows",
+          "description": "Array of redirection URI strings for use in redirect-based flows. If used, redirect_uris MUST match or be a subset of the redirect_uris as defined in the SSA",
           "type": "array",
           "items": {
             "type": "string",
@@ -382,12 +382,12 @@
           ],
           "properties": {
             "iss": {
-              "description": "Unique identifier for the Data Holder issued by the CDR Register",
+              "description": "Contains the identifier for the ADR Software Product (SoftwareProductId) as defined in the CDR Register",
               "type": "string",
-              "example": "Mock Company"
+              "example": "CDR Software Product ID"
             },
             "iat": {
-              "description": "The time at which the request was issued by the TPP  expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
+              "description": "The time at which the request was issued by the Data Recipient  expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
               "type": "integer",
               "format": "int32",
               "example": 1571808167
@@ -404,9 +404,9 @@
               "example": "37747cd1c10545699f754adf28b73e31"
             },
             "aud": {
-              "description": "The audience for the request. This should be the Data Holder authorisation server URI\n",
+              "description": "'Contains the DH issuer value as described in the [OIDC Discovery Document](https://consumerdatastandardsaustralia.github.io/standards/#end-points)''\n",
               "type": "string",
-              "example": "https://secure.api.dataholder.com"
+              "example": "https://secure.api.dataholder.com/issuer"
             }
           }
         },

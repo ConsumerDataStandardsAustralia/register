@@ -2,10 +2,20 @@
 <!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164014896-1"></script>
+      <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-164014896-1');
+      </script>
+
+      <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>CDR Register API Reference</title>
+    <title>CDR Register Design Reference</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -695,8 +705,8 @@ Depending on the number of responses/comments we get, we will assess what the mo
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>InfoSec API</strong></td>
-<td>API exposing the revocation endpoint to facilitate bi-directional consent revocation, as per the Consumer Data Standards <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Endpoints</a></td>
+<td><strong>InfoSec APIs</strong></td>
+<td>APIs exposing endpoints to facilitate the InfoSec profile as per the Consumer Data Standards <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Endpoints</a> including both the revocation endpoint to facilitate bi-directional consent revocation and the Data Recipient JWKS endpoint</td>
 </tr>
 </tbody></table>
 <h2 id='register'>Register</h2>
@@ -852,25 +862,25 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td><strong>iss</strong></td>
 <td>Required</td>
 <td></td>
-<td>MUST contain an <code>iss</code> (issuer) claim denoting the party attesting to the claims in the software statement</br><strong>value: &quot;cdr-register&quot;</strong></td>
+<td>Contains the <code>iss</code> (issuer) claim denoting the party attesting to the claims in the software statement</br><strong>value: &quot;cdr-register&quot;</strong></td>
 </tr>
 <tr>
 <td><strong>iat</strong></td>
 <td>Required</td>
 <td></td>
-<td><code>Issued at time</code> claim</td>
+<td>The time at which the request was issued by the CDR Register, expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC</td>
 </tr>
 <tr>
 <td><strong>exp</strong></td>
 <td>Required</td>
 <td></td>
-<td><code>Expiration Time</code> claim</td>
+<td>The time at which the SSA expires expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC</td>
 </tr>
 <tr>
 <td><strong>jti</strong></td>
 <td>Required</td>
 <td></td>
-<td><code>JWT ID</code> claim. A unique identifier for the token, used to prevent reuse of the token.</td>
+<td>Unique identifier for the JWT, used to prevent reuse of the SSA.</td>
 </tr>
 <tr>
 <td><strong>org_id</strong></td>
@@ -988,10 +998,10 @@ Accept: application/json
 }
 {
    "iss":"CDR Software Product ID",
-   "iat":"1571808167",
+   "iat":1571808167,
    "exp":2147483646,
    "jti":"37747cd1c10545699f754adf28b73e31",
-   "aud":"https://secure.api.dataholder.com",
+   "aud":"https://secure.api.dataholder.com/issuer",
    "redirect_uris":[
       "https://www.mockcompany.com.au/redirects/redirect1",
       "https://www.mockcompany.com.au/redirects/redirect2"
@@ -1034,42 +1044,42 @@ Accept: application/json
 <tr>
 <td><strong>iss</strong></td>
 <td>Required</td>
-<td>Contains the identifier for the ADR Software Product as defined in the CDR Register</td>
+<td>Contains the identifier for the ADR Software Product (SoftwareProductId) as defined in the CDR Register</td>
 </tr>
 <tr>
 <td><strong>iat</strong></td>
 <td>Required</td>
-<td><code>Issued at time</code> claim</td>
+<td>The time at which the request was issued by the Data Recipient  expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC</td>
 </tr>
 <tr>
 <td><strong>exp</strong></td>
 <td>Required</td>
-<td><code>Expiration Time</code> claim</td>
+<td>The time at which the request expires expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC</td>
 </tr>
 <tr>
 <td><strong>jti</strong></td>
 <td>Required</td>
-<td><code>JWT ID</code> claim. A unique identifier for the token, used to prevent reuse of the token.</td>
+<td>Unique identifier for the JWT, used to prevent reuse of the token.</td>
 </tr>
 <tr>
 <td><strong>aud</strong></td>
 <td>Required</td>
-<td>Data Holder auth server URI</td>
+<td>Contains the DH issuer value as described in the <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">OIDC Discovery Document</a></td>
 </tr>
 <tr>
 <td><strong>redirect_uris</strong></td>
 <td>Optional</td>
-<td>Array of redirection URI strings for use in redirect-based flows. Only required if the claim overwrites the list of values in the software statement. If used, redirect_uris MUST match or be a subset of the redirect_uris as defined in the SSA</td>
-</tr>
-<tr>
-<td><strong>token_endpoint_auth_signing_alg</strong></td>
-<td>Required</td>
-<td>The algorithm used for signing the JWT</td>
+<td>Array of redirection URI strings for use in redirect-based flows. If used, redirect_uris MUST match or be a subset of the redirect_uris as defined in the SSA</td>
 </tr>
 <tr>
 <td><strong>token_endpoint_auth_method</strong></td>
 <td>Required</td>
 <td>The requested authentication method for the token endpoint. The only supported method will be <strong>private_key_jwt</strong></td>
+</tr>
+<tr>
+<td><strong>token_endpoint_auth_signing_alg</strong></td>
+<td>Required</td>
+<td>The algorithm used for signing the JWT</td>
 </tr>
 <tr>
 <td><strong>grant_types</strong></td>
@@ -1079,7 +1089,7 @@ Accept: application/json
 <tr>
 <td><strong>response_types</strong></td>
 <td>Required</td>
-<td><strong>value: [code id_token]</strong></td>
+<td>Array of the OAuth 2.0 response type strings that the client can use at the authorization endpoint. <strong>value: [code id_token]</strong></td>
 </tr>
 <tr>
 <td><strong>application_type</strong></td>
@@ -1206,7 +1216,7 @@ Content-Type: application/json
 <tr>
 <td><strong>client_id_issued_at</strong></td>
 <td>Optional</td>
-<td>“Issued at time”</td>
+<td>Time at which the client identifier was issued</td>
 </tr>
 </tbody></table>
 
@@ -1323,12 +1333,13 @@ grant_type=client_credentials&amp;
 <h2 id='registration-flows'>Registration Flows</h2>
 <p>The following sequence diagrams outline the responsibilities for each party during the dynamic client registration processes.</p>
 <h3 id='create-registration'>Create Registration</h3>
-<p><img class=medium-image src="images/registration/CreateRegistration.png" ></img></p>
+<p><img class=medium-image src="images/registration/CreateRegistration1.png" ></img></p>
 <h3 id='modify-registration'>Modify Registration</h3>
-<p><img class=medium-image src="images/registration/ModifyRegistration.png" ></img></p>
+<p><img class=medium-image src="images/registration/ModifyRegistration1.png" ></img></p>
 
-<p>Software Product Configuration is a manual process performed via the CDR Participant Portal. Information on this process will be provided during onboarding
-Registration request details are described at: <a href="#registration-request-using-jwt">registration-request-using-jwt</a></p>
+<p>Software Product Configuration is a manual process performed via the CDR Participant Portal. Information on this process will be provided during onboarding</p>
+
+<p>Registration request details are described at: <a href="#registration-request-using-jwt">registration-request-using-jwt</a></p>
 <h1 id='participant-statuses'>Participant Statuses</h1><h2 id='accredited-data-recipient-and-software-product-statuses'>Accredited Data Recipient and Software Product Statuses</h2>
 <p>The accreditation status of Accredited Data Recipients, and the status of their associated software products, may traverse through multiple statuses in the CDR as a result of decisions by the ACCC, in its capacity as Data Recipient Accreditor, or where an Accredited Data Recipient surrenders accreditation.</p>
 
@@ -1361,7 +1372,7 @@ Registration request details are described at: <a href="#registration-request-us
 </tr>
 <tr>
 <td>Revoked</td>
-<td>Inactive</td>
+<td>Removed</td>
 </tr>
 <tr>
 <td>Surrendered</td>
@@ -1430,15 +1441,6 @@ Registration request details are described at: <a href="#registration-request-us
 </tr>
 <tr>
 <td>Revoked</td>
-<td>Inactive</td>
-<td></td>
-<td></td>
-<td></td>
-<td><i class="icon-check"></i></td>
-<td></td>
-</tr>
-<tr>
-<td>Revoked</td>
 <td>Removed</td>
 <td></td>
 <td></td>
@@ -1471,18 +1473,32 @@ Registration request details are described at: <a href="#registration-request-us
 
 <p>Data Holders and Data Recipients will be required to cache all other participant data they use and periodically update this cache using a slow poll. This ensures that changes to participant configuration propagates throughout the ecosystem in a predictable timeframe</p>
 <h3 id='cache-update-periods'>Cache update periods</h3>
+<p>The following are the recommended caching times for data retrieved from the Register APIs.</p>
+
 <table><thead>
 <tr>
-<th></th>
-<th></th>
+<th>API</th>
+<th>Period</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>Cache update period - ADR and Software Product Statuses</strong></td>
+<td><strong>GetDataRecipientsStatus</strong></td>
 <td>2-5 minutes</td>
 </tr>
 <tr>
-<td><strong>Cache update period - Other Data</strong></td>
+<td><strong>GetSoftwareProductsStatus</strong></td>
+<td>2-5 minutes</td>
+</tr>
+<tr>
+<td><strong>GetDataRecipients (statuses)</strong></td>
+<td>2-5 minutes</td>
+</tr>
+<tr>
+<td><strong>GetDataRecipients (other data)</strong></td>
+<td>6 hours</td>
+</tr>
+<tr>
+<td><strong>GetDataHolderBrands</strong></td>
 <td>6 hours</td>
 </tr>
 </tbody></table>
@@ -1637,7 +1653,7 @@ Host: cdr.register
     "response_types_supported": ["token"],
     "grant_types_supported": ["client_credentials"],
     "token_endpoint_auth_methods_supported": ["private_key_jwt"],
-    "mutual_tls_sender_constrained_access_tokens": true,
+    "tls_client_certificate_bound_access_tokens": true,
     "request_object_signing_alg_values_supported": ["PS256"]
 }
 
@@ -1726,7 +1742,7 @@ The following client identifiers will be used:</p>
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>Data Recipient Brand</strong></td>
+<td><strong>Data Recipient Brand / Software Product</strong></td>
 <td>Calls to Data Holder Brand Authenticated APIs</td>
 <td>Client ID as issued by the target Data Holder Brand</td>
 </tr>
@@ -1757,10 +1773,10 @@ The following client identifiers will be used:</p>
 <blockquote>
 <p>OIDC Discovery Configuration Endpoint</p>
 </blockquote>
-<pre class="highlight plaintext"><code>https://&lt;InfoSecBaseUri&gt;/.well-known/openid-configuration
+<pre class="highlight plaintext"><code>&lt;InfoSecBaseUri&gt;/.well-known/openid-configuration
 
 </code></pre>
-<p>Participants will be required to register base URIs to group the implementation of the Consumer Data Standards</p>
+<p>Participants will be required to register base URIs to facilitate the implementation of the Consumer Data Standards</p>
 
 <table><thead>
 <tr>
@@ -1785,8 +1801,8 @@ The following client identifiers will be used:</p>
 <tr>
 <td><strong>InfoSecBaseUri</strong></td>
 <td><i class="icon-check"></i></td>
-<td><i class="icon-check"></i></td>
-<td>Base URI for the Consumer Data Standard InfoSec endpoints. This should encompass all authentication and authorisation related endpoints</td>
+<td></td>
+<td>Base URI for the Consumer Data Standard InfoSec endpoints. This provides ADRs reference to the <a href="https://openid.net/specs/openid-connect-discovery-1_0.html">OIDC Discovery Endpoint</a></td>
 </tr>
 <tr>
 <td><strong>AdminBaseUri</strong></td>
@@ -1799,6 +1815,18 @@ The following client identifiers will be used:</p>
 <td><i class="icon-check"></i></td>
 <td></td>
 <td>Base URI for the Data Holder extension endpoints to the Consumer Data Standard (optional)</td>
+</tr>
+<tr>
+<td><strong>RevocationUri</strong></td>
+<td></td>
+<td><i class="icon-check"></i></td>
+<td>Used for consent withdrawal notification from a Data Holder and is populated in the <a href="#dynamic-client-registration">SSA</a></td>
+</tr>
+<tr>
+<td><strong>JwksUri</strong></td>
+<td><i class="icon-check"></i></td>
+<td><i class="icon-check"></i></td>
+<td><strong>DH:</strong> Used for client authentication for DH -&gt; ADR communication and is populated in the <a href="#getdataholderbrands">GetDataHolderBrands API</a></br> <strong>ADR:</strong> Used for client authentication for ADR -&gt; DH &amp; Register communication and is populated in the <a href="#dynamic-client-registration">SSA</a></td>
 </tr>
 </tbody></table>
 <h2 id='certificate-management'>Certificate Management</h2><h3 id='issued-by-accc-ca-for-data-holders'>Issued by ACCC CA for Data Holders</h3>
@@ -1816,7 +1844,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Server Certificate(s)</strong></td>
-<td>Certificate is issued to a FQDN</br></br>Secures the following:</br>- Resource endpoint</br>- InfoSec endpoints</br>- Admin endpoints</td>
+<td>Certificate is issued to a FQDN</br></br>Secures the following:</br>- Resource endpoints</br>- InfoSec endpoints</br>- Admin endpoints</td>
 <td>It will be up to the DH on how these endpoints are</br>segregated. They may all be on the one domain</br>(so only one certificate required) or could be separated</td>
 </tr>
 </tbody></table>
@@ -1835,8 +1863,8 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Server Certificate(s)</strong></td>
-<td>Certificate is issued to a FQDN</br></br>Secures the following:</br>- InfoSec endpoints</td>
-<td>ADRs will be required to secure their <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Revocation Endpoint</a> with an </br>ACCC CA issued certificate</td>
+<td>Certificate is issued to a FQDN</br></br>Secures the following:</br>- Revocation endpoint </br>- JWKS endpoint</td>
+<td>ADRs may secure their <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Revocation Endpoint</a> with an </br>ACCC CA issued certificate or a certificate issued by a public CA</td>
 </tr>
 </tbody></table>
 <h3 id='cdr-certificate-authority'>CDR Certificate Authority</h3>
@@ -2171,9 +2199,11 @@ x-v: string
       </span><span class="s2">"dataHolderBrandId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"brandName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banking"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"legalEntity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2194,7 +2224,7 @@ x-v: string
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"authDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SIGNED-JWT"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"jwksEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
@@ -2237,12 +2267,22 @@ x-v: string
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 <tr>
-<td>403</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
-<td>Forbidden</td>
-<td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Unauthorized</td>
+<td>None</td>
+</tr>
+<tr>
+<td>406</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">Not Acceptable</a></td>
+<td>Not Acceptable</td>
+<td>None</td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+To perform this operation, you must be authenticated and authorised with the following scope: <span class="bold">cdr-register:bank:read</span>
+</aside>
 <h2 id='getsoftwarestatementassertion-ssa'>GetSoftwareStatementAssertion (SSA)</h2>
 <p>Get a Software Statement Assertion (SSA) for a software product on the CDR Register to be used for Dynamic Registration with a Data Holder</p>
 
@@ -2350,18 +2390,28 @@ x-v: string
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 <tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Unauthorized</td>
+<td>None</td>
+</tr>
+<tr>
 <td>403</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
 <td>Forbidden</td>
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 <tr>
-<td>404</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>Not Found</td>
-<td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
+<td>406</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">Not Acceptable</a></td>
+<td>Not Acceptable</td>
+<td>None</td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+To perform this operation, you must be authenticated and authorised with the following scope: <span class="bold">cdr-register:bank:read</span>
+</aside>
 <h2 id='getsoftwareproductsstatus'>GetSoftwareProductsStatus</h2>
 <p>Get the statuses for software products from the CDR Register</p>
 
@@ -2452,6 +2502,12 @@ x-v: string
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
 <td>Bad Request</td>
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
+</tr>
+<tr>
+<td>406</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">Not Acceptable</a></td>
+<td>Not Acceptable</td>
+<td>None</td>
 </tr>
 </tbody></table>
 
@@ -2549,6 +2605,12 @@ x-v: string
 <td>Bad Request</td>
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
+<tr>
+<td>406</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">Not Acceptable</a></td>
+<td>Not Acceptable</td>
+<td>None</td>
+</tr>
 </tbody></table>
 
 <aside class="success">
@@ -2568,7 +2630,7 @@ x-v: string
 </code></pre>
 <p><code>GET /{industry}/data-recipients</code></p>
 
-<h3 id="get-register-data-recipients-parameters">Parameters</h3>
+<h3 id="get-data-recipients-from-the-cdr-register-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2642,7 +2704,7 @@ x-v: string
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h3 id="get-register-data-recipients-responses">Responses</h3>
+<h3 id="get-data-recipients-from-the-cdr-register-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2670,6 +2732,12 @@ x-v: string
 <td>Forbidden</td>
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
+<tr>
+<td>406</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">Not Acceptable</a></td>
+<td>Not Acceptable</td>
+<td>None</td>
+</tr>
 </tbody></table>
 
 <aside class="success">
@@ -2685,9 +2753,11 @@ This operation does not require authentication
       </span><span class="s2">"dataHolderBrandId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"brandName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banking"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"legalEntity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2708,7 +2778,7 @@ This operation does not require authentication
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"authDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SIGNED-JWT"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"jwksEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
@@ -2770,9 +2840,11 @@ This operation does not require authentication
   </span><span class="s2">"dataHolderBrandId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"brandName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banking"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"legalEntity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2793,7 +2865,7 @@ This operation does not require authentication
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"authDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SIGNED-JWT"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"jwksEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
@@ -2830,6 +2902,13 @@ This operation does not require authentication
 <td>true</td>
 <td>none</td>
 <td>none</td>
+</tr>
+<tr>
+<td>logoUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Brand logo URI</td>
 </tr>
 <tr>
 <td>legalEntity</td>
@@ -3192,7 +3271,7 @@ This operation does not require authentication
 <td>[<a href="#schemadatarecipientbrandmetadata">DataRecipientBrandMetaData</a>]</td>
 <td>false</td>
 <td>none</td>
-<td>[Endpoints related to Data Holder Brand services]</td>
+<td>[Metadata related to Data Recipient Brand]</td>
 </tr>
 <tr>
 <td>status</td>
@@ -3258,7 +3337,7 @@ This operation does not require authentication
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
-<p><em>Endpoints related to Data Holder Brand services</em></p>
+<p><em>Metadata related to Data Recipient Brand</em></p>
 <h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
@@ -3412,6 +3491,7 @@ This operation does not require authentication
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"registrationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"registeredCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -3449,6 +3529,13 @@ This operation does not require authentication
 <td>Unique legal name of the organisation</td>
 </tr>
 <tr>
+<td>logoUri</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Legal Entity logo URI</td>
+</tr>
+<tr>
 <td>registrationNumber</td>
 <td>string</td>
 <td>false</td>
@@ -3465,7 +3552,7 @@ This operation does not require authentication
 <tr>
 <td>registeredCountry</td>
 <td>string</td>
-<td>true</td>
+<td>false</td>
 <td>none</td>
 <td>Country of registeration (if the company is registered outside Australia)</td>
 </tr>
@@ -3610,7 +3697,7 @@ This operation does not require authentication
 
 <p><a id="schemaregisterdataholderauth"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HYBRIDFLOW-JWKS"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"registerUType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SIGNED-JWT"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"jwksEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -3631,14 +3718,14 @@ This operation does not require authentication
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>The type of authentication and authorisation in use</td>
+<td>The type of authentication and authorisation mechanism in use</td>
 </tr>
 <tr>
 <td>jwksEndpoint</td>
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>JWKS endpoint for private_key_jwt client auth with Data Recipient</td>
+<td>JWKS endpoint for private_key_jwt client authentication with Data Recipient</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-13'>Enumerated Values</h4>
@@ -3650,7 +3737,7 @@ This operation does not require authentication
 </thead><tbody>
 <tr>
 <td>registerUType</td>
-<td>HYBRIDFLOW-JWKS</td>
+<td>SIGNED-JWT</td>
 </tr>
 </tbody></table>
 
@@ -4090,6 +4177,10 @@ WWW-Authenticate:   Bearer error="invalid_token",
 <td>The Response Header Field as per <a href="https://tools.ietf.org/html/rfc6750">RFC6750</a></td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+To perform this operation, you must be authenticated and authorised with the following scope: <span class="bold">cdr:registration</span>
+</aside>
 <h2 id='update-a-client-registration-for-a-given-client-id'>Update a Client Registration for a given Client ID</h2>
 <blockquote>
 <p>Code samples</p>
@@ -4234,6 +4325,10 @@ Authorization: Bearer &lt;access-token&gt;
 <td>The Response Header Field as per <a href="https://tools.ietf.org/html/rfc6750">RFC6750</a></td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+To perform this operation, you must be authenticated and authorised with the following scope: <span class="bold">cdr:registration</span>
+</aside>
 <h2 id='delete-a-client-registration-for-a-given-client-id'>Delete a Client Registration for a given Client ID</h2>
 <blockquote>
 <p>Code samples</p>
@@ -4302,7 +4397,7 @@ Authorization: Bearer &lt;access-token&gt;
 <tr>
 <td>405</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.5">Method Not Allowed</a></td>
-<td>The client does not have permission to read, update or delete the Client</td>
+<td>Method Not Allowed. The requested method is unsupported</td>
 <td>None</td>
 </tr>
 </tbody></table>
@@ -4324,6 +4419,10 @@ Authorization: Bearer &lt;access-token&gt;
 <td>The Response Header Field as per <a href="https://tools.ietf.org/html/rfc6750">RFC6750</a></td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+To perform this operation, you must be authenticated and authorised with the following scope: <span class="bold">cdr:registration</span>
+</aside>
 <h2 id='schemas'>Schemas</h2>
 <h2 id="tocSregistrationproperties">RegistrationProperties</h2>
 
@@ -4427,7 +4526,7 @@ Authorization: Bearer &lt;access-token&gt;
 <td>[string]</td>
 <td>true</td>
 <td>none</td>
-<td>Array of redirection URI strings for use in redirect-based flows</td>
+<td>Array of redirection URI strings for use in redirect-based flows. If used, redirect_uris MUST match or be a subset of the redirect_uris as defined in the SSA</td>
 </tr>
 <tr>
 <td>logo_uri</td>
@@ -4594,11 +4693,11 @@ Authorization: Bearer &lt;access-token&gt;
 
 <p><a id="schemaclientregistration"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDR Software Product ID"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1571808167</span><span class="p">,</span><span class="w">
   </span><span class="s2">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">2147483646</span><span class="p">,</span><span class="w">
   </span><span class="s2">"jti"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37747cd1c10545699f754adf28b73e31"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"aud"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://secure.api.dataholder.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"aud"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://secure.api.dataholder.com/issuer"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"35a5a70b-5b8d-41f4-9cbd-96cfbc15c58a"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_id_issued_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1571808167</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Software"</span><span class="p">,</span><span class="w">
@@ -4657,14 +4756,14 @@ Authorization: Bearer &lt;access-token&gt;
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>Unique identifier for the Data Holder issued by the CDR Register</td>
+<td>Contains the identifier for the ADR Software Product (SoftwareProductId) as defined in the CDR Register</td>
 </tr>
 <tr>
 <td>» iat</td>
 <td>integer(int32)</td>
 <td>true</td>
 <td>none</td>
-<td>The time at which the request was issued by the TPP  expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC</td>
+<td>The time at which the request was issued by the Data Recipient  expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC</td>
 </tr>
 <tr>
 <td>» exp</td>
@@ -4685,7 +4784,7 @@ Authorization: Bearer &lt;access-token&gt;
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>The audience for the request. This should be the Data Holder authorisation server URI</td>
+<td>&#39;Contains the DH issuer value as described in the <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">OIDC Discovery Document</a>&#39;&#39;</td>
 </tr>
 </tbody></table>
 
@@ -4803,6 +4902,12 @@ Authorization: Bearer &lt;access-token&gt;
 <th>Detail Of Change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>20/04/2020</td>
+<td>1.1.1</td>
+<td>Maintenance updates</td>
+<td>See <a href="includes/releasenotes/releasenotes.1.1.1.html">release notes</a> for detail</td>
+</tr>
 <tr>
 <td>03/02/2020</td>
 <td>1.1.0</td>

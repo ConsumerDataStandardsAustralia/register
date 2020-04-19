@@ -1,0 +1,393 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Consumer Data Right Register Design - v1.1.1 Release Notes</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="../../stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="../../stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="../../javascripts/all_nosearch.js"></script>
+    <link href="../../images/favicon.ico" rel="icon" type="image/ico" />
+  </head>
+
+  <body class="includes includes_releasenotes includes_releasenotes_releasenotes" data-languages="[]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="../../images/ACCC_Stacked_RGB_Reverse.PNG" class="logo" alt="Accc stacked rgb reverse" />
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#v1-1-1-release-notes" class="toc-h1 toc-link" data-title="V1.1.1 Release Notes">V1.1.1 Release Notes</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#consumer-data-right-register" class="toc-h2 toc-link" data-title="Consumer Data Right Register">Consumer Data Right Register</a>
+                  </li>
+                  <li>
+                    <a href="#client-registration" class="toc-h2 toc-link" data-title="Client Registration">Client Registration</a>
+                  </li>
+                  <li>
+                    <a href="#participant-statuses" class="toc-h2 toc-link" data-title="Participant Statuses">Participant Statuses</a>
+                  </li>
+                  <li>
+                    <a href="#security-profile" class="toc-h2 toc-link" data-title="Security Profile">Security Profile</a>
+                  </li>
+                  <li>
+                    <a href="#register-apis" class="toc-h2 toc-link" data-title="Register APIs">Register APIs</a>
+                  </li>
+                  <li>
+                    <a href="#dcr-apis" class="toc-h2 toc-link" data-title="DCR APIs">DCR APIs</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href='../../index.html'>CDR Register Design</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='v1-1-1-release-notes'>V1.1.1 Release Notes</h1>
+<p>Release notes for version 1.1.1 of the <a href="../../">CDR Register Design</a>.</p>
+<h2 id='consumer-data-right-register'>Consumer Data Right Register</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#accredited-data-recipient-2">Ecosystem Entities</a></td>
+<td>Updated ADR Ecosystem Entity</td>
+<td>Updated Accredited Data Recipient InfoSec APIs definition to specify the JWKS and revocation endpoints</td>
+</tr>
+</tbody></table>
+<h2 id='client-registration'>Client Registration</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#registration-request-using-jwt">Registration Request using JWT</a></td>
+<td>Updated Claims</td>
+<td>- Updated <code>aud</code> claim description to contain the DH issuer value </br> - Updated the <code>iat</code> claim example from a string to an integer </br> - Updated <code>redirect_uris</code> claim description to remove contradiction of how the claim is used</td>
+</tr>
+<tr>
+<td><a href="../../#registration-flows">Registration Flows</a></td>
+<td>Updated Create &amp; Modify Registration sequence diagrams</td>
+<td>- Key lookup from JWKS no longer specifies using the <code>kid</code> parameter</td>
+</tr>
+</tbody></table>
+<h2 id='participant-statuses'>Participant Statuses</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#metadata-cache-management">Metadata Cache Management</a></td>
+<td>Updated Cache update periods</td>
+<td>- To provide clarity, cache update periods have now been defined per API</td>
+</tr>
+<tr>
+<td><a href="../../#data-holder-responsibilities">Data Holder Responsibilities</a></td>
+<td>Removed Revoked / Inactive state</td>
+<td>- <strong>Revoked / Inactive</strong> was identified as an invalid state and has been removed. </br>- Status Mapping cascade rules have been redefined so <strong>Revoked ADRs</strong> result in <strong>Removed Software Products</strong></td>
+</tr>
+</tbody></table>
+<h2 id='security-profile'>Security Profile</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#register-endpoints">Register Endpoints</a></td>
+<td>Updated OIDC Discovery Endpoint Example</td>
+<td>- <code>mutual_tls_sender_constrained_access_tokens</code> is an outdated key for the OIDC Discovery Endpoint. As per <a href="https://tools.ietf.org/html/rfc8705">RFC8705</a>, this has been updated to <code>tls_client_certificate_bound_access_tokens</code></td>
+</tr>
+<tr>
+<td><a href="../../#participant-endpoints">Participant Endpoints</a></td>
+<td>Updated InfoSecBaseUri</td>
+<td>- Updated definition of the InfoSecBaseUri to provide reference to the OIDC Discovery Configuration Endpoint. </br> - Updated OIDC Discovery Endpoint example </br>- Removed ADR flag that this is provided by the DH only </br> - Updated OIDC Discovery Configuration Endpoint example</td>
+</tr>
+<tr>
+<td><a href="../../#certificate-management">Certificate Management</a></td>
+<td>Updated Certificates Issued to ADRs</td>
+<td>- Server Certificate now secures revocation endpoint. This endpoint can be secured by either public or ACCC issued certificate</td>
+</tr>
+</tbody></table>
+<h2 id='register-apis'>Register APIs</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#consumer-data-right-cdr-register-apis">General</a></td>
+<td>Updated Swagger</td>
+<td>- Added required scope for authenticated API calls</td>
+</tr>
+<tr>
+<td><a href="../../#getdataholderbrands">GetDataHolderBrands</a></td>
+<td>Updated Swagger</td>
+<td>- Added <code>logoUri</code> to the Brand and Legal Entity schemas </br> - Corrected <code>dataRecipientBrands</code> description </br> - Added <code>401</code> error response as per <a href="https://tools.ietf.org/html/rfc6750">RFC6750</a> <br> - Added <code>406</code> error response for invalid <a href="https://consumerdatastandardsaustralia.github.io/standards/#http-response-codes">header</a> </br> - Renamed <code>HYBRIDFLOW-JWKS</code> to <code>SIGNED-JWT</code> to remove confusion on the usage of DH authentication</td>
+</tr>
+<tr>
+<td><a href="../../#getdataholderbrands">GetSoftwareStatementAssertion</a></td>
+<td>Updated Swagger</td>
+<td>- Added <code>401</code> error response as per <a href="https://tools.ietf.org/html/rfc6750">RFC6750</a></br> - Removed <code>404</code> error response as this is inconsistent with <a href="https://consumerdatastandardsaustralia.github.io/standards/#http-response-codes">CDS</a> <br> - Added <code>406</code> error response for invalid <a href="https://consumerdatastandardsaustralia.github.io/standards/#http-response-codes">header</a></td>
+</tr>
+<tr>
+<td><a href="../../#getsoftwareproductsstatus">GetSoftwareProductStatus</a></td>
+<td>Updated Swagger</td>
+<td>- Added <code>406</code> error response for invalid <a href="https://consumerdatastandardsaustralia.github.io/standards/#http-response-codes">header</a></td>
+</tr>
+<tr>
+<td><a href="../../#getdatarecipientsstatus">GetDataRecipientsStatus</a></td>
+<td>Updated Swagger</td>
+<td>- Added <code>406</code> error response for invalid <a href="https://consumerdatastandardsaustralia.github.io/standards/#http-response-codes">header</a></td>
+</tr>
+<tr>
+<td><a href="../../#getdatarecipients">GetDataRecipients</a></td>
+<td>Updated Swagger</td>
+<td>- Added <code>406</code> error response for invalid <a href="https://consumerdatastandardsaustralia.github.io/standards/#http-response-codes">header</a></br> - Updated LegalEntityDetail making <code>registeredCountry</code> optional</td>
+</tr>
+</tbody></table>
+<h2 id='dcr-apis'>DCR APIs</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#dcr-api">General</a></td>
+<td>Updated Swagger</td>
+<td>- Added required scope for authenticated API calls</td>
+</tr>
+<tr>
+<td><a href="../../#tocSclientregistration">Client Registration</a></td>
+<td>Updated Swagger</td>
+<td>- Updated <code>iss</code>, <code>iat</code> and <code>aud</code> claim descriptions to be consistent with documentation</td>
+</tr>
+<tr>
+<td><a href="../../#delete-a-client-registration-for-a-given-client-id">Delete Client Registration</a></td>
+<td>Updated Swagger</td>
+<td>- Updated <code>405</code> error response description to clarify that the method is unsupported</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>
