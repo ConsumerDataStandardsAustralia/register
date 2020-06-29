@@ -365,10 +365,13 @@
                     <a href="#certificate-authority-unavailable" class="toc-h2 toc-link" data-title="Certificate Authority Unavailable">Certificate Authority Unavailable</a>
                   </li>
                   <li>
-                    <a href="#accredited-data-recipient-unavailable" class="toc-h2 toc-link" data-title="Accredited Data Recipient Unavailable">Accredited Data Recipient Unavailable</a>
+                    <a href="#data-recipient-unavailable" class="toc-h2 toc-link" data-title="Data Recipient Unavailable">Data Recipient Unavailable</a>
                   </li>
                   <li>
                     <a href="#data-holder-unavailable" class="toc-h2 toc-link" data-title="Data Holder Unavailable">Data Holder Unavailable</a>
+                  </li>
+                  <li>
+                    <a href="#backoff-patterns" class="toc-h2 toc-link" data-title="Backoff Patterns">Backoff Patterns</a>
                   </li>
               </ul>
           </li>
@@ -1390,7 +1393,7 @@ grant_type=client_credentials&amp;
 <th><strong>Disclose of CDR Data</strong></th>
 <th><strong>Facilitate Consent Authorisation</strong></th>
 <th><strong>Facilitate Consent Withdrawal</strong></th>
-<th><strong>Consents Expire</strong></th>
+<th><strong>Invalidate Consents</strong></th>
 <th><strong>Cleanup Registration</strong></th>
 </tr>
 </thead><tbody>
@@ -1461,8 +1464,9 @@ grant_type=client_credentials&amp;
 
 <ul>
 <li>Disclosure of CDR data MUST be in response to valid requests in accordance with the CDR rules and standards</li>
-<li>The status of an Accredited Data Recipient Brand does not impact data sharing and withdrawal of consent due to the cascade rules outlined above</li>
+<li>The status of an Accredited Data Recipient Brand does not impact Data Holder responsibilities due to the cascade rules outlined above</li>
 <li>When an Accredited Data Recipient status is Suspended, Revoked or Surrendered the Software Product status cannot be Active</li>
+<li>Invalidation of consents and cleanup of registrations are bulk operations. It is reasonable to execute these as batch tasks performed overnight</li>
 </ul>
 <h2 id='metadata-cache-management'>Metadata Cache Management</h2>
 <p>Data Holders are required to be able to react to Data Recipient and associated Software Statuses changes within <strong>5 minutes</strong> of the change occuring on the CDR Register</p>
@@ -1614,13 +1618,15 @@ Cache refreshes may be requested in the following scenarios:</p>
 <li> An Accredited Data Recipient has been surrendered, suspended or revoked from the CDR</li>
 </ol>
 <h3 id='data-holder-caching-of-accredited-data-recipients-software-product-metadata'>Data Holder Caching of Accredited Data Recipients Software Product Metadata</h3>
-<p><img src="images/DataHolderMetadataRefresh.png" alt="Dataholdermetadatarefresh" /></p>
+<p><img src="images/DataHolderMetadataRefresh.png" ></img></p>
 <h2 id='incident-management'>Incident Management</h2>
-<p>Currently under the draft CDR rules, Data Holders within the CDR ecosystem will be able to refuse to disclose CDR data  in response to valid requests from Accredited Data Recipients:</p>
+<p>Currently under the CDR rules, Data Holders within the CDR ecosystem will be able to refuse to disclose CDR data in response to valid requests from Accredited Data Recipients:</p>
 
-<p><strong>(a)</strong> where the Data Holder has reasonable grounds to believe that disclosure would create a real risk of harm or abuse to an individual or adversely impact the security, integrity or stability of the Register or the IT systems of the Data Holder used to receive and response to CDR data requests. Reliance on this exemption is to be notified to the ACCC within 24 hours; or</p>
+<p><strong>(a)</strong> as described under rule <a href="https://www.legislation.gov.au/Series/F2020L00094">4.7(1)</a>; or</p>
 
-<p><strong>(b)</strong> in the circumstances set out in the standards</p>
+<p><strong>(b)</strong> in the circumstances set out in the standards (as provided for by rule <a href="https://www.legislation.gov.au/Series/F2020L00094">4.2(1))</a></p>
+
+<p>Please also refer to the <a href="https://www.legislation.gov.au/Details/F2020L00757">amending instrument</a> to these rules</p>
 <h1 id='security-profile'>Security Profile</h1><h2 id='overview'>Overview</h2>
 <p>The security profile of the CDR Register follows the conventions defined by the <a href="https://consumerdatastandardsaustralia.github.io/standards/#security-profile">Consumer Data Standards Security Profile</a></p>
 
@@ -1864,13 +1870,15 @@ The following client identifiers will be used:</p>
 <tr>
 <td><strong>Server Certificate(s)</strong></td>
 <td>Certificate is issued to a FQDN</br></br>Secures the following:</br>- Revocation endpoint </br>- JWKS endpoint</td>
-<td>ADRs may secure their <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Revocation Endpoint</a> with an </br>ACCC CA issued certificate or a certificate issued by a public CA</td>
+<td>ADRs may choose to secure their <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">endpoints</a> </br> with an ACCC CA issued certificate or a certificate </br>issued by a public CA</td>
 </tr>
 </tbody></table>
 <h3 id='cdr-certificate-authority'>CDR Certificate Authority</h3>
-<p>DigiCert will act as the certificate authority that issues and manages certificates to CDR participants as directed by the ACCC in its capacity as the CDR Registrar.</p>
+<p><a href="https://www.digicert.com">DigiCert</a> will act as the certificate authority that issues and manages certificates to CDR participants as directed by the ACCC in its capacity as the CDR Registrar</p>
 <h1 id='availability'>Availability</h1>
 <p>The following scenarios outline the expectations of Data Holders and Accredited Data Recipients within the Consumer Data Right ecosystem when outages occur</p>
+
+<p>Note that a section of <a href="#backoff-patterns">backoff patterns</a> has been provided to outlining recommendations on how to poll endpoints during an outage</p>
 <h2 id='cdr-register-unavailable'>CDR Register Unavailable</h2>
 <table><thead>
 <tr>
@@ -1943,7 +1951,7 @@ The following client identifiers will be used:</p>
 <td>Participants will honour cached Certificate statuses from previous OCSP checks. <br>Once cached certificate statuses have expired, data sharing will stop<br>It can be expected that CA certificate statuses will not change while the CA is unavailable<br>Once the CA becomes available, certificate statuses are again updated through OCSP</td>
 </tr>
 </tbody></table>
-<h2 id='accredited-data-recipient-unavailable'>Accredited Data Recipient Unavailable</h2>
+<h2 id='data-recipient-unavailable'>Data Recipient Unavailable</h2>
 <table><thead>
 <tr>
 <th></th>
@@ -1984,7 +1992,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Expectation</strong></td>
-<td>Accredited Data Recipients will need to continually poll the Data Holder until recovery<br>Upon recovery, the consent withdrawal process will need to be executed as required</td>
+<td>Accredited Data Recipients will need to continually poll the Data Holder until recovery. </br>Data Recipients will be able to check the <a href="https://consumerdatastandardsaustralia.github.io/standards/#get-outages">GetOutages</a> endpoint to determine when the Data Holder will become available<br>Upon recovery, the consent withdrawal process will need to be executed as required</td>
 </tr>
 </tbody></table>
 
@@ -2007,6 +2015,112 @@ The following client identifiers will be used:</p>
 <td>The CDR Register will back-fill metrics once the Data Holder becomes available</td>
 </tr>
 </tbody></table>
+<h2 id='backoff-patterns'>Backoff Patterns</h2>
+<p>When endpoints are unavailable, as described in the above sections, there is an expectation that participants will poll the target endpoints until they becomes available.
+Participants will be expected to implement robust solutions which cater for temporary outages.</p>
+
+<p>To provide some guidelines, the following long and short-term patterns can be used to meet these polling requirements </p>
+<h3 id='long-term-exponential-backoff'>Long-term: Exponential Backoff</h3>
+<p>The provided exponential backoff pseudocode can be used to poll unavailable endpoints for retry periods in the order of hours and days.</p>
+<pre class="highlight plaintext"><code>Exponential Backoff Pseudocode
+
+
+Call the Target EndPoint
+MAX_WAIT_TIME=3600000 (1 hr)
+waitTime = 0
+DO
+   waitTime=   (2^retries * 100) milliseconds
+   wait for waitTime
+    status = Get Status of API call
+    IF status = SUCCESS
+        retry = false   
+    ELSE
+        Unable to get a response or not a valid response
+        retry = true
+    END IF
+
+WHILE (retry AND (waitTime &lt; MAX_WAIT_TIME))
+
+</code></pre>
+<p>The provided pseudocode will result in the following retry times</p>
+
+<table><thead>
+<tr>
+<th>Retry Attempt</th>
+<th>Wait Time (in milliseconds)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1</td>
+<td>200</td>
+</tr>
+<tr>
+<td>2</td>
+<td>400</td>
+</tr>
+<tr>
+<td>3</td>
+<td>800</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1600</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3200</td>
+</tr>
+<tr>
+<td>6</td>
+<td>6400</td>
+</tr>
+<tr>
+<td>7</td>
+<td>12800</td>
+</tr>
+<tr>
+<td>8</td>
+<td>25600</td>
+</tr>
+<tr>
+<td>9</td>
+<td>51200</td>
+</tr>
+<tr>
+<td>10</td>
+<td>102400</td>
+</tr>
+<tr>
+<td>11</td>
+<td>204800</td>
+</tr>
+<tr>
+<td>12</td>
+<td>409600</td>
+</tr>
+<tr>
+<td>13</td>
+<td>819200</td>
+</tr>
+<tr>
+<td>14</td>
+<td>1638400</td>
+</tr>
+<tr>
+<td>15</td>
+<td>3276800</td>
+</tr>
+<tr>
+<td>16</td>
+<td>3600000</td>
+</tr>
+<tr>
+<td>remaining period(s)</td>
+<td>3600000</td>
+</tr>
+</tbody></table>
+<h3 id='short-term-fixed-periodic-retry'>Short-term: Fixed periodic retry</h3>
+<p>For short-term retries, in the order of minutes, implementers may choose polling a given endpoint once per minute until recovery, or retry period has been exceeded</p>
 <h1 id='versioning'>Versioning</h1>
 <p>ACCC will follow the versioning conventions outlined by the Data Standards Body. <br>
 Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versioning">https://consumerdatastandardsaustralia.github.io/standards/#versioning</a></p>
@@ -4878,12 +4992,12 @@ To perform this operation, you must be authenticated and authorised with the fol
 <tr>
 <td><strong>x</strong></td>
 <td>major version</td>
-<td>formal release and breaking changes</td>
+<td>major formal release</td>
 </tr>
 <tr>
 <td><strong>y</strong></td>
 <td>minor version</td>
-<td>non-breaking design changes</td>
+<td>minor formal release including design changes impacting build to participants</td>
 </tr>
 <tr>
 <td><strong>z</strong></td>
@@ -4902,6 +5016,12 @@ To perform this operation, you must be authenticated and authorised with the fol
 <th>Detail Of Change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>29/06/2020</td>
+<td>1.1.2</td>
+<td>Maintenance updates</td>
+<td>See <a href="includes/releasenotes/releasenotes.1.1.2.html">release notes</a> for detail</td>
+</tr>
 <tr>
 <td>20/04/2020</td>
 <td>1.1.1</td>
