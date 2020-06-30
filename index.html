@@ -369,9 +369,6 @@
                   <li>
                     <a href="#data-holder-unavailable" class="toc-h2 toc-link" data-title="Data Holder Unavailable">Data Holder Unavailable</a>
                   </li>
-                  <li>
-                    <a href="#backoff-patterns" class="toc-h2 toc-link" data-title="Backoff Patterns">Backoff Patterns</a>
-                  </li>
               </ul>
           </li>
           <li>
@@ -838,6 +835,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
   "policy_uri": "https://www.mockcompany.com.au/policy.html",
   "jwks_uri": "https://www.mockcompany.com.au/jwks",
   "revocation_uri": "https://www.mockcompany.com.au/revocation",
+  "recipient_base_uri": "https://www.mockcompany.com.au"
   "software_id": "740C368F-ECF9-4D29-A2EA-0514A66B0CDE",
   "software_roles": "data-recipient-software-product",
   "scope":
@@ -948,7 +946,13 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td><strong>revocation_uri</strong></td>
 <td>Required</td>
 <td><i class="icon-check"></i></td>
-<td>URI string that references the location of the Software Product consent revocation endpoint as perConsumer Data Standards <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Endpoints</a></td>
+<td>URI string that references the location of the Software Product consent revocation endpoint as per Consumer Data Standards <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Endpoints</a></td>
+</tr>
+<tr>
+<td><strong>recipient_base_uri</strong></td>
+<td>Required</td>
+<td><i class="icon-check"></i></td>
+<td>Base URI for the Consumer Data Standard data recipient endpoints. This should be the base to provide reference to all other <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Data Recipient Endpoints</a> </br> <strong>Scheduled for Nov 2020</strong></td>
 </tr>
 <tr>
 <td><strong>software_id</strong></td>
@@ -969,6 +973,8 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td>String containing a space-separated list of scope values that the client can use when requesting access tokens. </br>These CDS scope values are defined at: <a href="https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes">Authorisation Scopes</a></br>The DCR scope value is defined at: <a href="#client-registration-management">Client Registration Management</a></td>
 </tr>
 </tbody></table>
+
+<p><strong>Nov 2020:</strong> the <code>revocation_uri</code> becomes optional and <code>recipient_base_uri</code> will be introduced</p>
 <h3 id='client-registration-considerations'>Client Registration Considerations</h3>
 <p>The CDR Register will only issue SSAs for Software Products which are currently in the Active state</p>
 <h3 id='sector-identifiers'>Sector Identifiers</h3>
@@ -1187,6 +1193,7 @@ Content-Type: application/json
    "policy_uri": "https://www.mockcompany.com.au/policy.html",
    "jwks_uri": "https://www.mockcompany.com.au/jwks",
    "revocation_uri": "https://www.mockcompany.com.au/revocation",
+   "recipient_base_uri": "https://www.mockcompany.com.au",
    "software_id": "740C368F-ECF9-4D29-A2EA-0514A66B0CDE",
    "software_roles": "data-recipient-software-product",
    "scope":
@@ -1828,6 +1835,12 @@ The following client identifiers will be used:</p>
 <td>Used for consent withdrawal notification from a Data Holder and is populated in the <a href="#dynamic-client-registration">SSA</a></td>
 </tr>
 <tr>
+<td><strong>RecipientBaseUri</strong></td>
+<td></td>
+<td><i class="icon-check"></i></td>
+<td>Base URI for the Consumer Data Standard Data Recipient endpoints. </br>This should be the base to provide reference to <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Data Recipient Endpoints</a></td>
+</tr>
+<tr>
 <td><strong>JwksUri</strong></td>
 <td><i class="icon-check"></i></td>
 <td><i class="icon-check"></i></td>
@@ -1868,16 +1881,16 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Server Certificate(s)</strong></td>
-<td>Certificate is issued to a FQDN</br></br>Secures the following:</br>- Revocation endpoint </br>- JWKS endpoint</td>
+<td>Certificate is issued to a FQDN</br></br>Secures the following:</br>- Revocation endpoint </br>- JWKS endpoint </br>- Arrangement Management endpoint</td>
 <td>ADRs may choose to secure their <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">endpoints</a> </br> with an ACCC CA issued certificate or a certificate </br>issued by a public CA</td>
 </tr>
 </tbody></table>
+
+<p>Arrangement Management Endpoint is a requirement from <strong>November 2020</strong></p>
 <h3 id='cdr-certificate-authority'>CDR Certificate Authority</h3>
 <p><a href="https://www.digicert.com">DigiCert</a> will act as the certificate authority that issues and manages certificates to CDR participants as directed by the ACCC in its capacity as the CDR Registrar</p>
 <h1 id='availability'>Availability</h1>
 <p>The following scenarios outline the expectations of Data Holders and Accredited Data Recipients within the Consumer Data Right ecosystem when outages occur</p>
-
-<p>Note that a section of <a href="#backoff-patterns">backoff patterns</a> has been provided to outlining recommendations on how to poll endpoints during an outage</p>
 <h2 id='cdr-register-unavailable'>CDR Register Unavailable</h2>
 <table><thead>
 <tr>
@@ -2014,112 +2027,6 @@ The following client identifiers will be used:</p>
 <td>The CDR Register will back-fill metrics once the Data Holder becomes available</td>
 </tr>
 </tbody></table>
-<h2 id='backoff-patterns'>Backoff Patterns</h2>
-<p>When endpoints are unavailable, as described in the above sections, there is an expectation that participants will poll the target endpoints until they becomes available.
-Participants will be expected to implement robust solutions which cater for temporary outages.</p>
-
-<p>To provide some guidelines, the following long and short-term patterns can be used to meet these polling requirements </p>
-<h3 id='long-term-exponential-backoff'>Long-term: Exponential Backoff</h3>
-<p>The provided exponential backoff pseudocode can be used to poll unavailable endpoints for retry periods in the order of hours and days.</p>
-<pre class="highlight plaintext"><code>Exponential Backoff Pseudocode
-
-
-Call the Target EndPoint
-MAX_WAIT_TIME=3600000 (1 hr)
-waitTime = 0
-DO
-   waitTime=   (2^retries * 100) milliseconds
-   wait for waitTime
-    status = Get Status of API call
-    IF status = SUCCESS
-        retry = false   
-    ELSE
-        Unable to get a response or not a valid response
-        retry = true
-    END IF
-
-WHILE (retry AND (waitTime &lt; MAX_WAIT_TIME))
-
-</code></pre>
-<p>The provided pseudocode will result in the following retry times</p>
-
-<table><thead>
-<tr>
-<th>Retry Attempt</th>
-<th>Wait Time (in milliseconds)</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>1</td>
-<td>200</td>
-</tr>
-<tr>
-<td>2</td>
-<td>400</td>
-</tr>
-<tr>
-<td>3</td>
-<td>800</td>
-</tr>
-<tr>
-<td>4</td>
-<td>1600</td>
-</tr>
-<tr>
-<td>5</td>
-<td>3200</td>
-</tr>
-<tr>
-<td>6</td>
-<td>6400</td>
-</tr>
-<tr>
-<td>7</td>
-<td>12800</td>
-</tr>
-<tr>
-<td>8</td>
-<td>25600</td>
-</tr>
-<tr>
-<td>9</td>
-<td>51200</td>
-</tr>
-<tr>
-<td>10</td>
-<td>102400</td>
-</tr>
-<tr>
-<td>11</td>
-<td>204800</td>
-</tr>
-<tr>
-<td>12</td>
-<td>409600</td>
-</tr>
-<tr>
-<td>13</td>
-<td>819200</td>
-</tr>
-<tr>
-<td>14</td>
-<td>1638400</td>
-</tr>
-<tr>
-<td>15</td>
-<td>3276800</td>
-</tr>
-<tr>
-<td>16</td>
-<td>3600000</td>
-</tr>
-<tr>
-<td>remaining period(s)</td>
-<td>3600000</td>
-</tr>
-</tbody></table>
-<h3 id='short-term-fixed-periodic-retry'>Short-term: Fixed periodic retry</h3>
-<p>For short-term retries, in the order of minutes, implementers may choose polling a given endpoint once per minute until recovery, or retry period has been exceeded</p>
 <h1 id='versioning'>Versioning</h1>
 <p>ACCC will follow the versioning conventions outlined by the Data Standards Body. <br>
 Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versioning">https://consumerdatastandardsaustralia.github.io/standards/#versioning</a></p>
@@ -2285,7 +2192,7 @@ x-v: string
 <td>header</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values'>Enumerated Values</h4>
@@ -2392,6 +2299,24 @@ x-v: string
 <td>None</td>
 </tr>
 </tbody></table>
+<h3 id='response-headers'>Response Headers</h3>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Header</th>
+<th>Type</th>
+<th>Format</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>x-v</td>
+<td>string</td>
+<td></td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with.</td>
+</tr>
+</tbody></table>
 
 <aside class="notice">
 To perform this operation, you must be authenticated and authorised with the following scope: <span class="bold">cdr-register:bank:read</span>
@@ -2436,14 +2361,14 @@ x-v: string
 <td>path</td>
 <td>string</td>
 <td>true</td>
-<td>Unique id for the Accredited Data Recipient Brand that the Software Product is associated with in the CDR Register</td>
+<td>Unique id for the Accredited Data Recipient Brand that the Software Product is associated with in the CDR Register. Refer to <a href="https://cdr-register.github.io/register/#identifiers">Identifiers</a> for details</td>
 </tr>
 <tr>
 <td>softwareProductId</td>
 <td>path</td>
 <td>string</td>
 <td>true</td>
-<td>Unique id for the Accredited Data Recipient Software Product in the CDR Register</td>
+<td>Unique id for the Accredited Data Recipient Software Product in the CDR Register. Refer to <a href="https://cdr-register.github.io/register/#identifiers">Identifiers</a> for details</td>
 </tr>
 <tr>
 <td>Authorization</td>
@@ -2457,7 +2382,7 @@ x-v: string
 <td>header</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-2'>Enumerated Values</h4>
@@ -2521,6 +2446,24 @@ x-v: string
 <td>None</td>
 </tr>
 </tbody></table>
+<h3 id='response-headers-2'>Response Headers</h3>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Header</th>
+<th>Type</th>
+<th>Format</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>x-v</td>
+<td>string</td>
+<td></td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with.</td>
+</tr>
+</tbody></table>
 
 <aside class="notice">
 To perform this operation, you must be authenticated and authorised with the following scope: <span class="bold">cdr-register:bank:read</span>
@@ -2564,7 +2507,7 @@ x-v: string
 <td>header</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-3'>Enumerated Values</h4>
@@ -2623,6 +2566,24 @@ x-v: string
 <td>None</td>
 </tr>
 </tbody></table>
+<h3 id='response-headers-3'>Response Headers</h3>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Header</th>
+<th>Type</th>
+<th>Format</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>x-v</td>
+<td>string</td>
+<td></td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with.</td>
+</tr>
+</tbody></table>
 
 <aside class="success">
 This operation does not require authentication
@@ -2666,7 +2627,7 @@ x-v: string
 <td>header</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-4'>Enumerated Values</h4>
@@ -2725,6 +2686,24 @@ x-v: string
 <td>None</td>
 </tr>
 </tbody></table>
+<h3 id='response-headers-4'>Response Headers</h3>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Header</th>
+<th>Type</th>
+<th>Format</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>x-v</td>
+<td>string</td>
+<td></td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with.</td>
+</tr>
+</tbody></table>
 
 <aside class="success">
 This operation does not require authentication
@@ -2766,7 +2745,7 @@ x-v: string
 <td>header</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-5'>Enumerated Values</h4>
@@ -2792,6 +2771,7 @@ x-v: string
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"accreditationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banking"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"dataRecipientBrands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -2850,6 +2830,24 @@ x-v: string
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">Not Acceptable</a></td>
 <td>Not Acceptable</td>
 <td>None</td>
+</tr>
+</tbody></table>
+<h3 id='response-headers-5'>Response Headers</h3>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Header</th>
+<th>Type</th>
+<th>Format</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>x-v</td>
+<td>string</td>
+<td></td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with.</td>
 </tr>
 </tbody></table>
 
@@ -2912,7 +2910,7 @@ This operation does not require authentication
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
-<p><em>Response containing a list of Register Data Holder Brand objects</em></p>
+<p><em>Response containing a list of CDR Register Data Holder Brand objects</em></p>
 <h3 id='properties'>Properties</h3>
 <table><thead>
 <tr>
@@ -3000,21 +2998,21 @@ This operation does not require authentication
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>Unique id of the Data Holder Brand issued by the CDR Register. Refer to <a href="https://cdr-register.github.io/register/#identifiers">Identifiers</a> for details</td>
 </tr>
 <tr>
 <td>brandName</td>
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The name of Data Holder Brand</td>
 </tr>
 <tr>
 <td>industry</td>
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The industry the Data Holder brand belongs to (Banking, etc)</td>
 </tr>
 <tr>
 <td>logoUri</td>
@@ -3138,7 +3136,7 @@ This operation does not require authentication
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>Unique id of the software product issued by the CDR Register</td>
+<td>Unique id of the software product issued by the CDR Register.  Refer to <a href="https://cdr-register.github.io/register/#identifiers">Identifiers</a> for details</td>
 </tr>
 <tr>
 <td>softwareProductStatus</td>
@@ -3223,7 +3221,7 @@ This operation does not require authentication
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>Unique id of the Data Recipient in the CDR Register</td>
+<td>Unique id of the Data Recipient issued by the CDR Register.  Refer to <a href="https://cdr-register.github.io/register/#identifiers">Identifiers</a> for details</td>
 </tr>
 <tr>
 <td>dataRecipientStatus</td>
@@ -3266,6 +3264,7 @@ This operation does not require authentication
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"accreditationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banking"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"dataRecipientBrands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -3318,6 +3317,7 @@ This operation does not require authentication
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"legalEntityId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"legalEntityName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"accreditationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banking"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"logoUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"dataRecipientBrands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -3356,7 +3356,7 @@ This operation does not require authentication
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>Unique id of the Data Recipient Legal Entity</td>
+<td>Unique id of the Data Recipient Legal Entity issued by the CDR Register.  Refer to <a href="https://cdr-register.github.io/register/#identifiers">Identifiers</a> for details</td>
 </tr>
 <tr>
 <td>legalEntityName</td>
@@ -3364,6 +3364,13 @@ This operation does not require authentication
 <td>true</td>
 <td>none</td>
 <td>Legal name of the Data Recipient</td>
+</tr>
+<tr>
+<td>accreditationNumber</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>CDR Register issued human readable unique number given to Data Recipients upon accreditation</td>
 </tr>
 <tr>
 <td>industry</td>
@@ -3398,7 +3405,7 @@ This operation does not require authentication
 <td>string(date-time)</td>
 <td>true</td>
 <td>none</td>
-<td>The date/time that the Legal Entity was last updated in the Register</td>
+<td>The date/time that the Legal Entity was last updated in the CDR Register</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-9'>Enumerated Values</h4>
@@ -3466,7 +3473,7 @@ This operation does not require authentication
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>Unique id of the Data Recipient brand</td>
+<td>Unique id of the Data Recipient brand issued by the CDR Register.  Refer to <a href="https://cdr-register.github.io/register/#identifiers">Identifiers</a> for details</td>
 </tr>
 <tr>
 <td>brandName</td>
@@ -3546,7 +3553,7 @@ This operation does not require authentication
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>Unique id of the Data Recipient software product</td>
+<td>Unique id of the Data Recipient software product issued by the CDR Register.  Refer to <a href="https://cdr-register.github.io/register/#identifiers">Identifiers</a> for details</td>
 </tr>
 <tr>
 <td>softwareProductName</td>
@@ -3632,7 +3639,7 @@ This operation does not require authentication
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>Unique legal name of the organisation</td>
+<td>Unique id of the organisation issued by the CDR Register.  Refer to <a href="https://cdr-register.github.io/register/#identifiers">Identifiers</a> for details</td>
 </tr>
 <tr>
 <td>legalEntityName</td>
@@ -4097,6 +4104,7 @@ Content-Type: application/json
   </span><span class="s2">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/policy.html"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"jwks_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/jwks"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"revocation_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/revocation"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"recipient_base_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"token_endpoint_auth_method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"private_key_jwt"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"token_endpoint_auth_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"grant_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -4218,6 +4226,7 @@ Authorization: Bearer &lt;access-token&gt;
   </span><span class="s2">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/policy.html"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"jwks_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/jwks"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"revocation_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/revocation"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"recipient_base_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"token_endpoint_auth_method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"private_key_jwt"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"token_endpoint_auth_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"grant_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -4367,6 +4376,7 @@ Authorization: Bearer &lt;access-token&gt;
   </span><span class="s2">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/policy.html"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"jwks_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/jwks"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"revocation_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/revocation"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"recipient_base_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"token_endpoint_auth_method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"private_key_jwt"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"token_endpoint_auth_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"grant_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -4557,6 +4567,7 @@ To perform this operation, you must be authenticated and authorised with the fol
   </span><span class="s2">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/policy.html"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"jwks_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/jwks"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"revocation_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/revocation"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"recipient_base_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"token_endpoint_auth_method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"private_key_jwt"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"token_endpoint_auth_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"grant_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -4672,9 +4683,16 @@ To perform this operation, you must be authenticated and authorised with the fol
 <tr>
 <td>revocation_uri</td>
 <td>string</td>
-<td>true</td>
+<td>false</td>
 <td>none</td>
 <td>URI string that references the location of the Software Product consent revocation endpoint</td>
+</tr>
+<tr>
+<td>recipient_base_uri</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Base URI for the Consumer Data Standard Data Recipient endpoints. This should be the base to provide reference to all other <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Data Recipient Endpoints</a></td>
 </tr>
 <tr>
 <td>token_endpoint_auth_method</td>
@@ -4827,6 +4845,7 @@ To perform this operation, you must be authenticated and authorised with the fol
   </span><span class="s2">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/policy.html"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"jwks_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/jwks"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"revocation_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/revocation"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"recipient_base_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"token_endpoint_auth_method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"private_key_jwt"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"token_endpoint_auth_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"grant_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -5015,6 +5034,12 @@ To perform this operation, you must be authenticated and authorised with the fol
 <th>Detail Of Change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>01/07/2020</td>
+<td>1.2.0</td>
+<td>Maintenance updates</td>
+<td>See <a href="includes/releasenotes/releasenotes.1.2.0.html">release notes</a> for detail</td>
+</tr>
 <tr>
 <td>29/06/2020</td>
 <td>1.1.2</td>

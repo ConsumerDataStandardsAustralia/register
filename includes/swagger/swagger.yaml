@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.1.1'
+  version: '1.2.0'
   title: Consumer Data Right (CDR) Register - Participant Discovery APIs
 schemes:
   - https
@@ -41,6 +41,10 @@ paths:
       responses:
         '200':
           description: Success
+          headers:
+            x-v:
+              type: string
+              description: The [version](https://consumerdatastandardsaustralia.github.io/standards/#response-headers) of the API end point that the CDR Register has responded with.
           schema:
             $ref: '#/definitions/ResponseRegisterDataHolderBrandList'
         '400':
@@ -67,12 +71,12 @@ paths:
         - $ref: '#/parameters/Industry'
         - name: dataRecipientBrandId
           in: path
-          description: Unique id for the Accredited Data Recipient Brand that the Software Product is associated with in the CDR Register
+          description: Unique id for the Accredited Data Recipient Brand that the Software Product is associated with in the CDR Register. Refer to [Identifiers](https://cdr-register.github.io/register/#identifiers) for details
           required: true
           type: string
         - name: softwareProductId
           in: path
-          description: Unique id for the Accredited Data Recipient Software Product in the CDR Register
+          description: Unique id for the Accredited Data Recipient Software Product in the CDR Register. Refer to [Identifiers](https://cdr-register.github.io/register/#identifiers) for details
           required: true
           type: string
         - $ref: '#/parameters/Authorization'
@@ -80,6 +84,10 @@ paths:
       responses:
         '200':
           description: Success
+          headers:
+            x-v:
+              type: string
+              description: The [version](https://consumerdatastandardsaustralia.github.io/standards/#response-headers) of the API end point that the CDR Register has responded with.
           schema:
             type: string
         '400':
@@ -112,6 +120,10 @@ paths:
       responses:
         '200':
           description: Success
+          headers:
+            x-v:
+              type: string
+              description: The [version](https://consumerdatastandardsaustralia.github.io/standards/#response-headers) of the API end point that the CDR Register has responded with.
           schema:
             $ref: '#/definitions/SoftwareProductsStatusList'
         '400':
@@ -136,6 +148,10 @@ paths:
       responses:
         '200':
           description: Success
+          headers:
+            x-v:
+              type: string
+              description: The [version](https://consumerdatastandardsaustralia.github.io/standards/#response-headers) of the API end point that the CDR Register has responded with.
           schema:
             $ref: '#/definitions/DataRecipientsStatusList'
         '400':
@@ -160,6 +176,10 @@ paths:
       responses:
         '200':
           description: Success
+          headers:
+            x-v:
+              type: string
+              description: The [version](https://consumerdatastandardsaustralia.github.io/standards/#response-headers) of the API end point that the CDR Register has responded with.
           schema:
             $ref: '#/definitions/ResponseRegisterDataRecipientList'
         '400':
@@ -183,6 +203,7 @@ parameters:
     name: x-v
     in: header
     required: false
+    description: The [version](https://consumerdatastandardsaustralia.github.io/standards/#response-headers) of the API end point that the CDR Register has responded with
     type: string
   Industry:
     name: industry
@@ -194,7 +215,7 @@ parameters:
     type: string
 definitions:
   ResponseRegisterDataHolderBrandList:
-    description: Response containing a list of Register Data Holder Brand objects
+    description: Response containing a list of CDR Register Data Holder Brand objects
     required:
       - data
       - links
@@ -225,10 +246,13 @@ definitions:
     type: object
     properties:
       dataHolderBrandId:
+        description: Unique id of the Data Holder Brand issued by the CDR Register. Refer to [Identifiers](https://cdr-register.github.io/register/#identifiers) for details
         type: string
       brandName:
+        description: The name of Data Holder Brand
         type: string
       industry:
+        description: 'The industry the Data Holder brand belongs to (Banking, etc)'
         enum:
           - banking
         type: string
@@ -273,7 +297,7 @@ definitions:
     type: object
     properties:
       softwareProductId:
-        description: Unique id of the software product issued by the CDR Register
+        description: Unique id of the software product issued by the CDR Register.  Refer to [Identifiers](https://cdr-register.github.io/register/#identifiers) for details
         type: string
       softwareProductStatus:
         description: Software product status in the CDR Register
@@ -299,7 +323,7 @@ definitions:
     type: object
     properties:
       dataRecipientId:
-        description: Unique id of the Data Recipient in the CDR Register
+        description: Unique id of the Data Recipient issued by the CDR Register.  Refer to [Identifiers](https://cdr-register.github.io/register/#identifiers) for details
         type: string
       dataRecipientStatus:
         description: Data Recipient status in the CDR Register
@@ -327,6 +351,7 @@ definitions:
     required:
       - legalEntityId
       - legalEntityName
+      - accreditationNumber
       - industry
       - logoUri
       - status
@@ -334,10 +359,13 @@ definitions:
     type: object
     properties:
       legalEntityId:
-        description: Unique id of the Data Recipient Legal Entity
+        description: Unique id of the Data Recipient Legal Entity issued by the CDR Register.  Refer to [Identifiers](https://cdr-register.github.io/register/#identifiers) for details
         type: string
       legalEntityName:
         description: Legal name of the Data Recipient
+        type: string
+      accreditationNumber:
+        description: CDR Register issued human readable unique number given to Data Recipients upon accreditation
         type: string
       industry:
         enum:
@@ -361,7 +389,7 @@ definitions:
         type: string
       lastUpdated:
         format: date-time
-        description: The date/time that the Legal Entity was last updated in the Register
+        description: The date/time that the Legal Entity was last updated in the CDR Register
         type: string
         x-cds-type: DateTimeString
   DataRecipientBrandMetaData:
@@ -374,7 +402,7 @@ definitions:
     type: object
     properties:
       dataRecipientBrandId:
-        description: Unique id of the Data Recipient brand
+        description: Unique id of the Data Recipient brand issued by the CDR Register.  Refer to [Identifiers](https://cdr-register.github.io/register/#identifiers) for details
         type: string
       brandName:
         description: Data Recipient Brand name
@@ -404,7 +432,7 @@ definitions:
     type: object
     properties:
       softwareProductId:
-        description: Unique id of the Data Recipient software product
+        description: Unique id of the Data Recipient software product issued by the CDR Register.  Refer to [Identifiers](https://cdr-register.github.io/register/#identifiers) for details
         type: string
       softwareProductName:
         description: Name of the software product
@@ -431,7 +459,7 @@ definitions:
     type: object
     properties:
       legalEntityId:
-        description: Unique legal name of the organisation
+        description: Unique id of the organisation issued by the CDR Register.  Refer to [Identifiers](https://cdr-register.github.io/register/#identifiers) for details
         type: string
       legalEntityName:
         description: Unique legal name of the organisation

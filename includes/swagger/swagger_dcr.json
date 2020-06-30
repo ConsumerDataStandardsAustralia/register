@@ -196,7 +196,6 @@
         "redirect_uris",
         "logo_uri",
         "jwks_uri",
-        "revocation_uri",
         "software_id",
         "software_roles",
         "scope",
@@ -281,6 +280,11 @@
           "description": "URI string that references the location of the Software Product consent revocation endpoint",
           "type": "string",
           "example": "https://www.mockcompany.com.au/revocation"
+        },
+        "recipient_base_uri": {
+          "description": "Base URI for the Consumer Data Standard Data Recipient endpoints. This should be the base to provide reference to all other [Data Recipient Endpoints](https://consumerdatastandardsaustralia.github.io/standards/#end-points)",
+          "type": "string",
+          "example": "https://www.mockcompany.com.au"
         },
         "token_endpoint_auth_method": {
           "description": "The requested authentication method for the token endpoint",
