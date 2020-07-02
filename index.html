@@ -369,6 +369,9 @@
                   <li>
                     <a href="#data-holder-unavailable" class="toc-h2 toc-link" data-title="Data Holder Unavailable">Data Holder Unavailable</a>
                   </li>
+                  <li>
+                    <a href="#backoff-patterns" class="toc-h2 toc-link" data-title="Backoff Patterns">Backoff Patterns</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -582,16 +585,20 @@ Depending on the number of responses/comments we get, we will assess what the mo
 <td>Identifier in <a href="#tocSlegalentitydetail">LegalEntityDetail</a> schema returned as part of <a href="#getdataholderbrands">GetDataHolderBrands API</a> </br> Identifier in <a href="#tocSregisterdatarecipient">RegisterDataRecipient</a> schema returned as part of <a href="#getdatarecipients">GetDataRecipients API</a></td>
 </tr>
 <tr>
+<td><strong>dataRecipientId</strong></td>
+<td>Identifier in <a href="#tocSdatarecipientstatus">DataRecipientStatus</a> schema returned as part of <a href="#getdatarecipients">GetDataRecipients API</a>. This is the equivalent to the <code>legalEntityId</code> described above </br></td>
+</tr>
+<tr>
 <td><strong>dataHolderBrandId</strong></td>
 <td>Identifier in <a href="#tocSregisterdataholderbrand">RegisterDataHolderBrands</a> schema returned as part of <a href="#getdataholderbrands">GetDataHolderBrands API</a> </br></td>
 </tr>
 <tr>
 <td><strong>dataRecipientBrandId</strong></td>
-<td><code>org_id</code> claim as defined in the <a href="#dynamic-client-registration">SSA Definition</a> </br>  Identifier in <a href="#tocSdatarecipientbrandmetadata">DataRecipientsBrandMetaData</a> schema returned as part of <a href="#getdatarecipients">GetDataRecipients API</a></td>
+<td><code>org_id</code> claim as defined in the <a href="#dynamic-client-registration">SSA Definition</a> </br>  Identifier in <a href="#tocSdatarecipientbrandmetadata">DataRecipientsBrandMetaData</a> schema returned as part of <a href="#getdatarecipients">GetDataRecipients API</a></br>Identifier used as a parameter to the <a href="#getsoftwarestatementassertion-ssa">GetSoftwareStatementAssertion API</a></td>
 </tr>
 <tr>
 <td><strong>softwareProductId</strong></td>
-<td><code>software_id</code> claim as defined in the <a href="#dynamic-client-registration">SSA Definition</a> </br> <code>iss</code> claim as defined in the <a href="#registration-request-using-jwt">Registration Request</a></td>
+<td><code>software_id</code> claim as defined in the <a href="#dynamic-client-registration">SSA Definition</a> </br> <code>iss</code> claim as defined in the <a href="#registration-request-using-jwt">Registration Request</a> </br>Identifier used as a parameter to the <a href="#getsoftwarestatementassertion-ssa">GetSoftwareStatementAssertion API</a></td>
 </tr>
 </tbody></table>
 <h2 id='ecosystem-component-diagram'>Ecosystem Component Diagram</h2>
@@ -1891,6 +1898,8 @@ The following client identifiers will be used:</p>
 <p><a href="https://www.digicert.com">DigiCert</a> will act as the certificate authority that issues and manages certificates to CDR participants as directed by the ACCC in its capacity as the CDR Registrar</p>
 <h1 id='availability'>Availability</h1>
 <p>The following scenarios outline the expectations of Data Holders and Accredited Data Recipients within the Consumer Data Right ecosystem when outages occur</p>
+
+<p>Note that a section on <a href="#backoff-patterns">backoff patterns</a> has been provided  outlining recommendations on how to poll endpoints during an outage</p>
 <h2 id='cdr-register-unavailable'>CDR Register Unavailable</h2>
 <table><thead>
 <tr>
@@ -1980,7 +1989,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Expectation</strong></td>
-<td>Data Holders will need to continually poll the ADR until recovery.<br>Upon recovery, the authorisation withdrawal process will need to be executed as required</td>
+<td>Data Holders will need to continually poll the ADR until recovery.<br>Upon recovery, the authorisation withdrawal process will need to be executed recognising the expectation in the rules that withdrawal of authorisation by a consumer will be communicated by a DH to an ADR</td>
 </tr>
 </tbody></table>
 <h2 id='data-holder-unavailable'>Data Holder Unavailable</h2>
@@ -2027,6 +2036,115 @@ The following client identifiers will be used:</p>
 <td>The CDR Register will back-fill metrics once the Data Holder becomes available</td>
 </tr>
 </tbody></table>
+<h2 id='backoff-patterns'>Backoff Patterns</h2>
+<p>When endpoints are unavailable, as described in the above sections, there is a requirement that participants will poll the target endpoints until they become available.
+Participants will be expected to implement robust solutions which cater for temporary outages.</p>
+
+<p>The expectation is that either a long-term or a short-term pattern will be to be used to meet these polling requirements</p>
+<h3 id='long-term-exponential-backoff-over-7-days'>Long-term: Exponential Backoff over 7 days</h3>
+<p>The provided exponential backoff pseudocode can be used to poll unavailable endpoints for retry periods in the order of hours and days.</p>
+
+<blockquote>
+<p>Exponential Backoff Pseudocode</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Call the Target EndPoint
+MAX_WAIT_TIME=3600000 (1 hr)
+waitTime = 0
+DO
+   waitTime=   (2^retries * 100) milliseconds
+   wait for waitTime
+    status = Get Status of API call
+    IF status = SUCCESS
+        retry = false   
+    ELSE
+        Unable to get a response or not a valid response
+        retry = true
+    END IF
+
+WHILE (retry AND (waitTime &lt; MAX_WAIT_TIME))
+
+Continue calls every MAX_WAIT_TIME for the remaining period(s)
+
+</code></pre>
+<p>The provided pseudocode will result in the following retry times</p>
+
+<table><thead>
+<tr>
+<th>Retry Attempt</th>
+<th>Wait Time (in milliseconds)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1</td>
+<td>200</td>
+</tr>
+<tr>
+<td>2</td>
+<td>400</td>
+</tr>
+<tr>
+<td>3</td>
+<td>800</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1600</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3200</td>
+</tr>
+<tr>
+<td>6</td>
+<td>6400</td>
+</tr>
+<tr>
+<td>7</td>
+<td>12800</td>
+</tr>
+<tr>
+<td>8</td>
+<td>25600</td>
+</tr>
+<tr>
+<td>9</td>
+<td>51200</td>
+</tr>
+<tr>
+<td>10</td>
+<td>102400</td>
+</tr>
+<tr>
+<td>11</td>
+<td>204800</td>
+</tr>
+<tr>
+<td>12</td>
+<td>409600</td>
+</tr>
+<tr>
+<td>13</td>
+<td>819200</td>
+</tr>
+<tr>
+<td>14</td>
+<td>1638400</td>
+</tr>
+<tr>
+<td>15</td>
+<td>3276800</td>
+</tr>
+<tr>
+<td>16</td>
+<td>3600000</td>
+</tr>
+<tr>
+<td>remaining period(s)</td>
+<td>3600000</td>
+</tr>
+</tbody></table>
+<h3 id='short-term-fixed-periodic-retry-over-10-minutes'>Short-term: Fixed periodic retry over 10 minutes</h3>
+<p>For short-term retries, implementers may choose polling a given endpoint once per minute until recovery, or retry period has been exceeded</p>
 <h1 id='versioning'>Versioning</h1>
 <p>ACCC will follow the versioning conventions outlined by the Data Standards Body. <br>
 Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versioning">https://consumerdatastandardsaustralia.github.io/standards/#versioning</a></p>
@@ -5034,6 +5152,12 @@ To perform this operation, you must be authenticated and authorised with the fol
 <th>Detail Of Change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>02/07/2020</td>
+<td>1.2.1</td>
+<td>Maintenance updates</td>
+<td>See <a href="includes/releasenotes/releasenotes.1.2.1.html">release notes</a> for detail</td>
+</tr>
 <tr>
 <td>01/07/2020</td>
 <td>1.2.0</td>
