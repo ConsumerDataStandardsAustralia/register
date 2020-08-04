@@ -12,6 +12,7 @@ paths:
         - DataHolderBrands
       summary: Get Data Holder Brands from the CDR Register
       operationId: GetDataHolderBrands
+      x-version: "1"
       consumes:
         - application/json
       produces:
@@ -63,6 +64,7 @@ paths:
         - SoftwareStatementAssertion
       summary: Get a Software Statement Assertion (SSA) for a software product on the CDR Register to be used for Dynamic Client Registration with a Data Holder
       operationId: GetSoftwareStatementAssertion
+      x-version: "2"
       consumes:
         - application/json
       produces:
@@ -110,6 +112,7 @@ paths:
         - Software Products Status
       summary: Get the statuses for software products from the CDR Register
       operationId: GetSoftwareProductsStatus
+      x-version: "1"
       consumes:
         - application/json
       produces:
@@ -138,6 +141,7 @@ paths:
         - Data Recipients Status
       summary: Get the statuses for Data Recipients from the CDR Register
       operationId: GetDataRecipientStatus
+      x-version: "1"
       consumes:
         - application/json
       produces:
@@ -166,6 +170,7 @@ paths:
         - Data Recipients
       summary: Get Data Recipients from the CDR Register
       operationId: GetDataRecipients
+      x-version: "2"
       consumes:
         - application/json
       produces:

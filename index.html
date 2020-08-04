@@ -240,6 +240,9 @@
                   <li>
                     <a href="#data-standards-body" class="toc-h2 toc-link" data-title="Data Standards Body">Data Standards Body</a>
                   </li>
+                  <li>
+                    <a href="#future-dated-obligations" class="toc-h2 toc-link" data-title="Future Dated Obligations">Future Dated Obligations</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -525,6 +528,28 @@ The Government has announced that the energy and telecommunications sectors will
 
 <p>Further information on the DSB is available on its website:<br>
 <a href="https://consumerdatastandards.org.au">https://consumerdatastandards.org.au</a></p>
+<h2 id='future-dated-obligations'>Future Dated Obligations</h2>
+<p>The CDR Register design publishes content, explicitly specified, which will not take effect until a future date or may cease to have effect on some future date.
+The table below highlights these areas of the standards.</p>
+
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Description</th>
+<th>Applicable Date</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="#getdatarecipients"><strong>GetDataRecipients</strong></a></td>
+<td>Updates <code>GetDataRecipients</code> to include the accreditationNumber in the response</td>
+<td>November 2020</td>
+</tr>
+<tr>
+<td><a href="#dynamic-client-registration"><strong>Dynamic Client Registration</strong></a></td>
+<td>Introduces the new metadata field <code>recipient_base_uri</code> used to facilitate the ADR <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">CDR Arrangement Management End Point</a>. This change deprecates the ADR <code>revocation_uri</code> field which becomes optional</td>
+<td>November 2020</td>
+</tr>
+</tbody></table>
 <h1 id='consultation-outline'>Consultation outline</h1>
 <p>The ACCC is using this website as a tool to consult on aspects of the design and implementation of the register of CDR participants (the CDR Register). The ACCC is seeking comments from interested stakeholders. </p>
 <h2 id='consultation-rules-of-engagement'>Consultation rules of engagement</h2>
@@ -1921,11 +1946,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Expectation</strong></td>
-<td>It is not expected that the status of an ADR or Software Product will change when the CDR Register is unavailable. Data Holders will continue to operate until their metadata caches reach a maximum age. <br>Once this time has been reached, consumer data will not be shared. <br>Once the CDR Register becomes available, all Data Holders will retrieve up-to-data status information on their next poll</td>
-</tr>
-<tr>
-<td><strong>Expectation</strong></td>
-<td>Data Holders must not facilitate the sharing of consumer data with Data Recipients of which they are uncertain of their accreditation and/or Software Product status</td>
+<td>It is not expected that the status of an ADR or Software Product will change when the CDR Register is unavailable. Data Holders will continue to operate until informed by ACCC Operations that consumer data will not be shared. <br>Once the CDR Register becomes available, all Data Holders will retrieve up-to-data status information on their next poll</td>
 </tr>
 </tbody></table>
 
@@ -1989,7 +2010,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Expectation</strong></td>
-<td>Data Holders will need to continually poll the ADR until recovery.<br>Upon recovery, the authorisation withdrawal process will need to be executed recognising the expectation in the rules that withdrawal of authorisation by a consumer will be communicated by a DH to an ADR</td>
+<td>Data Holders MUST continually poll the ADR using EITHER one of the specified <a href="#backoff-patterns">backoff patterns</a> until recovery or the pattern retry period has been exceeded.<br>Upon recovery, the authorisation withdrawal process will need to be executed recognising the expectation in the rules that withdrawal of authorisation by a consumer will be communicated by a DH to an ADR</td>
 </tr>
 </tbody></table>
 <h2 id='data-holder-unavailable'>Data Holder Unavailable</h2>
@@ -2149,42 +2170,7 @@ Continue calls every MAX_WAIT_TIME for the remaining period(s)
 <p>ACCC will follow the versioning conventions outlined by the Data Standards Body. <br>
 Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versioning">https://consumerdatastandardsaustralia.github.io/standards/#versioning</a></p>
 
-<p>It is expected that management of standards for the Register will be incorporated into the remit of the Data Standards Body once mature. The initial version of the Register APIs will align with versions published for the Consumer Data Standards.</p>
-
-<p>A deprecation strategy will be developed in consultation with the Data Standards Body and industry.</p>
-
-<p>The following table illustrates concurrent versioning requirements to ensure backward compatibility. Q indicates a nominal three-month period.  When changes are made they are notified at the commencement of a quarter. </p>
-
-<table><thead>
-<tr>
-<th></th>
-<th><strong>Q1</strong></th>
-<th><strong>Q2</strong></th>
-<th><strong>Q3</strong></th>
-<th><strong>Q4</strong></th>
-<th><strong>Q5</strong></th>
-<th><strong>Q6</strong></th>
-</tr>
-</thead><tbody>
-<tr>
-<td><strong>Get Data Holders</strong></td>
-<td>V1.0.0</td>
-<td>V1.0.0 <br> V1.1.0</td>
-<td>V1.0.0 <br> V1.1.0</td>
-<td>V1.1.0 <br> V1.2.0</td>
-<td>V1.1.0 <br> V1.2.0</td>
-<td>V1.2.0</td>
-</tr>
-<tr>
-<td><strong>Get Data Recipients</strong></td>
-<td>V1.0.0</td>
-<td>V1.0.0</td>
-<td>V1.0.0 <br> V1.1.0</td>
-<td>V1.0.0 <br> V1.1.0</td>
-<td>V1.1.0 <br> V1.2.0</td>
-<td>V1.1.0 <br> V1.2.0</td>
-</tr>
-</tbody></table>
+<p>Transition and deprecation strategies will be developed in consultation with the Data Standards Body and industry.</p>
 <h1 id="consumer-data-right-cdr-register-apis">Register APIs</h1>
 
 <table><thead>
@@ -2258,6 +2244,20 @@ x-v: string
 
 </code></pre>
 <p><code>GET /{industry}/data-holders/brands</code></p>
+
+<h3>Endpoint Version</h3>
+
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Version</td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
 
 <h3 id="get-data-holder-brands-from-the-cdr-register-parameters">Parameters</h3>
 
@@ -2456,6 +2456,20 @@ x-v: string
 </code></pre>
 <p><code>GET /{industry}/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa</code></p>
 
+<h3>Endpoint Version</h3>
+
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Version</td>
+<td><strong>2</strong></td>
+</tr>
+</tbody></table>
+
 <h3 id="get-a-software-statement-assertion-(ssa)-for-a-software-product-on-the-cdr-register-to-be-used-for-dynamic-client-registration-with-a-data-holder-parameters">Parameters</h3>
 
 <table><thead>
@@ -2602,6 +2616,20 @@ x-v: string
 </code></pre>
 <p><code>GET /{industry}/data-recipients/brands/software-products/status</code></p>
 
+<h3>Endpoint Version</h3>
+
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Version</td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+
 <h3 id="get-the-statuses-for-software-products-from-the-cdr-register-parameters">Parameters</h3>
 
 <table><thead>
@@ -2722,6 +2750,20 @@ x-v: string
 </code></pre>
 <p><code>GET /{industry}/data-recipients/status</code></p>
 
+<h3>Endpoint Version</h3>
+
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Version</td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+
 <h3 id="get-the-statuses-for-data-recipients-from-the-cdr-register-parameters">Parameters</h3>
 
 <table><thead>
@@ -2839,6 +2881,20 @@ x-v: string
 
 </code></pre>
 <p><code>GET /{industry}/data-recipients</code></p>
+
+<h3>Endpoint Version</h3>
+
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Version</td>
+<td><strong>2</strong></td>
+</tr>
+</tbody></table>
 
 <h3 id="get-data-recipients-from-the-cdr-register-parameters">Parameters</h3>
 
@@ -5152,6 +5208,12 @@ To perform this operation, you must be authenticated and authorised with the fol
 <th>Detail Of Change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>05/08/2020</td>
+<td>1.2.2</td>
+<td>Maintenance updates</td>
+<td>See <a href="includes/releasenotes/releasenotes.1.2.2.html">release notes</a> for detail</td>
+</tr>
 <tr>
 <td>02/07/2020</td>
 <td>1.2.1</td>
