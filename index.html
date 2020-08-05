@@ -540,13 +540,18 @@ The table below highlights these areas of the standards.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td><a href="#getdatarecipients"><strong>GetDataRecipients</strong></a></td>
-<td>Updates <code>GetDataRecipients</code> to include the accreditationNumber in the response</td>
+<td><a href="#dynamic-client-registration"><strong>Dynamic Client Registration</strong></a></td>
+<td>Introduces the new metadata field <code>recipient_base_uri</code> used to facilitate the ADR <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">CDR Arrangement Management End Point</a>. This change deprecates the ADR <code>revocation_uri</code> field which becomes optional</td>
 <td>November 2020</td>
 </tr>
 <tr>
-<td><a href="#dynamic-client-registration"><strong>Dynamic Client Registration</strong></a></td>
-<td>Introduces the new metadata field <code>recipient_base_uri</code> used to facilitate the ADR <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">CDR Arrangement Management End Point</a>. This change deprecates the ADR <code>revocation_uri</code> field which becomes optional</td>
+<td><a href="#certificate-management"><strong>Certificate Management</strong></a></td>
+<td>Introduces the ADR <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">CDR Arrangement Management End Point</a> which is secured with either a public of ACCC CA issued certificate</td>
+<td>November 2020</td>
+</tr>
+<tr>
+<td><a href="#getdatarecipients"><strong>GetDataRecipients</strong></a></td>
+<td>Updates <code>GetDataRecipients</code> to include the accreditationNumber in the response</td>
 <td>November 2020</td>
 </tr>
 </tbody></table>
@@ -737,7 +742,7 @@ Depending on the number of responses/comments we get, we will assess what the mo
 </thead><tbody>
 <tr>
 <td><strong>InfoSec APIs</strong></td>
-<td>APIs exposing endpoints to facilitate the InfoSec profile as per the Consumer Data Standards <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Endpoints</a> including both the revocation endpoint to facilitate bi-directional consent revocation and the Data Recipient JWKS endpoint</td>
+<td>APIs exposing endpoints to facilitate the InfoSec profile as per the Consumer Data Standards <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Endpoints</a>. This covers the revocation and CDR arrangement management endpoints, to facilitate bi-directional consent revocation as well as the Data Recipient JWKS endpoint</td>
 </tr>
 </tbody></table>
 <h2 id='register'>Register</h2>
@@ -1797,7 +1802,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Data Holder Brand</strong></td>
-<td>Calls to <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Data Recipient Revocation API</a></td>
+<td>Calls to Data Recipient <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Revocation</a> and <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">CDR Arrangement Management</a> APIs</td>
 <td>Data Holder Brand ID as issued by CDR Register</td>
 </tr>
 <tr>
@@ -1913,12 +1918,12 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Server Certificate(s)</strong></td>
-<td>Certificate is issued to a FQDN</br></br>Secures the following:</br>- Revocation endpoint </br>- JWKS endpoint </br>- Arrangement Management endpoint</td>
+<td>Certificate is issued to a FQDN</br></br>Secures the following:</br>- Revocation endpoint </br>- CDR Arrangement Management endpoint </br>- JWKS endpoint</td>
 <td>ADRs may choose to secure their <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">endpoints</a> </br> with an ACCC CA issued certificate or a certificate </br>issued by a public CA</td>
 </tr>
 </tbody></table>
 
-<p>Arrangement Management Endpoint is a requirement from <strong>November 2020</strong></p>
+<p><a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">CDR Arrangement Management Endpoint</a> is a requirement from <strong>November 2020</strong></p>
 <h3 id='cdr-certificate-authority'>CDR Certificate Authority</h3>
 <p><a href="https://www.digicert.com">DigiCert</a> will act as the certificate authority that issues and manages certificates to CDR participants as directed by the ACCC in its capacity as the CDR Registrar</p>
 <h1 id='availability'>Availability</h1>
@@ -1946,7 +1951,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Expectation</strong></td>
-<td>It is not expected that the status of an ADR or Software Product will change when the CDR Register is unavailable. Data Holders will continue to operate until informed by ACCC Operations that consumer data will not be shared. <br>Once the CDR Register becomes available, all Data Holders will retrieve up-to-data status information on their next poll</td>
+<td>It is not expected that the status of an ADR or Software Product will change when the CDR Register is unavailable, or will there be introduction of new ADRs. <br>Data Holders will continue to operate until informed by ACCC Operations that consumer data will not be shared. <br>Once the CDR Register becomes available, all Data Holders will retrieve up-to-data status information on their next poll</td>
 </tr>
 </tbody></table>
 
@@ -5209,7 +5214,7 @@ To perform this operation, you must be authenticated and authorised with the fol
 </tr>
 </thead><tbody>
 <tr>
-<td>05/08/2020</td>
+<td>06/08/2020</td>
 <td>1.2.2</td>
 <td>Maintenance updates</td>
 <td>See <a href="includes/releasenotes/releasenotes.1.2.2.html">release notes</a> for detail</td>
