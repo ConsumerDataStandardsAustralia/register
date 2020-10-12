@@ -361,6 +361,9 @@
             <a href="#availability" class="toc-h1 toc-link" data-title="Availability">Availability</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#cdn-hosted-endpoints" class="toc-h2 toc-link" data-title="CDN Hosted Endpoints">CDN Hosted Endpoints</a>
+                  </li>
+                  <li>
                     <a href="#cdr-register-unavailable" class="toc-h2 toc-link" data-title="CDR Register Unavailable">CDR Register Unavailable</a>
                   </li>
                   <li>
@@ -545,8 +548,13 @@ The table below highlights these areas of the standards.</p>
 <td>November 2020</td>
 </tr>
 <tr>
+<td><a href="#dynamic-client-registration"><strong>Dynamic Client Registration</strong></a></td>
+<td><code>recipient_base_uri</code> becomes mandatory, <code>revocation_uri</code> field remains optional</td>
+<td>February 2021</td>
+</tr>
+<tr>
 <td><a href="#certificate-management"><strong>Certificate Management</strong></a></td>
-<td>Introduces the ADR <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">CDR Arrangement Management End Point</a> which is secured with either a public of ACCC CA issued certificate</td>
+<td>Introduces the ADR <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">CDR Arrangement Revocation End Point</a> which is secured with either a public or ACCC CA issued certificate</td>
 <td>November 2020</td>
 </tr>
 <tr>
@@ -959,7 +967,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td><strong>logo_uri</strong></td>
 <td>Required</td>
 <td><i class="icon-check"></i></td>
-<td>URL string that references a logo for the client. If present, the server SHOULD display this image to the end-user during approval</td>
+<td>URL string that references a logo for the client software product. The server SHOULD display this image to the end-user during approval</td>
 </tr>
 <tr>
 <td><strong>tos_uri</strong></td>
@@ -1011,7 +1019,11 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 </tr>
 </tbody></table>
 
-<p><strong>Nov 2020:</strong> the <code>revocation_uri</code> becomes optional and <code>recipient_base_uri</code> will be introduced</p>
+<ul>
+<li><p><strong>Nov 2020:</strong> the <code>revocation_uri</code> becomes <strong>optional</strong> and <code>recipient_base_uri</code> will be introduced as <strong>required</strong></p></li>
+<li><p><strong>Feb 2021:</strong> the <code>revocation_uri</code> remains <strong>optional</strong> and <code>recipient_base_uri</code> will remain <strong>required</strong></p></li>
+<li><p>Deprecation of the <code>revocation_uri</code> from the SSA will be planned for a future release of the CDR Register design</p></li>
+</ul>
 <h3 id='client-registration-considerations'>Client Registration Considerations</h3>
 <p>The CDR Register will only issue SSAs for Software Products which are currently in the Active state</p>
 <h3 id='sector-identifiers'>Sector Identifiers</h3>
@@ -1706,7 +1718,9 @@ Host: cdr.register
     "request_object_signing_alg_values_supported": ["PS256"]
 }
 
-</code></pre>
+</code></pre><h3 id='retrieving-access-token'>Retrieving Access Token</h3>
+<p><img class=medium-image src="images/RetrieveAccessToken.png" ></img></p>
+<h2 id='client-authentication'>Client Authentication</h2>
 <blockquote>
 <p>Request CDR Register Access Token</p>
 </blockquote>
@@ -1715,7 +1729,7 @@ Host: cdr.register
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=client_credentials&amp;
-  client_id=12345&amp;
+  client_id=&lt;brand id&gt;&amp;
   client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&amp;
   client_assertion=eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNDU2In0.ey ...&amp;
   scope=cdr-register%3Abank%3Aread
@@ -1727,8 +1741,8 @@ grant_type=client_credentials&amp;
   "kid": "b50641343f8f4717a4865d238b6297b8"
 }
 {
-  "iss": "12345",
-  "sub": "12345",
+  "iss": "&lt;brand id&gt;",
+  "sub": "&lt;brand id&gt;",
   "exp": 1516239322,
   "aud": "https://cdr.register/idp/connect/token",
   "jti": "37747cd1-c105-4569-9f75-4adf28b73e31"
@@ -1742,9 +1756,7 @@ grant_type=client_credentials&amp;
     "token_type": "Bearer",
     "scope": "cdr-register:bank:read openid"
 }
-</code></pre><h3 id='retrieving-access-token'>Retrieving Access Token</h3>
-<p><img class=medium-image src="images/RetrieveAccessToken.png" ></img></p>
-<h2 id='client-authentication'>Client Authentication</h2>
+</code></pre>
 <p>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standard</a> for reference to the client authentication methods between participants</p>
 <h3 id='client-authentication-with-the-cdr-register'>Client Authentication with the CDR Register</h3>
 <p>Using the same client authentication approach as the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standards</a>, interactions with the CDR Register use <code>private_key_jwt</code> Client Authentication method as specified at <a href="https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication">section 9</a> of <strong>[OIDC]</strong>.</p>
@@ -1764,18 +1776,18 @@ grant_type=client_credentials&amp;
 </ol>
 
 <ul>
-<li>  <code>iss</code>: The issuer claim which contains a unique identifier for the entity that issued the JWT</li>
-<li>  <code>sub</code>: The principal that is the subject of the JWT for client authentication</li>
-<li>  <code>aud</code>: The URL of the end point being invoked</li>
-<li>  <code>exp</code>: The expiration claim that limits the time window during which the assertion can be used</li>
-<li>  <code>jti</code>: The JWT ID claim that provides a unique identifier for the token</li>
+<li>  <code>iss</code>: REQUIRED. Issuer. This MUST contain the <code>Data Recipient Brand ID</code> issued by the CDR Register</li>
+<li>  <code>sub</code>: REQUIRED. Subject. This MUST contain the <code>Data Recipient Brand ID</code> issued by the CDR Register</li>
+<li>  <code>aud</code>: REQUIRED. Audience. The URL of the end point being invoked</li>
+<li>  <code>exp</code>: REQUIRED. Expiration time on or after which the ID Token MUST NOT be accepted for processing</li>
+<li>  <code>jti</code>: REQUIRED. JWT ID. A unique identifier for the token, which can be used to prevent reuse of the token. These tokens MUST only be used once.</li>
 </ul>
 
 <p>When invoking the protected end point, the assertion MUST be sent with the <code>POST</code> method and MUST include the following parameters:</p>
 
 <ul>
 <li>  <code>grant_type</code>: This MUST be set to <code>client_credentials</code></li>
-<li>  <code>client_id</code>: This MUST be set to the ID of the calling client</li>
+<li>  <code>client_id</code>: This MUST be set to the ID of the calling client <code>Data Recipient Brand ID</code></li>
 <li>  <code>client_assertion_type</code>: This MUST be set to: <code>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</code></li>
 <li>  <code>client_assertion</code>: This MUST be set to the digitally signed JWT</li>
 </ul>
@@ -1793,22 +1805,17 @@ The following client identifiers will be used:</p>
 <tr>
 <td><strong>Data Recipient Brand / Software Product</strong></td>
 <td>Calls to Data Holder Brand Authenticated APIs</td>
-<td>Client ID as issued by the target Data Holder Brand</td>
+<td><code>Client ID</code> as issued by the target Data Holder Brand</td>
 </tr>
 <tr>
 <td><strong>Data Recipient Brand</strong></td>
 <td>Calls to <a href="#consumer-data-right-cdr-register-apis">CDR Register Authenticated APIs</a></td>
-<td>Data Recipient Brand ID as issued by CDR Register</td>
+<td><code>Data Recipient Brand ID</code> as issued by CDR Register</td>
 </tr>
 <tr>
 <td><strong>Data Holder Brand</strong></td>
 <td>Calls to Data Recipient <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Revocation</a> and <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">CDR Arrangement Management</a> APIs</td>
-<td>Data Holder Brand ID as issued by CDR Register</td>
-</tr>
-<tr>
-<td><strong>Data Holder Brand</strong></td>
-<td>Calls to CDR Register Authenticated APIs</td>
-<td>Data Holder Brand ID as issued by CDR Register</td>
+<td><code>Data Holder Brand ID</code> as issued by CDR Register</td>
 </tr>
 <tr>
 <td><strong>CDR Register</strong></td>
@@ -1825,13 +1832,13 @@ The following client identifiers will be used:</p>
 <pre class="highlight plaintext"><code>&lt;InfoSecBaseUri&gt;/.well-known/openid-configuration
 
 </code></pre>
-<p>Participants will be required to register base URIs to facilitate the implementation of the Consumer Data Standards</p>
+<p>Participants will be required to register base URIs against each of their brands to facilitate the implementation of the Consumer Data Standards</p>
 
 <table><thead>
 <tr>
 <th>Base URI</th>
-<th>DH</th>
-<th>ADR</th>
+<th>DH Brand</th>
+<th>ADR Brand</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -1863,7 +1870,7 @@ The following client identifiers will be used:</p>
 <td><strong>ExtensionBaseUri</strong></td>
 <td><i class="icon-check"></i></td>
 <td></td>
-<td>Base URI for the Data Holder extension endpoints to the Consumer Data Standard (optional)</td>
+<td>Base URI for the Data Holder extension endpoints to the Consumer Data Standard <strong>(optional)</strong></td>
 </tr>
 <tr>
 <td><strong>RevocationUri</strong></td>
@@ -1892,11 +1899,6 @@ The following client identifiers will be used:</p>
 <th>Notes</th>
 </tr>
 </thead><tbody>
-<tr>
-<td><strong>Client Certificate</strong></td>
-<td>Secures the following:</br>- Notifying ADRs of consent withdrawal</td>
-<td></td>
-</tr>
 <tr>
 <td><strong>Server Certificate(s)</strong></td>
 <td>Certificate is issued to a FQDN</br></br>Secures the following:</br>- Resource endpoints</br>- InfoSec endpoints</br>- Admin endpoints</td>
@@ -1930,6 +1932,36 @@ The following client identifiers will be used:</p>
 <p>The following scenarios outline the expectations of Data Holders and Accredited Data Recipients within the Consumer Data Right ecosystem when outages occur</p>
 
 <p>Note that a section on <a href="#backoff-patterns">backoff patterns</a> has been provided  outlining recommendations on how to poll endpoints during an outage</p>
+<h2 id='cdn-hosted-endpoints'>CDN Hosted Endpoints</h2>
+<p>The CDR Register utilises a CDN to host its public APIs. During CDR Register outages, participants are still to rely on the CDN copies of these endpoints. If the CDN is no longer available, participants will be expected to rely on their <a href="#cache-refresh-metadata-request">caches</a></p>
+
+<table><thead>
+<tr>
+<th>Endpoint</th>
+<th>Public (CDN Hosted)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>GetDataHolderBrands</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>GetSoftwareStatementAssertion</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>GetSoftwareProductsStatus</strong></td>
+<td><i class="icon-check"></i></td>
+</tr>
+<tr>
+<td><strong>GetDataRecipientsStatus</strong></td>
+<td><i class="icon-check"></i></td>
+</tr>
+<tr>
+<td><strong>GetDataRecipients</strong></td>
+<td><i class="icon-check"></i></td>
+</tr>
+</tbody></table>
 <h2 id='cdr-register-unavailable'>CDR Register Unavailable</h2>
 <table><thead>
 <tr>
@@ -1951,7 +1983,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Expectation</strong></td>
-<td>It is not expected that the status of an ADR or Software Product will change when the CDR Register is unavailable, or will there be introduction of new ADRs. <br>Data Holders will continue to operate until informed by ACCC Operations that consumer data will not be shared. <br>Once the CDR Register becomes available, all Data Holders will retrieve up-to-data status information on their next poll</td>
+<td>- It is not expected that the status of an ADR or Software Product will change when the CDR Register or CDN is unavailable, or the introduction of new ADRs<br>- Data Holders will continue to operate until informed by ACCC Operations that consumer data will not be shared<br>- Once the CDR Register becomes available, all Data Holders will retrieve up-to-data status information on their next poll</td>
 </tr>
 </tbody></table>
 
@@ -1995,7 +2027,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Expectation</strong></td>
-<td>Participants will honour cached Certificate statuses from previous OCSP checks. <br>Once cached certificate statuses have expired, data sharing will stop<br>It can be expected that CA certificate statuses will not change while the CA is unavailable<br>Once the CA becomes available, certificate statuses are again updated through OCSP</td>
+<td>- Participants will honour cached Certificate statuses from previous OCSP checks. <br>- Once cached certificate statuses have expired, data sharing will stop<br>It can be expected that CA certificate statuses will not change while the CA is unavailable<br>- Once the CA becomes available, certificate statuses are again updated through OCSP</td>
 </tr>
 </tbody></table>
 <h2 id='data-recipient-unavailable'>Data Recipient Unavailable</h2>
@@ -2015,7 +2047,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Expectation</strong></td>
-<td>Data Holders MUST continually poll the ADR using EITHER one of the specified <a href="#backoff-patterns">backoff patterns</a> until recovery or the pattern retry period has been exceeded.<br>Upon recovery, the authorisation withdrawal process will need to be executed recognising the expectation in the rules that withdrawal of authorisation by a consumer will be communicated by a DH to an ADR</td>
+<td>- Data Holders MUST continually poll the ADR using EITHER one of the specified <a href="#backoff-patterns">backoff patterns</a> until recovery or the pattern retry period has been exceeded<br>- Upon recovery, the authorisation withdrawal process will need to be executed recognising the expectation in the rules that withdrawal of authorisation by a consumer will be communicated by a DH to an ADR</td>
 </tr>
 </tbody></table>
 <h2 id='data-holder-unavailable'>Data Holder Unavailable</h2>
@@ -2039,7 +2071,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Expectation</strong></td>
-<td>Accredited Data Recipients will need to continually poll the Data Holder until recovery. </br>Data Recipients will be able to check the <a href="https://consumerdatastandardsaustralia.github.io/standards/#get-outages">GetOutages</a> endpoint to determine when the Data Holder will become available<br>Upon recovery, the consent withdrawal process will need to be executed as required</td>
+<td>- Accredited Data Recipients will need to continually poll the Data Holder until recovery </br>- Data Recipients will be able to check the <a href="https://consumerdatastandardsaustralia.github.io/standards/#get-outages">GetOutages</a> endpoint to determine when the Data Holder will become available<br>- Upon recovery, the consent withdrawal process will need to be executed as required</td>
 </tr>
 </tbody></table>
 
@@ -5213,6 +5245,12 @@ To perform this operation, you must be authenticated and authorised with the fol
 <th>Detail Of Change</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>12/10/2020</td>
+<td>1.2.3</td>
+<td>Maintenance updates</td>
+<td>See <a href="includes/releasenotes/releasenotes.1.2.3.html">release notes</a> for detail</td>
+</tr>
 <tr>
 <td>06/08/2020</td>
 <td>1.2.2</td>
