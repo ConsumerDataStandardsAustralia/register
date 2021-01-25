@@ -280,6 +280,14 @@
               </ul>
           </li>
           <li>
+            <a href="#intermediaries" class="toc-h1 toc-link" data-title="Intermediaries">Intermediaries</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#collection-arrangements" class="toc-h2 toc-link" data-title="Collection Arrangements">Collection Arrangements</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#client-registration" class="toc-h1 toc-link" data-title="Client Registration">Client Registration</a>
               <ul class="toc-list-h2">
                   <li>
@@ -319,6 +327,9 @@
                   </li>
                   <li>
                     <a href="#metadata-cache-management" class="toc-h2 toc-link" data-title="Metadata Cache Management">Metadata Cache Management</a>
+                  </li>
+                  <li>
+                    <a href="#etag-support" class="toc-h2 toc-link" data-title="ETag Support">ETag Support</a>
                   </li>
                   <li>
                     <a href="#checking-request-validity" class="toc-h2 toc-link" data-title="Checking Request Validity">Checking Request Validity</a>
@@ -494,6 +505,9 @@
           <li>
             <a href="#change-log" class="toc-h1 toc-link" data-title="Change Log">Change Log</a>
           </li>
+          <li>
+            <a href="#archives" class="toc-h1 toc-link" data-title="Archives">Archives</a>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li><a href='https://github.com/cdr-register/register'>CDR Register on Github</a></li>
@@ -501,6 +515,10 @@
             <li><a href='includes/swagger/swagger.json'>Swagger (JSON)</a></li>
             <li><a href='includes/swagger/swagger.yaml'>Swagger (YAML)</a></li>
         </ul>
+        <ul class="toc-footer">
+            <li class="version-footer">Version: 1.3.0</li>
+        </ul>
+
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
@@ -561,6 +579,16 @@ The table below highlights these areas of the standards.</p>
 <td><a href="#getdatarecipients"><strong>GetDataRecipients</strong></a></td>
 <td>Updates <code>GetDataRecipients</code> to include the accreditationNumber in the response</td>
 <td>November 2020</td>
+</tr>
+<tr>
+<td><a href="#dynamic-client-registration"><strong>Dynamic Client Registration</strong></a></td>
+<td>Introduces the new optional metadata fields <code>sector_identifier_uri</code>, <code>legal_entity_id</code> and <code>legal_entity_name</code></td>
+<td>July 2021</td>
+</tr>
+<tr>
+<td><a href="#dynamic-client-registration"><strong>Dynamic Client Registration</strong></a></td>
+<td>Updates the scopes field to include <code>openid</code></td>
+<td>July 2021</td>
 </tr>
 </tbody></table>
 <h1 id='consultation-outline'>Consultation outline</h1>
@@ -788,6 +816,76 @@ Depending on the number of responses/comments we get, we will assess what the mo
 <h2 id='certificate-authority'>Certificate Authority</h2>
 <p>The CDR Register will be using DigiCert as the ACCC endorsed Certificate Authority. Further details on certificate management can be found at:
 <a href="#certificate-management">Certificate Management</a></p>
+<h1 id='intermediaries'>Intermediaries</h1>
+<p>The CDR Register design accommodates intermediaries within the CDR ecosystem.</p>
+<h2 id='collection-arrangements'>Collection Arrangements</h2>
+<p>Collection arrangements allow for outsourced service providers (’provider’) that are accredited to collect CDR data on behalf of another accredited person (‘principal’).  An ‘outsourcing arrangement’ as provided for in the rules will need to be in place between the provider and the principal.</p>
+
+<p>For a reference on how these rules may be implemented, a technical commentary has been published on the <a href="https://cdr-support.zendesk.com/hc/en-us/articles/900003114503-Collection-Arrangement">CDR Support Portal</a></p>
+<h3 id='responsibilities'>Responsibilities</h3>
+<p>The process of collecting consumer data involves a number of functions. Collection arrangements allow for the responsibilities of these to be assigned to either the provider or principal.</p>
+
+<p><img src="images/ComponentDiagramCollectionArrangement.png" ></img></p>
+
+<p>This diagram models how the scope of responsibilities MAY be split between a principal and a provider collecting on the principal’s behalf. A subset of the principal’s responsibilities can therefore be handled by the provider, allowing them to:</p>
+
+<ul>
+<li>specialise in the security and functional requirements of participating in the CDR; and</li>
+<li>achieve economies of scale when becoming multi-tenanted and servicing multiple principals in the ecosystem.</li>
+</ul>
+<h3 id='authentication-with-the-cdr-register'>Authentication with the CDR Register</h3>
+<p>Authentication with the Register has been enhanced to allow authentication using the <code>data_recipient_brand_id</code>  to alternatively authenticating with the <code>software_product_id</code>.
+This change allows the provider to have the capability to maintain the software product and associated registrations on behalf of an accredited data recipient principal.</p>
+
+<p>Please refer to the <a href="#client-authentication">Client Authentication</a> section for further details.</p>
+<h3 id='accreditation-status-discovery'>Accreditation Status Discovery</h3>
+<p>The status of a software product, managed within a collection arrangement, will be coupled to the accreditation status of both the principal and provider in this arrangement.</p>
+
+<p>To achieve this, cascade rules for software product statuses, as defined in <a href="http://localhost:4567/#accredited-data-recipient-and-software-product-statuses">Status Mapping</a>, will be defined for a collection arrangement as follows:</p>
+
+<table><thead>
+<tr>
+<th>Provider Status</th>
+<th>Principal Status</th>
+<th>Cascaded Principal SP Status</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Active</td>
+<td>Active</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Suspended</td>
+<td>Active</td>
+<td>Inactive</td>
+</tr>
+<tr>
+<td>Revoked</td>
+<td>Active</td>
+<td>Inactive</td>
+</tr>
+<tr>
+<td>Surrendered</td>
+<td>Active</td>
+<td>Inactive</td>
+</tr>
+<tr>
+<td>Any</td>
+<td>Suspended</td>
+<td>Inactive</td>
+</tr>
+<tr>
+<td>Any</td>
+<td>Revoked</td>
+<td>Removed</td>
+</tr>
+<tr>
+<td>Any</td>
+<td>Surrendered</td>
+<td>Removed</td>
+</tr>
+</tbody></table>
 <h1 id='client-registration'>Client Registration</h1><h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
 <p>Accredited Data Recipient Software Products within the Consumer Data Right will dynamically register with one or more Data Holders, to obtain client credentials used to retrieve consumer data on behalf of a consumer.</p>
 
@@ -817,11 +915,6 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <th>Notes</th>
 </tr>
 </thead><tbody>
-<tr>
-<td><strong>Manually distributed</strong></td>
-<td>30</td>
-<td></td>
-</tr>
 <tr>
 <td><strong>Obtain via API</strong></td>
 <td>10</td>
@@ -866,8 +959,10 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
   "iat": 1571808167,
   "exp": 2147483646,
   "jti": "3bc205a1ebc943fbb624b14fcb241196",
+  "legal_entity_id": "3B0B0A7B-3E7B-4A2C-9497-E357A71D07C7",
+  "legal_entity_name": "Mock Company Inc.",
   "org_id": "3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
-  "org_name": "Mock Company Inc.",
+  "org_name": "Mock Company Brand",
   "client_name": "Mock Software",
   "client_description": "A mock software product for testing SSA",
   "client_uri": "https://www.mockcompany.com.au",
@@ -875,16 +970,18 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
     "https://www.mockcompany.com.au/redirects/redirect1",
     "https://www.mockcompany.com.au/redirects/redirect2"
   ],
+  "sector_identifier_uri": "https://www.mockcompany.com.au/sector_identifier",
   "logo_uri": "https://www.mockcompany.com.au/logos/logo1.png",
   "tos_uri": "https://www.mockcompany.com.au/tos.html",
   "policy_uri": "https://www.mockcompany.com.au/policy.html",
   "jwks_uri": "https://www.mockcompany.com.au/jwks",
   "revocation_uri": "https://www.mockcompany.com.au/revocation",
-  "recipient_base_uri": "https://www.mockcompany.com.au"
+  "recipient_base_uri": "https://www.mockcompany.com.au",
   "software_id": "740C368F-ECF9-4D29-A2EA-0514A66B0CDE",
   "software_roles": "data-recipient-software-product",
   "scope":
-        "bank:accounts.basic:read
+        "openid
+         bank:accounts.basic:read
          bank:accounts.detail:read
          bank:transactions:read
          bank:payees:read
@@ -895,7 +992,12 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 }
 
 </code></pre>
-<table><thead>
+<div class="cdr-tabs">
+  <div class="cdr-tab-body">
+    <label for="cdr-tab-body-1">From 1st Nov 2020</label>
+    <input id="cdr-tab-body-1" name="cdr-tabs-input" type="radio" >
+    <div class="cdr-tab-contents">
+      <table><thead>
 <tr>
 <th>Client Metadata</th>
 <th>Required</th>
@@ -1024,12 +1126,169 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <li><p><strong>Feb 2021:</strong> the <code>revocation_uri</code> remains <strong>optional</strong> and <code>recipient_base_uri</code> will remain <strong>required</strong></p></li>
 <li><p>Deprecation of the <code>revocation_uri</code> from the SSA will be planned for a future release of the CDR Register design</p></li>
 </ul>
+
+    </div>
+  </div>
+  <div class="cdr-tab-body">
+      <label for="cdr-tab-body-2">From July 1st 2021</label>
+      <input id="cdr-tab-body-2" name="cdr-tabs-input" type="radio" checked="checked">
+      <div class="cdr-tab-contents">
+        <table><thead>
+<tr>
+<th>Client Metadata</th>
+<th>Required</th>
+<th>Modifiable</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>iss</strong></td>
+<td>Required</td>
+<td></td>
+<td>Contains the <code>iss</code> (issuer) claim denoting the party attesting to the claims in the software statement</br><strong>value: &quot;cdr-register&quot;</strong></td>
+</tr>
+<tr>
+<td><strong>iat</strong></td>
+<td>Required</td>
+<td></td>
+<td>The time at which the request was issued by the CDR Register, expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC</td>
+</tr>
+<tr>
+<td><strong>exp</strong></td>
+<td>Required</td>
+<td></td>
+<td>The time at which the SSA expires expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC</td>
+</tr>
+<tr>
+<td><strong>jti</strong></td>
+<td>Required</td>
+<td></td>
+<td>Unique identifier for the JWT, used to prevent reuse of the SSA.</td>
+</tr>
+<tr>
+<td><strong>legal_entity_id</strong></td>
+<td>Optional</td>
+<td></td>
+<td>A unique identifier string assigned by the CDR Register that identifies the Accredited Data Recipient Legal Entity </br> <strong>Scheduled for July 2021</strong></td>
+</tr>
+<tr>
+<td><strong>legal_entity_name</strong></td>
+<td>Optional</td>
+<td></td>
+<td>Human-readable string name of the Accredited Data Recipient Legal Entity </br> <strong>Scheduled for July 2021</strong></td>
+</tr>
+<tr>
+<td><strong>org_id</strong></td>
+<td>Required</td>
+<td></td>
+<td>A unique identifier string assigned by the CDR Register that identifies the Accredited Data Recipient Brand</td>
+</tr>
+<tr>
+<td><strong>org_name</strong></td>
+<td>Required</td>
+<td><i class="icon-check"></i></td>
+<td>Human-readable string name of the Accredited Data Recipient Brand to be presented to the end user during authorization</td>
+</tr>
+<tr>
+<td><strong>client_name</strong></td>
+<td>Required</td>
+<td><i class="icon-check"></i></td>
+<td>Human-readable string name of the software product to be presented to the end-user during authorization</td>
+</tr>
+<tr>
+<td><strong>client_description</strong></td>
+<td>Required</td>
+<td><i class="icon-check"></i></td>
+<td>Human-readable string name of the software product description to be presented to the end user during authorization</td>
+</tr>
+<tr>
+<td><strong>client_uri</strong></td>
+<td>Required</td>
+<td><i class="icon-check"></i></td>
+<td>URL string of a web page providing information about the client</td>
+</tr>
+<tr>
+<td><strong>redirect_uris</strong></td>
+<td>Required</td>
+<td><i class="icon-check"></i></td>
+<td>Array of redirection URI strings for use in redirect-based flows</td>
+</tr>
+<tr>
+<td><strong>sector_identifier_uri</strong></td>
+<td>Optional</td>
+<td><i class="icon-check"></i></td>
+<td>URL string referencing the client&#39;s sector identifier URI, used as an optional input to the Pairwise Identifier as described in described in <a href="https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes">section 8</a> of <strong>[OIDC]</strong>.  </br> <strong>Scheduled for July 2021</strong></td>
+</tr>
+<tr>
+<td><strong>logo_uri</strong></td>
+<td>Required</td>
+<td><i class="icon-check"></i></td>
+<td>URL string that references a logo for the client software product. The server SHOULD display this image to the end-user during approval</td>
+</tr>
+<tr>
+<td><strong>tos_uri</strong></td>
+<td>Optional</td>
+<td><i class="icon-check"></i></td>
+<td>URL string that points to a human-readable terms of service document for the Software Product</td>
+</tr>
+<tr>
+<td><strong>policy_uri</strong></td>
+<td>Optional</td>
+<td><i class="icon-check"></i></td>
+<td>URL string that points to a human-readable policy document for the Software Product</td>
+</tr>
+<tr>
+<td><strong>jwks_uri</strong></td>
+<td>Required</td>
+<td><i class="icon-check"></i></td>
+<td>URL string referencing the client&#39;s JSON Web Key (JWK) Set <strong>[RFC7517]</strong> document, which contains the client&#39;s public keys</td>
+</tr>
+<tr>
+<td><strong>revocation_uri</strong></td>
+<td>Required</td>
+<td><i class="icon-check"></i></td>
+<td>URI string that references the location of the Software Product consent revocation endpoint as per Consumer Data Standards <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Endpoints</a></td>
+</tr>
+<tr>
+<td><strong>recipient_base_uri</strong></td>
+<td>Required</td>
+<td><i class="icon-check"></i></td>
+<td>Base URI for the Consumer Data Standard data recipient endpoints. This should be the base to provide reference to all other <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Data Recipient Endpoints</a></td>
+</tr>
+<tr>
+<td><strong>software_id</strong></td>
+<td>Required</td>
+<td></td>
+<td>String representing a unique identifier assigned by the ACCC Register and used by registration endpoints to identify the software product to be dynamically registered. </br></br>The <code>software_id</code> will remain the same across multiple updates or versions of the same piece of software.</br>The <code>software_id</code> should be used as the primary external identifier for the client to prevent duplicate client registrations</td>
+</tr>
+<tr>
+<td><strong>software_roles</strong></td>
+<td>Required</td>
+<td></td>
+<td>String containing a role of the software in the CDR Regime. Initially the only value used with be <strong>“data-recipient-software-product”</strong></td>
+</tr>
+<tr>
+<td><strong>scope</strong></td>
+<td>Required</td>
+<td><i class="icon-check"></i></td>
+<td>String containing a space-separated list of scope values that the client can use when requesting access tokens. </br>These CDS scope values are defined at: <a href="https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes">Authorisation Scopes</a></br>The DCR scope value is defined at: <a href="#client-registration-management">Client Registration Management</a></td>
+</tr>
+</tbody></table>
+
+<ul>
+<li><p><strong>July 2021:</strong> the <code>sector_identifier_uri</code> is introduced as <strong>optional</strong></p></li>
+<li><p><strong>July 2021:</strong> the <code>legal_entity_id</code> and <code>legal_entity_name</code> are introduced as <strong>optional</strong></p></li>
+</ul>
+
+      </div>
+    </div>
+</div>
 <h3 id='client-registration-considerations'>Client Registration Considerations</h3>
-<p>The CDR Register will only issue SSAs for Software Products which are currently in the Active state</p>
+<p>The CDR Register will only issue SSAs for Software Products which are currently in the <strong>Active</strong> state</p>
 <h3 id='sector-identifiers'>Sector Identifiers</h3>
 <p>As per the <a href="https://consumerdatastandardsaustralia.github.io/standards/#identifiers-and-subject-types">Consumer Data Standards</a>, the Pairwise Pseudonym Identifier (PPD) as described in <a href="https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes">section 8</a> of <strong>[OIDC]</strong>, will use the host component of the <code>redirect_uris</code> as the sector identifier. This introduces a constraint that the <code>redirect_uris</code> must all contain the same hostname.</p>
 
-<p>The CDR Register registration design will introduce support for the <code>sector_identifier_uri</code> in a future release. Adoption would require Data Holder implementation and updates to Software Product registrations moving from <code>redirect_uris</code> to utilising the <code>sector_identifier_uri</code></p>
+<p>The CDR Register registration design will introduce support for the <code>sector_identifier_uri</code> in the <strong>July 2021</strong> release. Adoption will require Data Holder implementation and updates to Software Product registrations optionally moving from <code>redirect_uris</code> to utilising the <code>sector_identifier_uri</code></p>
 <h3 id='logos'>Logos</h3>
 <p>Logos will be incorporated within the SSA to ensure there is consistency between the logos published on the Public Register and those passed to Data Holders as part of Registration</p>
 <h3 id='cdr-register-ssa-signing'>CDR Register SSA Signing</h3>
@@ -1068,8 +1327,7 @@ Accept: application/json
    "grant_types":[
       "client_credentials",
       "authorization_code",
-      "refresh_token",
-      "urn:ietf:params:oauth:grant-type:jwt-bearer"
+      "refresh_token"
    ],
    "response_types":["code id_token"],
    "application_type":"web",
@@ -1141,7 +1399,7 @@ Accept: application/json
 <tr>
 <td><strong>grant_types</strong></td>
 <td>Required</td>
-<td>Array of OAuth 2.0 grant type strings that the client can use at the token endpoint. Supported values: <strong>[client_credentials, authorization_code, refresh_token, urn:ietf:params:oauth:grant-type:jwtbearer]</strong></td>
+<td>Array of OAuth 2.0 grant type strings that the client can use at the token endpoint. Supported values: <strong>[client_credentials, authorization_code, refresh_token]</strong></td>
 </tr>
 <tr>
 <td><strong>response_types</strong></td>
@@ -1222,8 +1480,7 @@ Content-Type: application/json
    "grant_types":[
       "client_credentials",
       "authorization_code",
-      "refresh_token",
-      "urn:ietf:params:oauth:grant-type:jwt-bearer"
+      "refresh_token"
    ],
    "response_types":["code id_token"],
    "application_type":"web",
@@ -1232,6 +1489,7 @@ Content-Type: application/json
    "id_token_encrypted_response_enc:"A256GCM",
    "request_object_signing_alg":"PS256",
    "software_statement":"…",
+   "legal_entity_id": "3B0B0A7B-3E7B-4A2C-9497-E357A71D07C7",
    "org_id": "3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
    "org_name": "Mock Company Inc.",
    "client_name": "Mock Software",
@@ -1243,6 +1501,7 @@ Content-Type: application/json
    "jwks_uri": "https://www.mockcompany.com.au/jwks",
    "revocation_uri": "https://www.mockcompany.com.au/revocation",
    "recipient_base_uri": "https://www.mockcompany.com.au",
+   "sector_identifier_uri": "https://www.mockcompany.com.au/sector_identifier"
    "software_id": "740C368F-ECF9-4D29-A2EA-0514A66B0CDE",
    "software_roles": "data-recipient-software-product",
    "scope":
@@ -1437,6 +1696,8 @@ grant_type=client_credentials&amp;
 <td>Removed</td>
 </tr>
 </tbody></table>
+
+<p>These cascaded software product statuses are also catered for in collection arrangements. Please refer to the <a href="#collection-arrangements">Accreditation Status Discovery</a> section for more details.</p>
 <h2 id='data-holder-responsibilities'>Data Holder Responsibilities</h2>
 <p></br>The ACCC Registrar has the ability to change the status of a Software Product independently of the ADR accreditation status. Therefore, both the ADR and Software Product statuses should be referenced, to determine the Data Holder&#39;s responsibilities for data disclosure, consent and registration management
 &#39;</p>
@@ -1537,30 +1798,44 @@ grant_type=client_credentials&amp;
 <table><thead>
 <tr>
 <th>API</th>
+<th>Type</th>
 <th>Period</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><strong>GetDataRecipientsStatus</strong></td>
+<td>Public</td>
 <td>2-5 minutes</td>
 </tr>
 <tr>
 <td><strong>GetSoftwareProductsStatus</strong></td>
+<td>Public</td>
 <td>2-5 minutes</td>
 </tr>
 <tr>
 <td><strong>GetDataRecipients (statuses)</strong></td>
+<td>Public</td>
 <td>2-5 minutes</td>
 </tr>
 <tr>
 <td><strong>GetDataRecipients (other data)</strong></td>
+<td>Public</td>
 <td>6 hours</td>
 </tr>
 <tr>
 <td><strong>GetDataHolderBrands</strong></td>
+<td>Private</td>
 <td>6 hours</td>
 </tr>
 </tbody></table>
+<h2 id='etag-support'>ETag Support</h2>
+<p>All <strong>public</strong> APIs are hosted on a CDN supporting ETag cache validators. ETags can be utilised to detect whether the content has changed.</p>
+
+<p>Further information on the usage of <code>ETag</code> and the associated <code>If-None-Match</code> headers can be found at: <a href="https://docs.microsoft.com/en-au/azure/cdn/cdn-how-caching-works">https://docs.microsoft.com/en-au/azure/cdn/cdn-how-caching-works</a></p>
+<h3 id='change-detection-using-etags'>Change detection using ETags</h3>
+<p>Clients polling the CDN hosted APIs specifying the <code>ETag</code> header can rely on the <code>304 Not Modified</code> response to indicate no changes have occurred since the previous poll.</p>
+
+<p><img class=small-image src="images/status/DataHolderPollingWithETags.png" ></img></p>
 <h2 id='checking-request-validity'>Checking Request Validity</h2><h3 id='request-for-disclosure-of-cdr-data-checking-validity-of-accredited-data-recipient-and-associated-software-product'>Request for Disclosure of CDR Data: Checking Validity of Accredited Data Recipient and associated Software Product</h3>
 <p><img src="images/ChecksForDhToShareData.png" ></img>
 <em>Pre-requisites: SSL connection has been established between all parties and Data Recipient has been issued an access token</em></p>
@@ -1673,7 +1948,7 @@ Cache refreshes may be requested in the following scenarios:</p>
 <li> An Accredited Data Recipient has been surrendered, suspended or revoked from the CDR</li>
 </ol>
 <h3 id='data-holder-caching-of-accredited-data-recipients-software-product-metadata'>Data Holder Caching of Accredited Data Recipients Software Product Metadata</h3>
-<p><img src="images/DataHolderMetadataRefresh.png" ></img></p>
+<p><img src="images/status/DataHolderMetadataRefresh.png" ></img></p>
 <h2 id='incident-management'>Incident Management</h2>
 <p>Currently under the CDR rules, Data Holders within the CDR ecosystem will be able to refuse to disclose CDR data in response to valid requests from Accredited Data Recipients:</p>
 
@@ -1729,7 +2004,7 @@ Host: cdr.register
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=client_credentials&amp;
-  client_id=&lt;brand id&gt;&amp;
+  client_id=&lt;brand id&gt; OR &lt;software product id&gt; &amp;
   client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&amp;
   client_assertion=eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNDU2In0.ey ...&amp;
   scope=cdr-register%3Abank%3Aread
@@ -1741,8 +2016,8 @@ grant_type=client_credentials&amp;
   "kid": "b50641343f8f4717a4865d238b6297b8"
 }
 {
-  "iss": "&lt;brand id&gt;",
-  "sub": "&lt;brand id&gt;",
+  "iss": "&lt;brand id&gt; OR &lt;software product id&gt;",
+  "sub": "&lt;brand id&gt; OR &lt;software product id&gt;",
   "exp": 1516239322,
   "aud": "https://cdr.register/idp/connect/token",
   "jti": "37747cd1-c105-4569-9f75-4adf28b73e31"
@@ -1776,8 +2051,8 @@ grant_type=client_credentials&amp;
 </ol>
 
 <ul>
-<li>  <code>iss</code>: REQUIRED. Issuer. This MUST contain the <code>Data Recipient Brand ID</code> issued by the CDR Register</li>
-<li>  <code>sub</code>: REQUIRED. Subject. This MUST contain the <code>Data Recipient Brand ID</code> issued by the CDR Register</li>
+<li>  <code>iss</code>: REQUIRED. Issuer. This MUST contain the <code>Data Recipient Brand ID</code> OR <code>Software Product ID</code> issued by the CDR Register</li>
+<li>  <code>sub</code>: REQUIRED. Subject. This MUST contain the <code>Data Recipient Brand ID</code> OR <code>Software Product ID</code> issued by the CDR Register</li>
 <li>  <code>aud</code>: REQUIRED. Audience. The URL of the end point being invoked</li>
 <li>  <code>exp</code>: REQUIRED. Expiration time on or after which the ID Token MUST NOT be accepted for processing</li>
 <li>  <code>jti</code>: REQUIRED. JWT ID. A unique identifier for the token, which can be used to prevent reuse of the token. These tokens MUST only be used once.</li>
@@ -1787,7 +2062,7 @@ grant_type=client_credentials&amp;
 
 <ul>
 <li>  <code>grant_type</code>: This MUST be set to <code>client_credentials</code></li>
-<li>  <code>client_id</code>: This MUST be set to the ID of the calling client <code>Data Recipient Brand ID</code></li>
+<li>  <code>client_id</code>: This MUST be set to the ID of the calling client <code>Data Recipient Brand ID</code> OR <code>Software Product ID</code></li>
 <li>  <code>client_assertion_type</code>: This MUST be set to: <code>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</code></li>
 <li>  <code>client_assertion</code>: This MUST be set to the digitally signed JWT</li>
 </ul>
@@ -1803,14 +2078,14 @@ The following client identifiers will be used:</p>
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>Data Recipient Brand / Software Product</strong></td>
+<td><strong>Software Product</strong></td>
 <td>Calls to Data Holder Brand Authenticated APIs</td>
 <td><code>Client ID</code> as issued by the target Data Holder Brand</td>
 </tr>
 <tr>
-<td><strong>Data Recipient Brand</strong></td>
+<td><strong>Data Recipient Brand / Software Product</strong></td>
 <td>Calls to <a href="#consumer-data-right-cdr-register-apis">CDR Register Authenticated APIs</a></td>
-<td><code>Data Recipient Brand ID</code> as issued by CDR Register</td>
+<td><code>Data Recipient Brand ID</code> or <code>Software Product ID</code> as issued by CDR Register</td>
 </tr>
 <tr>
 <td><strong>Data Holder Brand</strong></td>
@@ -1927,7 +2202,86 @@ The following client identifiers will be used:</p>
 
 <p><a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">CDR Arrangement Management Endpoint</a> is a requirement from <strong>November 2020</strong></p>
 <h3 id='cdr-certificate-authority'>CDR Certificate Authority</h3>
-<p><a href="https://www.digicert.com">DigiCert</a> will act as the certificate authority that issues and manages certificates to CDR participants as directed by the ACCC in its capacity as the CDR Registrar</p>
+<p><a href="https://www.digicert.com">DigiCert</a> acts as the certificate authority that issues and manages certificates to CDR participants as directed by the ACCC in its capacity as the CDR Registrar</p>
+<h3 id='certificate-trust-model'>Certificate Trust Model</h3>
+<p>The CDR utilises a private certificate trust chain for all ACCC CA secured endpoints being hosted by <a href="#participant-endpoints">Data Holders</a>, <a href="#participant-endpoints">Data Recipients</a> and the <a href="#consumer-data-right-cdr-register-apis">CDR Register</a>.</p>
+
+<p>This trust chain encompasses a set of root and intermediate CAs issued for the test and production environments</p>
+
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Test Environment</strong></td>
+<td><a href="certificates/test/ca_root_test.cer">CA Root Test</a></br><a href="certificates/test/ca_intermediate_test.cer">CA Intermediate Test</a></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Production Environment</strong></td>
+<td><a href="certificates/production/ca_root_prod.cer">CA Root Production</a></br><a href="certificates/production/ca_intermediate_prod.cer">CA Intermediate Production</a></td>
+</tr>
+</tbody></table>
+<h3 id='certificate-signing-request-profile'>Certificate Signing Request Profile</h3>
+<p>When requesting ACCC CA certificates, certificate signing requests will need to be provided, conforming to the following profile:</p>
+
+<table><thead>
+<tr>
+<th>CSR Field</th>
+<th>Server</th>
+<th>Client</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Common Name</strong></td>
+<td>Primary DNS Name</br><em>e.g. api1.test.entity.com</em></td>
+<td>Software Product Name OR </br>Brand Name</td>
+</tr>
+<tr>
+<td><strong>SAN (Optional)</strong></td>
+<td>Secondary DNS Name(s) </br><em>e.g. api2.test.entity.com</em></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><strong>Organization</strong></td>
+<td>Brand Name (Legal Entity Name)</td>
+<td>Brand Name (Legal Entity Name)</td>
+</tr>
+<tr>
+<td><strong>Organizational Unit</strong></td>
+<td>Consumer Data Right</td>
+<td>Consumer Data Right</td>
+</tr>
+<tr>
+<td><strong>Country</strong></td>
+<td>Country of participant</br><em>e.g. AU</em></td>
+<td>Country of participant</br><em>e.g. AU</em></td>
+</tr>
+<tr>
+<td><strong>Signature Algorithm</strong></td>
+<td>SHA256</td>
+<td>SHA256</td>
+</tr>
+<tr>
+<td><strong>Key Algorithm</strong></td>
+<td>RSA</td>
+<td>RSA</td>
+</tr>
+<tr>
+<td><strong>Key Size</strong></td>
+<td>2048</td>
+<td>2048</td>
+</tr>
+</tbody></table>
+
+<p>Please refer to the <a href="https://www.accc.gov.au/focus-areas/consumer-data-right-cdr-0/on-boarding-guide">onboarding guide</a> for further information on certificate issuance</p>
+<h3 id='certificate-usage'>Certificate Usage</h3>
+<p>Further details on ACCC CA issued certificates can be found in the <a href="https://www.cdr.gov.au/sites/default/files/2020-12/CDR%20-%20ACCC%20Certification%20practice%20statement.pdf">ACCC Certificate Practice Statement V1.0</a></p>
 <h1 id='availability'>Availability</h1>
 <p>The following scenarios outline the expectations of Data Holders and Accredited Data Recipients within the Consumer Data Right ecosystem when outages occur</p>
 
@@ -2023,7 +2377,7 @@ The following client identifiers will be used:</p>
 </tr>
 <tr>
 <td><strong>Impact</strong></td>
-<td>Participants will not be able verify the status of CA certificates</td>
+<td>Participants will not be able to verify the status of CA certificates</td>
 </tr>
 <tr>
 <td><strong>Expectation</strong></td>
@@ -2222,7 +2576,7 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 </thead><tbody>
 <tr>
 <td>GetDataHolderBrands</td>
-<td>Data Recipient</td>
+<td>Data Recipient Brand or Software Product</td>
 <td>Discovery of DH Brands and their associated endpoints</td>
 <td><i class="icon-check"></i></td>
 <td></td>
@@ -2230,7 +2584,7 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 </tr>
 <tr>
 <td>GetSoftwareStatementAssertion</td>
-<td>Data Recipient</td>
+<td>Data Recipient Brand or Software Product</td>
 <td>Get SSA for a Software Product to be used in <a href="#dynamic-client-registration">Dynamic Client Registration</a></td>
 <td><i class="icon-check"></i></td>
 <td></td>
@@ -2238,7 +2592,7 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 </tr>
 <tr>
 <td>GetSoftwareProductsStatus</td>
-<td>Data Holder</td>
+<td>Data Holder Brand</td>
 <td>Software Product Statuses to check validity of ADR <a href="#accredited-data-recipient-and-software-product-statuses">requests</a></td>
 <td></td>
 <td><i class="icon-check"></i></td>
@@ -2246,7 +2600,7 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 </tr>
 <tr>
 <td>GetDataRecipientsStatus</td>
-<td>Data Holder</td>
+<td>Data Holder Brand</td>
 <td>Data Recipient Statuses to check validity of ADR <a href="#accredited-data-recipient-and-software-product-statuses">requests</a></td>
 <td></td>
 <td><i class="icon-check"></i></td>
@@ -2254,7 +2608,7 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 </tr>
 <tr>
 <td>GetDataRecipients</td>
-<td>Data Holder</td>
+<td>Data Holder Brand</td>
 <td>Data Recipient, brand and product details to render Data Holder Consumer Dashboard</td>
 <td></td>
 <td><i class="icon-check"></i></td>
@@ -2262,9 +2616,21 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 </tr>
 </tbody></table>
 <h3 id='base-urls'>Base URLs:</h3>
-<ul>
-<li><a href="/cdr-register/v1">/cdr-register/v1</a></li>
-</ul>
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Production TLS</strong></td>
+<td>https://api.cdr.gov.au</td>
+</tr>
+<tr>
+<td><strong>Production mTLS</strong></td>
+<td>https://secure.api.cdr.gov.au</td>
+</tr>
+</tbody></table>
 <h2 id='getdataholderbrands'>GetDataHolderBrands</h2>
 <p>Get Data Holder Brands from the CDR Register</p>
 
@@ -4331,7 +4697,7 @@ Content-Type: application/json
   </span><span class="s2">"request_object_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_statement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"740C368F-ECF9-4D29-A2EA-0514A66B0CDE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read"</span><span class="w">
+  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
@@ -4453,7 +4819,7 @@ Authorization: Bearer &lt;access-token&gt;
   </span><span class="s2">"request_object_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_statement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"740C368F-ECF9-4D29-A2EA-0514A66B0CDE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read"</span><span class="w">
+  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
@@ -4603,7 +4969,7 @@ Authorization: Bearer &lt;access-token&gt;
   </span><span class="s2">"request_object_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_statement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"740C368F-ECF9-4D29-A2EA-0514A66B0CDE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read"</span><span class="w">
+  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id="update-a-client-registration-for-a-given-client-id-responses">Responses</h3>
@@ -4794,7 +5160,7 @@ To perform this operation, you must be authenticated and authorised with the fol
   </span><span class="s2">"request_object_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_statement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"740C368F-ECF9-4D29-A2EA-0514A66B0CDE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read"</span><span class="w">
+  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h3 id='properties'>Properties</h3>
@@ -5072,7 +5438,7 @@ To perform this operation, you must be authenticated and authorised with the fol
   </span><span class="s2">"request_object_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_statement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"740C368F-ECF9-4D29-A2EA-0514A66B0CDE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read"</span><span class="w">
+  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h3 id='properties-2'>Properties</h3>
@@ -5246,7 +5612,13 @@ To perform this operation, you must be authenticated and authorised with the fol
 </tr>
 </thead><tbody>
 <tr>
-<td>12/10/2020</td>
+<td>25/01/2021</td>
+<td>1.3.0</td>
+<td>Maintenance updates</td>
+<td>See <a href="includes/releasenotes/releasenotes.1.3.0.html">release notes</a> for detail</td>
+</tr>
+<tr>
+<td>13/10/2020</td>
 <td>1.2.3</td>
 <td>Maintenance updates</td>
 <td>See <a href="includes/releasenotes/releasenotes.1.2.3.html">release notes</a> for detail</td>
@@ -5586,6 +5958,37 @@ To perform this operation, you must be authenticated and authorised with the fol
 <td>0.1.0</td>
 <td>Addition of change log</td>
 <td>This change log was added to the standards documentation</td>
+</tr>
+</tbody></table>
+<h1 id='archives'>Archives</h1>
+<p>The following table lists archived versions of the CDR Register Design.  These are older versions of the design that are available for reference only.</p>
+
+<table><thead>
+<tr>
+<th>Releases Date</th>
+<th>Version</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="./archives/cdr-design-1.2.3/">13/10/2020</a></td>
+<td>1.2.3</td>
+<td><a href="./archives/cdr-design-1.2.3/">Maintenance Updates</a></td>
+</tr>
+<tr>
+<td><a href="./archives/cdr-design-1.1.2/">29/06/2019</a></td>
+<td>1.1.2</td>
+<td><a href="./archives/cdr-design-1.1.2/">Maintenance Updates</a></td>
+</tr>
+<tr>
+<td><a href="./archives/cdr-design-1.0.5/">10/12/2019</a></td>
+<td>1.0.5</td>
+<td><a href="./archives/cdr-design-1.0.5/">Updates to client registration &amp; security profile</a></td>
+</tr>
+<tr>
+<td><a href="./archives/cdr-design-1.0.0/">31/10/2019</a></td>
+<td>1.0.0</td>
+<td><a href="./archives/cdr-design-1.0.0/">Baseline version 1</a></td>
 </tr>
 </tbody></table>
 

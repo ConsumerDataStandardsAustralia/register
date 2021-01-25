@@ -369,7 +369,7 @@
         "scope": {
           "description": "String containing a space-separated list of scope values that the client can use when requesting access tokens.",
           "type": "string",
-          "example": "bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read"
+          "example": "openid bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"
         }
       }
     },
