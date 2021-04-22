@@ -2,28 +2,15 @@
 <!doctype html>
 <html>
   <head>
-  
-  
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164014896-1"></script>
-      <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-164014896-1');
-      </script>
-	  
-	  
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta property="og:title"              content="Consumer Data Right Register Design - v1.2.3 Release Notes" />
+    <meta property="og:title"              content="Consumer Data Right Register Design - v1.3.0 Release Notes" />
     <meta property="og:description"        content="The CDR Register Design Reference provides participants with design specifications defining how to interact with the CDR Register" />
     <meta property="og:image"              content="images/ACCC_Stacked_RGB_Positive.png" />
 
-    <title>Consumer Data Right Register Design - v1.2.3 Release Notes</title>
+    <title>Consumer Data Right Register Design - v1.3.0 Release Notes</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -229,10 +216,10 @@
     </a>
     <div class="toc-wrapper">
       <img src="../../images/ACCC_Stacked_RGB_Reverse.PNG" class="logo" alt="Accc stacked rgb reverse" />
-      <div class="title">Consumer Data Right Register Design - v1.2.3 Release Notes</div>
+      <div class="title">Consumer Data Right Register Design - v1.3.0 Release Notes</div>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#v1-2-3-release-notes" class="toc-h1 toc-link" data-title="V1.2.3 Release Notes">V1.2.3 Release Notes</a>
+            <a href="#v1-3-0-release-notes" class="toc-h1 toc-link" data-title="V1.3.0 Release Notes">V1.3.0 Release Notes</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#introduction" class="toc-h2 toc-link" data-title="Introduction">Introduction</a>
@@ -241,10 +228,19 @@
                     <a href="#client-registration" class="toc-h2 toc-link" data-title="Client Registration">Client Registration</a>
                   </li>
                   <li>
+                    <a href="#participant-statuses" class="toc-h2 toc-link" data-title="Participant Statuses">Participant Statuses</a>
+                  </li>
+                  <li>
                     <a href="#security-profile" class="toc-h2 toc-link" data-title="Security Profile">Security Profile</a>
                   </li>
                   <li>
-                    <a href="#availability" class="toc-h2 toc-link" data-title="Availability">Availability</a>
+                    <a href="#register-apis" class="toc-h2 toc-link" data-title="Register APIs">Register APIs</a>
+                  </li>
+                  <li>
+                    <a href="#dcr-apis" class="toc-h2 toc-link" data-title="DCR APIs">DCR APIs</a>
+                  </li>
+                  <li>
+                    <a href="#general" class="toc-h2 toc-link" data-title="General">General</a>
                   </li>
               </ul>
           </li>
@@ -257,8 +253,8 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='v1-2-3-release-notes'>V1.2.3 Release Notes</h1>
-<p>Release notes for version 1.2.3 of the <a href="../../">CDR Register Design</a>.</p>
+        <h1 id='v1-3-0-release-notes'>V1.3.0 Release Notes</h1>
+<p>Release notes for version 1.3.0 of the <a href="../../">CDR Register Design</a>.</p>
 <h2 id='introduction'>Introduction</h2>
 <table><thead>
 <tr>
@@ -269,8 +265,8 @@
 </thead><tbody>
 <tr>
 <td><a href="../../#future-dated-obligations">Future Dated Obligations</a></td>
-<td>- Updated Dynamic Client Registration obligations</td>
-<td>Highlighted that the deprecation of the <code>revocation_uri</code> from the SSA will occur in a future release</td>
+<td>Updated Dynamic Client Registration</td>
+<td>- Added <strong>July 2021</strong> changes for <code>legal_entity_id</code>, <code>legal_entity_name</code>, <code>sector_identifier_uri</code> and additional scope <code>openid</code></td>
 </tr>
 </tbody></table>
 <h2 id='client-registration'>Client Registration</h2>
@@ -283,8 +279,42 @@
 </thead><tbody>
 <tr>
 <td><a href="../../#dynamic-client-registration">Dynamic Client Registration</a></td>
-<td>- Updated SSA definition</td>
-<td>-Corrected SSA definition so the optionality of <code>revocation_api</code> and introduction of <code>recipient_base_uri</code> are explicitly defined</br>- Updated <code>logo_uri</code> description so it is clear the logo belongs to the Software Product</td>
+<td>Updated SSA Lifetime</td>
+<td>- Removed manual distribution as this was only required for industry testing</td>
+</tr>
+<tr>
+<td><a href="../../#dynamic-client-registration">SSA Definition</a></td>
+<td>Updated Scopes</td>
+<td>- Added tabs to table to differentiate requirements for different release dates</br> - Added <code>openid</code> to the list of supported scopes defined in the SSA</br> - Added <code>sector_identifier_uri</code>, <code>legal_entity_id</code> and <code>legal_entity_name</code> to the SSA definition</td>
+</tr>
+<tr>
+<td><a href="../../#registration-request-using-jwt">Registration Request using JWT</a></td>
+<td>Updated Registration Request using JWT</td>
+<td>- Corrected <code>grant_types</code> claim array entry removing <strong>urn:ietf:params:oauth:grant-type:jwt-bearer</strong></br>- Added <code>openid</code> to the list of scopes returned in a successful registration request</br></td>
+</tr>
+<tr>
+<td><a href="../../#dynamic-client-registration">Sector Identifiers</a></td>
+<td>Updated Sector Identifiers</td>
+<td>- Indicated support for <code>sector_identifier_uri</code> is required for July 2021</td>
+</tr>
+<tr>
+<td><a href="../../#registration-flows">Registration Flows</a></td>
+<td>Updated Create and Modify Registration Diagrams</td>
+<td>- Corrected sequence of events. Formatting request occurs after retrieval of oidc configuration</td>
+</tr>
+</tbody></table>
+<h2 id='participant-statuses'>Participant Statuses</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#etag-support">ETag Support</a></td>
+<td>Added ETag Support</td>
+<td>- Outlines how the ETag header can be used for change detection on public endpoints</td>
 </tr>
 </tbody></table>
 <h2 id='security-profile'>Security Profile</h2>
@@ -297,21 +327,16 @@
 </thead><tbody>
 <tr>
 <td><a href="../../#client-authentication">Client Authentication</a></td>
-<td>- Updated descriptions of identifiers used in authentication</td>
-<td>Provided explicit clarification of what identifiers are used in the claims for client authentication</td>
+<td>Updated Client Authentication with the CDR Register</td>
+<td>- To provide additional support to collection arrangements, updated <code>iss</code>, <code>sub</code> and <code>client_id</code> to use <strong>Brand ID</strong> OR <strong>Software Product ID</strong></td>
 </tr>
 <tr>
 <td><a href="../../#certificate-management">Certificate Management</a></td>
-<td>- Updated Issued by ACCC CA for Data Holders</td>
-<td>Removed erroneous entry for Client Certificate issued to Data Holders</td>
-</tr>
-<tr>
-<td><a href="../../#participant-endpoints">Participant Brands</a></td>
-<td>- Updated Labels on BaseUri Table</td>
-<td>Clarified that the endpoints are per brand</td>
+<td>Updated Certificate Management</td>
+<td>- Added Certificate Trust Model</br> - Certificate Signing Request Profile</br> - Added CSR profile for certificate requests</br> - Added Certificate Usage and Certificate Practice Statement including OCSP details</td>
 </tr>
 </tbody></table>
-<h2 id='availability'>Availability</h2>
+<h2 id='register-apis'>Register APIs</h2>
 <table><thead>
 <tr>
 <th>Section</th>
@@ -320,9 +345,42 @@
 </tr>
 </thead><tbody>
 <tr>
-<td><a href="../../#cdn-hosted-endpoints">CDN Hosted Endpoints</a></td>
-<td>- Added table showing public APIs are CDN hosted</td>
-<td>Provided clarification that public APIs are CDN hosted and can still be relied upon during a CDR Register outage</td>
+<td><a href="../../#base-urls">BaseUrls</a></td>
+<td>Updated BaseUrls</td>
+<td>- Added separate bases for TLS and mTLS endpoints</td>
+</tr>
+</tbody></table>
+<h2 id='dcr-apis'>DCR APIs</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#register-a-client-using-a-cdr-register-issued-software-statement-assertion">Register a client using a CDR Register issued Software Statement Assertion</a></td>
+<td>Updated Scopes</td>
+<td>- Added <code>openid</code> and <code>cdr:registration</code> to the list of scopes returned in a successful registration request</td>
+</tr>
+</tbody></table>
+<h2 id='general'>General</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#intermediaries">Intermediaries</a></td>
+<td>Added intermediaries section</td>
+<td>- Intermediaries added with outline of Collection Arrangements</td>
+</tr>
+<tr>
+<td><a href="../../#archives">Archives</a></td>
+<td>Added archives section</td>
+<td>- Archives of release milestones added for reference</td>
 </tr>
 </tbody></table>
 

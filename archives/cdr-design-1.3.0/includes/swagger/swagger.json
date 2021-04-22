@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.4.0",
+    "version": "1.2.0",
     "title": "Consumer Data Right (CDR) Register - Participant Discovery APIs"
   },
   "schemes": [
@@ -9,56 +9,13 @@
   ],
   "basePath": "/cdr-register/v1",
   "paths": {
-    "/.well-known/openid-configuration": {
-      "get": {
-        "tags": [
-          "OpenID Connect"
-        ],
-        "summary": "GetOpenIdProviderConfig",
-        "operationId": "GetOpenIdProviderConfig",
-        "description": "Endpoint used by participants to discover the CDR Register OpenID configuration and obtain information needed to interact with it, including its OAuth 2.0 endpoint locations.",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "The OpenID Provider Configuration Metadata values",
-            "schema": {
-              "$ref": "#/definitions/ResponseOpenIDProviderConfigMetadata"
-            }
-          }
-        }
-      }
-    },
-    "/jwks": {
-      "get": {
-        "tags": [
-          "JWKS"
-        ],
-        "summary": "GetJWKS",
-        "operationId": "GetJWKS",
-        "description": "JWKS endpoint containing the public keys used by the CDR Register to validate the signature of issued SSAs and authenticate outbound calls to participants in the CDR",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "A JSON object that represents a set of JWKs",
-            "schema": {
-              "$ref": "#/definitions/ResponseJWKS"
-            }
-          }
-        }
-      }
-    },
     "/{industry}/data-holders/brands": {
       "get": {
         "tags": [
-          "Data Holder Brands"
+          "DataHolderBrands"
         ],
-        "summary": "GetDataHolderBrands",
+        "summary": "Get Data Holder Brands from the CDR Register",
         "operationId": "GetDataHolderBrands",
-        "description": "Allows Data Recipients to discover data holder brands available in the CDR ecosystem",
         "x-version": "1",
         "consumes": [
           "application/json"
@@ -73,7 +30,7 @@
           {
             "name": "updated-since",
             "in": "query",
-            "description": "query filter returns data holder brands updated since the specified date-time",
+            "description": "",
             "required": false,
             "type": "string",
             "format": "date-time"
@@ -81,7 +38,7 @@
           {
             "name": "page",
             "in": "query",
-            "description": "the page number to return",
+            "description": "",
             "required": false,
             "type": "integer",
             "format": "int32"
@@ -89,7 +46,7 @@
           {
             "name": "page-size",
             "in": "query",
-            "description": "the number of records to return per page",
+            "description": "",
             "required": false,
             "type": "integer",
             "format": "int32"
@@ -115,16 +72,16 @@
             }
           },
           "400": {
-            "description": "Bad Request</br>Invalid industry path parameter",
+            "description": "Bad Request",
             "schema": {
               "$ref": "#/definitions/ResponseErrorList"
             }
           },
           "401": {
-            "description": "Invalid Bearer Token"
+            "description": "Unauthorized"
           },
           "406": {
-            "description": "Invalid x-v header</br>Invalid Accept header"
+            "description": "Not Acceptable"
           }
         },
         "x-scopes": [
@@ -135,11 +92,10 @@
     "/{industry}/data-recipients/brands/{dataRecipientBrandId}/software-products/{softwareProductId}/ssa": {
       "get": {
         "tags": [
-          "Software Statement Assertion"
+          "SoftwareStatementAssertion"
         ],
-        "summary": "GetSoftwareStatementAssertion (SSA)",
+        "summary": "Get a Software Statement Assertion (SSA) for a software product on the CDR Register to be used for Dynamic Client Registration with a Data Holder",
         "operationId": "GetSoftwareStatementAssertion",
-        "description": "Get a Software Statement Assertion (SSA) for a software product on the CDR Register to be used for Dynamic Client Registration with a Data Holder Brand",
         "x-version": "2",
         "consumes": [
           "application/json"
@@ -186,28 +142,22 @@
             }
           },
           "400": {
-            "description": "Invalid industry path parameter</br>Invalid SoftwareProductId",
+            "description": "Bad Request",
             "schema": {
               "$ref": "#/definitions/ResponseErrorList"
             }
           },
           "401": {
-            "description": "Invalid Bearer Token"
+            "description": "Unauthorized"
           },
           "403": {
-            "description": "Invalid BrandId",
+            "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/ResponseErrorList"
             }
           },
           "406": {
-            "description": "Invalid x-v header</br>Invalid Accept header"
-          },
-          "422": {
-            "description": "SSA fields invalid or incomplete",
-            "schema": {
-              "$ref": "#/definitions/ResponseErrorList"
-            }
+            "description": "Not Acceptable"
           }
         },
         "x-scopes": [
@@ -220,9 +170,8 @@
         "tags": [
           "Software Products Status"
         ],
-        "summary": "GetSoftwareProductsStatus",
+        "summary": "Get the statuses for software products from the CDR Register",
         "operationId": "GetSoftwareProductsStatus",
-        "description": "Endpoint used by participants to discover the statuses for software products from the CDR Register",
         "x-version": "1",
         "consumes": [
           "application/json"
@@ -252,13 +201,13 @@
             }
           },
           "400": {
-            "description": "Bad Request</br>Invalid industry path parameter",
+            "description": "Bad Request",
             "schema": {
               "$ref": "#/definitions/ResponseErrorList"
             }
           },
           "406": {
-            "description": "Invalid x-v header</br>Invalid Accept header"
+            "description": "Not Acceptable"
           }
         }
       }
@@ -268,9 +217,8 @@
         "tags": [
           "Data Recipients Status"
         ],
-        "summary": "GetDataRecipientsStatus",
-        "operationId": "GetDataRecipientsStatus",
-        "description": "Endpoint used by participants to discover the statuses for Data Recipients from the CDR Register",
+        "summary": "Get the statuses for Data Recipients from the CDR Register",
+        "operationId": "GetDataRecipientStatus",
         "x-version": "1",
         "consumes": [
           "application/json"
@@ -300,13 +248,13 @@
             }
           },
           "400": {
-            "description": "Bad Request</br>Invalid industry path parameter",
+            "description": "Bad Request",
             "schema": {
               "$ref": "#/definitions/ResponseErrorList"
             }
           },
           "406": {
-            "description": "Invalid x-v header</br>Invalid Accept header"
+            "description": "Not Acceptable"
           }
         }
       }
@@ -316,9 +264,8 @@
         "tags": [
           "Data Recipients"
         ],
-        "summary": "GetDataRecipients",
+        "summary": "Get Data Recipients from the CDR Register",
         "operationId": "GetDataRecipients",
-        "description": "Endpoint used by participants to discover data recipients and associated brands and software products, available in the CDR ecosystem",
         "x-version": "2",
         "consumes": [
           "application/json"
@@ -348,13 +295,19 @@
             }
           },
           "400": {
-            "description": "Bad Request</br>Invalid industry path parameter",
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseErrorList"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/ResponseErrorList"
             }
           },
           "406": {
-            "description": "Invalid x-v header</br>Invalid Accept header"
+            "description": "Not Acceptable"
           }
         }
       }
@@ -372,7 +325,7 @@
       "name": "x-v",
       "in": "header",
       "required": false,
-      "description": "The [version](https://consumerdatastandardsaustralia.github.io/standards/#response-headers) of the API end point requested by the client. Must be set to a positive integer.",
+      "description": "The [version](https://consumerdatastandardsaustralia.github.io/standards/#response-headers) of the API end point that the CDR Register has responded with",
       "type": "string"
     },
     "Industry": {
@@ -387,163 +340,6 @@
     }
   },
   "definitions": {
-    "ResponseOpenIDProviderConfigMetadata": {
-      "description": "Response containing the Open ID Provider Configuration Metadata",
-      "required": [
-        "issuer",
-        "jwks_uri",
-        "token_endpoint",
-        "claims_supported",
-        "id_token_signing_alg_values_supported",
-        "subject_types_supported",
-        "code_challenge_methods_supported",
-        "scopes_supported",
-        "response_types_supported",
-        "grant_types_supported",
-        "token_endpoint_auth_methods_supported",
-        "tls_client_certificate_bound_access_tokens",
-        "request_object_signing_alg_values_supported"
-      ],
-      "type": "object",
-      "properties": {
-        "issuer": {
-          "type": "string",
-          "description": "URL using the https scheme with no query or fragment component that the CDR Register asserts as its Issuer Identifier"
-        },
-        "jwks_uri": {
-          "type": "string",
-          "description": "URL of the CDR Register's JSON Web Key Set [JWK] document. This contains the signing key(s) used to validate access tokens issued from the CDR Register. Note that this differs from the [JWKS endpoint](https://cdr-register.github.io/register/#getjwks) used to validate SSAs and CDR Register client authentication"
-        },
-        "token_endpoint": {
-          "type": "string",
-          "description": "URL of the CDR Register's OAuth 2.0 Token Endpoint"
-        },
-        "claims_supported": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "JSON array containing a list of the Claim Names of the Claims that the CDR Register supplies values for"
-        },
-        "id_token_signing_alg_values_supported": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "JSON array containing a list of the JWS signing algorithms (alg values) supported by the CDR Register for the ID Token to encode the Claims in a JWT. Given the CDR Register does not issue ID tokens, this field can be safely ignored"
-        },
-        "subject_types_supported": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "JSON array containing a list of the Subject Identifier types that the CDR Register supports. Given the CDR Register does not issue ID tokens, this field can be safely ignored"
-        },
-        "code_challenge_methods_supported": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "JSON array containing a list of Proof Key for Code Exchange (PKCE) [RFC7636] code challenge methods supported by this authorization server. Given the CDR Register does not support PKCE, this field can be safely ignored"
-        },
-        "scopes_supported": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "JSON array containing a list of the OAuth 2.0 [RFC6749] scope values that the CDR Register supports"
-        },
-        "response_types_supported": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "JSON array containing a list of the OAuth 2.0 response_type values that the CDR Registrer supports"
-        },
-        "grant_types_supported": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "JSON array containing a list of the OAuth 2.0 Grant Type values that the CDR Register supports"
-        },
-        "token_endpoint_auth_methods_supported": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "JSON array containing a list of Client Authentication methods supported by this Token Endpoint"
-        },
-        "tls_client_certificate_bound_access_tokens": {
-          "type": "boolean",
-          "description": "Boolean value indicating server support for mutual TLS client certificate bound access tokens"
-        },
-        "request_object_signing_alg_values_supported": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "JSON array containing a list of the JWS signing algorithms (alg values) supported by the CDR Register for Request Objects."
-        }
-      }
-    },
-    "ResponseJWKS": {
-      "description": "Response containing the JSON Web Key Set",
-      "required": [
-        "keys"
-      ],
-      "type": "object",
-      "properties": {
-        "keys": {
-          "type": "array",
-          "description": "The value of the \"keys\" parameter is an array of JWK values",
-          "items": {
-            "$ref": "#/definitions/JWK"
-          }
-        }
-      }
-    },
-    "JWK": {
-      "description": "Object representing a JSON Web Key",
-      "required": [
-        "alg",
-        "e",
-        "key_ops",
-        "kid",
-        "kty",
-        "n"
-      ],
-      "type": "object",
-      "properties": {
-        "alg": {
-          "type": "string",
-          "description": "The \"alg\" (algorithm) parameter identifies the algorithm intended for use with the key"
-        },
-        "e": {
-          "type": "string",
-          "description": "The \"e\" RSA public exponent parameter"
-        },
-        "key_ops": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "The \"key_ops\" (key operations) parameter identifies the operation(s) for which the key is intended to be used"
-        },
-        "kid": {
-          "type": "string",
-          "description": "The \"kid\" (key ID) parameter is partially used to match a specific key. Note the \"kid\" parameter is not guaranteed unique and additional parameters should be used to progressively to identify a key within a set"
-        },
-        "kty": {
-          "type": "string",
-          "description": "The \"kty\" (key type) parameter identifies the cryptographic algorithm family used with the key"
-        },
-        "n": {
-          "type": "string",
-          "description": "The \"n\" RSA public modulus parameter"
-        }
-      }
-    },
     "ResponseRegisterDataHolderBrandList": {
       "description": "Response containing a list of CDR Register Data Holder Brand objects",
       "required": [
@@ -625,7 +421,7 @@
           }
         },
         "lastUpdated": {
-          "description": "The date/time that the Data Holder Brand data was last updated in the Register",
+          "description": "The date/time that the Data Holder Brand data was last updated in the Register ",
           "type": "string",
           "format": "date-time",
           "x-cds-type": "DateTimeString"

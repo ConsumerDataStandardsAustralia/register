@@ -19,11 +19,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta property="og:title"              content="Consumer Data Right Register Design - v1.3.0 Release Notes" />
+    <meta property="og:title"              content="Consumer Data Right Register Design - v1.4.0 Release Notes" />
     <meta property="og:description"        content="The CDR Register Design Reference provides participants with design specifications defining how to interact with the CDR Register" />
     <meta property="og:image"              content="images/ACCC_Stacked_RGB_Positive.png" />
 
-    <title>Consumer Data Right Register Design - v1.3.0 Release Notes</title>
+    <title>Consumer Data Right Register Design - v1.4.0 Release Notes</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -229,13 +229,16 @@
     </a>
     <div class="toc-wrapper">
       <img src="../../images/ACCC_Stacked_RGB_Reverse.PNG" class="logo" alt="Accc stacked rgb reverse" />
-      <div class="title">Consumer Data Right Register Design - v1.3.0 Release Notes</div>
+      <div class="title">Consumer Data Right Register Design - v1.4.0 Release Notes</div>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#v1-3-0-release-notes" class="toc-h1 toc-link" data-title="V1.3.0 Release Notes">V1.3.0 Release Notes</a>
+            <a href="#v1-4-0-release-notes" class="toc-h1 toc-link" data-title="V1.4.0 Release Notes">V1.4.0 Release Notes</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#introduction" class="toc-h2 toc-link" data-title="Introduction">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="#consumer-data-right-register" class="toc-h2 toc-link" data-title="Consumer Data Right Register">Consumer Data Right Register</a>
                   </li>
                   <li>
                     <a href="#client-registration" class="toc-h2 toc-link" data-title="Client Registration">Client Registration</a>
@@ -249,12 +252,6 @@
                   <li>
                     <a href="#register-apis" class="toc-h2 toc-link" data-title="Register APIs">Register APIs</a>
                   </li>
-                  <li>
-                    <a href="#dcr-apis" class="toc-h2 toc-link" data-title="DCR APIs">DCR APIs</a>
-                  </li>
-                  <li>
-                    <a href="#general" class="toc-h2 toc-link" data-title="General">General</a>
-                  </li>
               </ul>
           </li>
       </ul>
@@ -266,20 +263,44 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='v1-3-0-release-notes'>V1.3.0 Release Notes</h1>
-<p>Release notes for version 1.3.0 of the <a href="../../">CDR Register Design</a>.</p>
+        <h1 id='v1-4-0-release-notes'>V1.4.0 Release Notes</h1>
+<p>Release notes for version 1.4.0 of the <a href="../../">CDR Register Design</a>.</p>
 <h2 id='introduction'>Introduction</h2>
 <table><thead>
 <tr>
 <th>Section</th>
 <th>Change</th>
+<th>GitHub Issue</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><a href="../../#future-dated-obligations">Future Dated Obligations</a></td>
-<td>Updated Dynamic Client Registration</td>
-<td>- Added <strong>July 2021</strong> changes for <code>legal_entity_id</code>, <code>legal_entity_name</code>, <code>sector_identifier_uri</code> and additional scope <code>openid</code></td>
+<td><a href="../../#data-standards-body">Data Standards Body</a></td>
+<td>Updated DSB&#39;s role</td>
+<td></td>
+<td>- Updated DSB&#39;s role to align with the Consumer Data Standards website</td>
+</tr>
+</tbody></table>
+<h2 id='consumer-data-right-register'>Consumer Data Right Register</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>GitHub Issue</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#participant-brands">Participant Brands</a></td>
+<td>Added section on participant brands</td>
+<td><a href="https://github.com/cdr-register/register/issues/163">#163</a></td>
+<td>- Participant Brands section directs reader to the article provided on the <a href="https://cdr-support.zendesk.com/hc/en-us/articles/900005881263-Brands-in-the-Consumer-Data-Right-Ecosystem">CDR Support Portal</a></td>
+</tr>
+<tr>
+<td><a href="../../#data-holder-2">Data Holder</a></td>
+<td>Updated section on data holder</td>
+<td><a href="https://github.com/cdr-register/register/issues/158">#158</a></td>
+<td>- Clarified metrics collection occurs per data holder brand</td>
 </tr>
 </tbody></table>
 <h2 id='client-registration'>Client Registration</h2>
@@ -287,33 +308,15 @@
 <tr>
 <th>Section</th>
 <th>Change</th>
+<th>GitHub Issue</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><a href="../../#dynamic-client-registration">Dynamic Client Registration</a></td>
-<td>Updated SSA Lifetime</td>
-<td>- Removed manual distribution as this was only required for industry testing</td>
-</tr>
-<tr>
-<td><a href="../../#dynamic-client-registration">SSA Definition</a></td>
-<td>Updated Scopes</td>
-<td>- Added tabs to table to differentiate requirements for different release dates</br> - Added <code>openid</code> to the list of supported scopes defined in the SSA</br> - Added <code>sector_identifier_uri</code>, <code>legal_entity_id</code> and <code>legal_entity_name</code> to the SSA definition</td>
-</tr>
-<tr>
-<td><a href="../../#registration-request-using-jwt">Registration Request using JWT</a></td>
-<td>Updated Registration Request using JWT</td>
-<td>- Corrected <code>grant_types</code> claim array entry removing <strong>urn:ietf:params:oauth:grant-type:jwt-bearer</strong></br>- Added <code>openid</code> to the list of scopes returned in a successful registration request</br></td>
-</tr>
-<tr>
-<td><a href="../../#dynamic-client-registration">Sector Identifiers</a></td>
-<td>Updated Sector Identifiers</td>
-<td>- Indicated support for <code>sector_identifier_uri</code> is required for July 2021</td>
-</tr>
-<tr>
-<td><a href="../../#registration-flows">Registration Flows</a></td>
-<td>Updated Create and Modify Registration Diagrams</td>
-<td>- Corrected sequence of events. Formatting request occurs after retrieval of oidc configuration</td>
+<td><a href="../../#registration-validation">Registration Validation</a></td>
+<td>Updated section on registration validation</td>
+<td><a href="https://github.com/cdr-register/register/issues/167">#167</a></td>
+<td>- Provided reference to the JWKS endpoint published by the CDR Register used for SSA signature verification</td>
 </tr>
 </tbody></table>
 <h2 id='participant-statuses'>Participant Statuses</h2>
@@ -321,13 +324,21 @@
 <tr>
 <th>Section</th>
 <th>Change</th>
+<th>GitHub Issue</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><a href="../../#etag-support">ETag Support</a></td>
-<td>Added ETag Support</td>
-<td>- Outlines how the ETag header can be used for change detection on public endpoints</td>
+<td><a href="../../#accredited-data-recipient-and-software-product-statuses">Accredited Data Recipient and Software Product Statuses</a></td>
+<td>Added section on archiving entities</td>
+<td><a href="https://github.com/cdr-register/register/issues/164">#164</a></td>
+<td>- Archiving section covers logic when entities are removed from the API results</td>
+</tr>
+<tr>
+<td><a href="../../#checking-request-validity">Checking Request Validity</a></td>
+<td>Updated section on Request for Consent Withdrawal</td>
+<td><a href="https://github.com/cdr-register/register/issues/156">#156</a></td>
+<td>- Clarified JWKS call by ADR to DH to authenticate request</td>
 </tr>
 </tbody></table>
 <h2 id='security-profile'>Security Profile</h2>
@@ -335,18 +346,45 @@
 <tr>
 <th>Section</th>
 <th>Change</th>
+<th>GitHub Issue</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><a href="../../#client-authentication">Client Authentication</a></td>
-<td>Updated Client Authentication with the CDR Register</td>
-<td>- To provide additional support to collection arrangements, updated <code>iss</code>, <code>sub</code> and <code>client_id</code> to use <strong>Brand ID</strong> OR <strong>Software Product ID</strong></td>
+<td>Updated CDR Register Access Token Request using Client Authentication</td>
+<td></td>
+<td>- Corrected description to reference JWT instead of ID token as ID tokens are not relevant in authenticating with the Register </br>- Included deprecation notice on <code>Data Recipient Brand ID</code> as a client identifier</td>
+</tr>
+<tr>
+<td><a href="../../#client-authentication">Client Authentication</a></td>
+<td>Updated client authentication from CDR Register</td>
+<td><a href="https://github.com/cdr-register/register/issues/139">#139</a></td>
+<td>Updated reference to the CDS for calls made from the CDR Register to participants</td>
+</tr>
+<tr>
+<td><a href="../../#client-registration-management">Client Registration Management</a></td>
+<td>Updated Client Registration Management</td>
+<td><a href="https://github.com/cdr-register/register/issues/166">#166</a></td>
+<td>- Added section dedicated to PUT operations</td>
+</tr>
+<tr>
+<td><a href="../../#jwks-cache-management">JWKS Cache Management</a></td>
+<td>Added JWKS Cache Management</td>
+<td><a href="https://github.com/cdr-register/register/issues/153">#153</a></td>
+<td>- Added section outlining that JWKS results should be cached and refreshed periodically</td>
 </tr>
 <tr>
 <td><a href="../../#certificate-management">Certificate Management</a></td>
-<td>Updated Certificate Management</td>
-<td>- Added Certificate Trust Model</br> - Certificate Signing Request Profile</br> - Added CSR profile for certificate requests</br> - Added Certificate Usage and Certificate Practice Statement including OCSP details</td>
+<td>Added Certificate Validation</td>
+<td><a href="https://github.com/cdr-register/register/issues/113">#113</a></td>
+<td>- Added section summarising certificate validation requirements and referencing the article on the <a href="https://cdr-support.zendesk.com/hc/en-us/articles/900005826963-Certificate-Validation">CDR Support Portal</a></td>
+</tr>
+<tr>
+<td><a href="../../#certificate-management">Certificate Management</a></td>
+<td>Added OCSP Stapling Clarification</td>
+<td><a href="https://github.com/cdr-register/register/issues/113">#113</a></td>
+<td>- Added clarification that OCSP stapling is not a requirement for certificate management</td>
 </tr>
 </tbody></table>
 <h2 id='register-apis'>Register APIs</h2>
@@ -354,46 +392,33 @@
 <tr>
 <th>Section</th>
 <th>Change</th>
+<th>GitHub Issue</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><a href="../../#base-urls">BaseUrls</a></td>
-<td>Updated BaseUrls</td>
-<td>- Added separate bases for TLS and mTLS endpoints</td>
-</tr>
-</tbody></table>
-<h2 id='dcr-apis'>DCR APIs</h2>
-<table><thead>
-<tr>
-<th>Section</th>
-<th>Change</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><a href="../../#register-a-client-using-a-cdr-register-issued-software-statement-assertion">Register a client using a CDR Register issued Software Statement Assertion</a></td>
-<td>Updated Scopes</td>
-<td>- Added <code>openid</code> and <code>cdr:registration</code> to the list of scopes returned in a successful registration request</td>
-</tr>
-</tbody></table>
-<h2 id='general'>General</h2>
-<table><thead>
-<tr>
-<th>Section</th>
-<th>Change</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><a href="../../#intermediaries">Intermediaries</a></td>
-<td>Added intermediaries section</td>
-<td>- Intermediaries added with outline of Collection Arrangements</td>
+<td><a href="../../#getopenidproviderconfig-ssa">GetOpenIdProviderConfig</a></td>
+<td>Added API for OIDC Config discovery</td>
+<td><a href="https://github.com/cdr-register/register/issues/110">#110</a></td>
+<td>Added GetOpenIdProviderConfig API as currently being exposed by the CDR Register</td>
 </tr>
 <tr>
-<td><a href="../../#archives">Archives</a></td>
-<td>Added archives section</td>
-<td>- Archives of release milestones added for reference</td>
+<td><a href="../../#getjwks">GetJWKS</a></td>
+<td>Added API for CDR Register JWKS</td>
+<td><a href="https://github.com/cdr-register/register/issues/110">#110</a></td>
+<td>Added GetJWKS API as currently being exposed by the CDR Register</td>
+</tr>
+<tr>
+<td><a href="../../#getsoftwarestatementassertion-ssa">Get SSA API</a></td>
+<td>Updated Swagger error codes</td>
+<td><a href="https://github.com/cdr-register/register/issues/142">#142</a></td>
+<td>Added 422 error code for invalid SSA fields. Updated remaining error code descriptions</td>
+</tr>
+<tr>
+<td><a href="../../#consumer-data-right-cdr-register-apis">General</a></td>
+<td>Updated Swagger X-V Header description</td>
+<td><a href="https://github.com/cdr-register/register/issues/133">#133</a></td>
+<td>Corrected the X-V header description to align to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#http-headers">CDS Headers</a></td>
 </tr>
 </tbody></table>
 

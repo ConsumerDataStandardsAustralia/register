@@ -2,25 +2,15 @@
 <!doctype html>
 <html>
   <head>
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164014896-1"></script>
-      <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-164014896-1');
-      </script>
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta property="og:title"              content="Consumer Data Right Register Design - v1.2.0 Release Notes" />
+    <meta property="og:title"              content="Consumer Data Right Register Design - v1.2.3 Release Notes" />
     <meta property="og:description"        content="The CDR Register Design Reference provides participants with design specifications defining how to interact with the CDR Register" />
     <meta property="og:image"              content="images/ACCC_Stacked_RGB_Positive.png" />
 
-    <title>Consumer Data Right Register Design - v1.2.0 Release Notes</title>
+    <title>Consumer Data Right Register Design - v1.2.3 Release Notes</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -226,19 +216,22 @@
     </a>
     <div class="toc-wrapper">
       <img src="../../images/ACCC_Stacked_RGB_Reverse.PNG" class="logo" alt="Accc stacked rgb reverse" />
-      <div class="title">Consumer Data Right Register Design - v1.2.0 Release Notes</div>
+      <div class="title">Consumer Data Right Register Design - v1.2.3 Release Notes</div>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#v1-2-0-release-notes" class="toc-h1 toc-link" data-title="V1.2.0 Release Notes">V1.2.0 Release Notes</a>
+            <a href="#v1-2-3-release-notes" class="toc-h1 toc-link" data-title="V1.2.3 Release Notes">V1.2.3 Release Notes</a>
               <ul class="toc-list-h2">
+                  <li>
+                    <a href="#introduction" class="toc-h2 toc-link" data-title="Introduction">Introduction</a>
+                  </li>
                   <li>
                     <a href="#client-registration" class="toc-h2 toc-link" data-title="Client Registration">Client Registration</a>
                   </li>
                   <li>
-                    <a href="#register-apis" class="toc-h2 toc-link" data-title="Register APIs">Register APIs</a>
+                    <a href="#security-profile" class="toc-h2 toc-link" data-title="Security Profile">Security Profile</a>
                   </li>
                   <li>
-                    <a href="#dcr-apis" class="toc-h2 toc-link" data-title="DCR APIs">DCR APIs</a>
+                    <a href="#availability" class="toc-h2 toc-link" data-title="Availability">Availability</a>
                   </li>
               </ul>
           </li>
@@ -251,8 +244,22 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='v1-2-0-release-notes'>V1.2.0 Release Notes</h1>
-<p>Release notes for version 1.2.0 of the <a href="../../">CDR Register Design</a>.</p>
+        <h1 id='v1-2-3-release-notes'>V1.2.3 Release Notes</h1>
+<p>Release notes for version 1.2.3 of the <a href="../../">CDR Register Design</a>.</p>
+<h2 id='introduction'>Introduction</h2>
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Change</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="../../#future-dated-obligations">Future Dated Obligations</a></td>
+<td>- Updated Dynamic Client Registration obligations</td>
+<td>Highlighted that the deprecation of the <code>revocation_uri</code> from the SSA will occur in a future release</td>
+</tr>
+</tbody></table>
 <h2 id='client-registration'>Client Registration</h2>
 <table><thead>
 <tr>
@@ -262,12 +269,12 @@
 </tr>
 </thead><tbody>
 <tr>
-<td><a href="../../#consumer-data-right-cdr-register-apis">General</a></td>
-<td>- Updated Registration Request</td>
-<td>Added field <code>recipient_base_uri</code> for Nov 2020</td>
+<td><a href="../../#dynamic-client-registration">Dynamic Client Registration</a></td>
+<td>- Updated SSA definition</td>
+<td>-Corrected SSA definition so the optionality of <code>revocation_api</code> and introduction of <code>recipient_base_uri</code> are explicitly defined</br>- Updated <code>logo_uri</code> description so it is clear the logo belongs to the Software Product</td>
 </tr>
 </tbody></table>
-<h2 id='register-apis'>Register APIs</h2>
+<h2 id='security-profile'>Security Profile</h2>
 <table><thead>
 <tr>
 <th>Section</th>
@@ -276,22 +283,22 @@
 </tr>
 </thead><tbody>
 <tr>
-<td><a href="../../#consumer-data-right-cdr-register-apis">General</a></td>
-<td>Updated Swagger</td>
-<td>Added <code>x-v headers</code> to all Register API successful responses</td>
+<td><a href="../../#client-authentication">Client Authentication</a></td>
+<td>- Updated descriptions of identifiers used in authentication</td>
+<td>Provided explicit clarification of what identifiers are used in the claims for client authentication</td>
 </tr>
 <tr>
-<td><a href="../../##getdatarecipients">General</a></td>
-<td>Updated Swagger</td>
-<td>Updated GetDataRecipients to include the <code>accreditationNumber</code> in the response</td>
+<td><a href="../../#certificate-management">Certificate Management</a></td>
+<td>- Updated Issued by ACCC CA for Data Holders</td>
+<td>Removed erroneous entry for Client Certificate issued to Data Holders</td>
 </tr>
 <tr>
-<td><a href="../../#consumer-data-right-cdr-register-apis">General</a></td>
-<td>Updated Swagger</td>
-<td>Added references to the <a href="../../#identifiers">identifiers section</a> of the documentation to clarify where identifiers sits in the entity model</td>
+<td><a href="../../#participant-endpoints">Participant Brands</a></td>
+<td>- Updated Labels on BaseUri Table</td>
+<td>Clarified that the endpoints are per brand</td>
 </tr>
 </tbody></table>
-<h2 id='dcr-apis'>DCR APIs</h2>
+<h2 id='availability'>Availability</h2>
 <table><thead>
 <tr>
 <th>Section</th>
@@ -300,9 +307,9 @@
 </tr>
 </thead><tbody>
 <tr>
-<td><a href="../../#dcr-api">General</a></td>
-<td>Updated Swagger</td>
-<td>Added field <code>recipient_base_uri</code></td>
+<td><a href="../../#cdn-hosted-endpoints">CDN Hosted Endpoints</a></td>
+<td>- Added table showing public APIs are CDN hosted</td>
+<td>Provided clarification that public APIs are CDN hosted and can still be relied upon during a CDR Register outage</td>
 </tr>
 </tbody></table>
 

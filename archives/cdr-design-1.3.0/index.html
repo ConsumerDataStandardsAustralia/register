@@ -1,17 +1,8 @@
+
 <!doctype html>
 <html>
   <head>
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164014896-1"></script>
-      <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-164014896-1');
-      </script>
-
-      <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -269,9 +260,6 @@
                     <a href="#ecosystem-entities" class="toc-h2 toc-link" data-title="Ecosystem Entities">Ecosystem Entities</a>
                   </li>
                   <li>
-                    <a href="#participant-brands" class="toc-h2 toc-link" data-title="Participant Brands">Participant Brands</a>
-                  </li>
-                  <li>
                     <a href="#ecosystem-component-diagram" class="toc-h2 toc-link" data-title="Ecosystem Component Diagram">Ecosystem Component Diagram</a>
                   </li>
                   <li>
@@ -373,9 +361,6 @@
                     <a href="#participant-endpoints" class="toc-h2 toc-link" data-title="Participant Endpoints">Participant Endpoints</a>
                   </li>
                   <li>
-                    <a href="#jwks-cache-management" class="toc-h2 toc-link" data-title="JWKS Cache Management">JWKS Cache Management</a>
-                  </li>
-                  <li>
                     <a href="#certificate-management" class="toc-h2 toc-link" data-title="Certificate Management">Certificate Management</a>
                   </li>
               </ul>
@@ -413,12 +398,6 @@
                     <a href="#base-urls" class="toc-h2 toc-link" data-title="Base URLs:">Base URLs:</a>
                   </li>
                   <li>
-                    <a href="#getopenidproviderconfig" class="toc-h2 toc-link" data-title="GetOpenIdProviderConfig">GetOpenIdProviderConfig</a>
-                  </li>
-                  <li>
-                    <a href="#getjwks" class="toc-h2 toc-link" data-title="GetJWKS">GetJWKS</a>
-                  </li>
-                  <li>
                     <a href="#getdataholderbrands" class="toc-h2 toc-link" data-title="GetDataHolderBrands">GetDataHolderBrands</a>
                   </li>
                   <li>
@@ -438,15 +417,6 @@
           <li>
             <a href="#schemas" class="toc-h1 toc-link" data-title="Schemas">Schemas</a>
               <ul class="toc-list-h2">
-                  <li>
-                    <a href="#tocSresponseopenidproviderconfigmetadata" class="toc-h2 toc-link" data-title="ResponseOpenIDProviderConfigMetadata">ResponseOpenIDProviderConfigMetadata</a>
-                  </li>
-                  <li>
-                    <a href="#tocSresponsejwks" class="toc-h2 toc-link" data-title="ResponseJWKS">ResponseJWKS</a>
-                  </li>
-                  <li>
-                    <a href="#tocSjwk" class="toc-h2 toc-link" data-title="JWK">JWK</a>
-                  </li>
                   <li>
                     <a href="#tocSresponseregisterdataholderbrandlist" class="toc-h2 toc-link" data-title="ResponseRegisterDataHolderBrandList">ResponseRegisterDataHolderBrandList</a>
                   </li>
@@ -532,9 +502,6 @@
           <li>
             <a href="#change-log" class="toc-h1 toc-link" data-title="Change Log">Change Log</a>
           </li>
-          <li>
-            <a href="#archives" class="toc-h1 toc-link" data-title="Archives">Archives</a>
-          </li>
       </ul>
         <ul class="toc-footer">
             <li><a href='https://github.com/cdr-register/register'>CDR Register on Github</a></li>
@@ -543,13 +510,19 @@
             <li><a href='includes/swagger/swagger.yaml'>Swagger (YAML)</a></li>
         </ul>
         <ul class="toc-footer">
-            <li class="version-footer">Version: 1.4.0</li>
+            <li class="version-footer">Version: 1.3.0</li>
         </ul>
 
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
+          <aside class="warning archive">
+            <span>This is the archived version </span>
+            <span style="font-weight: bold;">1.3.0</span>
+            <span> of the CDR Register Design and is retained for reference only.</span>
+            <div class="aside-second-line">Please also refer to the <a href="/">Latest Version</a></div>
+          </aside>
         <h1 id='introduction'>Introduction</h1><h2 id='consumer-data-right'>Consumer Data Right</h2>
 <p>The Australian Government is introducing a Consumer Data Right (CDR) to give consumers more control over their data.<br>
 The CDR will be rolled out sector-by-sector across the economy, starting with the banking sector.<br>
@@ -572,7 +545,7 @@ The Government has announced that the energy and telecommunications sectors will
 <p>Further information on the ACCC’s role in the CDR is available on the ACCC’s website:<br>
 <a href="https://www.accc.gov.au/focus-areas/consumer-data-right-cdr-0">https://www.accc.gov.au/focus-areas/consumer-data-right-cdr-0</a></p>
 <h2 id='data-standards-body'>Data Standards Body</h2>
-<p>A Data Standards Body (DSB) is responsible for assisting Mr Andrew Stevens, the Data Standards Chair, in the development of common technical standards to allow Australians to access data held about them by businesses and direct its safe transfer to others.  </p>
+<p>A Data Standards Body (DSB) has been established to develop technical standards to implement the CDR. The work of the DSB is being delivered by a team within Data61, overseen by interim DSB Chair Mr Andrew Stevens, and with industry and consumer advice provided by an Advisory Committee.  </p>
 
 <p>Further information on the DSB is available on its website:<br>
 <a href="https://consumerdatastandards.org.au">https://consumerdatastandards.org.au</a></p>
@@ -694,10 +667,6 @@ Depending on the number of responses/comments we get, we will assess what the mo
 <td><code>software_id</code> claim as defined in the <a href="#dynamic-client-registration">SSA Definition</a> </br> <code>iss</code> claim as defined in the <a href="#registration-request-using-jwt">Registration Request</a> </br>Identifier used as a parameter to the <a href="#getsoftwarestatementassertion-ssa">GetSoftwareStatementAssertion API</a></td>
 </tr>
 </tbody></table>
-<h2 id='participant-brands'>Participant Brands</h2>
-<p>The CDR Register has been designed to accommodate a multitude of organisational business models using the concept of brands (<strong>Data Holder Brands</strong> and <strong>Accredited Data Recipient Brands</strong>). This brands flexibility requires participants to understand how different configurations will be presented at the CDR Register.</p>
-
-<p>A dedicated support article has been written on this topic: <a href="https://cdr-support.zendesk.com/hc/en-us/articles/900005881263-Brands-in-the-Consumer-Data-Right-Ecosystem">Brands in the Consumer Data Right Ecosystem</a></p>
 <h2 id='ecosystem-component-diagram'>Ecosystem Component Diagram</h2>
 <p>The following is a high level overview of the CDR ecosystem outlining the components and API endpoints each participant within the ecosystem will be expected to implement.</p>
 
@@ -733,7 +702,7 @@ Depending on the number of responses/comments we get, we will assess what the mo
 </tr>
 <tr>
 <td><strong>Metrics</strong></td>
-<td>Facilitates <a href="https://consumerdatastandardsaustralia.github.io/standards/#get-metrics">Get Metrics</a> requests from the CDR Register as per the Consumer Data Standards. Data Holders must report this information separately for each of their brands. The CDR Register will therefore collect these metrics per Data Holder Brand.</td>
+<td>Facilitates Get Metrics requests from the ACCC Register as per the Consumer Data Standards <a href="https://consumerdatastandardsaustralia.github.io/standards/#get-metrics">Get Metrics</a></td>
 </tr>
 <tr>
 <td><strong>Authorisation Dashboard</strong></td>
@@ -1489,8 +1458,6 @@ Accept: application/json
 <h2 id='registration-validation'>Registration Validation</h2>
 <p>Validation and use of the JWT and the claims described above MUST be performed in accordance with <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JWT</a></p>
 
-<p>SSA JWT signatures MUST be verified against the associated JWK published at the CDR Register <a href="#getjwks">GetJWKS endpoint</a>.</p>
-
 <p>Validation of the SSA <code>software_id</code> and the associated software status is not required as the SSA will have been issued and signed by the CDR Register</p>
 
 <p>Each <code>software_id</code> issued by the CDR Register should only be registered on each Data Holder Brand IDP once. Multiple registrations per <code>software_id</code> are NOT permitted</p>
@@ -1646,20 +1613,6 @@ Content-Type: application/json
 <li>During registration management requests, Data Holders must validate the scope of access tokens provided matches </br><code>cdr:registration</code></li>
 <li>Registration endpoints will be exposed in the OIDC Discovery Configuration Endpoint, as described in the <a href="https://consumerdatastandardsaustralia.github.io/standards/index.html#end-points">Consumer Data Standards</a></li>
 </ul>
-<h3 id='put-operations'>PUT Operations</h3>
-<p>Registrations must only be updated via Registration PUT operations</p>
-
-<p>PUT operations are to be used for one of two scenarios:</p>
-
-<ol>
-<li>The client has updated their registration details on the CDR Register and updates this information to the data holder brands</li>
-<li>A new version of the SSA has been released and the client updates this information to the data holder brands</li>
-</ol>
-
-<ul>
-<li>POST and PUT operations MUST accept the SSA payload.</li>
-<li>Any fields the data holder brand does not support are not persisted. However, registration responses must conform to the <a href="#dcr-api">DCR API</a> specification</li>
-</ul>
 <h2 id='authorisation-server'>Authorisation Server</h2><pre class="highlight plaintext"><code>Non-Normative Example for access token retrieval
 
 HTTP/1.1 POST /token
@@ -1745,44 +1698,6 @@ grant_type=client_credentials&amp;
 </tbody></table>
 
 <p>These cascaded software product statuses are also catered for in collection arrangements. Please refer to the <a href="#collection-arrangements">Accreditation Status Discovery</a> section for more details.</p>
-<h3 id='archiving-entities'>Archiving Entities</h3>
-<p>In order to keep the Register APIs efficient and to minimise the amount of metadata traffic, dormant entries will be identified and archived automatically within the CDR Register.</p>
-
-<p>Dormant entries are defined as those records that have reached and maintained an <strong>end state</strong> in the CDR Register for the past <strong>2 years</strong>.</p>
-
-<p>Each entity within the CDR Register can be archived independently of the parent entity. For example, a software product that has been dormant for <strong>2 years</strong> can be archived whilst the brand remains active. However, if a parent entity is archived (Legal Entity / Brand) then all child entities will also be archived.</p>
-
-<p>The table below outlines the end state for each Register entry type:</p>
-
-<table><thead>
-<tr>
-<th><strong>Register Entity</strong></th>
-<th><strong>End State</strong></th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Data Holder</td>
-<td>Removed</td>
-</tr>
-<tr>
-<td>Data Holder Brand</td>
-<td>Removed</td>
-</tr>
-<tr>
-<td>Data Recipient</td>
-<td>Surrendered, Revoked</td>
-</tr>
-<tr>
-<td>Data Recipient Brand</td>
-<td>Removed</td>
-</tr>
-<tr>
-<td>Data Recipient Software Product</td>
-<td>Removed</td>
-</tr>
-</tbody></table>
-
-<p>When an entry is archived on the Register, the entry will no longer appear in the output of the Register APIs by default. The archived records will still be accessible, if needed, by providing a query string parameter <code>include-archived=true</code> on the request.</p>
 <h2 id='data-holder-responsibilities'>Data Holder Responsibilities</h2>
 <p></br>The ACCC Registrar has the ability to change the status of a Software Product independently of the ADR accreditation status. Therefore, both the ADR and Software Product statuses should be referenced, to determine the Data Holder&#39;s responsibilities for data disclosure, consent and registration management
 &#39;</p>
@@ -1927,8 +1842,6 @@ grant_type=client_credentials&amp;
 <h3 id='request-for-consent-withdrawal-checking-validity-of-accredited-data-recipient-and-associated-software-product'>Request for Consent Withdrawal: Checking Validity of Accredited Data Recipient and associated Software Product</h3>
 <p><img src="images/ChecksForDhToWithdrawConsent.png" ></img>
 <em>Pre-requisites: SSL connection has been established between all parties</em></p>
-
-<p>Data recipients authenticate data holders using JWKS specified in <a href="#getdataholderbrands">data holder brands discovery APIs</a>.</p>
 <h2 id='status-changes'>Status Changes</h2><h3 id='adr-active'>ADR Active</h3>
 <p>Once a Data Recipient has been granted accreditation by the ACCC (as Data Recipient Accreditor) and has completed the necessary steps to be added to the Register (as specified in the rules), the following actions and responsibilities will arise:</p>
 
@@ -2119,9 +2032,9 @@ grant_type=client_credentials&amp;
     "scope": "cdr-register:bank:read openid"
 }
 </code></pre>
-<p>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standard</a> for reference to the client authentication methods from the CDR Register to participants.</p>
+<p>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standard</a> for reference to the client authentication methods between participants</p>
 <h3 id='client-authentication-with-the-cdr-register'>Client Authentication with the CDR Register</h3>
-<p>Interactions with the CDR Register uses the <code>private_key_jwt</code> client authentication method as specified at <a href="https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication">section 9</a> of <strong>[OIDC]</strong>. This maintains alignment with the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standards</a></p>
+<p>Using the same client authentication approach as the <a href="https://consumerdatastandardsaustralia.github.io/standards/#client-authentication">Consumer Data Standards</a>, interactions with the CDR Register use <code>private_key_jwt</code> Client Authentication method as specified at <a href="https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication">section 9</a> of <strong>[OIDC]</strong>.</p>
 <h3 id='cdr-register-access-token-request-using-client-authentication'>CDR Register Access Token Request using Client Authentication</h3>
 <ul>
 <li><p>The CDR Register MUST support the authentication of the Data Recipients using the <code>private_key_jwt</code> client authentication method</p></li>
@@ -2141,7 +2054,7 @@ grant_type=client_credentials&amp;
 <li>  <code>iss</code>: REQUIRED. Issuer. This MUST contain the <code>Data Recipient Brand ID</code> OR <code>Software Product ID</code> issued by the CDR Register</li>
 <li>  <code>sub</code>: REQUIRED. Subject. This MUST contain the <code>Data Recipient Brand ID</code> OR <code>Software Product ID</code> issued by the CDR Register</li>
 <li>  <code>aud</code>: REQUIRED. Audience. The URL of the end point being invoked</li>
-<li>  <code>exp</code>: REQUIRED. Expiration time on or after which the JWT MUST NOT be accepted for processing</li>
+<li>  <code>exp</code>: REQUIRED. Expiration time on or after which the ID Token MUST NOT be accepted for processing</li>
 <li>  <code>jti</code>: REQUIRED. JWT ID. A unique identifier for the token, which can be used to prevent reuse of the token. These tokens MUST only be used once.</li>
 </ul>
 
@@ -2179,11 +2092,12 @@ The following client identifiers will be used:</p>
 <td>Calls to Data Recipient <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">Revocation</a> and <a href="https://consumerdatastandardsaustralia.github.io/standards/#end-points">CDR Arrangement Management</a> APIs</td>
 <td><code>Data Holder Brand ID</code> as issued by CDR Register</td>
 </tr>
+<tr>
+<td><strong>CDR Register</strong></td>
+<td>Calls to Data Holder Brand Admin APIs</td>
+<td><strong>value: cdr-register</strong></td>
+</tr>
 </tbody></table>
-
-<ul>
-<li><em><code>Data Recipient Brand ID</code> as a client identifier will be deprecated in a future version of the CDR Register design and is currently retained for backwards compatibility</em></li>
-</ul>
 <h2 id='transaction-security'>Transaction Security</h2>
 <p>Please refer to the <a href="https://consumerdatastandardsaustralia.github.io/standards/#transaction-security">Consumer Data Standards Transaction Security</a> for Transaction Security details</p>
 <h2 id='participant-endpoints'>Participant Endpoints</h2>
@@ -2252,17 +2166,6 @@ The following client identifiers will be used:</p>
 <td><strong>DH:</strong> Used for client authentication for DH -&gt; ADR communication and is populated in the <a href="#getdataholderbrands">GetDataHolderBrands API</a></br> <strong>ADR:</strong> Used for client authentication for ADR -&gt; DH &amp; Register communication and is populated in the <a href="#dynamic-client-registration">SSA</a></td>
 </tr>
 </tbody></table>
-<h2 id='jwks-cache-management'>JWKS Cache Management</h2>
-<p><code>JWKS_URI</code> clients are expected to cache and refresh JWKS periodically as key sets will change over time due to key rotation.</p>
-
-<p>Key rotation is expected for the following scenarios:</p>
-
-<ol>
-<li><code>JWKS_URI</code> owner rotates key on a regular basis as a security hygiene task</li>
-<li><code>JWKS_URI</code> owner rotates key due to a compromised key</li>
-</ol>
-
-<p>It is recommended that the upper bound is constrained to <strong>15 minutes</strong> with an additional recommendation that timeout period be configurable (not hard coded) to cater for the case where the timeout needs to change due to a threat or breach.</p>
 <h2 id='certificate-management'>Certificate Management</h2><h3 id='issued-by-accc-ca-for-data-holders'>Issued by ACCC CA for Data Holders</h3>
 <table><thead>
 <tr>
@@ -2379,28 +2282,6 @@ The following client identifiers will be used:</p>
 <p>Please refer to the <a href="https://www.accc.gov.au/focus-areas/consumer-data-right-cdr-0/on-boarding-guide">onboarding guide</a> for further information on certificate issuance</p>
 <h3 id='certificate-usage'>Certificate Usage</h3>
 <p>Further details on ACCC CA issued certificates can be found in the <a href="https://www.cdr.gov.au/sites/default/files/2020-12/CDR%20-%20ACCC%20Certification%20practice%20statement.pdf">ACCC Certificate Practice Statement V1.0</a></p>
-<h3 id='certificate-validation'>Certificate Validation</h3>
-<p>The Certificate Practice Statement provides details for DigiCert&#39;s certificate validation requirements and a summary has been provided in the CDR Support Portal article: <a href="https://cdr-support.zendesk.com/hc/en-us/articles/900005826963-Certificate-Validation">Certificate Validation</a></p>
-
-<p>To summarise, certificate validation must check:</p>
-
-<p><strong>1. Checking for certificate validity</strong></p>
-
-<p>Verify private key signature is mathematically linked to the presented public key certificate, presented certificate identifies trusted User/Application and/or Service and certificate is both valid and not revoked</p>
-
-<p><strong>2. Issuer‐to‐subject name chaining</strong></p>
-
-<p>Signatures from Issuing CA’s and associated CA public key certificates are trusted, valid and not revoked</p>
-
-<p><strong>3. Policy and key use constraints</strong></p>
-
-<p>Each certificate has the applicable and appropriate x.509 certificate extensions, e.g. CA and CRL signing, Digital Signing, Client and Server Authentication, etc</p>
-
-<p><strong>4. Revocation Status</strong></p>
-
-<p>Status is checked through Certificate Revocation Lists (CRL) or Online Certificate Status Protocol (OCSP) responders, identified in each certificate in the chain.</p>
-<h3 id='ocsp-stapling'>OCSP stapling</h3>
-<p>The use of OCSP Stapling within the CDR ecosystem is not currently recommended.</p>
 <h1 id='availability'>Availability</h1>
 <p>The following scenarios outline the expectations of Data Holders and Accredited Data Recipients within the Consumer Data Right ecosystem when outages occur</p>
 
@@ -2694,22 +2575,6 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 </tr>
 </thead><tbody>
 <tr>
-<td>GetOpenIdProviderConfig</td>
-<td>Data Recipient Brand or Software Product</td>
-<td>Discovery of CDR Register OpenID Configuration</td>
-<td></td>
-<td><i class="icon-check"></i></td>
-<td></td>
-</tr>
-<tr>
-<td>GetJWKS</td>
-<td>Data Holder</td>
-<td>Validate SSA and CDR Register authentication JWT signatures</td>
-<td></td>
-<td><i class="icon-check"></i></td>
-<td></td>
-</tr>
-<tr>
 <td>GetDataHolderBrands</td>
 <td>Data Recipient Brand or Software Product</td>
 <td>Discovery of DH Brands and their associated endpoints</td>
@@ -2766,138 +2631,9 @@ Refer <a href="https://consumerdatastandardsaustralia.github.io/standards/#versi
 <td>https://secure.api.cdr.gov.au</td>
 </tr>
 </tbody></table>
-<h2 id='getopenidproviderconfig'>GetOpenIdProviderConfig</h2>
-<p><a id="opIdGetOpenIdProviderConfig"></a></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight plaintext"><code>GET https://&lt;register-base-url&gt;/cdr-register/v1/.well-known/openid-configuration HTTP/1.1
-Host: &lt;register-base-url&gt;
-Accept: application/json
-
-</code></pre>
-<p><code>GET /.well-known/openid-configuration</code></p>
-
-<p>Endpoint used by participants to discover the CDR Register OpenID configuration and obtain information needed to interact with it, including its OAuth 2.0 endpoint locations.</p>
-
-<blockquote>
-<p>Example responses</p>
-
-<p>200 Response</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"jwks_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"token_endpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"claims_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"id_token_signing_alg_values_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"subject_types_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"code_challenge_methods_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"scopes_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"response_types_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"grant_types_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"token_endpoint_auth_methods_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"tls_client_certificate_bound_access_tokens"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"request_object_signing_alg_values_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<h3 id="getopenidproviderconfig-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The OpenID Provider Configuration Metadata values</td>
-<td><a href="#schemaresponseopenidproviderconfigmetadata">ResponseOpenIDProviderConfigMetadata</a></td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-<h2 id='getjwks'>GetJWKS</h2>
-<p><a id="opIdGetJWKS"></a></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight plaintext"><code>GET https://&lt;register-base-url&gt;/cdr-register/v1/jwks HTTP/1.1
-Host: &lt;register-base-url&gt;
-Accept: application/json
-
-</code></pre>
-<p><code>GET /jwks</code></p>
-
-<p>JWKS endpoint containing the public keys used by the CDR Register to validate the signature of issued SSAs and authenticate outbound calls to participants in the CDR</p>
-
-<blockquote>
-<p>Example responses</p>
-
-<p>200 Response</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"e"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"string"</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"n"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<h3 id="getjwks-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>A JSON object that represents a set of JWKs</td>
-<td><a href="#schemaresponsejwks">ResponseJWKS</a></td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-This operation does not require authentication
-</aside>
 <h2 id='getdataholderbrands'>GetDataHolderBrands</h2>
+<p>Get Data Holder Brands from the CDR Register</p>
+
 <p><a id="opIdGetDataHolderBrands"></a></p>
 
 <blockquote>
@@ -2911,8 +2647,6 @@ x-v: string
 
 </code></pre>
 <p><code>GET /{industry}/data-holders/brands</code></p>
-
-<p>Allows Data Recipients to discover data holder brands available in the CDR ecosystem</p>
 
 <h3>Endpoint Version</h3>
 
@@ -2928,7 +2662,7 @@ x-v: string
 </tr>
 </tbody></table>
 
-<h3 id="getdataholderbrands-parameters">Parameters</h3>
+<h3 id="get-data-holder-brands-from-the-cdr-register-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2951,21 +2685,21 @@ x-v: string
 <td>query</td>
 <td>string(date-time)</td>
 <td>false</td>
-<td>query filter returns data holder brands updated since the specified date-time</td>
+<td>none</td>
 </tr>
 <tr>
 <td>page</td>
 <td>query</td>
 <td>integer(int32)</td>
 <td>false</td>
-<td>the page number to return</td>
+<td>none</td>
 </tr>
 <tr>
 <td>page-size</td>
 <td>query</td>
 <td>integer(int32)</td>
 <td>false</td>
-<td>the number of records to return per page</td>
+<td>none</td>
 </tr>
 <tr>
 <td>Authorization</td>
@@ -2979,7 +2713,7 @@ x-v: string
 <td>header</td>
 <td>string</td>
 <td>false</td>
-<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point requested by the client. Must be set to a positive integer.</td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values'>Enumerated Values</h4>
@@ -3051,7 +2785,7 @@ x-v: string
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h3 id="getdataholderbrands-responses">Responses</h3>
+<h3 id="get-data-holder-brands-from-the-cdr-register-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -3070,19 +2804,19 @@ x-v: string
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Bad Request</br>Invalid industry path parameter</td>
+<td>Bad Request</td>
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 <tr>
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>Invalid Bearer Token</td>
+<td>Unauthorized</td>
 <td>None</td>
 </tr>
 <tr>
 <td>406</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">Not Acceptable</a></td>
-<td>Invalid x-v header</br>Invalid Accept header</td>
+<td>Not Acceptable</td>
 <td>None</td>
 </tr>
 </tbody></table>
@@ -3109,6 +2843,8 @@ x-v: string
 To perform this operation, you must be authenticated and authorised with the following scope: <span class="bold">cdr-register:bank:read</span>
 </aside>
 <h2 id='getsoftwarestatementassertion-ssa'>GetSoftwareStatementAssertion (SSA)</h2>
+<p>Get a Software Statement Assertion (SSA) for a software product on the CDR Register to be used for Dynamic Registration with a Data Holder</p>
+
 <p><a id="opIdGetSoftwareStatementAssertion"></a></p>
 
 <blockquote>
@@ -3137,9 +2873,7 @@ x-v: string
 </tr>
 </tbody></table>
 
-<p>Get a Software Statement Assertion (SSA) for a software product on the CDR Register to be used for Dynamic Client Registration with a Data Holder Brand</p>
-
-<h3 id="getsoftwarestatementassertion-(ssa)-parameters">Parameters</h3>
+<h3 id="get-a-software-statement-assertion-(ssa)-for-a-software-product-on-the-cdr-register-to-be-used-for-dynamic-client-registration-with-a-data-holder-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -3183,7 +2917,7 @@ x-v: string
 <td>header</td>
 <td>string</td>
 <td>false</td>
-<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point requested by the client. Must be set to a positive integer.</td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-2'>Enumerated Values</h4>
@@ -3206,7 +2940,7 @@ x-v: string
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 </span></code></pre>
-<h3 id="getsoftwarestatementassertion-(ssa)-responses">Responses</h3>
+<h3 id="get-a-software-statement-assertion-(ssa)-for-a-software-product-on-the-cdr-register-to-be-used-for-dynamic-client-registration-with-a-data-holder-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -3225,32 +2959,26 @@ x-v: string
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Invalid industry path parameter</br>Invalid SoftwareProductId</td>
+<td>Bad Request</td>
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 <tr>
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>Invalid Bearer Token</td>
+<td>Unauthorized</td>
 <td>None</td>
 </tr>
 <tr>
 <td>403</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
-<td>Invalid BrandId</td>
+<td>Forbidden</td>
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 <tr>
 <td>406</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">Not Acceptable</a></td>
-<td>Invalid x-v header</br>Invalid Accept header</td>
+<td>Not Acceptable</td>
 <td>None</td>
-</tr>
-<tr>
-<td>422</td>
-<td><a href="https://tools.ietf.org/html/rfc2518#section-10.3">Unprocessable Entity</a></td>
-<td>SSA fields invalid or incomplete</td>
-<td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 </tbody></table>
 <h3 id='response-headers-2'>Response Headers</h3>
@@ -3272,10 +3000,12 @@ x-v: string
 </tr>
 </tbody></table>
 
-<aside class="success">
-This operation does not require authentication
+<aside class="notice">
+To perform this operation, you must be authenticated and authorised with the following scope: <span class="bold">cdr-register:bank:read</span>
 </aside>
 <h2 id='getsoftwareproductsstatus'>GetSoftwareProductsStatus</h2>
+<p>Get the statuses for software products from the CDR Register</p>
+
 <p><a id="opIdGetSoftwareProductsStatus"></a></p>
 
 <blockquote>
@@ -3288,8 +3018,6 @@ x-v: string
 
 </code></pre>
 <p><code>GET /{industry}/data-recipients/brands/software-products/status</code></p>
-
-<p>Endpoint used by participants to discover the statuses for software products from the CDR Register</p>
 
 <h3>Endpoint Version</h3>
 
@@ -3305,7 +3033,7 @@ x-v: string
 </tr>
 </tbody></table>
 
-<h3 id="getsoftwareproductsstatus-parameters">Parameters</h3>
+<h3 id="get-the-statuses-for-software-products-from-the-cdr-register-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -3328,7 +3056,7 @@ x-v: string
 <td>header</td>
 <td>string</td>
 <td>false</td>
-<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point requested by the client. Must be set to a positive integer.</td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-3'>Enumerated Values</h4>
@@ -3358,7 +3086,7 @@ x-v: string
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h3 id="getsoftwareproductsstatus-responses">Responses</h3>
+<h3 id="get-the-statuses-for-software-products-from-the-cdr-register-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -3377,13 +3105,13 @@ x-v: string
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Bad Request</br>Invalid industry path parameter</td>
+<td>Bad Request</td>
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 <tr>
 <td>406</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">Not Acceptable</a></td>
-<td>Invalid x-v header</br>Invalid Accept header</td>
+<td>Not Acceptable</td>
 <td>None</td>
 </tr>
 </tbody></table>
@@ -3410,7 +3138,9 @@ x-v: string
 This operation does not require authentication
 </aside>
 <h2 id='getdatarecipientsstatus'>GetDataRecipientsStatus</h2>
-<p><a id="opIdGetDataRecipientsStatus"></a></p>
+<p>Get the statuses for Data Recipients from the CDR Register</p>
+
+<p><a id="opIdGetDataRecipientStatus"></a></p>
 
 <blockquote>
 <p>Code samples</p>
@@ -3422,8 +3152,6 @@ x-v: string
 
 </code></pre>
 <p><code>GET /{industry}/data-recipients/status</code></p>
-
-<p>Endpoint used by participants to discover the statuses for Data Recipients from the CDR Register</p>
 
 <h3>Endpoint Version</h3>
 
@@ -3439,7 +3167,7 @@ x-v: string
 </tr>
 </tbody></table>
 
-<h3 id="getdatarecipientsstatus-parameters">Parameters</h3>
+<h3 id="get-the-statuses-for-data-recipients-from-the-cdr-register-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -3462,7 +3190,7 @@ x-v: string
 <td>header</td>
 <td>string</td>
 <td>false</td>
-<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point requested by the client. Must be set to a positive integer.</td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-4'>Enumerated Values</h4>
@@ -3492,7 +3220,7 @@ x-v: string
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h3 id="getdatarecipientsstatus-responses">Responses</h3>
+<h3 id="get-the-statuses-for-data-recipients-from-the-cdr-register-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -3511,13 +3239,13 @@ x-v: string
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Bad Request</br>Invalid industry path parameter</td>
+<td>Bad Request</td>
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 <tr>
 <td>406</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">Not Acceptable</a></td>
-<td>Invalid x-v header</br>Invalid Accept header</td>
+<td>Not Acceptable</td>
 <td>None</td>
 </tr>
 </tbody></table>
@@ -3557,8 +3285,6 @@ x-v: string
 </code></pre>
 <p><code>GET /{industry}/data-recipients</code></p>
 
-<p>Endpoint used by participants to discover data recipients and associated brands and software products, available in the CDR ecosystem</p>
-
 <h3>Endpoint Version</h3>
 
 <table><thead>
@@ -3573,7 +3299,7 @@ x-v: string
 </tr>
 </tbody></table>
 
-<h3 id="getdatarecipients-parameters">Parameters</h3>
+<h3 id="get-data-recipients-from-the-cdr-register-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -3596,7 +3322,7 @@ x-v: string
 <td>header</td>
 <td>string</td>
 <td>false</td>
-<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point requested by the client. Must be set to a positive integer.</td>
+<td>The <a href="https://consumerdatastandardsaustralia.github.io/standards/#response-headers">version</a> of the API end point that the CDR Register has responded with</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-5'>Enumerated Values</h4>
@@ -3648,7 +3374,7 @@ x-v: string
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h3 id="getdatarecipients-responses">Responses</h3>
+<h3 id="get-data-recipients-from-the-cdr-register-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -3667,13 +3393,19 @@ x-v: string
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Bad Request</br>Invalid industry path parameter</td>
+<td>Bad Request</td>
+<td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+<td>Forbidden</td>
 <td><a href="#schemaresponseerrorlist">ResponseErrorList</a></td>
 </tr>
 <tr>
 <td>406</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">Not Acceptable</a></td>
-<td>Invalid x-v header</br>Invalid Accept header</td>
+<td>Not Acceptable</td>
 <td>None</td>
 </tr>
 </tbody></table>
@@ -3700,257 +3432,6 @@ x-v: string
 This operation does not require authentication
 </aside>
 <h1 id='schemas'>Schemas</h1>
-<h2 id="tocSresponseopenidproviderconfigmetadata">ResponseOpenIDProviderConfigMetadata</h2>
-
-<p><a id="schemaresponseopenidproviderconfigmetadata"></a></p>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"jwks_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"token_endpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"claims_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"id_token_signing_alg_values_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"subject_types_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"code_challenge_methods_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"scopes_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"response_types_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"grant_types_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"token_endpoint_auth_methods_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"tls_client_certificate_bound_access_tokens"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"request_object_signing_alg_values_supported"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre>
-<p><em>Response containing the Open ID Provider Configuration Metadata</em></p>
-<h3 id='properties'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>issuer</td>
-<td>string</td>
-<td>true</td>
-<td>none</td>
-<td>URL using the https scheme with no query or fragment component that the CDR Register asserts as its Issuer Identifier</td>
-</tr>
-<tr>
-<td>jwks_uri</td>
-<td>string</td>
-<td>true</td>
-<td>none</td>
-<td>URL of the CDR Register&#39;s JSON Web Key Set [JWK] document. This contains the signing key(s) used to validate access tokens issued from the CDR Register. Note that this differs from the <a href="https://cdr-register.github.io/register/#getjwks">JWKS endpoint</a> used to validate SSAs and CDR Register client authentication</td>
-</tr>
-<tr>
-<td>token_endpoint</td>
-<td>string</td>
-<td>true</td>
-<td>none</td>
-<td>URL of the CDR Register&#39;s OAuth 2.0 Token Endpoint</td>
-</tr>
-<tr>
-<td>claims_supported</td>
-<td>[string]</td>
-<td>true</td>
-<td>none</td>
-<td>JSON array containing a list of the Claim Names of the Claims that the CDR Register supplies values for</td>
-</tr>
-<tr>
-<td>id_token_signing_alg_values_supported</td>
-<td>[string]</td>
-<td>true</td>
-<td>none</td>
-<td>JSON array containing a list of the JWS signing algorithms (alg values) supported by the CDR Register for the ID Token to encode the Claims in a JWT. Given the CDR Register does not issue ID tokens, this field can be safely ignored</td>
-</tr>
-<tr>
-<td>subject_types_supported</td>
-<td>[string]</td>
-<td>true</td>
-<td>none</td>
-<td>JSON array containing a list of the Subject Identifier types that the CDR Register supports. Given the CDR Register does not issue ID tokens, this field can be safely ignored</td>
-</tr>
-<tr>
-<td>code_challenge_methods_supported</td>
-<td>[string]</td>
-<td>true</td>
-<td>none</td>
-<td>JSON array containing a list of Proof Key for Code Exchange (PKCE) [RFC7636] code challenge methods supported by this authorization server. Given the CDR Register does not support PKCE, this field can be safely ignored</td>
-</tr>
-<tr>
-<td>scopes_supported</td>
-<td>[string]</td>
-<td>true</td>
-<td>none</td>
-<td>JSON array containing a list of the OAuth 2.0 [RFC6749] scope values that the CDR Register supports</td>
-</tr>
-<tr>
-<td>response_types_supported</td>
-<td>[string]</td>
-<td>true</td>
-<td>none</td>
-<td>JSON array containing a list of the OAuth 2.0 response_type values that the CDR Registrer supports</td>
-</tr>
-<tr>
-<td>grant_types_supported</td>
-<td>[string]</td>
-<td>true</td>
-<td>none</td>
-<td>JSON array containing a list of the OAuth 2.0 Grant Type values that the CDR Register supports</td>
-</tr>
-<tr>
-<td>token_endpoint_auth_methods_supported</td>
-<td>[string]</td>
-<td>true</td>
-<td>none</td>
-<td>JSON array containing a list of Client Authentication methods supported by this Token Endpoint</td>
-</tr>
-<tr>
-<td>tls_client_certificate_bound_access_tokens</td>
-<td>boolean</td>
-<td>true</td>
-<td>none</td>
-<td>Boolean value indicating server support for mutual TLS client certificate bound access tokens</td>
-</tr>
-<tr>
-<td>request_object_signing_alg_values_supported</td>
-<td>[string]</td>
-<td>true</td>
-<td>none</td>
-<td>JSON array containing a list of the JWS signing algorithms (alg values) supported by the CDR Register for Request Objects.</td>
-</tr>
-</tbody></table>
-
-<h2 id="tocSresponsejwks">ResponseJWKS</h2>
-
-<p><a id="schemaresponsejwks"></a></p>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"e"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"string"</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"n"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre>
-<p><em>Response containing the JSON Web Key Set</em></p>
-<h3 id='properties-2'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>keys</td>
-<td>[<a href="#schemajwk">JWK</a>]</td>
-<td>true</td>
-<td>none</td>
-<td>The value of the &quot;keys&quot; parameter is an array of JWK values</td>
-</tr>
-</tbody></table>
-
-<h2 id="tocSjwk">JWK</h2>
-
-<p><a id="schemajwk"></a></p>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"e"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"key_ops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"n"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre>
-<p><em>Object representing a JSON Web Key</em></p>
-<h3 id='properties-3'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>alg</td>
-<td>string</td>
-<td>true</td>
-<td>none</td>
-<td>The &quot;alg&quot; (algorithm) parameter identifies the algorithm intended for use with the key</td>
-</tr>
-<tr>
-<td>e</td>
-<td>string</td>
-<td>true</td>
-<td>none</td>
-<td>The &quot;e&quot; RSA public exponent parameter</td>
-</tr>
-<tr>
-<td>key_ops</td>
-<td>[string]</td>
-<td>true</td>
-<td>none</td>
-<td>The &quot;key_ops&quot; (key operations) parameter identifies the operation(s) for which the key is intended to be used</td>
-</tr>
-<tr>
-<td>kid</td>
-<td>string</td>
-<td>true</td>
-<td>none</td>
-<td>The &quot;kid&quot; (key ID) parameter is partially used to match a specific key. Note the &quot;kid&quot; parameter is not guaranteed unique and additional parameters should be used to progressively to identify a key within a set</td>
-</tr>
-<tr>
-<td>kty</td>
-<td>string</td>
-<td>true</td>
-<td>none</td>
-<td>The &quot;kty&quot; (key type) parameter identifies the cryptographic algorithm family used with the key</td>
-</tr>
-<tr>
-<td>n</td>
-<td>string</td>
-<td>true</td>
-<td>none</td>
-<td>The &quot;n&quot; RSA public modulus parameter</td>
-</tr>
-</tbody></table>
-
 <h2 id="tocSresponseregisterdataholderbrandlist">ResponseRegisterDataHolderBrandList</h2>
 
 <p><a id="schemaresponseregisterdataholderbrandlist"></a></p>
@@ -4007,7 +3488,7 @@ This operation does not require authentication
 
 </span></code></pre>
 <p><em>Response containing a list of CDR Register Data Holder Brand objects</em></p>
-<h3 id='properties-4'>Properties</h3>
+<h3 id='properties'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4079,7 +3560,7 @@ This operation does not require authentication
   </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24T03:51:44Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-5'>Properties</h3>
+</span></code></pre><h3 id='properties-2'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4190,7 +3671,7 @@ This operation does not require authentication
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-6'>Properties</h3>
+</span></code></pre><h3 id='properties-3'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4217,7 +3698,7 @@ This operation does not require authentication
   </span><span class="s2">"softwareProductStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-7'>Properties</h3>
+</span></code></pre><h3 id='properties-4'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4275,7 +3756,7 @@ This operation does not require authentication
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-8'>Properties</h3>
+</span></code></pre><h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4302,7 +3783,7 @@ This operation does not require authentication
   </span><span class="s2">"dataRecipientStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-9'>Properties</h3>
+</span></code></pre><h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4388,7 +3869,7 @@ This operation does not require authentication
 
 </span></code></pre>
 <p><em>Response containing a list of Data Recipients in the CDR Register</em></p>
-<h3 id='properties-10'>Properties</h3>
+<h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4437,7 +3918,7 @@ This operation does not require authentication
   </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24T03:51:44Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-11'>Properties</h3>
+</span></code></pre><h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4554,7 +4035,7 @@ This operation does not require authentication
 
 </span></code></pre>
 <p><em>Metadata related to Data Recipient Brand</em></p>
-<h3 id='properties-12'>Properties</h3>
+<h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4634,7 +4115,7 @@ This operation does not require authentication
 
 </span></code></pre>
 <p><em>Data Recipient Brand Software Products</em></p>
-<h3 id='properties-13'>Properties</h3>
+<h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4720,7 +4201,7 @@ This operation does not require authentication
 
 </span></code></pre>
 <p><em>The data that is common to all organisations, regardless of the type (e.g. company, trust, partnership, government)</em></p>
-<h3 id='properties-14'>Properties</h3>
+<h3 id='properties-11'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4855,7 +4336,7 @@ This operation does not require authentication
 
 </span></code></pre>
 <p><em>Endpoints related to Data Holder Brand services</em></p>
-<h3 id='properties-15'>Properties</h3>
+<h3 id='properties-12'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4919,7 +4400,7 @@ This operation does not require authentication
 
 </span></code></pre>
 <p><em>Provides details of authorisation endpoints for Data Holders</em></p>
-<h3 id='properties-16'>Properties</h3>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4968,7 +4449,7 @@ This operation does not require authentication
   </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-17'>Properties</h3>
+</span></code></pre><h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5023,7 +4504,7 @@ This operation does not require authentication
   </span><span class="s2">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-18'>Properties</h3>
+</span></code></pre><h3 id='properties-15'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5063,7 +4544,7 @@ This operation does not require authentication
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-19'>Properties</h3>
+</span></code></pre><h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5092,7 +4573,7 @@ This operation does not require authentication
   </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='properties-20'>Properties</h3>
+</span></code></pre><h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -6131,12 +5612,6 @@ To perform this operation, you must be authenticated and authorised with the fol
 </tr>
 </thead><tbody>
 <tr>
-<td>22/04/2021</td>
-<td>1.4.0</td>
-<td>Maintenance updates</td>
-<td>See <a href="includes/releasenotes/releasenotes.1.4.0.html">release notes</a> for detail</td>
-</tr>
-<tr>
 <td>25/01/2021</td>
 <td>1.3.0</td>
 <td>Maintenance updates</td>
@@ -6483,42 +5958,6 @@ To perform this operation, you must be authenticated and authorised with the fol
 <td>0.1.0</td>
 <td>Addition of change log</td>
 <td>This change log was added to the standards documentation</td>
-</tr>
-</tbody></table>
-<h1 id='archives'>Archives</h1>
-<p>The following table lists archived versions of the CDR Register Design.  These are older versions of the design that are available for reference only.</p>
-
-<table><thead>
-<tr>
-<th>Releases Date</th>
-<th>Version</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><a href="./archives/cdr-design-1.3.0/">25/01/2021</a></td>
-<td>1.3.0</td>
-<td><a href="./archives/cdr-design-1.3.0/">Maintenance Updates</a></td>
-</tr>
-<tr>
-<td><a href="./archives/cdr-design-1.2.3/">13/10/2020</a></td>
-<td>1.2.3</td>
-<td><a href="./archives/cdr-design-1.2.3/">Maintenance Updates</a></td>
-</tr>
-<tr>
-<td><a href="./archives/cdr-design-1.1.2/">29/06/2019</a></td>
-<td>1.1.2</td>
-<td><a href="./archives/cdr-design-1.1.2/">Maintenance Updates</a></td>
-</tr>
-<tr>
-<td><a href="./archives/cdr-design-1.0.5/">10/12/2019</a></td>
-<td>1.0.5</td>
-<td><a href="./archives/cdr-design-1.0.5/">Updates to client registration &amp; security profile</a></td>
-</tr>
-<tr>
-<td><a href="./archives/cdr-design-1.0.0/">31/10/2019</a></td>
-<td>1.0.0</td>
-<td><a href="./archives/cdr-design-1.0.0/">Baseline version 1</a></td>
 </tr>
 </tbody></table>
 
