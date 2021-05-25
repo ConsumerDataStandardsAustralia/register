@@ -5206,6 +5206,7 @@ Content-Type: application/json
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect1"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect2"</span><span class="w">
   </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"sector_identifier_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/sector_identifier.json"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/logos/logo1.png"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tos_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/tos.html"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/policy.html"</span><span class="p">,</span><span class="w">
@@ -5331,6 +5332,7 @@ Authorization: Bearer &lt;access-token&gt;
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect1"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect2"</span><span class="w">
   </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"sector_identifier_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/sector_identifier.json"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/logos/logo1.png"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tos_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/tos.html"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/policy.html"</span><span class="p">,</span><span class="w">
@@ -5484,6 +5486,7 @@ Authorization: Bearer &lt;access-token&gt;
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect1"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect2"</span><span class="w">
   </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"sector_identifier_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/sector_identifier.json"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/logos/logo1.png"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tos_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/tos.html"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/policy.html"</span><span class="p">,</span><span class="w">
@@ -5678,6 +5681,7 @@ To perform this operation, you must be authenticated and authorised with the fol
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect1"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect2"</span><span class="w">
   </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"sector_identifier_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/sector_identifier.json"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/logos/logo1.png"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tos_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/tos.html"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/policy.html"</span><span class="p">,</span><span class="w">
@@ -5782,6 +5786,13 @@ To perform this operation, you must be authenticated and authorised with the fol
 <td>true</td>
 <td>none</td>
 <td>Array of redirection URI strings for use in redirect-based flows. If used, redirect_uris MUST match or be a subset of the redirect_uris as defined in the SSA</td>
+</tr>
+<tr>
+<td>sector_identifier_uri</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>URL string referencing the client sector identifier URI, used as an optional input to the Pairwise Identifier</td>
 </tr>
 <tr>
 <td>logo_uri</td>
@@ -5980,6 +5991,7 @@ To perform this operation, you must be authenticated and authorised with the fol
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect1"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect2"</span><span class="w">
   </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"sector_identifier_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/sector_identifier.json"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/logos/logo1.png"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tos_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/tos.html"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au/policy.html"</span><span class="p">,</span><span class="w">

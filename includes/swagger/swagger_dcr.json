@@ -266,6 +266,11 @@
             "https://www.mockcompany.com.au/redirects/redirect2"
           ]
         },
+        "sector_identifier_uri": {
+          "description": "URL string referencing the client sector identifier URI, used as an optional input to the Pairwise Identifier",
+          "type": "string",
+          "example": "https://www.mockcompany.com.au/sector_identifier.json"
+        },
         "logo_uri": {
           "description": "URL string that references a logo for the client. If present, the server SHOULD display this image to the end-user during approval",
           "type": "string",
