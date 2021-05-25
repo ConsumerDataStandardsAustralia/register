@@ -1,17 +1,8 @@
+
 <!doctype html>
 <html>
   <head>
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164014896-1"></script>
-      <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-164014896-1');
-      </script>
-
-      <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -350,7 +341,7 @@
                     <a href="#cache-refresh-metadata-request" class="toc-h2 toc-link" data-title="Cache Refresh Metadata Request">Cache Refresh Metadata Request</a>
                   </li>
                   <li>
-                    <a href="#refusal-to-disclose" class="toc-h2 toc-link" data-title="Refusal To Disclose">Refusal To Disclose</a>
+                    <a href="#incident-management" class="toc-h2 toc-link" data-title="Incident Management">Incident Management</a>
                   </li>
               </ul>
           </li>
@@ -532,9 +523,6 @@
           <li>
             <a href="#change-log" class="toc-h1 toc-link" data-title="Change Log">Change Log</a>
           </li>
-          <li>
-            <a href="#archives" class="toc-h1 toc-link" data-title="Archives">Archives</a>
-          </li>
       </ul>
         <ul class="toc-footer">
             <li><a href='https://github.com/cdr-register/register'>CDR Register on Github</a></li>
@@ -543,13 +531,19 @@
             <li><a href='includes/swagger/swagger.yaml'>Swagger (YAML)</a></li>
         </ul>
         <ul class="toc-footer">
-            <li class="version-footer">Version: 1.5.0</li>
+            <li class="version-footer">Version: 1.4.0</li>
         </ul>
 
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
+          <aside class="warning permanent-banner">
+            <span>This is the archived version </span>
+            <span style="font-weight: bold;">1.4.0</span>
+            <span> of the CDR Register Design and is retained for reference only.</span>
+            <div class="aside-second-line">Please also refer to the <a href="/">Latest Version</a></div>
+          </aside>
         <h1 id='introduction'>Introduction</h1><h2 id='consumer-data-right'>Consumer Data Right</h2>
 <p>The Australian Government is introducing a Consumer Data Right (CDR) to give consumers more control over their data.<br>
 The CDR will be rolled out sector-by-sector across the economy, starting with the banking sector.<br>
@@ -558,13 +552,15 @@ The Government has announced that the energy and telecommunications sectors will
 <p>Further information on the CDR is available on the Treasury website:<br>
 <a href="https://treasury.gov.au/consumer-data-right">https://treasury.gov.au/consumer-data-right</a></p>
 <h2 id='accc-39-s-role'>ACCC&#39;s Role</h2>
-<p>The ACCC is the lead regulator for the CDR regime, and has roles and functions that include:</p>
+<p>The ACCC will be lead regulator for the CDR regime, and will have roles and functions that include:</p>
 
 <ul>
-<li><p>accrediting entities to receive data;</p></li>
-<li><p>managing an online register of accredited data recipients and data holders;</p></li>
-<li><p>providing guidance on the CDR; and</p></li>
-<li><p>compliance and enforcement activities.</p></li>
+<li>drafting rules to implement and govern the CDR in each sector; </li>
+<li>accrediting entities to receive data; </li>
+<li>managing an online register of accredited data recipients and data holders; </li>
+<li>providing education and guidance on the CDR;</li>
+<li>recommending to government future sectors to be brought within the CDR; and</li>
+<li>compliance and enforcement activities.<br></li>
 </ul>
 
 <p>Further information on the ACCC’s role in the CDR is available on the ACCC’s website:<br>
@@ -612,17 +608,7 @@ The table below highlights these areas of the standards.</p>
 </tr>
 <tr>
 <td><a href="#dynamic-client-registration"><strong>Dynamic Client Registration</strong></a></td>
-<td>Corrects the new optional metadata fields <code>software_roles</code></td>
-<td>July 2021</td>
-</tr>
-<tr>
-<td><a href="#dynamic-client-registration"><strong>Dynamic Client Registration</strong></a></td>
-<td>Updates the scopes field to include <code>openid</code> and <code>profile</code></td>
-<td>July 2021</td>
-</tr>
-<tr>
-<td><a href="#dynamic-client-registration"><strong>Dynamic Client Registration</strong></a></td>
-<td>Changes <code>request_object_signing_alg</code> to required in the <a href="#tocSregistrationproperties">DCR API RegistrationProperties</a> schema</td>
+<td>Updates the scopes field to include <code>openid</code></td>
 <td>July 2021</td>
 </tr>
 </tbody></table>
@@ -999,7 +985,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
   "exp": 2147483646,
   "jti": "3bc205a1ebc943fbb624b14fcb241196",
   "legal_entity_id": "3B0B0A7B-3E7B-4A2C-9497-E357A71D07C7",
-  "legal_entity_name": "Mock Company Pty Ltd.",
+  "legal_entity_name": "Mock Company Inc.",
   "org_id": "3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
   "org_name": "Mock Company Brand",
   "client_name": "Mock Software",
@@ -1020,7 +1006,6 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
   "software_roles": "data-recipient-software-product",
   "scope":
         "openid
-         profile
          bank:accounts.basic:read
          bank:accounts.detail:read
          bank:transactions:read
@@ -1311,7 +1296,7 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <td><strong>scope</strong></td>
 <td>Required</td>
 <td><i class="icon-check"></i></td>
-<td>String containing a space-separated list of scope values that the client can use when requesting access tokens. </br>These CDS scope values are defined at: <a href="https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes">Authorisation Scopes</a></br>The DCR scope value is defined at: <a href="#client-registration-management">Client Registration Management</a></br></br>As per the <a href="https://consumerdatastandardsaustralia.github.io/standards/#scopes-and-claims">CDS Scopes and Claims</a>, <strong>openid</strong> and <strong>profile</strong> are included in the SSA</td>
+<td>String containing a space-separated list of scope values that the client can use when requesting access tokens. </br>These CDS scope values are defined at: <a href="https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes">Authorisation Scopes</a></br>The DCR scope value is defined at: <a href="#client-registration-management">Client Registration Management</a></td>
 </tr>
 </tbody></table>
 
@@ -1326,11 +1311,9 @@ A digitally signed JSON Web Token (JWT) <strong>[RFC7519]</strong> that asserts 
 <h3 id='client-registration-considerations'>Client Registration Considerations</h3>
 <p>The CDR Register will only issue SSAs for Software Products which are currently in the <strong>Active</strong> state</p>
 <h3 id='sector-identifiers'>Sector Identifiers</h3>
-<p>As per the <a href="https://consumerdatastandardsaustralia.github.io/standards/#identifiers-and-subject-types">Consumer Data Standards</a>, the Pairwise Pseudonymous Identifier (PPID) as described in <a href="https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes">section 8</a> of <strong>[OIDC]</strong>, will use the host component of the <code>redirect_uris</code> as the sector identifier. This introduces a constraint that the <code>redirect_uris</code> must all contain the same hostname.</p>
+<p>As per the <a href="https://consumerdatastandardsaustralia.github.io/standards/#identifiers-and-subject-types">Consumer Data Standards</a>, the Pairwise Pseudonym Identifier (PPD) as described in <a href="https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes">section 8</a> of <strong>[OIDC]</strong>, will use the host component of the <code>redirect_uris</code> as the sector identifier. This introduces a constraint that the <code>redirect_uris</code> must all contain the same hostname.</p>
 
-<p>The CDR Register registration design will introduce support for the <code>sector_identifier_uri</code> in the <strong>July 2021</strong> release. Adoption will require data holder implementation and updates to Software Product registrations to update the field <code>sector_identifier_uri</code> with all data holder brands</p>
-
-<p>For more information on <code>sector_identifier_uri</code> impacts to the ecosystem, please refer the the CDR Support article <a href="https://cdr-support.zendesk.com/hc/en-us/articles/360004324176-Data-Holder-sector-identifier-uri-Support">Data Holder sector_identifier_uri Support</a></p>
+<p>The CDR Register registration design will introduce support for the <code>sector_identifier_uri</code> in the <strong>July 2021</strong> release. Adoption will require Data Holder implementation and updates to Software Product registrations optionally moving from <code>redirect_uris</code> to utilising the <code>sector_identifier_uri</code></p>
 <h3 id='logos'>Logos</h3>
 <p>Logos will be incorporated within the SSA to ensure there is consistency between the logos published on the Public Register and those passed to Data Holders as part of Registration</p>
 <h3 id='cdr-register-ssa-signing'>CDR Register SSA Signing</h3>
@@ -1471,7 +1454,7 @@ Accept: application/json
 <tr>
 <td><strong>request_object_signing_alg</strong></td>
 <td>Optional</td>
-<td>Algorithm which the ADR expects to sign the request object if a request object will be part of the authorization request sent to the Data Holder</br></br>If field not present in the request, data holders are expected to respond with an appropriate default value</br></br>Supported values as constrained by <strong>[FAPI-RW]</strong></td>
+<td>Algorithm which the ADR expects to sign the request object if a request object will be part of the authorization request sent to the Data Holder</br></br>Supported values as constrained by <strong>[FAPI-RW]</strong></td>
 </tr>
 <tr>
 <td><strong>software_statement</strong></td>
@@ -1534,9 +1517,8 @@ Content-Type: application/json
    "request_object_signing_alg":"PS256",
    "software_statement":"…",
    "legal_entity_id": "3B0B0A7B-3E7B-4A2C-9497-E357A71D07C7",
-   "legal_entity_name": "Mock Company Pty Ltd",
    "org_id": "3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8",
-   "org_name": "Mock Company Brand",
+   "org_name": "Mock Company Inc.",
    "client_name": "Mock Software",
    "client_description": "A mock software product for testing SSA",
    "client_uri": "https://www.mockcompany.com.au",
@@ -1551,7 +1533,6 @@ Content-Type: application/json
    "software_roles": "data-recipient-software-product",
    "scope":
          "openid
-          profile
           bank:accounts.basic:read
           bank:accounts.detail:read
           bank:transactions:read
@@ -2049,10 +2030,14 @@ Cache refreshes may be requested in the following scenarios:</p>
 </ol>
 <h3 id='data-holder-caching-of-accredited-data-recipients-software-product-metadata'>Data Holder Caching of Accredited Data Recipients Software Product Metadata</h3>
 <p><img src="images/status/DataHolderMetadataRefresh.png" ></img></p>
-<h2 id='refusal-to-disclose'>Refusal To Disclose</h2>
-<p>Currently under the CDR rules, Data Holders within the CDR ecosystem can refuse to disclose CDR data in response to valid requests from Accredited Data Recipients.</p>
+<h2 id='incident-management'>Incident Management</h2>
+<p>Currently under the CDR rules, Data Holders within the CDR ecosystem will be able to refuse to disclose CDR data in response to valid requests from Accredited Data Recipients:</p>
 
-<p>See <a href="https://www.legislation.gov.au/Series/F2020L00094">CDR Rules Compliation 3</a> Part 4 Division 4.2, Subdivision 4.2.4 Rule 4.7.</p>
+<p><strong>(a)</strong> as described under rule <a href="https://www.legislation.gov.au/Series/F2020L00094">4.7(1)</a>; or</p>
+
+<p><strong>(b)</strong> in the circumstances set out in the standards (as provided for by rule <a href="https://www.legislation.gov.au/Series/F2020L00094">4.2(1))</a></p>
+
+<p>Please also refer to the <a href="https://www.legislation.gov.au/Details/F2020L00757">amending instrument</a> to these rules</p>
 <h1 id='security-profile'>Security Profile</h1><h2 id='overview'>Overview</h2>
 <p>The security profile of the CDR Register follows the conventions defined by the <a href="https://consumerdatastandardsaustralia.github.io/standards/#security-profile">Consumer Data Standards Security Profile</a></p>
 
@@ -5198,10 +5183,8 @@ Content-Type: application/json
   </span><span class="s2">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Software"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A mock software product"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"legal_entity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"344F0E809-BDBE-4F8E-BD30-5E6C3CB78D7B"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"legal_entity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Pty Ltd."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"org_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"org_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Brand."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"org_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Inc."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect1"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect2"</span><span class="w">
@@ -5227,8 +5210,7 @@ Content-Type: application/json
   </span><span class="s2">"request_object_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_statement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"740C368F-ECF9-4D29-A2EA-0514A66B0CDE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"software_roles"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data-recipient-software-product"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid profile bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
+  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
@@ -5323,10 +5305,8 @@ Authorization: Bearer &lt;access-token&gt;
   </span><span class="s2">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Software"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A mock software product"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"legal_entity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"344F0E809-BDBE-4F8E-BD30-5E6C3CB78D7B"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"legal_entity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Pty Ltd."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"org_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"org_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Brand."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"org_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Inc."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect1"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect2"</span><span class="w">
@@ -5352,8 +5332,7 @@ Authorization: Bearer &lt;access-token&gt;
   </span><span class="s2">"request_object_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_statement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"740C368F-ECF9-4D29-A2EA-0514A66B0CDE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"software_roles"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data-recipient-software-product"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid profile bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
+  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
@@ -5476,10 +5455,8 @@ Authorization: Bearer &lt;access-token&gt;
   </span><span class="s2">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Software"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A mock software product"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"legal_entity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"344F0E809-BDBE-4F8E-BD30-5E6C3CB78D7B"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"legal_entity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Pty Ltd."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"org_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"org_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Brand."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"org_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Inc."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect1"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect2"</span><span class="w">
@@ -5505,8 +5482,7 @@ Authorization: Bearer &lt;access-token&gt;
   </span><span class="s2">"request_object_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_statement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"740C368F-ECF9-4D29-A2EA-0514A66B0CDE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"software_roles"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data-recipient-software-product"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid profile bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
+  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id="update-a-client-registration-for-a-given-client-id-responses">Responses</h3>
@@ -5670,10 +5646,8 @@ To perform this operation, you must be authenticated and authorised with the fol
   </span><span class="s2">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Software"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A mock software product"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"legal_entity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"344F0E809-BDBE-4F8E-BD30-5E6C3CB78D7B"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"legal_entity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Pty Ltd."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"org_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"org_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Brand."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"org_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Inc."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect1"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect2"</span><span class="w">
@@ -5699,8 +5673,7 @@ To perform this operation, you must be authenticated and authorised with the fol
   </span><span class="s2">"request_object_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_statement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"740C368F-ECF9-4D29-A2EA-0514A66B0CDE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"software_roles"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data-recipient-software-product"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid profile bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
+  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h3 id='properties'>Properties</h3>
@@ -5747,20 +5720,6 @@ To perform this operation, you must be authenticated and authorised with the fol
 <td>true</td>
 <td>none</td>
 <td>URL string of a web page providing information about the client</td>
-</tr>
-<tr>
-<td>legal_entity_id</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>A unique identifier string assigned by the CDR Register that identifies the Accredited Data Recipient Legal Entity</td>
-</tr>
-<tr>
-<td>legal_entity_name</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>Human-readable string name of the Accredited Data Recipient Legal Entity</td>
 </tr>
 <tr>
 <td>org_id</td>
@@ -5884,7 +5843,7 @@ To perform this operation, you must be authenticated and authorised with the fol
 <tr>
 <td>request_object_signing_alg</td>
 <td>string</td>
-<td>true</td>
+<td>false</td>
 <td>none</td>
 <td>Algorithm which the ADR expects to sign the request object if a request object will be part of the authorization request sent to the Data Holder</td>
 </tr>
@@ -5901,13 +5860,6 @@ To perform this operation, you must be authenticated and authorised with the fol
 <td>true</td>
 <td>none</td>
 <td>String representing a unique identifier assigned by the ACCC Register and used by registration endpoints to identify the software product to be dynamically registered. </br></br>The &quot;software_id&quot; will remain the same for the lifetime of the product, across multiple updates and versions</td>
-</tr>
-<tr>
-<td>software_roles</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>String containing a role of the software in the CDR Regime. Initially the only value used with be <code>data-recipient-software-product</code></td>
 </tr>
 <tr>
 <td>scope</td>
@@ -5972,10 +5924,8 @@ To perform this operation, you must be authenticated and authorised with the fol
   </span><span class="s2">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Software"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A mock software product"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"client_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.mockcompany.com.au"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"legal_entity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"344F0E809-BDBE-4F8E-BD30-5E6C3CB78D7B"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"legal_entity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Pty Ltd."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"org_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3B0B0A7B-3E7B-4A2C-9497-E357A71D07C8"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"org_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Brand."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"org_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mock Company Inc."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect1"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"https://www.mockcompany.com.au/redirects/redirect2"</span><span class="w">
@@ -6001,8 +5951,7 @@ To perform this operation, you must be authenticated and authorised with the fol
   </span><span class="s2">"request_object_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_statement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"740C368F-ECF9-4D29-A2EA-0514A66B0CDE"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"software_roles"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data-recipient-software-product"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid profile bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
+  </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid bank:accounts.basic:read bank:accounts.detail:read bank:transactions:read bank:payees:read bank:regular_payments:read common:customer.basic:read common:customer.detail:read cdr:registration"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h3 id='properties-2'>Properties</h3>
@@ -6175,12 +6124,6 @@ To perform this operation, you must be authenticated and authorised with the fol
 <th>Detail Of Change</th>
 </tr>
 </thead><tbody>
-<tr>
-<td>25/05/2021</td>
-<td>1.5.0</td>
-<td>Maintenance updates</td>
-<td>See <a href="includes/releasenotes/releasenotes.1.5.0.html">release notes</a> for detail</td>
-</tr>
 <tr>
 <td>22/04/2021</td>
 <td>1.4.0</td>
@@ -6534,47 +6477,6 @@ To perform this operation, you must be authenticated and authorised with the fol
 <td>0.1.0</td>
 <td>Addition of change log</td>
 <td>This change log was added to the standards documentation</td>
-</tr>
-</tbody></table>
-<h1 id='archives'>Archives</h1>
-<p>The following table lists archived versions of the CDR Register Design.  These are older versions of the design that are available for reference only.</p>
-
-<table><thead>
-<tr>
-<th>Releases Date</th>
-<th>Version</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><a href="./archives/cdr-design-1.4.0/">22/04/2021</a></td>
-<td>1.4.0</td>
-<td><a href="./archives/cdr-design-1.4.0/">Maintenance Updates</a></td>
-</tr>
-<tr>
-<td><a href="./archives/cdr-design-1.3.0/">25/01/2021</a></td>
-<td>1.3.0</td>
-<td><a href="./archives/cdr-design-1.3.0/">Maintenance Updates</a></td>
-</tr>
-<tr>
-<td><a href="./archives/cdr-design-1.2.3/">13/10/2020</a></td>
-<td>1.2.3</td>
-<td><a href="./archives/cdr-design-1.2.3/">Maintenance Updates</a></td>
-</tr>
-<tr>
-<td><a href="./archives/cdr-design-1.1.2/">29/06/2019</a></td>
-<td>1.1.2</td>
-<td><a href="./archives/cdr-design-1.1.2/">Maintenance Updates</a></td>
-</tr>
-<tr>
-<td><a href="./archives/cdr-design-1.0.5/">10/12/2019</a></td>
-<td>1.0.5</td>
-<td><a href="./archives/cdr-design-1.0.5/">Updates to client registration &amp; security profile</a></td>
-</tr>
-<tr>
-<td><a href="./archives/cdr-design-1.0.0/">31/10/2019</a></td>
-<td>1.0.0</td>
-<td><a href="./archives/cdr-design-1.0.0/">Baseline version 1</a></td>
 </tr>
 </tbody></table>
 
